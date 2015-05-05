@@ -228,7 +228,6 @@
 			if (this === null) {
 			  throw new TypeError('this is null or undefined');
 			}
-			var result;
 			var O = Object(this);
 			var len = O.length >>> 0;
 			if (arguments.length > 0) {
@@ -279,6 +278,37 @@
 				if(result.length===0||!result.contains(x)){
 					result.push(x);
 				}
+			});
+			return result;
+		};
+	}
+	
+	if (!Array.prototype.except) {
+		Array.prototype.except=function(values){
+			'use strict';
+			if (this === null) {
+			  throw new TypeError('this is null or undefined');
+			}
+			var result=[];
+			if (arguments.length > 0) {
+				if (typeof values === 'function') {
+					this.forEach(function(x){
+						if(!values(x)){
+							result.push(x);
+						}
+					});
+				}
+				else{
+					this.forEach(function(x){
+						if(!values.contains(x)){
+							result.push(x);
+						}
+					});
+				}
+				return result;
+			}
+			this.forEach(function(x){
+				result.push(x);
 			});
 			return result;
 		};

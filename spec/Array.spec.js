@@ -54,4 +54,10 @@ describe('Array function', function() {
 	it('except should run the specified function and return [0,1,2]',function(){
 		expect(simpleArray.except([3,4,5])).toEqual([0,1,2]);
 	});
+	it('except should run the specified function and return [0,1]',function(){
+		expect(simpleArray.except([3,4,5,2])).toEqual([0,1]);
+	});
+	it('except should run the specified function and return [0,2]',function(){
+		expect(simpleArray.except(function(x){return x%2==1;})).toEqual([0,2]);
+	});
 });
