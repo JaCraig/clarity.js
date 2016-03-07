@@ -1,0 +1,188 @@
+/*
+   Copyright 2016 James Craig
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+ @import (reference) 'styles.less';
+ 
+ input[type='text'], input[type='password'], input[type='email'], input[type='url'], input[type='date'], input[type='month'], input[type='time'], input[type='datetime'], input[type='datetime-local'], input[type='week'], input[type='number'], input[type='search'], input[type='tel'], input[type='color'], input[type='file'], input[list], select, textarea {
+    display: inline-block;
+    background: @backgroundColor;
+    .roundedBorder;
+    .depth-minus-1;
+    margin: .625em .125em;
+    padding: .3em;
+    cursor: text;
+    height: 2em;
+}
+
+input[type='range'] {
+    min-height: 2em;
+}
+
+textarea, select[multiple], input[type='range'] {
+    vertical-align: middle;
+}
+
+input[type='color'], select, input[list] {
+    cursor: default;
+}
+
+input[disabled], select[disabled], textarea[disabled], fieldset:disabled input, fieldset:disabled select, fieldset:disabled textarea {
+    cursor: not-allowed;
+    background-color: @backgroundLight;
+    color: @borderColor;
+}
+
+input:not([type])[disabled] {
+    cursor: not-allowed;
+    background-color: @backgroundLight;
+    color: @borderColor;
+}
+
+input[readonly], select[readonly], textarea[readonly] {
+    background-color: @backgroundLight;
+    color: @darkBorderColor;
+}
+
+input:invalid, textarea:invalid, select:invalid, input.error, textarea.error, select.error {
+    border-color: @errorBorder;
+    background-color: @errorBackground;
+    color: @errorColor;
+}
+
+input.success, textarea.success, select.success {
+    border-color: @successBorder;
+    background-color: @successBackground;
+    color: @successColor;
+}
+
+input.warning, textarea.warning, select.warning {
+    border-color: @warningBorder;
+    background-color: @warningBackground;
+    color: @warningColor;
+}
+
+input:focus, textarea:focus, select:focus {
+    background-color: @backgroundColor;
+    .depth-1(@color2:rgba(102, 175, 233, .6));
+    border-color: @activeBorder;
+}
+
+input[type='file']:focus, input[type='radio']:focus, input[type='checkbox']:focus {
+    outline-color: @activeBorder;
+}
+
+textarea {
+    height:auto;
+}
+
+select[multiple] {
+    height: auto;
+    padding-top:.625em;
+}
+
+fieldset {
+    margin: 0;
+    padding: .35em 0 .75em;
+    border: 0;
+}
+
+legend {
+    display: block;
+    width: 100%;
+    padding: .3em 0;
+    margin-bottom: .3em;
+    color: @textColor;
+    .border-bottom;
+}
+
+form.stacked {
+
+    & input[type='text'], & input[type='password'], & input[type='email'], & input[type='url'], & input[type='date'], & input[type='month'], & input[type='time'], & input[type='datetime'], & input[type='datetime-local'], & input[type='week'], & input[type='number'], & input[type='search'], & input[type='tel'], & input[type='color'], & input[type='file'], & input[type='range'], & select, & label, & textarea {
+        display: block;
+        margin: 0 0 .625em 0;
+    }
+
+    & label {
+        margin: 0;
+    }
+
+    & input:not([type]) {
+        display: block;
+    }
+
+    & input, & textarea, & select {
+        width: 100%;
+    }
+        
+    & input[type='checkbox'], & input[type='radio'], input[type='checkbox'], input[type='radio'] {
+        margin: .5em .5em;
+        display: inline-block;
+        width: auto;
+    }
+}
+
+form.aligned {
+
+    & input, & textarea, & select {
+        width: 50%;
+        margin: .625em 0;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    & textarea {
+        vertical-align: top;
+    }
+    
+    & input[type='radio'],& input[type='checkbox'] {
+        &:focus {
+            outline: none;
+            border: none;
+            box-shadow: none;
+        }
+    }
+
+    & label {
+        text-align: right;
+        display: inline-block;
+        vertical-align: middle;
+        width: 40%;
+        margin: 0 5% 0 0;
+    }
+       
+    & .controls {
+        margin: 1.5em 0 0 45%;
+    }
+}
+
+.input-group {
+
+    & > input[type='text'], & > input[type='text'], & > input[type='password'], & > input[type='email'], & > input[type='url'], & > input[type='date'], & > input[type='month'], & > input[type='time'], & > input[type='datetime'], & > input[type='datetime-local'], & > input[type='week'], & > input[type='number'], & > input[type='search'], & > input[type='tel'], & > input[type='color'], & > input[type='file'], & > button, & > input[type='button'], & > input[type='reset'], & > input[type='submit'] {
+        margin: .625em 0;
+        border-radius: 0;
+        vertical-align: middle;
+    }
+
+    & > input[type='text']:first-child, & > input[type='text']:first-child, & > input[type='password']:first-child, & > input[type='email']:first-child, & > input[type='url']:first-child, & > input[type='date']:first-child, & > input[type='month']:first-child, & > input[type='time']:first-child, & > input[type='datetime']:first-child, & > input[type='datetime-local']:first-child, & > input[type='week']:first-child, & > input[type='number']:first-child, & > input[type='search']:first-child, & > input[type='tel']:first-child, & > input[type='color']:first-child, & > input[type='file']:first-child, & > button:first-child, & > input[type='button']:first-child, & > input[type='reset']:first-child, & > input[type='submit']:first-child {
+        border-bottom-left-radius: @roundedCorner;
+        border-top-left-radius: @roundedCorner;
+    }
+
+    & > input[type='text']:last-child, & > input[type='text']:last-child, & > input[type='password']:last-child, & > input[type='email']:last-child, & > input[type='url']:last-child, & > input[type='date']:last-child, & > input[type='month']:last-child, & > input[type='time']:last-child, & > input[type='datetime']:last-child, & > input[type='datetime-local']:last-child, & > input[type='week']:last-child, & > input[type='number']:last-child, & > input[type='search']:last-child, & > input[type='tel']:last-child, & > input[type='color']:last-child, & > input[type='file']:last-child, & > button:last-child, & > input[type='button']:last-child, & > input[type='reset']:last-child, & > input[type='submit']:last-child {
+        border-bottom-right-radius: @roundedCorner;
+        border-top-right-radius: @roundedCorner;
+    }
+
+}

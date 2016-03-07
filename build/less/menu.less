@@ -1,0 +1,232 @@
+/*
+   Copyright 2016 James Craig
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+@import (reference) 'styles.less';
+
+.menu,nav {
+    & ul, & ul li {
+        position: relative;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    & a, & .heading {
+        display: block;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+    
+    & .heading a {
+        display:inline;
+    }
+    
+    & > ul > li > ul {
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        margin: 0;
+        padding: 0;
+        .layer(2);
+        min-width: 10em;
+        background-clip: padding-box;
+        .roundedBorder;
+        border-left: 0;
+        .depth-1;
+        background-color: @backgroundColor;
+    }
+    
+    & > ul > li:hover > ul,
+    & > ul > li.active > ul {
+        display: block;
+    }
+    
+    & > ul > li.drop-down:hover >ul {
+        display:none;
+    }
+    
+    & > ul > li.drop-down.active > ul {
+        display: block;
+    }
+        
+    & .has-children > a:after {
+        content: '\25B8';
+    }
+        
+    & .separator {
+        background-color: @borderColor;
+        height: .125em;
+        margin: .3em 0;
+    }
+    
+        
+    & .heading {
+        font-weight: @fontWeightBold;
+        color: @textColor;
+    }
+    
+    & a {
+        color: @darkBorderColor;
+    }
+    
+    & > ul > li > ul > li,
+    & > ul > li.active > ul > li > a {
+        background-color: @backgroundColor;
+        color: @darkBorderColor;
+    }
+        
+    & a,
+    & .disabled,
+    & .heading {
+        padding: .5em 1em;
+    }
+        
+    & .active > a,
+    & a:hover,
+    & a:focus,
+    & ul li.item:hover,
+    &.horizontal ul li.item:hover,
+    & > ul > li > ul > li>a:hover {
+        background-color: @lightBorderColor;
+        color: @darkBorderColor;
+        text-decoration: none;
+        border-radius: @roundedCorner;
+    }
+    
+    & .disabled a {
+        padding: 0;
+        .opacity(.5);
+        color: @darkBorderColor;
+        cursor: not-allowed;
+        background-color: transparent;
+    }
+        
+    & .disabled a:hover,
+    &.horizontal .disabled a:hover,
+    &.horizontal ul li.disabled:hover,
+    & a.disabled:hover,
+    & .heading a {
+        background-color: transparent;
+    }
+    
+    & .selected a,
+    & .selected a:visited,
+    & a.selected,
+    & a.selected:visited {
+        color: @textColor;
+        background-color: @lightBorderColor;
+    }
+
+    &.horizontal, &.pill {
+        width: 100%;
+        white-space: nowrap;
+        
+        & ul li {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        & > ul > li > ul> li {
+            display: block;
+        }
+                
+        & > ul > li > ul {
+            left: 0;
+            top: auto;
+            width: inherit;
+            .border;
+            border-top: 0;
+            .depth-1;
+        }
+            
+        & .has-children > a:after {
+            content: '\25BE';
+        }
+        
+        & .separator {
+            width: .125em;
+            height: 2.5em;
+            margin: 0 .3em ;
+        }
+    }
+    
+    &.pill {
+        & ul li,
+        & > ul > li > a:hover {
+            background-color: @lightBorderColor;
+        }
+                
+        & ul li.heading,
+        & .disabled a,
+        & .disabled a:hover {
+            background-color: transparent;
+        }
+        
+        & .separator {
+            background: @borderColor;
+        }
+        
+        & ul li ul li {
+            background-color: @backgroundColor;
+        }
+
+        & ul li.success a:hover {
+            background-color: @successBorder;
+            color: @backgroundColor;
+        }
+
+        & ul li.info a:hover {
+            background-color: @infoBorder;
+            color: @backgroundColor;
+        }
+
+        & ul li.warning a:hover {
+            background-color: @warningBorder;
+            color: @backgroundColor;
+        }
+
+        & ul li.error a:hover {
+            background-color: @errorBorder;
+            color: @backgroundColor;
+        }
+
+        & ul li.active a {
+            background-color: @activeBackground;
+            color: @primaryBackground;
+        }
+
+        & ul li.active a:hover {
+            background-color: @activeBorder;
+            color: @backgroundColor;
+        }
+
+        & ul li.primary a:hover {
+            background-color: @backgroundColor;
+            color: @primaryBackground;
+        }
+    }
+}
+
+@media only screen and (max-width: 959px) {
+    nav.mobile,.menu.mobile {
+        display:none;
+    }
+    
+    .mobile-toggler {
+        width:1.563em;
+        margin-left:0.625em;
+    }
+}
