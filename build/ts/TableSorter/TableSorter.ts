@@ -13,9 +13,9 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-/// <reference path="../Component/Interfaces/IComponent" />
-/// <reference path="../Component/Extensions/HTMLElement" />
-/// <reference path="../Component/Extensions/NodeList" />
+/// <reference path="../Component/Interfaces/IComponent.ts" />
+/// <reference path="../Component/Extensions/HTMLElement.ts" />
+/// <reference path="../Component/Extensions/NodeList.ts" />
 
 
 

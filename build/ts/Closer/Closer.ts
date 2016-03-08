@@ -13,26 +13,26 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-/// <reference path="../Component/Interfaces/IComponent" />
-/// <reference path="../Component/Extensions/HTMLElement" />
-/// <reference path="../Component/Extensions/NodeList" />
+/// <reference path="../Component/Interfaces/IComponent.ts" />
+/// <reference path="../Component/Extensions/HTMLElement.ts" />
+/// <reference path="../Component/Extensions/NodeList.ts" />
 
 module Closer {
     export class Closer implements Component.Interfaces.IComponent {
-        constructor(){
-            var tempElements=document.getElementsByClassName('close')
-                                     .select(x=>{
-                                         x.addEventListener('click',y=>this.close(<HTMLElement>y.target));
-                                         return x;
-                                     });
+        constructor() {
+            document.getElementsByClassName("close")
+                    .select(x => {
+                        x.addEventListener("click", y => this.close(<HTMLElement>y.target));
+                        return x;
+                    });
         }
-        
-        private close(target:HTMLElement):void{
-            var elementToClose=target.attribute('data-close');
-            var element=target.getParentByClass(elementToClose);
-            if(!element) return;
+
+        private close(target: HTMLElement): void {
+            let elementToClose = target.attribute("data-close");
+            let element = target.getParentByClass(elementToClose);
+            if (!element) { return; }
             element.hide();
         }
     }
-    window.addEventListener("load",x=>new Closer());
+    window.addEventListener("load", x => new Closer());
 }
