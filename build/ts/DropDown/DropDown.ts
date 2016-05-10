@@ -16,33 +16,34 @@
  /// <reference path="../Component/Interfaces/IComponent.ts" />
  /// <reference path="../Component/Extensions/HTMLElement.ts" />
  /// <reference path="../Component/Extensions/NodeList.ts" />
- 
+
 module DropDown {
     export class DropDown {
-        constructor(){
-            var tempElements=document.getElementsByClassName('drop-down')
-                                     .select(x=>{
-                                        (<Element>x).firstElementChild
-                                                    .addEventListener('click',y=>{
-                                                        y.preventDefault();
-                                                        var parentElement=(<HTMLElement>y.target).parentElement;
-                                                        if(parentElement.hasClass('active'))
-                                                            parentElement.removeClass('active');
-                                                        else
-                                                            parentElement.addClass('active');
-                                                        return false;
-                                                    });
-                                        return x;
-                                     });
-            window.addEventListener('click',x=>{
-                var elements=document.getElementsByClassName('drop-down');
-                for(var y=0;y<elements.length;++y){
-                    if(x.target!=elements[y].firstElementChild){
-                        elements[y].className = elements[y].className.replace('active','');
+        constructor() {
+            document.getElementsByClassName("drop-down")
+                    .select(x => {
+                    (<Element>x).firstElementChild
+                                .addEventListener("click", y => {
+                                    y.preventDefault();
+                                    let parentElement = (<HTMLElement>y.target).parentElement;
+                                    if (parentElement.hasClass("active")) {
+                                        parentElement.removeClass("active");
+                                    } else {
+                                        parentElement.addClass("active");
+                                    }
+                                    return false;
+                                });
+                    return x;
+                    });
+            window.addEventListener("click", x => {
+                let elements = document.getElementsByClassName("drop-down");
+                for (let y = 0; y < elements.length; ++y) {
+                    if (x.target !== elements[y].firstElementChild) {
+                        elements[y].className = elements[y].className.replace("active", "");
                     }
                 }
             });
         }
     }
-    window.addEventListener("load",x=>new DropDown());
+    window.addEventListener("load", x => new DropDown());
 }

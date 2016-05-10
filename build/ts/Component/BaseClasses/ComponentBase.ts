@@ -26,14 +26,14 @@ module Component.BaseClasses {
 
         public name: string;
 
-        protected show():void {
+        protected show(): void {
             this.element.replaceClass("hidden", "show");
             if (!this.element.hasClass("show")) {
                 this.element.addClass("show");
             }
         }
 
-        protected hide():void{
+        protected hide(): void {
             this.element.replaceClass("show", "hidden");
             if (!this.element.hasClass("hidden")) {
                 this.element.addClass("hidden");

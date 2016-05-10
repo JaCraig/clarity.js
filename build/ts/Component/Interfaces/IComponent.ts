@@ -15,6 +15,5 @@
 */
 module Component.Interfaces {
     export interface IComponent {
-        
     }
 }

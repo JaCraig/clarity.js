@@ -16,51 +16,51 @@
  /// <reference path="../Component/Interfaces/IComponent.ts" />
  /// <reference path="../Component/Extensions/HTMLElement.ts" />
  /// <reference path="../Component/Extensions/NodeList.ts" />
- 
+
 module Mobile {
     export class Mobile {
-        constructor(){
-            Mobile.menuElements=[];
-            document.getElementsByClassName('mobile')
-                    .select(x=>{
-                        let tempElement=<HTMLElement>x;
-                        if(tempElement.hasClass('menu')){
-                            var id=tempElement.id;
-                            var item=tempElement;
-                            Mobile.menuElements=Mobile.menuElements.concat({key:item.id,value:item});
-                            var menuElement=document.createElement('a');
-                            menuElement.href='#';
-                            menuElement.className='ion-navicon hidden-on-desktop display-on-tablet-landscape extra-large mobile-toggler';
-                            menuElement.addEventListener('click',y=>{
-                                (<HTMLElement>(y.target)).addClass('hidden');
+        constructor() {
+            Mobile.menuElements = [];
+            document.getElementsByClassName("mobile")
+                    .select(x => {
+                        let tempElement = <HTMLElement>x;
+                        if (tempElement.hasClass("menu")) {
+                            let id = tempElement.id;
+                            let item = tempElement;
+                            Mobile.menuElements = Mobile.menuElements.concat({key: item.id, value: item});
+                            let menuElement = document.createElement("a");
+                            menuElement.href = "#";
+                            menuElement.className = "ion-navicon hidden-on-desktop display-on-tablet-landscape extra-large mobile-toggler";
+                            menuElement.addEventListener("click", y => {
+                                (<HTMLElement>(y.target)).addClass("hidden");
                                 Mobile.show(id);
                                 y.preventDefault();
                             });
                             tempElement.parentElement.appendChild(menuElement);
                         }
                     });
-            window.addEventListener('click',x=>{
-                let tempElement=(<HTMLElement>x.target);
-                if(tempElement.getParentByClass('mobile')==null
-                    &&tempElement.getParentByClass('mobile-toggler')==null
-                    &&!tempElement.hasClass('mobile-toggler')){
-                        document.getElementsByClassName('mobile')
-                                .select(x=> (<HTMLElement>x).removeClass('show'));
-                        document.getElementsByClassName('mobile-toggler')
-                                .select(x=> (<HTMLElement>x).removeClass('hidden'));                    
+            window.addEventListener("click", x => {
+                let tempElement = (<HTMLElement>x.target);
+                if (tempElement.getParentByClass("mobile") == null
+                    && tempElement.getParentByClass("mobile-toggler") == null
+                    && !tempElement.hasClass("mobile-toggler")) {
+                        document.getElementsByClassName("mobile")
+                                .select(y => (<HTMLElement>y).removeClass("show"));
+                        document.getElementsByClassName("mobile-toggler")
+                                .select(y => (<HTMLElement>y).removeClass("hidden"));
                 }
             });
         }
-                
-        public static show(id:string):void{
-            Mobile.menuElements.filter(x=>x.key==id).forEach(x=>x.value.show());
+
+        private static menuElements: {key: string, value: HTMLElement}[];
+
+        public static show(id: string): void {
+            Mobile.menuElements.filter(x => x.key === id).forEach(x => x.value.show());
         }
-        
-        public static hide(id:string):void{
-            Mobile.menuElements.filter(x=>x.key==id).forEach(x=>x.value.hide());
+
+        public static hide(id: string): void {
+            Mobile.menuElements.filter(x => x.key === id).forEach(x => x.value.hide());
         }
-        
-        private static menuElements:{key:string,value:HTMLElement}[];
     }
-    window.addEventListener("load",x=>new Mobile());
+    window.addEventListener("load", x => new Mobile());
 }

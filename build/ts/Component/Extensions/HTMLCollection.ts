@@ -15,23 +15,23 @@
 */
 interface HTMLCollection {
     select<TResult>(callback: (x: Node) => TResult): TResult[];
-    filter(callback:(x:Node)=>boolean):Node[];
+    filter(callback: (x: Node) => boolean): Node[];
 }
 
-HTMLCollection.prototype.select=function <TResult>(callback: (x: Node) => TResult): TResult[] {
+HTMLCollection.prototype.select = function <TResult>(callback: (x: Node) => TResult): TResult[] {
     let ReturnValues = [];
     for (let x = 0; x < this.length; ++x) {
         ReturnValues = ReturnValues.concat(callback(this[x]));
     }
     return ReturnValues;
-}
+};
 
-HTMLCollection.prototype.filter=function(callback:(x:Node)=>boolean):Node[]{
-    let ReturnValues=[];
-    for(let x=0;x<this.length;++x){
-        if(callback(this[x])){
-            ReturnValues=ReturnValues.concat(this[x]);
+HTMLCollection.prototype.filter = function(callback: (x: Node) => boolean): Node[]{
+    let ReturnValues = [];
+    for (let x = 0; x < this.length; ++x) {
+        if (callback(this[x])) {
+            ReturnValues = ReturnValues.concat(this[x]);
         }
     }
     return ReturnValues;
-}
+};

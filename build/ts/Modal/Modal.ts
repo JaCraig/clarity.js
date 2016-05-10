@@ -16,34 +16,32 @@
  /// <reference path="../Component/Interfaces/IComponent.ts" />
  /// <reference path="../Component/Extensions/HTMLElement.ts" />
  /// <reference path="../Component/Extensions/NodeList.ts" />
- 
- 
 
 module Modal {
     export class Modal {
-        constructor(){
-            Modal.modalElements=[];
-            document.getElementsByClassName('modal')
-                    .select(x=>{
-                        var item=<HTMLElement>x;
-                        Modal.modalElements=Modal.modalElements.concat({key:item.id,value:item});
+        constructor() {
+            Modal.modalElements = [];
+            document.getElementsByClassName("modal")
+                    .select(x => {
+                        let item = <HTMLElement>x;
+                        Modal.modalElements = Modal.modalElements.concat({key: item.id, value: item});
                     });
-            document.getElementsByClassName('modal-opener')
-                    .select(x=>{
-                        var tempItem=(<HTMLElement>x).attribute('data-modal');
-                        x.addEventListener('click',y=>Modal.show(tempItem));
+            document.getElementsByClassName("modal-opener")
+                    .select(x => {
+                        let tempItem = (<HTMLElement>x).attribute("data-modal");
+                        x.addEventListener("click", y => Modal.show(tempItem));
                     });
         }
-        
-        public static show(id:string):void{
-            Modal.modalElements.filter(x=>x.key==id).forEach(x=>x.value.show());
+
+        private static modalElements: {key: string, value: HTMLElement}[];
+
+        public static show(id: string): void {
+            Modal.modalElements.filter(x => x.key === id).forEach(x => x.value.show());
         }
-        
-        public static hide(id:string):void{
-            Modal.modalElements.filter(x=>x.key==id).forEach(x=>x.value.hide());
+
+        public static hide(id: string): void {
+            Modal.modalElements.filter(x => x.key === id).forEach(x => x.value.hide());
         }
-        
-        private static modalElements:{key:string,value:HTMLElement}[];
     }
-    window.addEventListener("load",x=>new Modal());
+    window.addEventListener("load", x => new Modal());
 }

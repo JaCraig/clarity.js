@@ -15,23 +15,23 @@
 */
 interface NodeList {
     select<TResult>(callback: (x: Node) => TResult): TResult[];
-    filter(callback:(x:Node)=>boolean):Node[];
+    filter(callback: (x: Node) => boolean): Node[];
 }
 
-NodeList.prototype.select=function <TResult>(callback: (x: Node) => TResult): TResult[] {
+NodeList.prototype.select = function <TResult>(callback: (x: Node) => TResult): TResult[] {
     let ReturnValues = [];
     for (let x = 0; x < this.length; ++x) {
         ReturnValues = ReturnValues.concat(callback(this[x]));
     }
     return ReturnValues;
-}
+};
 
-NodeList.prototype.filter=function(callback:(x:Node)=>boolean):Node[]{
-    let ReturnValues=[];
-    for(let x=0;x<this.length;++x){
-        if(callback(this[x])){
-            ReturnValues=ReturnValues.concat(this[x]);
+NodeList.prototype.filter = function(callback: (x: Node) => boolean): Node[]{
+    let ReturnValues = [];
+    for (let x = 0; x < this.length; ++x) {
+        if (callback(this[x])) {
+            ReturnValues = ReturnValues.concat(this[x]);
         }
     }
     return ReturnValues;
-}
+};
