@@ -81,6 +81,24 @@ ul.checklist {
     }
 }
 
+ul.arrow {
+    list-style: none;
+    padding: 0 1em;
+
+    &> li:before {
+        content: '\25b6';
+        display: inline-block;
+        width: 1.1em;
+        margin-right: .25em;
+        font-weight: @fontWeightNormal;
+        font-style: normal;
+        text-decoration: inherit;
+        -webkit-font-smoothing: antialiased;
+        font-size: 1.2em;
+        margin-top: 0;
+    }
+}
+
 .step-list {
     list-style: none;
     counter-reset: li;
