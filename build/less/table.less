@@ -62,21 +62,20 @@ table {
 
     &.sortable {
         & thead tr th {
-            background-image: url(./Images/bg.gif);
-            background-repeat: no-repeat;
-            background-position: center right;
-            background-size: 21px 9px;
             cursor: pointer;
+            
+            &:before{
+                content:'\21C5';
+                float:right;
+            }
         }
 
-        & thead tr th.headerSortUp {
-            background-image: url(./Images/asc.gif);
-            background-size: 21px 4px;
+        & thead tr th.headerSortUp:before{
+            content:'\25B2';
         }
 
-        & thead tr th.headerSortDown {
-            background-image: url(./Images/desc.gif);
-            background-size: 21px 4px;
+        & thead tr th.headerSortDown:before{
+            content:'\25BC';
         }
     }
 
