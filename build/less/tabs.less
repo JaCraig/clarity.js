@@ -15,26 +15,6 @@
 */
 @import (reference) 'styles.less';
 
-.tab-container .arrows {
-  display: block;
-  width: 3.750em;
-  font-size: 2em;
-  float: right;
-}
-.tab-container .arrows label {
-  display: inline-block;
-  cursor: pointer;
-  color: @borderColor;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  margin-left: 0.313em;
-}
-.tab-container .arrows label:hover {
-  color: @darkBorderColor;
-}
-
 .tabs
 {
     position: relative;
@@ -42,23 +22,15 @@
     &>section
     {
         display:none;
-        // left: 0;
-        padding: 10px 20px;
-        background-color: #ddd;
-        border-radius: 5px;
-        box-shadow: 0 3px 3px rgba(0,0,0,0.1);
-        z-index: 0;
-        
-        &:first-child
-        {
-            z-index: 1;
-        }
+        padding: 1em;
+        background-color: @backgroundColor;
     }
     
     
     & header
     {
         padding:0;
+        background-color: @lightBorderColor;
         
         &>ul
         {
@@ -83,20 +55,51 @@
                     text-decoration: none;
                     outline: 0 none;
                     padding: 0.5em 0.5em;
+                    .border-left;
                     
                     &:hover,&.selected {
                         background-color: @backgroundColor;
                         color: @textColor;
                     }
-                    
-                    &:nth-child(2)
+                }
+                
+                &:first-child>a
+                {
+                    border-left: none;
+                }
+            }
+        }
+    }
+    
+    &.vertical
+    {
+        background-color: @lightBorderColor;
+        
+        &>section
+        {
+            display:none;
+            padding: 1em;
+            background-color: @backgroundColor;
+            height:100%;
+        }
+        
+        & header
+        {
+            border-bottom: none;
+            
+            &>ul
+            {
+                &>li
+                {
+                    &>a
                     {
-                        left: 132px;
+                        .border-top;
+                        border-left: none;
                     }
                     
-                    &:nth-child(3)
+                    &:first-child>a
                     {
-                        left: 254px;
+                        border-top: none;
                     }
                 }
             }

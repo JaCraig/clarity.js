@@ -42,14 +42,18 @@ module Tabs {
         private changeTab(target: HTMLElement): void {
             let tabElement = target.attribute("data-content");
             target.getParentByClass("tabs")
+                  .getElementsByClassName("tab")
+                  .select(x => {
+                        (<HTMLElement>x).removeClass("selected");
+                   });
+            target.getParentByClass("tabs")
                   .getElementsByTagName("section")
                   .select(x => {
                       (<HTMLElement>x).hide();
-                      (<HTMLElement>x).removeClass("selected");
                    });
             let element = document.getElementById(tabElement);
             if (!element) { return; }
-            element.addClass("selected");
+            target.addClass("selected");
             element.show();
         }
     }
