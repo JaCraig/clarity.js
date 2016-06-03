@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var connect = require('gulp-connect');
 var runSequence=require('run-sequence');
+var watch=require('gulp-watch');
 
 var serverWatch='out/**/*.*';
 var serverConnect='./out';
@@ -12,12 +13,8 @@ gulp.task('server:connect', function() {
   });
 });
 
-gulp.task('server:reload',function(){
-    connect.reload();
-});
-
 gulp.task('server:watch', function() {
-    gulp.watch(serverWatch, ['server:reload']);
+    watch(serverWatch).pipe(connect.reload());
 });
 
 gulp.task('server:default',function(cb) {
