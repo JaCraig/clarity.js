@@ -25,7 +25,7 @@ module DropDown {
                     (<Element>x).firstElementChild
                                 .addEventListener("click", y => {
                                     y.preventDefault();
-                                    let parentElement = (<HTMLElement>y.target).parentElement;
+                                    let parentElement = (<HTMLElement>y.target).getParentByClass("drop-down");
                                     if (parentElement.hasClass("active")) {
                                         parentElement.removeClass("active");
                                     } else {
@@ -38,7 +38,7 @@ module DropDown {
             window.addEventListener("click", x => {
                 let elements = document.getElementsByClassName("drop-down");
                 for (let y = 0; y < elements.length; ++y) {
-                    if (x.target !== elements[y].firstElementChild) {
+                    if ((<HTMLElement>x.target).getParentByClass("drop-down") !== elements[y]) {
                         elements[y].className = elements[y].className.replace("active", "");
                     }
                 }
