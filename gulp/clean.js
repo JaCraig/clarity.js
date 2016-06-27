@@ -8,5 +8,5 @@ var tmpDir='./tmp';
 gulp.task('clean:all', function () {
     del(outDir);
     del(distDir);
-    del(tmpDir);
+    return del(tmpDir);
 });

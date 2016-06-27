@@ -7,7 +7,7 @@ var serverWatch='out/**/*.*';
 var serverConnect='./out';
 
 gulp.task('server:connect', function() {
-  connect.server({
+  return connect.server({
     root: serverConnect,
     livereload: true
   });
@@ -18,7 +18,7 @@ gulp.task('server:watch', function() {
 });
 
 gulp.task('server:default',function(cb) {
-     runSequence('server:connect',
+     return runSequence('server:connect',
                  'server:watch',
                  cb);
 });

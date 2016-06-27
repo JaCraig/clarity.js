@@ -10,7 +10,7 @@ gulp.task('html:clean',function(){
 });
 
 gulp.task('html:minify', function () {
-  gulp.src(htmlLocation)
+  return gulp.src(htmlLocation)
     .pipe(htmlmin({collapseWhitespace: true,minifyJS:true,minifyhtml:true,minifyCSS:true}))
     .pipe(gulp.dest(htmlOut));
 });

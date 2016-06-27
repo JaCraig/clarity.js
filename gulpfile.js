@@ -4,7 +4,7 @@ var runSequence=require('run-sequence');
 require('require-dir')('./gulp');
 
 gulp.task('default',function(cb) {
-     runSequence('server:default',
+     return runSequence('server:default',
     'less:default',
     'typescript:default',
     'javascript:default',

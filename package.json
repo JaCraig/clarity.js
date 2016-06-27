@@ -24,7 +24,7 @@
     "url": "https://github.com/JaCraig/clarity.js/issues"
   },
   "devDependencies": {
-    "del": "^2.2.0",
+    "del": "^2.2.1",
     "gulp": "~3.8.11",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-bench": "^1.1.0",
@@ -48,8 +48,8 @@
     "jasmine": "~2.2.1",
     "merge2": "^1.0.1",
     "require-dir": "^0.3.0",
-    "run-sequence": "^1.2.0",
-    "tslint": "^3.10.2",
+    "run-sequence": "^1.2.1",
+    "tslint": "^3.12.1",
     "typescript": "^1.8.10"
   }
 }

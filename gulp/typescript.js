@@ -20,13 +20,12 @@ gulp.task('typescript:clean',function(){
 });
 
 gulp.task("typescript:lint", function(){
-    gulp.src(typescriptLocation)
+    return gulp.src(typescriptLocation)
         .pipe(tslint())
         .pipe(tslint.report("verbose"));
 });
 
 gulp.task('typescript:build', function () {
-    del(typescriptDocumentationOut);
     gulp.src(typescriptLocation)
         .pipe(typedoc({
             module: module,
