@@ -40,6 +40,23 @@ table {
     & tr {
         background-color: @backgroundColor;
     }
+
+    &.no-break {
+        & tbody tr td,
+        & thead tr th,
+        & tfoot tr td {
+            white-space: nowrap;
+        }
+    }
+
+    &.no-border {
+        & tbody tr td, 
+        & tfoot tr td,
+        & tbody tr:first-child, 
+        & tfoot tr:first-child {
+            .border-top(0);
+        }
+    }
     
     &.bordered {
         & thead tr th {
