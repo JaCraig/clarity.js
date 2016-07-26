@@ -34,22 +34,21 @@ HTMLElement.prototype.getParentByClass = function(className: string): HTMLElemen
 };
 
 HTMLElement.prototype.hasClass = function(className: string): boolean{
-    if (new RegExp("^" + className + "$", "gi").exec(this.className) != null) {
-        return true;
-    }
-    if (new RegExp(" " + className + " ", "gi").exec(this.className) != null) {
-        return true;
-    }
-    if (new RegExp("^" + className + " ", "gi").exec(this.className) != null) {
-        return true;
-    }
-    return new RegExp(" " + className + "$", "gi").exec(this.className) != null;
+    return (" " + this.className + " ").indexOf(" " + className + " ") > -1;
 };
 
 HTMLElement.prototype.replaceClass = function (originalClassName: string, newClassName: string): void{
-    this.className = this.className.replace(new RegExp(" " + originalClassName + " ", "gi"), " " + newClassName + " ");
-    this.className = this.className.replace(new RegExp("^" + originalClassName + " ", "gi"), newClassName + " ");
-    this.className = this.className.replace(new RegExp(" " + originalClassName + "$", "gi"), " " + newClassName);
+    if (newClassName === "") {
+        this.className = this.className.replace(new RegExp(" " + originalClassName + " ", "gi"), " ");
+        this.className = this.className.replace(new RegExp("^" + originalClassName + " ", "gi"), "");
+        this.className = this.className.replace(new RegExp(" " + originalClassName + "$", "gi"), "");
+        this.className = this.className.replace(new RegExp("^" + originalClassName + "$", "gi"), "");
+    } else {
+        this.className = this.className.replace(new RegExp(" " + originalClassName + " ", "gi"), " " + newClassName + " ");
+        this.className = this.className.replace(new RegExp("^" + originalClassName + " ", "gi"), newClassName + " ");
+        this.className = this.className.replace(new RegExp(" " + originalClassName + "$", "gi"), " " + newClassName);
+        this.className = this.className.replace(new RegExp("^" + originalClassName + "$", "gi"), newClassName);
+    }
 };
 
 HTMLElement.prototype.toggleClass = function (originalClassName: string, newClassName: string): void {
