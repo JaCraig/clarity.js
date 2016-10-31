@@ -38,16 +38,11 @@ HTMLElement.prototype.hasClass = function(className: string): boolean{
 };
 
 HTMLElement.prototype.replaceClass = function (originalClassName: string, newClassName: string): void{
+	var tempClassName=" " + this.className + " ";
     if (newClassName === "") {
-        this.className = this.className.replace(new RegExp(" " + originalClassName + " ", "gi"), " ");
-        this.className = this.className.replace(new RegExp("^" + originalClassName + " ", "gi"), "");
-        this.className = this.className.replace(new RegExp(" " + originalClassName + "$", "gi"), "");
-        this.className = this.className.replace(new RegExp("^" + originalClassName + "$", "gi"), "");
+        this.className = tempClassName.replace(new RegExp(" " + originalClassName + " ", "gi"), " ").trim();
     } else {
-        this.className = this.className.replace(new RegExp(" " + originalClassName + " ", "gi"), " " + newClassName + " ");
-        this.className = this.className.replace(new RegExp("^" + originalClassName + " ", "gi"), newClassName + " ");
-        this.className = this.className.replace(new RegExp(" " + originalClassName + "$", "gi"), " " + newClassName);
-        this.className = this.className.replace(new RegExp("^" + originalClassName + "$", "gi"), newClassName);
+        this.className = tempClassName.replace(new RegExp(" " + originalClassName + " ", "gi"), " " + newClassName + " ").trim();
     }
 };
 
