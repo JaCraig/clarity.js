@@ -26,14 +26,7 @@ gulp.task("typescript:lint", function() {
 });
 
 gulp.task('typescript:build', function() {
-    gulp.src(typescriptLocation)
-        .pipe(typedoc({
-            module: module,
-            target: target,
-            out: typescriptDocumentationOut,
-            name: "Clarity"
-        }));
-    var tsResult = gulp.src(typescriptLocation)
+    return gulp.src(typescriptLocation)
         .pipe(ts({
             noImplicitAny: false,
             out: typescriptFileOutput,
@@ -42,10 +35,6 @@ gulp.task('typescript:build', function() {
             removeComments: true,
             declaration: true
         }));
-    return merge([
-        tsResult.dts.pipe(gulp.dest(typescriptDefinitionOut)),
-        tsResult.js.pipe(gulp.dest(typescriptOut))
-    ]);
 });
 
 gulp.task('typescript:watch', function() {

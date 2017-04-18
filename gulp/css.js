@@ -22,7 +22,7 @@ gulp.task('css:minify', function () {
     var temp=gulp.src(cssMainFile)
                 .pipe(importCSS())
                 .pipe(rename(cssOutputFile))
-                .pipe(autoprefixer({ browsers: ['last 2 versions','> 1%','IE >= 8'] }))
+                .pipe(autoprefixer({ browsers: ['last 2 versions','> 1%'] }))
                 .pipe(cssnano())
                 .pipe(license('Apache', {tiny: true,organization:'James Craig',year:'2016'}));
     temp.pipe(gulp.dest(cssOut));
