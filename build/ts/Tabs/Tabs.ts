@@ -21,10 +21,10 @@ module Tabs {
     export class Tabs implements Component.Interfaces.IComponent {
         constructor() {
             document.getElementsByClassName("tabs")
-                    .select(x => {
+                    .map(x => {
                         this.changeTab((<HTMLElement>(<HTMLElement>x).getElementsByClassName("tab").item(0)));
                         (<Element>x).getElementsByClassName("tab")
-                                    .select(y => {
+                                    .map(y => {
                                         y.addEventListener("click", z => {
                                             z.preventDefault();
                                             this.changeTab(<HTMLElement>z.target);
@@ -43,12 +43,12 @@ module Tabs {
             let tabElement = target.attribute("data-content");
             target.getParentByClass("tabs")
                   .getElementsByClassName("tab")
-                  .select(x => {
+                  .map(x => {
                         (<HTMLElement>x).removeClass("selected");
                    });
             target.getParentByClass("tabs")
                   .getElementsByTagName("section")
-                  .select(x => {
+                  .map(x => {
                       (<HTMLElement>x).hide();
                    });
             let element = document.getElementById(tabElement);

@@ -21,7 +21,7 @@ module Closer {
     export class Closer implements Component.Interfaces.IComponent {
         constructor() {
             document.getElementsByClassName("close")
-                    .select(x => {
+                    .map(x => {
                         x.addEventListener("click", y => this.close(<HTMLElement>y.target));
                         return x;
                     });
