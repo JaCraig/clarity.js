@@ -32,6 +32,19 @@
     visibility: hidden;
 }
 
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+}
+
+.row * {
+    
+}
+
 .row:before, .row:after {
     content: '\0020';
     display: block;
@@ -42,7 +55,6 @@
 
 .column, .columns {
     float: left;
-    display: inline-block;
     letter-spacing: normal;
     word-spacing: normal;
     vertical-align: top;
