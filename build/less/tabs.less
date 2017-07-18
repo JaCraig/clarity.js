@@ -38,9 +38,11 @@
             list-style: none;
             padding: 0;
             margin:0;
+            display:flex;
             
             &>li
             {
+                flex-grow: 1;
                 display: inline-block;
                 list-style: none;
                 
@@ -74,23 +76,31 @@
     &.vertical
     {
         background-color: @lightBorderColor;
+        display: flex;
+        flex-flow: row;
         
         &>section
         {
+            flex-grow:1;
+            align-items: stretch;
             display:none;
             padding: 1em;
             background-color: @backgroundColor;
-            height:100%;
         }
         
         & header
         {
             border-bottom: none;
+            min-width:100px;
+            display:block;
             
             &>ul
             {
+                display:flex;
+                flex-flow: column;
                 &>li
                 {
+                    flex-grow: 1;
                     &>a
                     {
                         .border-top;
