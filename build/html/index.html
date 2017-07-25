@@ -905,6 +905,7 @@
         <a id="tabs"></a>
         <h2>Tabs</h2>
         <h3>Horizontal Tabs</h3>
+        <div>
         <div class="tabs panel">
             <header>
                 <ul>
@@ -914,7 +915,16 @@
                 </ul>
             </header>
             <section id="tab1">
-                This content appears on tab 1.
+                This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This
+                content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on
+                tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content
+                appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1.
+                This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears
+                on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content
+                appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1.
+                This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears
+                on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content
+                appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1. This content appears on tab 1.
             </section>
             <section id="tab2">
                 This content appears on tab 2.
@@ -923,7 +933,9 @@
                 This content appears on tab 3.
             </section>
         </div>
+        </div>
         <h3>Vertical Tabs</h3>
+        <div>
         <div class="vertical tabs panel">
             <header>
                 <ul>
@@ -950,6 +962,7 @@
             <section id="vtab3">
                 This content appears on tab 3.
             </section>
+        </div>
         </div>
 
         <a id="menus"></a>
@@ -1121,28 +1134,29 @@
         <hr />
         <a id="forms"></a>
         <h3>Forms</h3>
-        <div class="flex row">
-            <form class="ten columns">
+        <div>
+            <form>
                 <fieldset>
                     <legend>Legend</legend>
                     <h2>Input item examples:</h2>
-                    <input type="text" placeholder="Text with error feedback" required />
-                    <input type="time" placeholder="Time" />
-                    <input type="url" placeholder="Url" />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="password" />
-                    <input type="date" placeholder="Date" />
-                    <input type="month" placeholder="Month" />
-                    <input type="datetime-local" placeholder="Date/Time Local" />
-                    <input type="number" placeholder="Number" />
-                    <input type="range" placeholder="Range" min="1" max="5" value="3" />
-                    <input type="color" placeholder="Color" />
-                    <input type="checkbox" placeholder="Checkbox" />
-                    <input type="radio" placeholder="Radio" />
-                    <input type="file" placeholder="File" required />
-                    <textarea placeholder="Textarea"></textarea>
-                    <label>Select</label>
-                    <select>
+                    <div  class="flex column">
+                        <input type="text" placeholder="Text with error feedback" required class="flex-item" />
+                        <input type="time" placeholder="Time" class="flex-item" />
+                        <input type="url" placeholder="Url" class="flex-item" />
+                        <input type="email" placeholder="Email" class="flex-item" />
+                        <input type="password" placeholder="password" class="flex-item" />
+                        <input type="date" placeholder="Date" class="flex-item" />
+                        <input type="month" placeholder="Month" class="flex-item" />
+                        <input type="datetime-local" placeholder="Date/Time Local" class="flex-item" />
+                        <input type="number" placeholder="Number" class="flex-item" />
+                        <input type="range" placeholder="Range" min="1" max="5" value="3" class="flex-item" />
+                        <input type="color" placeholder="Color" class="flex-item" />
+                        <input type="checkbox" placeholder="Checkbox" class="flex-item" />
+                        <input type="radio" placeholder="Radio" class="flex-item" />
+                        <input type="file" placeholder="File" required class="flex-item" />
+                        <textarea placeholder="Textarea" class="flex-item"></textarea>
+                        <label class="flex-item">Select</label>
+                        <select class="flex-item">
                             <optgroup label="Group 1">
                                 <option>Item 1</option>
                                 <option>Item 2</option>
@@ -1154,20 +1168,21 @@
                                 <option>Item 3</option>
                             </optgroup>
                         </select>
-                    <label>Select Multiple</label>
-                    <select multiple>
+                        <label class="flex-item">Select Multiple</label>
+                        <select multiple class="flex-item">
                             <option>Item 1</option>
                             <option>Item 2</option>
                             <option>Item 3</option>
                         </select>
-                    <input placeholder="Datalist" list="browsers" name="browser">
-                    <datalist id="browsers">
+                        <input placeholder="Datalist" list="browsers" name="browser" class="flex-item">
+                        <datalist id="browsers">
                             <option value="Internet Explorer"></option>
                             <option value="Firefox"></option>
                             <option value="Chrome"></option>
                             <option value="Opera"></option>
                             <option value="Safari"></option>
                         </datalist>
+                    </div>
                 </fieldset>
                 <hr />
                 <h3>Button examples:</h3>
@@ -1179,189 +1194,139 @@
         </div>
         <hr />
         <h3>Aligned Form</h3>
-        <div class="flex row">
-            <form class="aligned ten columns">
-                <fieldset>
-                    <legend>Legend</legend>
-                    <label>Text:</label>
-                    <input type="text" required />
-                    <label>Disabled:</label>
-                    <input type="text" disabled />
-                    <label>Read Only:</label>
-                    <input type="text" readonly />
-                    <label>Time:</label>
-                    <input type="time" />
-                    <label>Url:</label>
-                    <input type="url" />
-                    <label>Email:</label>
-                    <input type="email" />
-                    <label>Password:</label>
-                    <input type="password" />
-                    <label>Date:</label>
-                    <input type="date" />
-                    <label>Month:</label>
-                    <input type="month" />
-                    <label>Date/Time Local:</label>
-                    <input type="datetime-local" />
-                    <label>Number:</label>
-                    <input type="number" />
-                    <label>Range:</label>
-                    <input type="range" min="1" max="5" value="3" />
-                    <label>Color:</label>
-                    <input type="color" />
-                    <label for="option-one">
-                            Check Box
-                        </label>
-                    <input id="option-one" type="checkbox" value="">
-                    <label for="option-two">
-                            Radio 1
-                        </label>
-                    <input id="option-two" type="radio" name="optionsRadios" value="option1" checked>
-                    <label for="option-three">
-                            Radio 2
-                        </label>
-                    <input id="option-three" type="radio" name="optionsRadios" value="option2">
-                    <label>File:</label>
-                    <input type="file" />
-                    <label>Text Area</label>
-                    <textarea></textarea>
-                    <label>Select</label>
-                    <select>
-                            <option>Item 1</option>
-                            <option>Item 2</option>
-                            <option>Item 3</option>
-                        </select>
-                    <label>Select Multiple</label>
-                    <select multiple>
-                            <option>Item 1</option>
-                            <option>Item 2</option>
-                            <option>Item 3</option>
-                        </select>
-                    <div class="controls">
-                        <input type="submit" class="eight columns" />
-                        <div class="two columns">&nbsp;</div>
-                        <input type="reset" class="eight columns" />
-                        <input type="button" value="Button" class="eighteen columns" />
-                    </div>
-                </fieldset>
-            </form>
+        <div class="center ten columns">
+        <fieldset><legend>Legend</legend></fieldset>
+        <form class="aligned">
+            <label>Text:</label>
+            <input type="text" required />
+            <label>Disabled:</label>
+            <input type="text" disabled />
+            <label>Read Only:</label>
+            <input type="text" readonly />
+            <label>Time:</label>
+            <input type="time" />
+            <label>Url:</label>
+            <input type="url" />
+            <label>Email:</label>
+            <input type="email" />
+            <label>Password:</label>
+            <input type="password" />
+            <label>Date:</label>
+            <input type="date" />
+            <label>Month:</label>
+            <input type="month" />
+            <label>Date/Time Local:</label>
+            <input type="datetime-local" />
+            <label>Number:</label>
+            <input type="number" />
+            <label>Range:</label>
+            <input type="range" min="1" max="5" value="3" />
+            <label>Color:</label>
+            <input type="color" />
+            <label for="option-one">
+                    Check Box
+                </label>
+            <input id="option-one" type="checkbox" value="">
+            <label for="option-two">
+                    Radio 1
+                </label>
+            <input id="option-two" type="radio" name="optionsRadios" value="option1" checked>
+            <label for="option-three">
+                    Two Radio Buttons
+                </label>
+            <div>
+                <label>Yes</label><input id="option-three" type="radio" name="optionsRadios2" value="yes">
+                <label>No</label><input id="option-three" type="radio" name="optionsRadios2" value="no">
+            </div>
+            <label>File:</label>
+            <input type="file" />
+            <label>Text Area</label>
+            <textarea></textarea>
+            <label>Select</label>
+            <select>
+                <option>Item 1</option>
+                <option>Item 2</option>
+                <option>Item 3</option>
+            </select>
+            <label>Select Multiple</label>
+            <select multiple>
+                <option>Item 1</option>
+                <option>Item 2</option>
+                <option>Item 3</option>
+            </select>
+            <div class="controls">
+                <div class="input-group">
+                    <input type="submit" /><input type="reset" />
+                </div>
+                <div class="input-group">
+                    <input type="button" value="Button" />
+                </div>
+            </div>
+        </form>
         </div>
         <hr />
         <h3>Stacked Form</h3>
-        <div class="row center" style="width:50%">
-            <form class="stacked twenty columns">
-                <fieldset>
-                    <legend>Legend</legend>
-                    <div class="five columns ten-tablet-landscape twenty-mobile-landscape">
-                        <div class="nineteen columns twenty-mobile-landscape">
-                            <label>Text:</label>
-                            <input type="text" required />
-                        </div>
+        <div class="center ten columns">
+            <form class="stacked">
+                <legend>Legend</legend>
+                <label>Text:</label>
+                <input type="text" required />
+                <label>Time:</label>
+                <input type="time" class="warning" />
+                <label>Url:</label>
+                <input type="url" class="success" />
+                <label>Email:</label>
+                <input type="email" class="error" />
+                <label>Password:</label>
+                <input type="password" />
+                <label>Date:</label>
+                <input type="date" />
+                <label>Month:</label>
+                <input type="month" />
+                <label>Date/Time Local:</label>
+                <input type="datetime-local" />
+                <label>Number:</label>
+                <input type="number" />
+                <label>Range:</label>
+                <input type="range" min="1" max="5" value="3" />
+                <label>Color:</label>
+                <input type="color" />
+                <label for="option-one">
+                    <input type="checkbox" value="">
+                    Check Box
+                </label>
+                <label for="option-two">
+                    <input type="radio" name="optionsRadios" value="option1" checked>
+                    Radio 1
+                </label>
+                <label for="option-three">
+                    <input type="radio" name="optionsRadios" value="option2">
+                    Radio 2
+                </label>
+                <br class="clear" />
+                <label>File:</label>
+                <input type="file" />
+                <label>Text Area</label>
+                <textarea></textarea>
+                <label>Select</label>
+                <select>
+                    <option>Item 1</option>
+                    <option>Item 2</option>
+                    <option>Item 3</option>
+                </select>
+                <label>Select Multiple</label>
+                <select multiple>
+                    <option>Item 1</option>
+                    <option>Item 2</option>
+                    <option>Item 3</option>
+                </select>
+                <div class="controls">
+                    <div class="input-group">
+                        <input type="submit" /><input type="reset" />
                     </div>
-                    <div class="five columns ten-tablet-landscape twenty-mobile-landscape">
-                        <div class="nineteen columns twenty-mobile-landscape">
-                            <label>Time:</label>
-                            <input type="time" class="warning" />
-                        </div>
+                    <div class="input-group">
+                        <input type="button" value="Button" />
                     </div>
-                    <div class="five columns ten-tablet-landscape twenty-mobile-landscape">
-                        <div class="nineteen columns twenty-mobile-landscape">
-                            <label>Url:</label>
-                            <input type="url" class="success" />
-                        </div>
-                    </div>
-                    <div class="five columns ten-tablet-landscape twenty-mobile-landscape">
-                        <div class="nineteen columns twenty-mobile-landscape">
-                            <label>Email:</label>
-                            <input type="email" class="error" />
-                        </div>
-                    </div>
-                    <div class="five columns ten-tablet-landscape twenty-mobile-landscape">
-                        <div class="nineteen columns twenty-mobile-landscape">
-                            <label>Password:</label>
-                            <input type="password" />
-                        </div>
-                    </div>
-                    <div class="five columns ten-tablet-landscape twenty-mobile-landscape">
-                        <div class="nineteen columns twenty-mobile-landscape">
-                            <label>Date:</label>
-                            <input type="date" />
-                        </div>
-                    </div>
-                    <div class="five columns ten-tablet-landscape twenty-mobile-landscape">
-                        <div class="nineteen columns twenty-mobile-landscape">
-                            <label>Month:</label>
-                            <input type="month" />
-                        </div>
-                    </div>
-                    <div class="five columns ten-tablet-landscape twenty-mobile-landscape">
-                        <div class="nineteen columns twenty-mobile-landscape">
-                            <label>Date/Time Local:</label>
-                            <input type="datetime-local" />
-                        </div>
-                    </div>
-                    <div class="five columns ten-tablet-landscape twenty-mobile-landscape">
-                        <div class="nineteen columns twenty-mobile-landscape">
-                            <label>Number:</label>
-                            <input type="number" />
-                        </div>
-                    </div>
-                    <div class="five columns ten-tablet-landscape twenty-mobile-landscape">
-                        <div class="nineteen columns twenty-mobile-landscape">
-                            <label>Range:</label>
-                            <input type="range" min="1" max="5" value="3" />
-                        </div>
-                    </div>
-                    <div class="five columns ten-tablet-landscape twenty-mobile-landscape">
-                        <div class="nineteen columns twenty-mobile-landscape">
-                            <label>Color:</label>
-                            <input type="color" />
-                        </div>
-                    </div>
-                    <div class="twenty columns">
-                        <label for="option-one">
-                                <input type="checkbox" value="">
-                                Check Box
-                            </label>
-                    </div>
-                    <div class="nine columns">
-                        <label for="option-two">
-                                <input type="radio" name="optionsRadios" value="option1" checked>
-                                Radio 1
-                            </label>
-                    </div>
-                    <div class="nine columns">
-                        <label for="option-three">
-                                <input type="radio" name="optionsRadios" value="option2">
-                                Radio 2
-                            </label>
-                    </div>
-                    <br class="clear" />
-                    <label>File:</label>
-                    <input type="file" />
-                    <label>Text Area</label>
-                    <textarea></textarea>
-                    <label>Select</label>
-                    <select>
-                            <option>Item 1</option>
-                            <option>Item 2</option>
-                            <option>Item 3</option>
-                        </select>
-                    <label>Select Multiple</label>
-                    <select multiple>
-                            <option>Item 1</option>
-                            <option>Item 2</option>
-                            <option>Item 3</option>
-                        </select>
-                </fieldset>
-                <div class="ten columns">
-                    <input type="submit" class="nineteen columns" />
-                </div>
-                <div class="ten columns">
-                    <input type="reset" />
-                </div>
-                <div class="twenty columns">
-                    <input type="button" value="Button" />
                 </div>
             </form>
         </div>
@@ -1386,235 +1351,156 @@
         <h2>Grid Layout</h2>
         <div class="content-wrapper">
             <h3>One Column</h3>
-            <div class="flex row">
-                <div class="one column green"></div>
-            </div>
+            <div class="one column green"></div>
             <h3>Two Columns</h3>
-            <div class="flex row">
-                <div class="two columns  green"></div>
-            </div>
+            <div class="two columns  green"></div>
             <h3>Three Columns</h3>
-            <div class="flex row">
-                <div class="three columns  green"></div>
-            </div>
+            <div class="three columns  green"></div>
             <h3>Four Columns</h3>
-            <div class="flex row">
-                <div class="four columns  green"></div>
-            </div>
+            <div class="four columns  green"></div>
             <h3>Five Columns</h3>
-            <div class="flex row">
-                <div class="five columns  green"></div>
-            </div>
+            <div class="five columns  green"></div>
             <h3>Six Columns</h3>
-            <div class="flex row">
-                <div class="six columns  green"></div>
-            </div>
+            <div class="six columns  green"></div>
             <h3>Seven Columns</h3>
-            <div class="flex row">
-                <div class="seven columns  green"></div>
-            </div>
+            <div class="seven columns  green"></div>
             <h3>Eight Columns</h3>
-            <div class="flex row">
-                <div class="eight columns  green"></div>
-            </div>
+            <div class="eight columns  green"></div>
             <h3>Nine Columns</h3>
-            <div class="flex row">
-                <div class="nine columns  green"></div>
-            </div>
+            <div class="nine columns  green"></div>
             <h3>Ten Columns</h3>
-            <div class="flex row">
-                <div class="ten columns  green"></div>
-            </div>
+            <div class="ten columns  green"></div>
             <h3>Eleven Columns</h3>
-            <div class="flex row">
-                <div class="eleven columns  green"></div>
-            </div>
+            <div class="eleven columns  green"></div>
             <h3>Twelve Columns</h3>
-            <div class="flex row">
-                <div class="twelve columns  green"></div>
-            </div>
+            <div class="twelve columns  green"></div>
             <h3>Thirteen Columns</h3>
-            <div class="flex row">
-                <div class="thirteen columns  green"></div>
-            </div>
+            <div class="thirteen columns  green"></div>
             <h3>Fourteen Columns</h3>
-            <div class="flex row">
-                <div class="fourteen columns  green"></div>
-            </div>
+            <div class="fourteen columns  green"></div>
             <h3>Fifteen Columns</h3>
-            <div class="flex row">
-                <div class="fifteen columns  green"></div>
-            </div>
-            
+            <div class="fifteen columns  green"></div>
             <h3>Sixteen Columns</h3>
-            <div class="flex row">
-                <div class="sixteen columns  green"></div>
-            </div>
+            <div class="sixteen columns  green"></div>
             <h3>Seventeen Columns</h3>
-            <div class="flex row">
-                <div class="seventeen columns  green"></div>
-            </div>
+            <div class="seventeen columns  green"></div>
             <h3>Eighteen Columns</h3>
-            <div class="flex row">
-                <div class="eighteen columns  green"></div>
-            </div>
+            <div class="eighteen columns  green"></div>
             <h3>Nineteen Columns</h3>
-            <div class="flex row">
-                <div class="nineteen columns  green"></div>
-            </div>
+            <div class="nineteen columns  green"></div>
             <h3>Twenty Columns</h3>
-            <div class="flex row">
-                <div class="twenty columns  green"></div>
-            </div>
+            <div class="twenty columns  green"></div>
             <h3>Offset By One Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-one columns green one"></div>
-            </div>
+            <div class="offset-by-one columns green one"></div>
             <h3>Offset By Two Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-two columns green one"></div>
-            </div>
+            <div class="offset-by-two columns green one"></div>
             <h3>Offset By Three Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-three columns green one"></div>
-            </div>
+            <div class="offset-by-three columns green one"></div>
             <h3>Offset By Four Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-four columns green one"></div>
-            </div>
+            <div class="offset-by-four columns green one"></div>
             <h3>Offset By Five Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-five columns green one"></div>
-            </div>
+            <div class="offset-by-five columns green one"></div>
             <h3>Offset By Six Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-six columns green one"></div>
-            </div>
+            <div class="offset-by-six columns green one"></div>
             <h3>Offset By Seven Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-seven columns green one"></div>
-            </div>
+            <div class="offset-by-seven columns green one"></div>
             <h3>Offset By Eight Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-eight columns green one"></div>
-            </div>
+            <div class="offset-by-eight columns green one"></div>
             <h3>Offset By Nine Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-nine columns green one"></div>
-            </div>
+            <div class="offset-by-nine columns green one"></div>
             <h3>Offset By Ten Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-ten columns green one"></div>
-            </div>
+            <div class="offset-by-ten columns green one"></div>
             <h3>Offset By Eleven Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-eleven columns green one"></div>
-            </div>
+            <div class="offset-by-eleven columns green one"></div>
             <h3>Offset By Twelve Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-twelve columns green one"></div>
-            </div>
+            <div class="offset-by-twelve columns green one"></div>
             <h3>Offset By Thirteen Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-thirteen columns green one"></div>
-            </div>
+            <div class="offset-by-thirteen columns green one"></div>
             <h3>Offset By Fourteen Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-fourteen columns green one"></div>
-            </div>
+            <div class="offset-by-fourteen columns green one"></div>
             <h3>Offset By Fifteen Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-fifteen columns green one"></div>
-            </div>
+            <div class="offset-by-fifteen columns green one"></div>
             <h3>Offset By Sixteen Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-sixteen columns green one"></div>
-            </div>
+            <div class="offset-by-sixteen columns green one"></div>
             <h3>Offset By Seventeen Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-seventeen columns green one"></div>
-            </div>
+            <div class="offset-by-seventeen columns green one"></div>
             <h3>Offset By Eighteen Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-eighteen columns green one"></div>
-            </div>
+            <div class="offset-by-eighteen columns green one"></div>
             <h3>Offset By Nineteen Columns</h3>
-            <div class="flex row">
-                <div class="offset-by-nineteen columns green one"></div>
-            </div>
+            <div class="offset-by-nineteen columns green one"></div>
         </div>
         <hr />
         <a id="flexbox"></a>
         <h2>Flex Wrapping Behavior</h2>
         <h3>Wrap</h3>
         <div class="flex row wrap">
-            <div class="green columns ten"></div>
-            <div class="red columns ten"></div>
-            <div class="blue columns ten"></div>
+            <div class="green flex-item ten columns"></div>
+            <div class="red flex-item ten columns"></div>
+            <div class="blue flex-item ten columns"></div>
         </div>
         <h3>No Wrap</h3>
         <div class="flex row no-wrap">
-            <div class="green columns ten"></div>
-            <div class="red columns ten"></div>
-            <div class="blue columns ten"></div>
+            <div class="green flex-item ten columns"></div>
+            <div class="red flex-item ten columns"></div>
+            <div class="blue flex-item ten columns"></div>
         </div>
         <hr />
         <h2>Flex Direction</h2>
         <h3>Row</h3>
         <div class="flex row">
-            <div class="green columns ten">1</div>
-            <div class="red columns ten">2</div>
-            <div class="blue columns ten">3</div>
+            <div class="green flex-item">1</div>
+            <div class="red flex-item">2</div>
+            <div class="blue flex-item">3</div>
         </div>
         <h3>Column</h3>
         <div class="flex column">
-            <div class="green columns ten">1</div>
-            <div class="red columns ten">2</div>
-            <div class="blue columns ten">3</div>
+            <div class="green flex-item">1</div>
+            <div class="red flex-item">2</div>
+            <div class="blue flex-item">3</div>
         </div>
         <h3>Reverse Row</h3>
         <div class="flex row-reverse">
-            <div class="green columns ten">1</div>
-            <div class="red columns ten">2</div>
-            <div class="blue columns ten">3</div>
+            <div class="green flex-item">1</div>
+            <div class="red flex-item">2</div>
+            <div class="blue flex-item">3</div>
         </div>
         <h3>Reverse Column</h3>
         <div class="flex column-reverse">
-            <div class="green columns ten">1</div>
-            <div class="red columns ten">2</div>
-            <div class="blue columns ten">3</div>
+            <div class="green flex-item">1</div>
+            <div class="red flex-item">2</div>
+            <div class="blue flex-item">3</div>
         </div>
         <hr />
         <h2>Flex Justify</h2>
         <h3>Start</h3>
         <div class="flex row justify-start">
-            <div class="green columns three">1</div>
-            <div class="red columns three">2</div>
-            <div class="blue columns three">3</div>
+            <div class="green three columns">1</div>
+            <div class="red three columns">2</div>
+            <div class="blue three columns">3</div>
         </div>
         <h3>End</h3>
         <div class="flex row justify-end">
-            <div class="green columns three">1</div>
-            <div class="red columns three">2</div>
-            <div class="blue columns three">3</div>
+            <div class="green three columns">1</div>
+            <div class="red three columns">2</div>
+            <div class="blue three columns">3</div>
         </div>
         <h3>Center</h3>
         <div class="flex row justify-center">
-            <div class="green columns three">1</div>
-            <div class="red columns three">2</div>
-            <div class="blue columns three">3</div>
+            <div class="green three columns">1</div>
+            <div class="red three columns">2</div>
+            <div class="blue three columns">3</div>
         </div>
         <h3>Space Between</h3>
         <div class="flex row justify-space-between">
-            <div class="green columns three">1</div>
-            <div class="red columns three">2</div>
-            <div class="blue columns three">3</div>
+            <div class="green three columns">1</div>
+            <div class="red three columns">2</div>
+            <div class="blue three columns">3</div>
         </div>
         <h3>Space Around</h3>
         <div class="flex row justify-space-around">
-            <div class="green columns three">1</div>
-            <div class="red columns three">2</div>
-            <div class="blue columns three">3</div>
+            <div class="green three columns">1</div>
+            <div class="red three columns">2</div>
+            <div class="blue three columns">3</div>
         </div>
         <hr />
         <h2>Flex Align Items</h2>
@@ -1648,6 +1534,39 @@
             <div class="red flex-item">2</div>
             <div class="blue flex-item">3</div>
         </div>
+        <hr />
+        <h2>Flex Align Individual Items</h2>
+        <h3>Start</h3>
+        <div class="flex row basic-box">
+            <div class="green flex-item">1</div>
+            <div class="red flex-item align-self-start">2</div>
+            <div class="blue flex-item">3</div>
+        </div>
+        <h3>End</h3>
+        <div class="flex row basic-box">
+            <div class="green flex-item">1</div>
+            <div class="red flex-item align-self-end">2</div>
+            <div class="blue flex-item">3</div>
+        </div>
+        <h3>Center</h3>
+        <div class="flex row basic-box">
+            <div class="green flex-item">1</div>
+            <div class="red flex-item align-self-center">2</div>
+            <div class="blue flex-item">3</div>
+        </div>
+        <h3>Baseline</h3>
+        <div class="flex row basic-box">
+            <div class="green flex-item" style="font-size:20px;">1</div>
+            <div class="red flex-item align-self-baseline"style="font-size:30px;">2</div>
+            <div class="blue flex-item">3</div>
+        </div>
+        <h3>Stretch</h3>
+        <div class="flex row basic-box">
+            <div class="green flex-item">1</div>
+            <div class="red flex-item align-self-stretch">2</div>
+            <div class="blue flex-item">3</div>
+        </div>
+        <hr />
         <h2>Flex Align Content</h2>
         <h3>Start</h3>
         <div class="flex row align-content-start basic-box wrap">
@@ -1684,6 +1603,21 @@
             <div class="green columns ten">1</div>
             <div class="red columns ten">2</div>
             <div class="blue columns ten">3</div>
+        </div>
+        <hr />
+        <h2>Flex Item Sizes</h2>
+        <h3>All sizes are relative to other items</h3>
+        <div class="flex row">
+            <div class="flex-item green bordered">1</div>
+            <div class="flex-item green two-columns bordered">2</div>
+            <div class="flex-item green three-columns bordered">3</div>
+            <div class="flex-item green four-columns bordered">4</div>
+            <div class="flex-item green five-columns bordered">5</div>
+            <div class="flex-item green six-columns bordered">6</div>
+            <div class="flex-item green seven-columns bordered">7</div>
+            <div class="flex-item green eight-columns bordered">8</div>
+            <div class="flex-item green nine-columns bordered">9</div>
+            <div class="flex-item green ten-columns bordered">10</div>
         </div>
         <hr />
         <h3>Hidden/Display on Each Device</h3>

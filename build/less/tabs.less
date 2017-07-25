@@ -42,7 +42,7 @@
             
             &>li
             {
-                flex-grow: 1;
+                flex: 1 1 auto;
                 display: inline-block;
                 list-style: none;
                 
@@ -78,10 +78,10 @@
         background-color: @lightBorderColor;
         display: flex;
         flex-flow: row;
-        
+                
         &>section
         {
-            flex-grow:1;
+            flex: 1 1 100%;
             align-items: stretch;
             display:none;
             padding: 1em;
@@ -100,7 +100,7 @@
                 flex-flow: column;
                 &>li
                 {
-                    flex-grow: 1;
+                    flex: 1 1 auto;
                     &>a
                     {
                         .border-top;
