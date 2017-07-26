@@ -7,12 +7,6 @@
 			"request": "launch",
 			"url": "http://localhost:8080/index.html",
 			"sourceMaps": true
-		},
-		{
-			"name": "Attach",
-			"type": "chrome",
-			"request": "attach",
-			"port": 9222
 		}
 	]
 }

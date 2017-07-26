@@ -41,7 +41,9 @@
     }
 }
 
-[data-balloon] {
+*[data-tooltip] {
+    cursor: help;
+    .border-bottom(@style:dotted,@color: @darkBorderColor);
     position: relative;
     display: inline-block;
     &:before,
@@ -64,7 +66,7 @@
         .roundedBorder;
         .layer(2);
         .depth-1;
-        content: attr(data-balloon);
+        content: attr(data-tooltip);
         padding: 1em;
         margin-bottom:.5em;
     }
@@ -83,7 +85,7 @@
     }
 }
 
-[data-balloon-pos="down"] {
+[data-tooltip-pos="down"] {
     &:before,
     &:after {
         bottom: auto;
@@ -107,7 +109,7 @@
     }
 }
 
-[data-balloon-pos="left"] {
+[data-tooltip-pos="left"] {
     &:before,
     &:after {
         bottom: auto;
@@ -132,7 +134,7 @@
     }
 }
 
-[data-balloon-pos="right"] {
+[data-tooltip-pos="right"] {
     &:before,
     &:after {
         bottom: auto;
@@ -157,42 +159,11 @@
 }
 
 :after {
-    [data-balloon-size="small"]&  { width: 5em; }
-    [data-balloon-size="medium"]& { width: 9.375em; }
-    [data-balloon-size="large"]&  { width: 16.250em; }
-    [data-balloon-size="extra-large"]& { width: 56.250em;
+    [data-tooltip-size="small"]&  { width: 5em; }
+    [data-tooltip-size="medium"]& { width: 9.375em; }
+    [data-tooltip-size="large"]&  { width: 16.250em; }
+    [data-tooltip-size="extra-large"]& { width: 56.250em;
         @media screen and (min-width: 768px) { width: 23.750em; }
-    }
-}
-
-*[data-tooltip]{
-    position:relative;
-    cursor: help;
-    .border-bottom(@style:dotted,@color: @darkBorderColor);
-    display:inline-block;
-    
-    &::after{
-        .opacity(0);
-        animation: fadeIn .35s;
-    }
-    
-    &:hover::after {
-        position: absolute;
-        bottom: 100%;
-        left:-50%;
-        display: block;
-        padding: 1em;
-        margin-bottom:.5em;
-        white-space: nowrap;
-        background: @infoBackground;
-        color:@infoColor;
-        font-size: .8em;
-        .roundedBorder;
-        .layer(2);
-        .depth-1;
-        content: attr(data-tooltip);
-        .opacity(1);
-        animation: fadeIn .35s;
     }
 }
 

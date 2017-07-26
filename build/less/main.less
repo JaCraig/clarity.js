@@ -25,7 +25,7 @@
 @import url('pagination.less');
 @import url('contextual.less');
 @import url('tabs.less');
-@import url('ionicons.less');
+@import url('font-awesome/font-awesome.less');
 
 @keyframes rotate {
     0% {
@@ -44,7 +44,7 @@
 body {
     color: @textColor;
     background-color: @backgroundColor;
-    font: normal normal normal 1em/1.5 'Helvetica Neue',Helvetica, arial, freesans, clean, sans-serif;
+    font: normal normal normal 1em/1.5 "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
     margin: 0;
 }
 
@@ -68,10 +68,12 @@ em, i {
 
 abbr[data-original-title], abbr[title] {
     cursor: help;
+    text-decoration: none;
     .border-bottom(@style:dotted,@color: @darkBorderColor);
 }
 
 dt {
+    font-family: 'Helvetica Neue',Helvetica, arial, freesans, clean, sans-serif;
     font-weight: @fontWeightBold;
 }
 
@@ -150,6 +152,7 @@ progress {
 }
 
 h1, h2, h3, h4, h5, h6 {
+    font-family: 'Helvetica Neue',Helvetica, arial, freesans, clean, sans-serif;
     font-weight: @fontWeightBold;
 }
 
@@ -283,6 +286,22 @@ a:hover {
     margin-right: auto;
 }
 
+.margin-left-auto {
+    margin-left:auto;
+}
+
+.margin-right-auto {
+    margin-right:auto;
+}
+
+.margin-bottom-auto {
+    margin-bottom:auto;
+}
+
+.margin-top-auto{
+    margin-top:auto;
+}
+
 .show {
     display: block !important;
 }
@@ -326,6 +345,18 @@ a:hover {
     .depth-5;
 }
 
+.inline-block {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+}
+
+.inline{
+    display: inline;
+}
+
 .spinner {
     animation: rotate 1s infinite linear;
     .roundedBorder(.125em, @color:@darkBorderColor,@radius:@circularCorners);
@@ -337,7 +368,6 @@ a:hover {
 }
 
 span.close,div.close {
-    display:inline-block;
     float: right;
     font-size: 1.5em;
     font-weight: @fontWeightBold;
@@ -355,6 +385,7 @@ span.close,div.close {
         text-align: right;
         text-overflow: ellipsis;
         white-space: nowrap;
+        font-family: 'Helvetica Neue',Helvetica, arial, freesans, clean, sans-serif;
     }
 
     dl.horizontal dd {

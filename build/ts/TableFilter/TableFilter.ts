@@ -21,8 +21,6 @@ module TableFilter {
 
     export class TableFilter implements Component.Interfaces.IComponent {
 
-        private tables: HTMLElement[];
-
         constructor() {
             this.tables = [];
             document.getElementsByTagName("table")
@@ -33,6 +31,8 @@ module TableFilter {
                         this.makeFilterable(x);
                     });
         }
+
+        private tables: HTMLElement[];
 
         private makeFilterable(table: HTMLTableElement): void {
             ;

@@ -16,6 +16,7 @@
 @import (reference) 'styles.less';
 
 .menu,nav {
+    font-family: 'Helvetica Neue',Helvetica, arial, freesans, clean, sans-serif;
     & ul, & ul li {
         position: relative;
         list-style: none;
@@ -103,7 +104,6 @@
         background-color: @lightBorderColor;
         color: @darkBorderColor;
         text-decoration: none;
-        border-radius: @roundedCorner;
     }
     
     & .disabled a {
@@ -164,6 +164,8 @@
     }
     
     &.pill {
+        .roundedBorder;
+
         & ul li,
         & > ul > li > a:hover {
             background-color: @lightBorderColor;
@@ -220,12 +222,13 @@
     }
 }
 
-@media only screen and (max-width: 959px) {
+@media only screen and (max-width: 1024px) {
     nav.mobile,.menu.mobile {
         display:none;
     }
     
     .mobile-toggler {
+        color: @textColor;
         width:1.563em;
         margin-left:0.625em;
     }

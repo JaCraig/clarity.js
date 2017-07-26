@@ -22,7 +22,7 @@ module Mobile {
         constructor() {
             Mobile.menuElements = [];
             document.getElementsByClassName("mobile")
-                    .select(x => {
+                    .map(x => {
                         let tempElement = <HTMLElement>x;
                         if (tempElement.hasClass("menu")) {
                             let id = tempElement.id;
@@ -30,7 +30,7 @@ module Mobile {
                             Mobile.menuElements = Mobile.menuElements.concat({key: item.id, value: item});
                             let menuElement = document.createElement("a");
                             menuElement.href = "#";
-                            menuElement.className = "ion-navicon hidden-on-desktop display-on-tablet-landscape extra-large mobile-toggler";
+                            menuElement.className = "fa-bars hidden-on-desktop display-on-tablet-landscape extra-large mobile-toggler";
                             menuElement.addEventListener("click", y => {
                                 (<HTMLElement>(y.target)).addClass("hidden");
                                 Mobile.show(id);
@@ -45,14 +45,12 @@ module Mobile {
                     && tempElement.getParentByClass("mobile-toggler") == null
                     && !tempElement.hasClass("mobile-toggler")) {
                         document.getElementsByClassName("mobile")
-                                .select(y => (<HTMLElement>y).removeClass("show"));
+                                .map(y => (<HTMLElement>y).removeClass("show"));
                         document.getElementsByClassName("mobile-toggler")
-                                .select(y => (<HTMLElement>y).removeClass("hidden"));
+                                .map(y => (<HTMLElement>y).removeClass("hidden"));
                 }
             });
         }
-
-        private static menuElements: {key: string, value: HTMLElement}[];
 
         public static show(id: string): void {
             Mobile.menuElements.filter(x => x.key === id).forEach(x => x.value.show());
@@ -61,6 +59,8 @@ module Mobile {
         public static hide(id: string): void {
             Mobile.menuElements.filter(x => x.key === id).forEach(x => x.value.hide());
         }
+
+        private static menuElements: {key: string, value: HTMLElement}[];
     }
     window.addEventListener("load", x => new Mobile());
 }

@@ -21,7 +21,7 @@ module DropDown {
     export class DropDown {
         constructor() {
             document.getElementsByClassName("drop-down")
-                    .select(x => {
+                    .map(x => {
                     (<Element>x).firstElementChild
                                 .addEventListener("click", y => {
                                     y.preventDefault();

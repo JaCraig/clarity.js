@@ -22,18 +22,16 @@ module Modal {
         constructor() {
             Modal.modalElements = [];
             document.getElementsByClassName("modal")
-                    .select(x => {
+                    .map(x => {
                         let item = <HTMLElement>x;
                         Modal.modalElements = Modal.modalElements.concat({key: item.id, value: item});
                     });
             document.getElementsByClassName("modal-opener")
-                    .select(x => {
+                    .map(x => {
                         let tempItem = (<HTMLElement>x).attribute("data-modal");
                         x.addEventListener("click", y => Modal.show(tempItem));
                     });
         }
-
-        private static modalElements: {key: string, value: HTMLElement}[];
 
         public static show(id: string): void {
             Modal.modalElements.filter(x => x.key === id).forEach(x => x.value.show());
@@ -42,6 +40,8 @@ module Modal {
         public static hide(id: string): void {
             Modal.modalElements.filter(x => x.key === id).forEach(x => x.value.hide());
         }
+
+        private static modalElements: {key: string, value: HTMLElement}[];
     }
     window.addEventListener("load", x => new Modal());
 }

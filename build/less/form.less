@@ -23,7 +23,11 @@
     margin: .625em .125em;
     padding: .3em;
     cursor: text;
-    height: 2em;
+    height: 2.25em;
+}
+
+input[type='file'] {
+    height: 2.45em;
 }
 
 input[type='range'] {
@@ -38,13 +42,7 @@ input[type='color'], select, input[list] {
     cursor: default;
 }
 
-input[disabled], select[disabled], textarea[disabled], fieldset:disabled input, fieldset:disabled select, fieldset:disabled textarea {
-    cursor: not-allowed;
-    background-color: @backgroundLight;
-    color: @borderColor;
-}
-
-input:not([type])[disabled] {
+input:not([type])[disabled],input[disabled], select[disabled], textarea[disabled], fieldset:disabled input, fieldset:disabled select, fieldset:disabled textarea {
     cursor: not-allowed;
     background-color: @backgroundLight;
     color: @borderColor;
@@ -109,8 +107,16 @@ legend {
 
 form.stacked {
 
+    display: flex;
+    flex-direction: column;
+    
+    &>* {
+        flex: 1 1 auto;
+        display:inline-block;
+    }
+
     & input[type='text'], & input[type='password'], & input[type='email'], & input[type='url'], & input[type='date'], & input[type='month'], & input[type='time'], & input[type='datetime'], & input[type='datetime-local'], & input[type='week'], & input[type='number'], & input[type='search'], & input[type='tel'], & input[type='color'], & input[type='file'], & input[type='range'], & select, & label, & textarea {
-        display: block;
+        display: inline-block;
         margin: 0 0 .625em 0;
     }
 
@@ -134,19 +140,30 @@ form.stacked {
 }
 
 form.aligned {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
 
-    & input, & textarea, & select {
-        width: 50%;
-        margin: .625em 0;
-        display: inline-block;
-        vertical-align: middle;
+    &>* {
+        flex: 1 1 40%;
+        width:40%;
+        display:block;
     }
 
-    & textarea {
+    &>.controls {
+        margin-left: 50%;
+    }
+
+    &>textarea {
         vertical-align: top;
+    }
+
+    & input[type='range'] {
+        margin-top: .75em;
     }
     
     & input[type='radio'],& input[type='checkbox'] {
+        margin: 1em 1em;
         &:focus {
             outline: none;
             border: none;
@@ -154,22 +171,20 @@ form.aligned {
         }
     }
 
-    & label {
+    &>label {
+        padding-top: 1em;
         text-align: right;
-        display: inline-block;
-        vertical-align: middle;
-        width: 40%;
-        margin: 0 5% 0 0;
-    }
-       
-    & .controls {
-        margin: 1.5em 0 0 45%;
+        padding-right: 1em;
     }
 }
 
 .input-group {
 
+    display: flex;
+    flex-wrap: nowrap;
+
     & > input[type='text'], & > input[type='text'], & > input[type='password'], & > input[type='email'], & > input[type='url'], & > input[type='date'], & > input[type='month'], & > input[type='time'], & > input[type='datetime'], & > input[type='datetime-local'], & > input[type='week'], & > input[type='number'], & > input[type='search'], & > input[type='tel'], & > input[type='color'], & > input[type='file'], & > button, & > input[type='button'], & > input[type='reset'], & > input[type='submit'] {
+        flex: 1 1 auto;
         margin: .625em 0;
         border-radius: 0;
         vertical-align: middle;

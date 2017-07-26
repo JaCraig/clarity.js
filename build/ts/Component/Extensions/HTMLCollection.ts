@@ -14,11 +14,18 @@
    limitations under the License.
 */
 interface HTMLCollection {
-    select<TResult>(callback: (x: Node) => TResult): TResult[];
+    map<TResult>(callback: (x: Node) => TResult): TResult[];
     filter(callback: (x: Node) => boolean): Node[];
 }
 
-HTMLCollection.prototype.select = function <TResult>(callback: (x: Node) => TResult): TResult[] {
+/**
+ * Runs a function across all items in a collection and returning the resulting array
+ * 
+ * @template TResult 
+ * @param {(x: Node) => TResult} callback 
+ * @returns {TResult[]} 
+ */
+HTMLCollection.prototype.map = function <TResult>(callback: (x: Node) => TResult): TResult[] {
     let ReturnValues = [];
     for (let x = 0; x < this.length; ++x) {
         ReturnValues = ReturnValues.concat(callback(this[x]));
@@ -26,6 +33,12 @@ HTMLCollection.prototype.select = function <TResult>(callback: (x: Node) => TRes
     return ReturnValues;
 };
 
+/**
+ * Filters items in a collection by the function passed in and returns the resulting array
+ * 
+ * @param {(x: Node) => boolean} callback 
+ * @returns {Node[]} 
+ */
 HTMLCollection.prototype.filter = function(callback: (x: Node) => boolean): Node[]{
     let ReturnValues = [];
     for (let x = 0; x < this.length; ++x) {
