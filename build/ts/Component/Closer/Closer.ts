@@ -13,9 +13,9 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-/// <reference path="../Component/Interfaces/IComponent.ts" />
-/// <reference path="../Component/Extensions/HTMLElement.ts" />
-/// <reference path="../Component/Extensions/NodeList.ts" />
+/// <reference path="../Interfaces/IComponent.ts" />
+/// <reference path="../../Extensions/HTMLElement.ts" />
+/// <reference path="../../Extensions/NodeList.ts" />
 
 module Closer {
     export class Closer implements Component.Interfaces.IComponent {

@@ -13,12 +13,12 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
- /// <reference path="../Component/Interfaces/IComponent.ts" />
- /// <reference path="../Component/Extensions/HTMLElement.ts" />
- /// <reference path="../Component/Extensions/NodeList.ts" />
+ /// <reference path="../Interfaces/IComponent.ts" />
+ /// <reference path="../../Extensions/HTMLElement.ts" />
+ /// <reference path="../../Extensions/NodeList.ts" />
 
 module Mobile {
-    export class Mobile {
+    export class Mobile implements Component.Interfaces.IComponent {
         constructor() {
             Mobile.menuElements = [];
             document.getElementsByClassName("mobile")
