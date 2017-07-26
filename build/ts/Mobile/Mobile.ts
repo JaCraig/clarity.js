@@ -30,7 +30,7 @@ module Mobile {
                             Mobile.menuElements = Mobile.menuElements.concat({key: item.id, value: item});
                             let menuElement = document.createElement("a");
                             menuElement.href = "#";
-                            menuElement.className = "ion-navicon hidden-on-desktop display-on-tablet-landscape extra-large mobile-toggler";
+                            menuElement.className = "fa-bars hidden-on-desktop display-on-tablet-landscape extra-large mobile-toggler";
                             menuElement.addEventListener("click", y => {
                                 (<HTMLElement>(y.target)).addClass("hidden");
                                 Mobile.show(id);
