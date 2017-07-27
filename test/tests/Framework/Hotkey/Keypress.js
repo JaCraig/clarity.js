@@ -1,7 +1,7 @@
 var fs = require("fs");
 
 function __require( file ) {
-   var dir = process.cwd().concat("/dist/js/");
+   var dir = process.cwd().concat("/tmp/test/js/");
    var contents = fs.readFileSync( 
       dir.concat(file),
       "utf-8"
@@ -9,10 +9,10 @@ function __require( file ) {
    return contents;
 }
 
-eval( __require("/Types/StringDictionary.min.js") );
-eval( __require("/Types/NumberDictionary.min.js") );
-eval( __require("/Framework/Hotkey/Globals.min.js") );
-eval( __require("/Framework/Hotkey/Keypress.min.js") );
+eval( __require("/Types/StringDictionary.js") );
+eval( __require("/Types/NumberDictionary.js") );
+eval( __require("/Framework/Hotkey/Globals.js") );
+eval( __require("/Framework/Hotkey/Keypress.js") );
 
 describe("Framework.Hotkey.Keypress tests", function() {
     it("should actually have Framework.Hotkey.Keypress defined", function() {

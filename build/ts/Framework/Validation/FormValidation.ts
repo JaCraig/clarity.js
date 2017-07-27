@@ -65,6 +65,30 @@ module Framework.Validation {
             }
         }
 
+        // Initialize an individual form
+        public initializeForm(form: HTMLFormElement): void {
+            let inputElements = form.getElementsByTagName("input").map(x => <HTMLInputElement>x).filter(x => x.willValidate);
+            for (let x = 0; x < inputElements.length; ++x) {
+                if (inputElements[x].type.toUpperCase() === "RADIO"
+                    || inputElements[x].type.toUpperCase() === "CHECKBOX") {
+                    inputElements[x].addEventListener("change", x => this.inputHandler(<HTMLInputElement>x.target));
+                } else {
+                    inputElements[x].addEventListener("input", x => this.inputHandler(<HTMLInputElement>x.target));
+                }
+                inputElements[x].addEventListener("invalid", x => this.invalidInputHandler(<HTMLInputElement>x.target));
+            }
+            let textAreaElements = form.getElementsByTagName("textarea").map(x => <HTMLTextAreaElement>x).filter(x => x.willValidate);
+            for (let x = 0; x < textAreaElements.length; ++x) {
+                textAreaElements[x].addEventListener("change", x => this.textAreaHandler(<HTMLTextAreaElement>x.target));
+                textAreaElements[x].addEventListener("invalid", x => this.invalidTextAreaHandler(<HTMLTextAreaElement>x.target));
+            }
+            let selectElements = form.getElementsByTagName("select").map(x => <HTMLSelectElement>x).filter(x => x.willValidate);
+            for (let x = 0; x < selectElements.length; ++x) {
+                selectElements[x].addEventListener("change", x => this.selectHandler(<HTMLSelectElement>x.target));
+                selectElements[x].addEventListener("invalid", x => this.invalidSelectHandler(<HTMLSelectElement>x.target));
+            }
+        }
+
         // invalid input handler
         private invalidInputHandler(input: HTMLInputElement): void {
             if (!input.validity.valid) {

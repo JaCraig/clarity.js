@@ -20,48 +20,48 @@ module Framework.WebStorage {
     export class SessionStorage {
 
         // sets the value of an item for long term storage
-        public static set(key: string, value: string): void {
+        public set(key: string, value: string): void {
             sessionStorage.setItem(key, value);
         }
 
         // sets the value of an item for long term storage (used when saving objects)
-        public static setObject(key: string, value: any): void {
-            SessionStorage.set(key, JSON.stringify(value));
+        public setObject(key: string, value: any): void {
+            this.set(key, JSON.stringify(value));
         }
 
         // gets a value based on the key specified 
-        public static get(key: string, defaultValue: string= ""): any {
+        public get(key: string, defaultValue: string= ""): any {
             return sessionStorage.getItem(key) || defaultValue;
         }
 
         // Returns true if the key is present in local storage, false otherwise.
-        public static has(key: string): boolean {
-            return SessionStorage.get(key) !== undefined;
+        public has(key: string): boolean {
+            return this.get(key) !== undefined;
         }
 
         // Removes an item from local storage
-        public static remove(key: string): void {
+        public remove(key: string): void {
             sessionStorage.removeItem(key);
         }
 
         // Clears local storage of all items
-        public static clear(): void {
+        public clear(): void {
             sessionStorage.clear();
         }
 
         // Returns the number of items in storage
-        static get length(): number {
+        get length(): number {
             return sessionStorage.length;
         }
 
         // Gets the key of the item at the index specified 
-        public static key(index: number): string {
+        public key(index: number): string {
             return sessionStorage.key(index);
         }
 
         // gets a value based on the key specified (used when saving objects)
-        public static getObject(key: string, defaultValue: any= null): any {
-            let value = SessionStorage.get(key);
+        public getObject(key: string, defaultValue: any= null): any {
+            let value = this.get(key);
             return (value && JSON.parse(value)) || defaultValue;
         }
     }

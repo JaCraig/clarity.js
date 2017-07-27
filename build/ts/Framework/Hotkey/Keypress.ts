@@ -22,23 +22,23 @@
 
 module Framework.Hotkey {
 
-    //Individual key press
+    // Individual key press
     export class Keypress {
 
-        //Constructor
+        // Constructor
         constructor(keys: string) {
             this.keys = this.getKeys(keys);
         }
 
-        //actual key codes
+        // actual key codes
         private keys: number[];
 
-        //gets the key codes for the string passed in
+        // gets the key codes for the string passed in
         private getKeys(keyCode: string): number[] {
             return keyCode.toUpperCase().split(/-(?!$)/).map(x => Globals.keyMappings[x] || x.charCodeAt(0));
         }
 
-        //determines if the key code is pressed
+        // determines if the key code is pressed
         public isPressed(keyCode: number[]): boolean {
             let keysPressed = keyCode;
             if (keysPressed.length !== this.keys.length) {

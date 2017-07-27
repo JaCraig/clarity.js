@@ -1,7 +1,7 @@
 var fs = require("fs");
 
 function __require( file ) {
-   var dir = process.cwd().concat("/dist/js/");
+   var dir = process.cwd().concat("/tmp/test/js/");
    var contents = fs.readFileSync( 
       dir.concat(file),
       "utf-8"
@@ -9,8 +9,8 @@ function __require( file ) {
    return contents;
 }
 
-eval( __require("/Types/StringDictionary.min.js") );
-eval( __require("/Framework/Router/QueryPart.min.js") );
+eval( __require("/Types/StringDictionary.js") );
+eval( __require("/Framework/Router/QueryPart.js") );
 
 describe("Framework.Router.QueryPart tests", function() {
    it("should actually have Framework.Router.QueryPart defined", function() {

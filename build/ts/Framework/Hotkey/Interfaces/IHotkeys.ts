@@ -14,10 +14,11 @@
    limitations under the License.
 */
 
-module Framework.Interfaces {
+module Framework.Hotkey.Interfaces {
 
-    //A controller interface
-    export interface IController {
-        name: string;
+    // Hotkey mapping interface
+    export interface IHotkeys {
+        // maps a set of hotkeys
+        bind(keyCodes: string, callback: (event: KeyboardEvent, handler: any) => void): IHotkeys;
     }
 }

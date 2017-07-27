@@ -14,14 +14,14 @@
    limitations under the License.
 */
 
-/// <reference path="../Router/Interfaces/IRouter.ts" />
+/// <reference path="../Hotkey/Interfaces/IHotkeys.ts" />
 
 
 module Framework.Interfaces {
 
-    //Hotkey configuration interface
+    // Hotkey configuration interface
     export interface IHotkeyConfiguration {
-        //called when configuring the hotekeys
-        configureHotkeys(hotkeys: Router.Interfaces.IRouter): void;
+        // called when configuring the hotekeys
+        configureHotkeys(hotkeys: Hotkey.Interfaces.IHotkeys): void;
     }
 }

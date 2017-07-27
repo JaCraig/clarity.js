@@ -4,7 +4,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Clarity CSS Framework</title>
-    <link rel="stylesheet" href="css/clarity.min.css">
+    <script src="/js/es6-promise.js"></script>
+    <script src="/js/system.js"></script>
+    <link rel="stylesheet" href="/css/clarity.min.css">
     <style>
         .mainContent {
             position: absolute;
@@ -1347,6 +1349,34 @@
         </div>
         <br class="clear" />
         <hr />
+        <h3>Form Validation</h3>
+        <div class="center ten columns">
+            <form class="stacked">
+                <fieldset>
+                    <label>Required:</label>
+                    <input type="text" required data-error-message-value-missing="Missing a value here." />
+                    <label>Type Mismatch:</label>
+                    <input type="email" data-error-message-type-mismatch="Not an email address." />
+                    <label>Step Mismatch:</label>
+                    <input type="number" step="10" data-error-message-step-mismatch="Must be a multiple of ten" />
+                    <label>Range Underflow:</label>
+                    <input type="number" min="4" data-error-message-range-underflow="Must be 4 or above" />
+                    <label>Range Overflow:</label>
+                    <input type="number" max="4" data-error-message-range-overflow="Must be 4 or below" />
+                    <label>Pattern Mismatch:</label>
+                    <input type="text" pattern="[A-Za-z]{3}" data-error-message-pattern-mismatch="Must be 3 letters" />
+                    <label>Multiple Rules:</label>
+                    <input type="text" pattern="[A-Za-z]{3}" data-error-message-pattern-mismatch="Must be 3 letters" required data-error-message-value-missing="Missing a value here." />
+                    <div class="controls">
+                        <div class="input-group">
+                            <input type="submit" /><input type="reset" />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <br class="clear" />
+        <hr />
         <a id="grids"></a>
         <h2>Grid Layout</h2>
         <div class="content-wrapper">
@@ -1638,6 +1668,16 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="js/clarity.min.js"></script>
-
+<script>
+        SystemJS.config({
+            baseURL: '/js',
+            map: {
+                Clarity: 'Clarity.min.js'
+            }
+        });
+        SystemJS.import('Clarity').then(function(Clarity){
+            window.clarity.hotkeys.bind('a b c', function(){ console.log('pressed'); });
+            window.clarity.validation.initialize();
+        });
+    </script>
 </html>

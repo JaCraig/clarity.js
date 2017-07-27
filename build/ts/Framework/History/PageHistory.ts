@@ -20,7 +20,7 @@ module Framework.History {
     export class PageHistory {
 
         // Goes back by the value specified
-        public static back(delta?: number): void {
+        public back(delta?: number): void {
             if (delta === undefined) {
                 delta = 1;
             }
@@ -28,7 +28,7 @@ module Framework.History {
         }
 
         // Goes forward by the value specified
-        public static forward(delta?: number): void {
+        public forward(delta?: number): void {
             if (delta === undefined) {
                 delta = 1;
             }
@@ -36,22 +36,22 @@ module Framework.History {
         }
 
         // pushes a new url/state onto the history
-        public static push(state: any, url?: string, title?: string): void {
+        public push(state: any, url?: string, title?: string): void {
             window.history.pushState(state, title, url);
         }
 
         // replaces the current url with a new url/state
-        public static replace(state: any, url?: string, title?: string): void {
+        public replace(state: any, url?: string, title?: string): void {
             window.history.replaceState(state, title, url);
         }
 
         // gets the current state
-        static get state(): any {
+        get state(): any {
             return window.history.state;
         }
 
         // Returns the number of items in storage
-        static get length(): number {
+        get length(): number {
             return window.history.length;
         }
     }

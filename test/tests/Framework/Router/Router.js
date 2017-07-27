@@ -1,7 +1,7 @@
 var fs = require("fs");
 
 function __require( file ) {
-   var dir = process.cwd().concat("/dist/js/");
+   var dir = process.cwd().concat("/tmp/test/js/");
    var contents = fs.readFileSync( 
       dir.concat(file),
       "utf-8"
@@ -9,12 +9,12 @@ function __require( file ) {
    return contents;
 }
 
-eval( __require("/Types/StringDictionary.min.js") );
-eval( __require("/Framework/Router/HashPart.min.js") );
-eval( __require("/Framework/Router/PathPart.min.js") );
-eval( __require("/Framework/Router/QueryPart.min.js") );
-eval( __require("/Framework/Router/Route.min.js") );
-eval( __require("/Framework/Router/Router.min.js") );
+eval( __require("/Types/StringDictionary.js") );
+eval( __require("/Framework/Router/HashPart.js") );
+eval( __require("/Framework/Router/PathPart.js") );
+eval( __require("/Framework/Router/QueryPart.js") );
+eval( __require("/Framework/Router/Route.js") );
+eval( __require("/Framework/Router/Router.js") );
 
 describe("Framework.Router.Route tests", function() {
     it("should actually have Framework.Router.Router defined", function() {
