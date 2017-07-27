@@ -10,6 +10,7 @@ var cover = require('gulp-coverage');
 var license = require('gulp-license');
 
 var javascriptLocation = './tmp/js/**/*.js';
+var javascriptTestScriptsLocation = './tmp/test/js/**/*.js';
 var javascriptBenchmarkLocation = './test/benchmark/**/*.js';
 var javascriptTestLocation = './test/tests/**/*.js';
 var javascriptMove = './build/js/**/*.js';
@@ -69,6 +70,7 @@ gulp.task('javascript:watch', function () {
     gulp.watch(javascriptLocation, ['javascript:minify', 'javascript:benchmark', 'javascript:test']);
     gulp.watch(javascriptBenchmarkLocation, ['javascript:benchmark']);
     gulp.watch(javascriptTestLocation, ['javascript:test']);
+    gulp.watch(javascriptTestScriptsLocation,['javascript:test']);
 });
 
 gulp.task('javascript:default', function (cb) {

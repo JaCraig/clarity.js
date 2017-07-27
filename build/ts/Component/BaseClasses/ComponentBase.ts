@@ -14,7 +14,7 @@
    limitations under the License.
 */
 /// <reference path="../Interfaces/IComponent.ts" />
-/// <reference path="../Extensions/HTMLElement.ts" />
+/// <reference path="../../Extensions/HTMLElement.ts" />
 
 
 
