@@ -45,5 +45,4 @@ module DropDown {
             });
         }
     }
-    window.addEventListener("load", x => new DropDown());
 }

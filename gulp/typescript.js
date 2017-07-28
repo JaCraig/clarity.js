@@ -34,7 +34,9 @@ gulp.task('typescript:build', function () {
             module: module,
             target: target,
             out: typescriptDocumentationOut,
-            name: "Clarity.js"
+            name: "Clarity.js",
+            allowSyntheticDefaultImports: true,
+            moduleResolution: 'node'
         }));
     var tsResult = gulp.src(typescriptLocation)
         .pipe(ts({
@@ -43,7 +45,14 @@ gulp.task('typescript:build', function () {
             target: target,
             module: module,
             removeComments: true,
-            declaration: true
+            declaration: true,
+            lib: [
+                "dom",
+                "es5",
+                "es2015.promise"
+            ],
+            allowSyntheticDefaultImports: true,
+            moduleResolution: 'node'
         }));
     return merge([
         tsResult.dts.pipe(gulp.dest(typescriptDefinitionOut)),
@@ -59,7 +68,14 @@ gulp.task('typescript:build2', function () {
             target: target,
             module: module,
             removeComments: true,
-            declaration: true
+            declaration: true,
+            lib: [
+                "dom",
+                "es5",
+                "es2015.promise"
+            ],
+            allowSyntheticDefaultImports: true,
+            moduleResolution: 'node'
         }))
         .pipe(gulp.dest(typescriptTestOut));
 });

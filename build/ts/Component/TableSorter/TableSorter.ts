@@ -202,5 +202,4 @@ module TableSorter {
             }
         }
     }
-    window.addEventListener("load", x => new TableSorter());
 }

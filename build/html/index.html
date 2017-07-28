@@ -6,6 +6,7 @@
     <title>Clarity CSS Framework</title>
     <script src="/js/es6-promise.js"></script>
     <script src="/js/system.js"></script>
+    <script src="/js/vue.min.js"></script>
     <link rel="stylesheet" href="/css/clarity.min.css">
     <style>
         .mainContent {
@@ -1665,6 +1666,9 @@
             Shown on mobile portrait
         </div>
     </div>
+    <div id="ComponentItems">
+        <claritygrid></claritygrid>
+    </div>
     <script>
         SystemJS.config({
             baseURL: '/js',
@@ -1675,6 +1679,9 @@
         SystemJS.import('Clarity').then(function(Clarity){
             window.clarity.hotkeys.bind('a b c', function(){ console.log('pressed'); });
             window.clarity.validation.initialize();
+        });
+        new Vue({
+            el: '#ComponentItems'
         });
     </script>
 </body>

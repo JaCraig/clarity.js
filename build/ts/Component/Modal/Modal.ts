@@ -43,5 +43,4 @@ module Modal {
 
         private static modalElements: {key: string, value: HTMLElement}[];
     }
-    window.addEventListener("load", x => new Modal());
 }

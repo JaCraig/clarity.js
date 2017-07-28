@@ -62,5 +62,4 @@ module Mobile {
 
         private static menuElements: {key: string, value: HTMLElement}[];
     }
-    window.addEventListener("load", x => new Mobile());
 }

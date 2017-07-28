@@ -57,5 +57,4 @@ module Tabs {
             element.show();
         }
     }
-    window.addEventListener("load", x => new Tabs());
 }

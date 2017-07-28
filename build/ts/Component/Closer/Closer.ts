@@ -34,5 +34,4 @@ module Closer {
             element.hide();
         }
     }
-    window.addEventListener("load", x => new Closer());
 }

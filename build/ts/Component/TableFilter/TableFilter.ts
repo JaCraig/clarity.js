@@ -38,6 +38,4 @@ module TableFilter {
             ;
         }
     }
-
-    window.addEventListener("load", x => new TableFilter());
 }
