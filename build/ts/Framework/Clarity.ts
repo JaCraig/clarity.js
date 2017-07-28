@@ -25,6 +25,12 @@
 /// <reference path="./History/PageHistory.ts" />
 /// <reference path="./WebStorage/LocalStorage.ts" />
 /// <reference path="./WebStorage/SessionStorage.ts" />
+/// <reference path="../Component/Closer/Closer.ts" />
+/// <reference path="../Component/DropDown/DropDown.ts" />
+/// <reference path="../Component/Mobile/Mobile.ts" />
+/// <reference path="../Component/Modal/Modal.ts" />
+/// <reference path="../Component/TableSorter/TableSorter.ts" />
+/// <reference path="../Component/Tabs/Tabs.ts" />
 
 module Framework {
 
@@ -40,12 +46,37 @@ module Framework {
             this.localStorage = new WebStorage.LocalStorage();
             this.sessionStorage = new WebStorage.SessionStorage();
 
+            this.closer = new Closer.Closer();
+            this.dropDown = new DropDown.DropDown();
+            this.mobile = new Mobile.Mobile();
+            this.modal = new Modal.Modal();
+            this.tableSorter = new TableSorter.TableSorter();
+            this.tabs = new Tabs.Tabs();
+
             window.addEventListener("keydown", x => this.hotkeys.press(x));
             window.addEventListener("load", x => this.validation.initialize(), false);
             window.onerror = (msg, url, ln, col, error) => {
                 this.errorLogger.onError(msg, url, ln, col, error);
             };
         }
+
+        // the tabs component
+        private tabs: Tabs.Tabs;
+
+        // the table sorter component
+        private tableSorter: TableSorter.TableSorter;
+
+        // the modal component
+        private modal: Modal.Modal;
+
+        // the mobile component
+        private mobile: Mobile.Mobile;
+
+        // the drop down component
+        private dropDown: DropDown.DropDown;
+
+        // the closer component
+        private closer: Closer.Closer;
 
         // the hotkeys object
         public hotkeys: Hotkey.Hotkeys;
