@@ -29,7 +29,6 @@
 /// <reference path="../Component/DropDown/DropDown.ts" />
 /// <reference path="../Component/Mobile/Mobile.ts" />
 /// <reference path="../Component/Modal/Modal.ts" />
-/// <reference path="../Component/TableSorter/TableSorter.ts" />
 /// <reference path="../Component/Tabs/Tabs.ts" />
 
 module Framework {
@@ -50,7 +49,6 @@ module Framework {
             this.dropDown = new DropDown.DropDown();
             this.mobile = new Mobile.Mobile();
             this.modal = new Modal.Modal();
-            this.tableSorter = new TableSorter.TableSorter();
             this.tabs = new Tabs.Tabs();
 
             window.addEventListener("keydown", x => this.hotkeys.press(x));
@@ -62,9 +60,6 @@ module Framework {
 
         // the tabs component
         private tabs: Tabs.Tabs;
-
-        // the table sorter component
-        private tableSorter: TableSorter.TableSorter;
 
         // the modal component
         private modal: Modal.Modal;

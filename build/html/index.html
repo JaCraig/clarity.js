@@ -82,6 +82,7 @@
             <li class="item"><a href="#forms">Forms</a></li>
             <li class="item"><a href="#grids">Grids</a></li>
             <li class="item"><a href="#flexbox">Flexbox</a></li>
+            <li class="item"><a href="#components">Components</a></li>
             <li class="item"><a href="/js/Docs">Typescript Modules</a></li>
         </ul>
     </div>
@@ -615,47 +616,6 @@
                     <td>Footer 1</td>
                     <td>Footer 2</td>
                     <td>Footer 3</td>
-                </tr>
-            </tfoot>
-        </table>
-        <br />
-        <h3>Sortable Table</h3>
-        <table class="sortable">
-            <caption>Example table</caption>
-            <thead>
-                <tr>
-                    <th>Strings</th>
-                    <th>Numbers</th>
-                    <th>MM/DD Dates</th>
-                    <th>DD/MM Dates</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Item 1</td>
-                    <td>100.3</td>
-                    <td>1/1/2012</td>
-                    <td>1/1/2012</td>
-                </tr>
-                <tr>
-                    <td>Item 2</td>
-                    <td>2.5</td>
-                    <td>6/21/2014</td>
-                    <td>21/6/2014</td>
-                </tr>
-                <tr>
-                    <td>Item 3</td>
-                    <td>99</td>
-                    <td>8/21/1999</td>
-                    <td>21/8/1999</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td>Footer 1</td>
-                    <td>Footer 2</td>
-                    <td>Footer 3</td>
-                    <td>Footer 4</td>
                 </tr>
             </tfoot>
         </table>
@@ -1665,23 +1625,66 @@
         <div class="hidden-on-desktop show-on-mobile-portrait">
             Shown on mobile portrait
         </div>
-    </div>
-    <div id="ComponentItems">
-        <claritygrid></claritygrid>
+        <hr />
+        <a id="components"></a>
+        <div id="ComponentItems">
+            <h2>Vue Components</h2>
+            <h3>Grid</h3>
+            <form id="search">
+                 Search <input name="query" v-model="searchQuery" /> 
+            </form>
+            <clarity-grid
+                :data="gridData"
+                :columns="gridColumns"
+                :filter-key="searchQuery"
+                class="hover">
+            </clarity-grid>
+        </div>
     </div>
     <script>
         SystemJS.config({
             baseURL: '/js',
             map: {
+                vue: 'vue.min.js',
                 Clarity: 'Clarity.min.js'
             }
         });
         SystemJS.import('Clarity').then(function(Clarity){
             window.clarity.hotkeys.bind('a b c', function(){ console.log('pressed'); });
             window.clarity.validation.initialize();
-        });
-        new Vue({
-            el: '#ComponentItems'
+            new Vue({
+                el: '#ComponentItems',
+                data: {
+                    searchQuery: '',
+                    gridColumns: ['strings', 'numbers', 'dates', 'long name'],
+                    gridData: [
+                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
+                        { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
+                        { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
+                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
+                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
+                        { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
+                        { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
+                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
+                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
+                        { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
+                        { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
+                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
+                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
+                        { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
+                        { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
+                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
+                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
+                        { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
+                        { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
+                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
+                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
+                        { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
+                        { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
+                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' }
+                    ]
+                }
+            });
         });
     </script>
 </body>
