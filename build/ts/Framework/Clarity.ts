@@ -28,7 +28,6 @@
 /// <reference path="../Component/Closer/Closer.ts" />
 /// <reference path="../Component/DropDown/DropDown.ts" />
 /// <reference path="../Component/Mobile/Mobile.ts" />
-/// <reference path="../Component/Modal/Modal.ts" />
 /// <reference path="../Component/Tabs/Tabs.ts" />
 
 module Framework {
@@ -48,7 +47,7 @@ module Framework {
             this.closer = new Closer.Closer();
             this.dropDown = new DropDown.DropDown();
             this.mobile = new Mobile.Mobile();
-            this.modal = new Modal.Modal();
+            // this.modal = new Modal.Modal();
             this.tabs = new Tabs.Tabs();
 
             window.addEventListener("keydown", x => this.hotkeys.press(x));
@@ -62,7 +61,7 @@ module Framework {
         private tabs: Tabs.Tabs;
 
         // the modal component
-        private modal: Modal.Modal;
+        // private modal: Modal.Modal;
 
         // the mobile component
         private mobile: Mobile.Mobile;

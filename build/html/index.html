@@ -71,7 +71,6 @@
             <li class="item"><a href="#contextualBackgrounds">Backgrounds</a></li>
             <li class="item"><a href="#alerts">Alerts</a></li>
             <li class="item"><a href="#panels">Panels</a></li>
-            <li class="item"><a href="#modalBoxes">Modal Boxes</a></li>
             <li class="item"><a href="#tables">Tables</a></li>
             <li class="item"><a href="#quotes">Block Quotes</a></li>
             <li class="item"><a href="#descriptions">Descriptions</a></li>
@@ -389,20 +388,6 @@
                 <input type="button" class="close right" data-close="panel" value="Close" />
                 <input type="button" class="right primary" value="Save" /><br class="clear" />
             </footer>
-        </div>
-        <hr />
-        <a id="modalBoxes"></a>
-        <h2>Modal Boxes</h2>
-        <input type="button" value="Click to open modal" class="primary modal-opener" data-modal="modal1" />
-        <div class="modal" id="modal1">
-            <div class="panel">
-                <header>This is an example modal box</header>
-                <div class="body">This is an example panel with a close button</div>
-                <footer>
-                    <input type="button" class="close right" data-close="modal" value="Close" />
-                    <input type="button" class="right primary" value="Save" /><br class="clear" />
-                </footer>
-            </div>
         </div>
         <hr />
         <a id="tables"></a>
@@ -1627,8 +1612,22 @@
         </div>
         <hr />
         <a id="components"></a>
-        <div id="ComponentItems">
             <h2>Vue Components</h2>
+        <div id="ModalExample">
+            <h3>Modal</h3>
+            <button id="show-modal" v-on:click="showModal = true">Show Modal</button>
+            <clarity-modal
+                :show-modal="showModal"
+                :css-classes="'active'">
+                <div slot="header">Header text</div>
+                <div slot="body">Body text would go here</div>
+                <div slot="footer">
+                    Footer text here
+                    <input type="button" class="close right" value="Close" @click="closeModal" /><br class="clear" />
+                </div>
+            </clarity-modal>
+        </div>
+        <div id="GridExample">
             <h3>Grid</h3>
             <form id="search">
                  Search <input name="query" v-model="searchQuery" /> 
@@ -1653,7 +1652,21 @@
             window.clarity.hotkeys.bind('a b c', function(){ console.log('pressed'); });
             window.clarity.validation.initialize();
             new Vue({
-                el: '#ComponentItems',
+                el: '#ModalExample',
+                data: {
+                    showModal: false
+                },
+                methods: {
+                    showModalFunc: function() {
+                        this.showModal = true;
+                    },
+                    closeModal: function() {
+                        this.showModal = false;
+                    }
+                }
+            })
+            new Vue({
+                el: '#GridExample',
                 data: {
                     searchQuery: '',
                     gridColumns: ['strings', 'numbers', 'dates', 'long name'],
