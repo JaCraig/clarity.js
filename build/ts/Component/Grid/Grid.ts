@@ -180,8 +180,7 @@ declare var Vue: any;
             </thead>
             <tbody>
             <tr v-for="entry in filteredData">
-                <td v-for="key in columns">
-                {{entry[filteredColumn(key)]}}
+                <td v-for="key in columns" v-html="entry[filteredColumn(key)]">
                 </td>
             </tr>
             </tbody>
