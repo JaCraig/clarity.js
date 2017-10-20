@@ -201,6 +201,11 @@
     &.primary .body {
         background-color: @backgroundColor;
         color: @primaryBackground;
+
+        & a {
+            color: @primaryBackground;
+            background-color: clear;
+        }
     }
 
     & header,
@@ -256,33 +261,56 @@
     border-radius: @circularCorners;
 }
 
-.primary, .primary a, .panel.primary header, .panel.primary footer {
+.primary a {
+    color: @primaryColor;
+}
+
+.primary, .panel.primary header, .panel.primary footer {
     color: @primaryColor;
     background-color: @primaryBackground;
 }
 
-.active, .active a {
+.active {
     background-color: @activeBackground;
     color: @activeColor;
 }
 
-.success, .success a {
+.active a {
+    color: @activeColor;
+}
+
+.success {
     background-color: @successBackground;
     color: @successColor;
 }
+.success a {
+    color: @successColor;
+}
 
-.info, .info a {
+.info {
     background-color: @infoBackground;
     color: @infoColor;
 }
 
-.warning, .warning a {
+.info a {
+    color: @infoColor;
+}
+
+.warning {
     background-color: @warningBackground;
     color: @warningColor;
 }
 
-.error, .error a {
+.warning a {
+    color: @warningColor;
+}
+
+.error {
     background-color: @errorBackground;
+    color: @errorColor;
+}
+
+.error a {
     color: @errorColor;
 }
 
