@@ -17,44 +17,68 @@
 /// <reference path="../../Extensions/HTMLElement.ts" />
 /// <reference path="../../Extensions/NodeList.ts" />
 
-module Tabs {
-    export class Tabs implements Component.Interfaces.IComponent {
-        constructor() {
-            document.getElementsByClassName("tabs")
-                    .map(x => {
-                        this.changeTab((<HTMLElement>(<HTMLElement>x).getElementsByClassName("tab").item(0)));
-                        (<Element>x).getElementsByClassName("tab")
-                                    .map(y => {
-                                        y.addEventListener("click", z => {
-                                            z.preventDefault();
-                                            this.changeTab(<HTMLElement>z.target);
-                                            return false;
-                                        });
-                                        if ((<HTMLElement>y).attribute("data-selected") !== null) {
-                                            this.changeTab((<HTMLElement>y));
-                                        }
-                                        return y;
-                                    });
-                        return x;
-                    });
-        }
+module Components {
+    declare var Vue: any;
 
-        private changeTab(target: HTMLElement): void {
-            let tabElement = target.attribute("data-content");
-            target.getParentByClass("tabs")
-                  .getElementsByClassName("tab")
-                  .map(x => {
-                        (<HTMLElement>x).removeClass("selected");
-                   });
-            target.getParentByClass("tabs")
-                  .getElementsByTagName("section")
-                  .map(x => {
-                      (<HTMLElement>x).hide();
-                   });
-            let element = document.getElementById(tabElement);
-            if (!element) { return; }
-            target.addClass("selected");
-            element.show();
-        }
-    }
+    Vue.component("clarity-tabs", {
+        data: function() {
+            if (this.initialSectionPicked === undefined) {
+                this.initialSectionPicked = this.sections[0];
+            }
+            return {
+                sectionPicked: this.initialSectionPicked,
+            };
+        },
+        beforeMount: function() {
+            this.switchSelected(this.initialSectionPicked);
+        },
+        watch: {
+            sections: function(value) {
+                this.switchSelected(this.sectionPicked);
+            },
+        },
+        methods: {
+            switchSelected: function (item) {
+                this.sectionPicked = item;
+                this.switchTabs();
+                this.$emit("section-changed", this.sectionPicked);
+            },
+            switchTabs: function() {
+                if (!this.sections.some(x => x === this.sectionPicked)) {
+                    this.sectionPicked = this.sections[0];
+                }
+                if (this.sectionPicked === undefined) {
+                    return;
+                }
+                this.sectionPicked.selected = true;
+                for (let x = 0; x < this.sections.length; ++x) {
+                    if (this.sectionPicked !== this.sections[x]) {
+                        this.sections[x].selected = false;
+                    }
+                }
+            },
+        },
+        props: {
+            sections: Array,
+            initialSectionPicked: Object,
+        },
+        template: `<div class="tabs">
+                        <header>
+                            <ul class="row flex align-items-stretch">
+                                <li class="flex-item" v-for="section in sections">
+                                    <a href="#!"
+                                        v-on:click.stop.prevent="switchSelected(section)"
+                                        class="tab"
+                                        v-bind:class="{ selected: section.selected }">
+                                            <span v-bind:class="[section.icon]"></span>
+                                            {{section.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </header>
+                        <section>
+                            <slot></slot>
+                        </section>
+                    </div>`,
+    });
 }

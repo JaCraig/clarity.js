@@ -1,23 +1,20 @@
 {
-    "version": "0.1.0",
-    "command": "gulp",
-    "isShellCommand": true,
-    "showOutput": "always",
-    "args": [
-        "--no-color"
-    ],
     "tasks": [
         {
-            "taskName": "default",
-            "isBuildCommand": true,
-            "showOutput": "always",
-            "isBackground": true
+            "type": "gulp",
+            "task": "default",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
-            "taskName": "test",
-            "isTestCommand":true,
-            "showOutput": "always",
-            "isBackground": true
+            "type": "npm",
+            "script": "test",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
         }
     ]
 }

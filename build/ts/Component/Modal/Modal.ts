@@ -18,8 +18,6 @@ module Components {
 
 declare var Vue: any;
 
-    let dateRegex = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
-
     Vue.component("clarity-modal", {
         data: function() {
             return {

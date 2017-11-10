@@ -48,7 +48,7 @@ module Framework {
             this.dropDown = new DropDown.DropDown();
             this.mobile = new Mobile.Mobile();
             // this.modal = new Modal.Modal();
-            this.tabs = new Tabs.Tabs();
+            // this.tabs = new Tabs.Tabs();
 
             window.addEventListener("keydown", x => this.hotkeys.press(x));
             window.addEventListener("load", x => this.validation.initialize(), false);
@@ -58,7 +58,7 @@ module Framework {
         }
 
         // the tabs component
-        private tabs: Tabs.Tabs;
+        // private tabs: Tabs.Tabs;
 
         // the modal component
         // private modal: Modal.Modal;
