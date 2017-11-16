@@ -20,10 +20,10 @@ interface NodeList {
 
 /**
  * Basically runs through a node list, runs a function on it and returns the result
- * 
- * @template TResult 
- * @param {(x: Node) => TResult} callback 
- * @returns {TResult[]} 
+ *
+ * @template TResult
+ * @param {(x: Node) => TResult} callback
+ * @returns {TResult[]}
  */
 NodeList.prototype.map = function <TResult>(callback: (x: Node) => TResult): TResult[] {
     let ReturnValues = [];
@@ -35,9 +35,9 @@ NodeList.prototype.map = function <TResult>(callback: (x: Node) => TResult): TRe
 
 /**
  * Filters a node list based on the function specified
- * 
- * @param {(x: Node) => boolean} callback 
- * @returns {Node[]} 
+ *
+ * @param {(x: Node) => boolean} callback
+ * @returns {Node[]}
  */
 NodeList.prototype.filter = function(callback: (x: Node) => boolean): Node[]{
     let ReturnValues = [];

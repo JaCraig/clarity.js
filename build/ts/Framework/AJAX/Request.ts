@@ -33,6 +33,7 @@ module Framework.AJAX {
             this.headers["Accept"] = "application/json";
             this.parser = x => JSON.parse(x);
             this.serializer = x => JSON.stringify(x);
+            this.cacheStorage = new WebStorage.LocalStorage();
         }
 
         // The parser that the application uses
@@ -64,6 +65,12 @@ module Framework.AJAX {
 
         // Password to use
         private password: string;
+
+        // Cache the results
+        private cacheKey: string;
+
+        // The cache storage to use.
+        private cacheStorage: WebStorage.Interfaces.IStorage;
 
         // GET method.
         public static get(url: string, data?: any): Request {
@@ -124,13 +131,25 @@ module Framework.AJAX {
             return this;
         }
 
+        // Ensures that the result of the request will be cached and used in future requests.
+        public useCache(cacheKey: string): Request {
+            this.cacheKey = cacheKey;
+            return this;
+        }
+
         // Sets the serializer that the request uses
         public setSerializer(serializer: (data: any) => string): Request {
             this.serializer = serializer;
             return this;
         }
 
-        // Sets the user name/password to use when connecting to the server 
+        // Sets the cache to use for the request
+        public setCache(cache: WebStorage.Interfaces.IStorage): Request {
+            this.cacheStorage = cache;
+            return this;
+        }
+
+        // Sets the user name/password to use when connecting to the server
         public setCredentials(user: string, password: string): Request {
             this.user = user;
             this.password = password;
@@ -146,13 +165,25 @@ module Framework.AJAX {
             if (this.success === undefined || this.success === null) {
                 this.success = x => { };
             }
+            if (this.cacheStorage === undefined || this.cacheStorage === null) {
+                this.cacheStorage = new WebStorage.LocalStorage();
+            }
+            if (this.cacheKey !== null && this.cacheKey !== undefined && this.cacheStorage.has(this.cacheKey)) {
+                this.success(this.parser(this.cacheStorage.get(this.cacheKey, "")));
+                return;
+            }
             let request = new XMLHttpRequest();
             request.open(this.method, encodeURI(this.url), true, this.user, this.password);
             for (let property in this.headers) {
-                request.setRequestHeader(property, this.headers[property]);
+                if (this.headers.hasOwnProperty(property)) {
+                    request.setRequestHeader(property, this.headers[property]);
+                }
             }
             request.addEventListener("load", x => {
                 if (request.status === 200) {
+                    if (this.cacheKey !== null && this.cacheKey !== undefined) {
+                        this.cacheStorage.set(this.cacheKey, request.responseText);
+                    }
                     return this.success(this.parser(request.responseText));
                 }
                 return this.error(this.parser(request.responseText));

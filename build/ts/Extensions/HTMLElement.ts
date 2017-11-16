@@ -101,7 +101,7 @@ HTMLElement.prototype.addClass = function (className: string): void {
 
 /**
  * Shows the element
- * 
+ *
  */
 HTMLElement.prototype.show = function (): void {
     this.replaceClass("hidden", "show");
@@ -110,7 +110,6 @@ HTMLElement.prototype.show = function (): void {
 
 /**
  * Hides the element
- * 
  */
 HTMLElement.prototype.hide = function (): void {
     this.replaceClass("show", "hidden");
@@ -119,10 +118,10 @@ HTMLElement.prototype.hide = function (): void {
 
 /**
  * Gets or sets an attribute of the element based on the name specified.
- * 
- * @param {string} name 
- * @param {string} [value=null] 
- * @returns {string} 
+ *
+ * @param {string} name
+ * @param {string} [value=null]
+ * @returns {string}
  */
 HTMLElement.prototype.attribute = function (name: string, value: string = null): string {
     if (value != null) {

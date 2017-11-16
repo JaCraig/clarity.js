@@ -17,7 +17,7 @@
 module Framework.WebStorage {
 
     // Stores data locally on the browser
-    export class LocalStorage {
+    export class LocalStorage implements Interfaces.IStorage {
 
         // sets the value of an item for long term storage
         public set(key: string, value: string): void {
@@ -29,14 +29,14 @@ module Framework.WebStorage {
             this.set(key, JSON.stringify(value));
         }
 
-        // gets a value based on the key specified 
-        public get(key: string, defaultValue: string = ""): any {
+        // gets a value based on the key specified
+        public get(key: string, defaultValue = ""): any {
             return localStorage.getItem(key) || defaultValue;
         }
 
         // Returns true if the key is present in local storage, false otherwise.
         public has(key: string): boolean {
-            return this.get(key) !== undefined;
+            return this.get(key, null) !== null;
         }
 
         // Removes an item from local storage
@@ -54,7 +54,7 @@ module Framework.WebStorage {
             return localStorage.length;
         }
 
-        // Gets the key of the item at the index specified 
+        // Gets the key of the item at the index specified
         public key(index: number): string {
             return localStorage.key(index);
         }

@@ -20,10 +20,10 @@ interface HTMLCollection {
 
 /**
  * Runs a function across all items in a collection and returning the resulting array
- * 
- * @template TResult 
- * @param {(x: Node) => TResult} callback 
- * @returns {TResult[]} 
+ *
+ * @template TResult
+ * @param {(x: Node) => TResult} callback
+ * @returns {TResult[]}
  */
 HTMLCollection.prototype.map = function <TResult>(callback: (x: Node) => TResult): TResult[] {
     let ReturnValues = [];
@@ -35,9 +35,9 @@ HTMLCollection.prototype.map = function <TResult>(callback: (x: Node) => TResult
 
 /**
  * Filters items in a collection by the function passed in and returns the resulting array
- * 
- * @param {(x: Node) => boolean} callback 
- * @returns {Node[]} 
+ *
+ * @param {(x: Node) => boolean} callback
+ * @returns {Node[]}
  */
 HTMLCollection.prototype.filter = function(callback: (x: Node) => boolean): Node[]{
     let ReturnValues = [];

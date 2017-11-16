@@ -4,7 +4,8 @@
   "description": "Clarity is a CSS/Javascript library used to build responsive web pages. Designed to make life a little easier.",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "build": "gulp"
   },
   "repository": {
     "type": "git",

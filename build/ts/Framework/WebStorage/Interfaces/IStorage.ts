@@ -14,55 +14,36 @@
    limitations under the License.
 */
 
-module Framework.WebStorage {
 
-    // Stores data for the session on the browser
-    export class SessionStorage implements Interfaces.IStorage {
+module Framework.WebStorage.Interfaces {
 
+    // Storage interface
+    export interface IStorage {
         // sets the value of an item for long term storage
-        public set(key: string, value: string): void {
-            sessionStorage.setItem(key, value);
-        }
+        set(key: string, value: string): void;
 
         // sets the value of an item for long term storage (used when saving objects)
-        public setObject(key: string, value: any): void {
-            this.set(key, JSON.stringify(value));
-        }
+        setObject(key: string, value: any): void;
 
         // gets a value based on the key specified
-        public get(key: string, defaultValue = ""): any {
-            return sessionStorage.getItem(key) || defaultValue;
-        }
+        get(key: string, defaultValue: string): any;
 
         // Returns true if the key is present in local storage, false otherwise.
-        public has(key: string): boolean {
-            return this.get(key, null) !== null;
-        }
+        has(key: string): boolean;
 
         // Removes an item from local storage
-        public remove(key: string): void {
-            sessionStorage.removeItem(key);
-        }
+        remove(key: string): void;
 
         // Clears local storage of all items
-        public clear(): void {
-            sessionStorage.clear();
-        }
+        clear(): void;
 
         // Returns the number of items in storage
-        get length(): number {
-            return sessionStorage.length;
-        }
+        length: number;
 
         // Gets the key of the item at the index specified
-        public key(index: number): string {
-            return sessionStorage.key(index);
-        }
+        key(index: number): string;
 
         // gets a value based on the key specified (used when saving objects)
-        public getObject(key: string, defaultValue: any= null): any {
-            let value = this.get(key);
-            return (value && JSON.parse(value)) || defaultValue;
-        }
+        getObject(key: string, defaultValue: any): any;
     }
 }

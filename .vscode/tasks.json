@@ -1,18 +1,18 @@
 {
     "tasks": [
         {
-            "type": "gulp",
-            "task": "default",
+            "type": "npm",
+            "script": "test",
             "group": {
-                "kind": "build",
+                "kind": "test",
                 "isDefault": true
             }
         },
         {
             "type": "npm",
-            "script": "test",
+            "script": "build",
             "group": {
-                "kind": "test",
+                "kind": "build",
                 "isDefault": true
             }
         }
