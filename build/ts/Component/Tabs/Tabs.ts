@@ -62,7 +62,7 @@ module Components {
             sections: Array,
             initialSectionPicked: Object,
         },
-        template: `<div class="tabs">
+        template: `<div class="tabs" v-cloak>
                         <header>
                             <ul class="row flex align-items-stretch">
                                 <li class="flex-item" v-for="section in sections">

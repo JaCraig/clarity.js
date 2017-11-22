@@ -29,7 +29,7 @@ module Framework.Validation {
             this.messageAttributes["rangeOverflow"] = "data-error-message-range-overflow";
             this.messageAttributes["rangeUnderflow"] = "data-error-message-range-underflow";
             this.messageAttributes["stepMismatch"] = "data-error-message-step-mismatch";
-            this.messageAttributes["tooLong"] = "data-error-message-too-long";  
+            this.messageAttributes["tooLong"] = "data-error-message-too-long";
             this.messageAttributes["badInput"] = "data-error-message-bad-input";
             this.messageAttributes["typeMismatch"] = "data-error-message-type-mismatch";
             this.messageAttributes["valueMissing"] = "data-error-message-value-missing";

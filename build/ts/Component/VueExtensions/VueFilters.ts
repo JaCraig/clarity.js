@@ -14,9 +14,21 @@
    limitations under the License.
 */
 
-module Types {
-    // Dictionary helper class
-    export class StringDictionary<VALUET> {
-        [key: string]: VALUET;
-    }
+module Components {
+    declare var Vue: any;
+    declare var moment: any;
+
+    Vue.filter("moment", function (date, format) {
+        if (!date) {
+            return "N/A";
+        }
+        return moment(date, "YYYY-MM-DDThh:mm:ss").format(format);
+    });
+
+    Vue.filter("capitalize", function (str) {
+        if (!str) {
+            return "";
+        }
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    });
 }

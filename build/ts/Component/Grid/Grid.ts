@@ -65,11 +65,6 @@ declare var Vue: any;
                 sortOrders: sortOrders,
             };
         },
-        filters: {
-            capitalize: function (str) {
-                return str.charAt(0).toUpperCase() + str.slice(1);
-            },
-        },
         methods: {
             filteredColumn: function(key) {
                 return key.replace(/\s+/g, "");
@@ -166,7 +161,7 @@ declare var Vue: any;
             data: Array,
             filterKey: String,
         },
-        template: `<table class="sortable">
+        template: `<table class="sortable" v-cloak>
             <thead>
             <tr>
                 <th v-for="key in columns"

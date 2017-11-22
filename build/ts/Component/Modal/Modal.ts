@@ -37,7 +37,7 @@ declare var Vue: any;
                 type: Boolean,
             },
         },
-        template: `<div :class="{'modal': true, 'show': showModal}">
+        template: `<div :class="{'modal': true, 'show': showModal}" v-cloak>
             <div :class="['panel', classes]">
                 <header><slot name="header">Header</slot></header>
                 <div class="body"><slot name="body">Body</slot></div>

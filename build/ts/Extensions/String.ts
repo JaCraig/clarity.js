@@ -14,9 +14,10 @@
    limitations under the License.
 */
 
-module Types {
-    // Dictionary helper class
-    export class StringDictionary<VALUET> {
-        [key: string]: VALUET;
-    }
+interface String {
+    slugify(): String;
 }
+
+String.prototype.slugify = function(): String {
+    return this.trim().replace(/ /g, "-").replace(/-{2,}/g, "-").replace(/^-+|-+$/g, "").replace(/([^a-zA-Z0-9-_/./:]+)/g, "");
+};
