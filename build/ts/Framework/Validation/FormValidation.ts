@@ -30,6 +30,7 @@ module Framework.Validation {
             this.messageAttributes["rangeUnderflow"] = "data-error-message-range-underflow";
             this.messageAttributes["stepMismatch"] = "data-error-message-step-mismatch";
             this.messageAttributes["tooLong"] = "data-error-message-too-long";
+            this.messageAttributes["tooShort"] = "data-error-message-too-short";
             this.messageAttributes["badInput"] = "data-error-message-bad-input";
             this.messageAttributes["typeMismatch"] = "data-error-message-type-mismatch";
             this.messageAttributes["valueMissing"] = "data-error-message-value-missing";
@@ -47,21 +48,21 @@ module Framework.Validation {
             for (let x = 0; x < inputElements.length; ++x) {
                 if (inputElements[x].type.toUpperCase() === "RADIO"
                     || inputElements[x].type.toUpperCase() === "CHECKBOX") {
-                    inputElements[x].addEventListener("change", x => this.inputHandler(<HTMLInputElement>x.target));
+                    inputElements[x].addEventListener("change", y => this.inputHandler(<HTMLInputElement>y.target));
                 } else {
-                    inputElements[x].addEventListener("input", x => this.inputHandler(<HTMLInputElement>x.target));
+                    inputElements[x].addEventListener("input", y => this.inputHandler(<HTMLInputElement>y.target));
                 }
-                inputElements[x].addEventListener("invalid", x => this.invalidInputHandler(<HTMLInputElement>x.target));
+                inputElements[x].addEventListener("invalid", y => this.invalidInputHandler(<HTMLInputElement>y.target));
             }
             let textAreaElements = document.getElementsByTagName("textarea").map(x => <HTMLTextAreaElement>x).filter(x => x.willValidate);
             for (let x = 0; x < textAreaElements.length; ++x) {
-                textAreaElements[x].addEventListener("change", x => this.textAreaHandler(<HTMLTextAreaElement>x.target));
-                textAreaElements[x].addEventListener("invalid", x => this.invalidTextAreaHandler(<HTMLTextAreaElement>x.target));
+                textAreaElements[x].addEventListener("change", y => this.textAreaHandler(<HTMLTextAreaElement>y.target));
+                textAreaElements[x].addEventListener("invalid", y => this.invalidTextAreaHandler(<HTMLTextAreaElement>y.target));
             }
             let selectElements = document.getElementsByTagName("select").map(x => <HTMLSelectElement>x).filter(x => x.willValidate);
             for (let x = 0; x < selectElements.length; ++x) {
-                selectElements[x].addEventListener("change", x => this.selectHandler(<HTMLSelectElement>x.target));
-                selectElements[x].addEventListener("invalid", x => this.invalidSelectHandler(<HTMLSelectElement>x.target));
+                selectElements[x].addEventListener("change", y => this.selectHandler(<HTMLSelectElement>y.target));
+                selectElements[x].addEventListener("invalid", y => this.invalidSelectHandler(<HTMLSelectElement>y.target));
             }
         }
 
@@ -71,21 +72,21 @@ module Framework.Validation {
             for (let x = 0; x < inputElements.length; ++x) {
                 if (inputElements[x].type.toUpperCase() === "RADIO"
                     || inputElements[x].type.toUpperCase() === "CHECKBOX") {
-                    inputElements[x].addEventListener("change", x => this.inputHandler(<HTMLInputElement>x.target));
+                    inputElements[x].addEventListener("change", y => this.inputHandler(<HTMLInputElement>y.target));
                 } else {
-                    inputElements[x].addEventListener("input", x => this.inputHandler(<HTMLInputElement>x.target));
+                    inputElements[x].addEventListener("input", y => this.inputHandler(<HTMLInputElement>y.target));
                 }
-                inputElements[x].addEventListener("invalid", x => this.invalidInputHandler(<HTMLInputElement>x.target));
+                inputElements[x].addEventListener("invalid", y => this.invalidInputHandler(<HTMLInputElement>y.target));
             }
             let textAreaElements = form.getElementsByTagName("textarea").map(x => <HTMLTextAreaElement>x).filter(x => x.willValidate);
             for (let x = 0; x < textAreaElements.length; ++x) {
-                textAreaElements[x].addEventListener("change", x => this.textAreaHandler(<HTMLTextAreaElement>x.target));
-                textAreaElements[x].addEventListener("invalid", x => this.invalidTextAreaHandler(<HTMLTextAreaElement>x.target));
+                textAreaElements[x].addEventListener("change", y => this.textAreaHandler(<HTMLTextAreaElement>y.target));
+                textAreaElements[x].addEventListener("invalid", y => this.invalidTextAreaHandler(<HTMLTextAreaElement>y.target));
             }
             let selectElements = form.getElementsByTagName("select").map(x => <HTMLSelectElement>x).filter(x => x.willValidate);
             for (let x = 0; x < selectElements.length; ++x) {
-                selectElements[x].addEventListener("change", x => this.selectHandler(<HTMLSelectElement>x.target));
-                selectElements[x].addEventListener("invalid", x => this.invalidSelectHandler(<HTMLSelectElement>x.target));
+                selectElements[x].addEventListener("change", y => this.selectHandler(<HTMLSelectElement>y.target));
+                selectElements[x].addEventListener("invalid", y => this.invalidSelectHandler(<HTMLSelectElement>y.target));
             }
         }
 

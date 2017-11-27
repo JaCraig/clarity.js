@@ -32,6 +32,14 @@ module Components {
             getFieldType: function(field) {
                 return "clarity-form-field-" + field.type;
             },
+            getModelValue: function(field) {
+                return this.model[field.model];
+            },
+            setModelValue: function(newValue, field) {
+                this.model[field.model] = newValue;
+                this.revalidate();
+                this.$emit("changed", this.model);
+            },
         },
         watch: {
             model: function(newModel, oldModel) {
@@ -50,7 +58,11 @@ module Components {
                             <slot name="validationHeader">The following errors were found</slot>
                         </clarity-form-validator>
                         <div v-for="item in schema.fields">
-                            <component :is="getFieldType(item)" :schema="item" :model="model"></component>
+                            <component :is="getFieldType(item)"
+                                       :schema="item"
+                                       :model="getModelValue(item)"
+                                       @changed="setModelValue">
+                            </component>
                         </div>
                     </div>`,
     });

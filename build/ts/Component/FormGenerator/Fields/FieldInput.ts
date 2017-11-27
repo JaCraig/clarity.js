@@ -25,7 +25,6 @@ module Components {
             model: Object,
             schema: Object,
             formOptions: Array,
-            disabled: Boolean,
         },
         methods: {
             getFieldID: function() {
@@ -34,15 +33,73 @@ module Components {
                 }
                 return this.schema.model.slugify();
             },
+            changed: function(newValue) {
+                this.$emit("changed", newValue, this.schema);
+            },
+            getList: function() {
+                if (this.schema.datalist !== undefined) {
+                    return this.getFieldID() + "-list";
+                } else {
+                    return null;
+                }
+            },
         },
         template: `<div>
                         <label :for="getFieldID()" v-if="!schema.label" :class="schema.labelClasses">
                             {{ schema.model | capitalize }}
+                            <i class="clear-background info fa-info-circle no-border small" v-if="schema.hint">{{ schema.hint }}</i>
                         </label>
                         <label :for="getFieldID()" v-if="schema.label" :class="schema.labelClasses">
                             {{ schema.label }}
+                            <i class="clear-background info fa-info-circle no-border small" v-if="schema.hint">{{ schema.hint }}</i>
                         </label>
-                        <input :id="getFieldID()" />
+                        <input :id="getFieldID()"
+                               :type="schema.inputType"
+                               :value="model"
+                               @input="changed($event.target.value)"
+                               :disabled="schema.disabled"
+                               :accept="schema.accept"
+                               :alt="schema.alt"
+                               :autocomplete="schema.autocomplete"
+                               :checked="schema.checked"
+                               :dirname="schema.dirname"
+                               :formaction="schema.formaction"
+                               :formenctype="schema.formenctype"
+                               :formmethod="schema.formmethod"
+                               :formnovalidate="schema.formnovalidate"
+                               :formtarget="schema.formtarget"
+                               :height="schema.height"
+                               :list="getList()"
+                               :max="schema.max"
+                               :maxlength="schema.maxlength"
+                               :min="schema.min"
+                               :minlength="schema.minlength"
+                               :multiple="schema.multiple"
+                               :name="schema.inputName"
+                               :pattern="schema.pattern"
+                               :placeholder="schema.placeholder"
+                               :title="schema.placeholder"
+                               :readonly="schema.readonly"
+                               :required="schema.required"
+                               :size="schema.size"
+                               :src="schema.src"
+                               :step="schema.step"
+                               :width="schema.width"
+                               :files="schema.files"
+                               :data-error-message-value-missing="schema.errorMessageValueMissing"
+                               :data-error-message-pattern-mismatch="schema.errorMessagePatternMismatch"
+                               :data-error-message-range-overflow="schema.errorMessageRangeOverflow"
+                               :data-error-message-range-underflow="schema.errorMessageRangeUnderflow"
+                               :data-error-message-step-mismatch="schema.errorMessageStepMismatch"
+                               :data-error-message-too-long="schema.errorMessageTooLong"
+                               :data-error-message-too-short="schema.errorMessageTooShort"
+                               :data-error-message-bad-input="schema.errorMessageBadInput"
+                               :data-error-message-type-mismatch="schema.errorMessageTypeMismatch"
+                               />
+                        <div class="text-center" v-if="schema.inputType === 'color' || schema.inputType === 'range'">{{ model }}</div>
+                        <datalist v-if="schema.datalist" :id="getList()">
+                            <option v-for="item in schema.datalist" :value="item" />
+                        </datalist>
                     </div>`,
     });
 }

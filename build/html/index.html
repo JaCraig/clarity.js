@@ -1629,7 +1629,7 @@
         <div id="FormGenerationExample"  v-cloak>
             <h3>Form Generator</h3>
             <form action="" class="stacked">
-                <clarity-form-generator :schema="schema" :model="model"><span slot="validationHeader">DANGER! DANGER WILL ROBINSON!</span></clarity-form-generator>
+                <clarity-form-generator :schema="schema" :model="model" @changed="changed"><span slot="validationHeader">DANGER! DANGER WILL ROBINSON!</span></clarity-form-generator>
             </form>
         </div>
     </div>
@@ -1665,7 +1665,12 @@
                         password: "ABC123",
                         skills: ["Something","Another Thing"],
                         email: "jane.doe@gmail.com",
-                        status: true
+                        status: true,
+                        color: "",
+                        range: "",
+                        date: "",
+                        datetime:"",
+                        checkbox:""
                     },
                     schema: {
                         fields: [{
@@ -1677,18 +1682,41 @@
                             disabled: true
                         },{
                             type: "input",
+                            inputType: "color",
+                            model: "color",
+                        },{
+                            type: "input",
+                            inputType: "range",
+                            model: "range",
+                        },{
+                            type: "input",
+                            inputType: "checkbox",
+                            model: "checkbox",
+                        },{
+                            type: "input",
+                            inputType: "date",
+                            model: "date",
+                        },{
+                            type: "input",
+                            inputType: "datetime-local",
+                            model: "datetime",
+                        },{
+                            type: "input",
                             inputType: "text",
                             model: "name",
                             placeholder: "Your name",
-                            featured: true,
-                            required: true
+                            required: true,
+                            errorMessageValueMissing: "Name is required",
+                            datalist: ["value1","value2","Something"]
                         },{
                             type: "input",
                             inputType: "password",
                             model: "password",
-                            min: 6,
+                            minlength: 6,
                             required: true,
                             hint: "Minimum 6 characters",
+                            errorMessageValueMissing: "Password is required",
+                            errorMessageTooShort: "Password must be at least 6 characters"
                         },{
                             type: "select",
                             model: "skills",      
@@ -1707,6 +1735,9 @@
                     }
                 },
                 methods: {
+                    changed: function(newModel) {
+                        this.model = newModel;
+                    }
                 }
             });
             new Vue({

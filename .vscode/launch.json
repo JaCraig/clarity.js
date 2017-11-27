@@ -7,6 +7,14 @@
 			"request": "launch",
 			"url": "http://localhost:8080/index.html",
 			"sourceMaps": true
+		},
+		{
+			"name": "Launch localhost in FireFox",
+			"type":"firefox",
+			"request": "launch",
+			"url": "http://localhost:8080/index.html",
+			"sourceMaps": "server",
+			"webRoot": "${workspaceFolder}"
 		}
 	]
 }
