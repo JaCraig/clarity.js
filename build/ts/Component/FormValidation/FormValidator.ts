@@ -26,9 +26,6 @@ module Components {
                 errorMessages: [],
             };
         },
-        beforeMount: function () {
-            this.revalidate();
-        },
         mounted: function () {
             this.$nextTick(function () {
                 this.revalidate();
@@ -36,12 +33,27 @@ module Components {
         },
         methods: {
             revalidate: function () {
-                if (!window.clarity.validation.validate()) {
+                if (this.$el === null || this.$el === undefined) {
+                    return true;
+                }
+                let FormElement = this.getParentForm(this.$el);
+                if (FormElement !== null && window.clarity.validation.validateForm(FormElement).length > 0) {
+                    this.errorMessages = window.clarity.validation.validateForm(FormElement);
+                    return false;
+                } else if (FormElement === null && !window.clarity.validation.validate()) {
                     this.errorMessages = window.clarity.validation.errors;
                     return false;
                 } else {
                     this.errorMessages = [];
                     return true;
+                }
+            },
+            getParentForm: function (element) {
+                let CurrentParent = element.parentNode;
+                if (CurrentParent.nodeName === "FORM" || CurrentParent === null) {
+                    return CurrentParent;
+                } else {
+                    return this.getParentForm(CurrentParent);
                 }
             },
         },

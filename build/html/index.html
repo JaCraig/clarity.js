@@ -4,11 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Clarity CSS Framework</title>
-    <script src="js/es6-promise.js"></script>
-    <script src="js/system.js"></script>
     <script src="js/vue.min.js"></script>
-    <script src="js/moment.min.js"></script>
-    <!-- <script src="js/VueDirectives.js"></script> -->
     <link rel="stylesheet" href="css/clarity.min.css">
     <style>
         .mainContent {
@@ -1569,7 +1565,7 @@
         <div id="GridExample"  v-cloak>
             <h3>Grid</h3>
             <form id="search">
-                 Search <input name="query" v-model="searchQuery" /> 
+                 Search <input name="query" v-model="searchQuery" type="text" /> 
             </form>
             <clarity-grid
                 :data="gridData"
@@ -1618,8 +1614,8 @@
         </div>
         <div id="FormValidationExample"  v-cloak>
             <h3>Form Validation</h3>
-            <clarity-form-validator ref="validation">The following errors were found</clarity-form-validator>
             <form action="" class="stacked">
+                <clarity-form-validator ref="validation">The following errors were found</clarity-form-validator>
                 <label for="Name">Name</label>
                 <input type="text" v-model="name" name="Name" id="Name" required data-error-message-value-missing="Name is required." v-on:change="revalidate" />
                 <label for="Password">Password</label>
@@ -1631,211 +1627,213 @@
             <form action="" class="stacked">
                 <clarity-form-generator :schema="schema" :model="model" @changed="changed"><span slot="validationHeader">DANGER! DANGER WILL ROBINSON!</span></clarity-form-generator>
             </form>
+            <pre v-html="JSON.stringify(model, undefined, 4)"></pre>
         </div>
     </div>
+    <script src="js/Clarity.min.js"></script>
     <script>
-        SystemJS.config({
-            baseURL: '/js',
-            map: {
-                vue: 'vue.min.js',
-                Clarity: 'clarity.min.js'
+        window.clarity = window.clarity || new Framework.Clarity();
+        window.clarity.hotkeys.bind('a b c', function(){ console.log('pressed'); });
+        window.clarity.validation.initialize();
+        new Vue({
+            el: '#FormValidationExample',
+            data: {
+                name: '',
+                password: ''
+            },
+            methods: {
+                revalidate: function() {
+                    return this.$refs.validation.revalidate();
+                }
             }
         });
-        SystemJS.import('Clarity').then(function(Clarity){
-            window.clarity.hotkeys.bind('a b c', function(){ console.log('pressed'); });
-            window.clarity.validation.initialize();
-            new Vue({
-                el: '#FormValidationExample',
-                data: {
-                    name: '',
-                    password: ''
+        new Vue({
+            el: '#FormGenerationExample',
+            data: {
+                model: {
+                    id: 1,
+                    name: "Jane Doe",
+                    password: "ABC123",
+                    skills: [0,1],
+                    email: "jane.doe@gmail.com",
+                    status: true,
+                    date: "",
+                    options: "CSS3",
+                    description: "This is a description about Jane Doe.",
+                    files: [],
                 },
-                methods: {
-                    revalidate: function() {
-                        return this.$refs.validation.revalidate();
-                    }
+                schema: {
+                    fields: [{
+                        type: "input",
+                        inputType: "text",
+                        label: "ID (disabled text field)",
+                        model: "id",
+                        readonly: true,         
+                        disabled: true
+                    },{
+                        type: "input",
+                        inputType: "date",
+                        labelClasses: "fa-calendar",
+                        model: "date",
+                        inputClasses: "extra-large"
+                    },{
+                        type: "input",
+                        inputType: "text",
+                        model: "name",
+                        labelClasses: "fa-user",
+                        placeholder: "Your name",
+                        required: true,
+                        errorMessageValueMissing: "Name is required",
+                        datalist: ["value1","value2","Something"]
+                    },{
+                        type: "input",
+                        inputType: "password",
+                        model: "password",
+                        labelClasses: "fa-key",
+                        minlength: 6,
+                        required: true,
+                        hint: "Minimum 6 characters",
+                        errorMessageValueMissing: "Password is required",
+                        errorMessageTooShort: "Password must be at least 6 characters"
+                    },{
+                        type: "select",
+                        model: "skills",      
+                        values: [ { key: 0, value: "Javascript"},
+                                    { key: 1, value: "VueJS"},
+                                    { key: 2, value: "CSS3"},
+                                    { key: 3, value: "HTML5"},
+                                    { key: 4, value: "Something"},
+                                    { key: 5, value: "Another Thing"}],
+                        multiple: true,
+                    },{
+                        type: "input",
+                        inputType: "email",
+                        label: "E-mail",
+                        labelClasses: "fa-envelope",
+                        model: "email",
+                        placeholder: "User's e-mail address"
+                    },{
+                        type: "checkbox",
+                        model: "status",
+                        default: true
+                    },{
+                        type: "radio",
+                        model: "options",
+                        values: ["Javascript", "VueJS", "CSS3"]
+                    },{
+                        type: "textarea",
+                        model: "description",
+                        labelClasses: "fa-bullhorn",
+                        maxlength: 200
+                    },{
+                        type: "upload",
+                        model: "files",
+                        multiple: true,
+                        placeholder: "Please Drop Files Here To Upload"
+                    }]
                 }
-            });
-            new Vue({
-                el: '#FormGenerationExample',
-                data: {
-                    model: {
-                        id: 1,
-                        name: "Jane Doe",
-                        password: "ABC123",
-                        skills: ["Something","Another Thing"],
-                        email: "jane.doe@gmail.com",
-                        status: true,
-                        color: "",
-                        range: "",
-                        date: "",
-                        datetime:"",
-                        checkbox:""
-                    },
-                    schema: {
-                        fields: [{
-                            type: "input",
-                            inputType: "text",
-                            label: "ID (disabled text field)",
-                            model: "id",
-                            readonly: true,         
-                            disabled: true
-                        },{
-                            type: "input",
-                            inputType: "color",
-                            model: "color",
-                        },{
-                            type: "input",
-                            inputType: "range",
-                            model: "range",
-                        },{
-                            type: "input",
-                            inputType: "checkbox",
-                            model: "checkbox",
-                        },{
-                            type: "input",
-                            inputType: "date",
-                            model: "date",
-                        },{
-                            type: "input",
-                            inputType: "datetime-local",
-                            model: "datetime",
-                        },{
-                            type: "input",
-                            inputType: "text",
-                            model: "name",
-                            placeholder: "Your name",
-                            required: true,
-                            errorMessageValueMissing: "Name is required",
-                            datalist: ["value1","value2","Something"]
-                        },{
-                            type: "input",
-                            inputType: "password",
-                            model: "password",
-                            minlength: 6,
-                            required: true,
-                            hint: "Minimum 6 characters",
-                            errorMessageValueMissing: "Password is required",
-                            errorMessageTooShort: "Password must be at least 6 characters"
-                        },{
-                            type: "select",
-                            model: "skills",      
-                            values: ["Javascript", "VueJS", "CSS3", "HTML5","Something","Another Thing"]
-                        },{
-                            type: "input",
-                            inputType: "email",
-                            label: "E-mail",
-                            model: "email",
-                            placeholder: "User's e-mail address"
-                        },{
-                            type: "checkbox",
-                            model: "status",
-                            default: true
-                        }]
-                    }
+            },
+            methods: {
+                changed: function(newModel) {
+                    this.model = newModel;
                 },
-                methods: {
-                    changed: function(newModel) {
-                        this.model = newModel;
-                    }
-                }
-            });
-            new Vue({
-                el: '#VerticalTabExample',
-                data: {
-                    sections: [
-                        { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'News Item 1', url: 'http://www.google.com', info: 'My info' } ] },
-                        { icon: 'fa-file', name: 'Tab2', selected: false, results: [ { title: 'News Item 2', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 3', url: 'http://www.google.com', info: 'My info' } ] },
-                        { icon: 'fa-file', name: 'Tab3', selected: false, results: [ { title: 'News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 6', url: 'http://www.google.com', info: 'My info' } ] },
-                    ],
-                    sectionPicked: { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'Initial data', url: 'http://www.google.com', info: 'My initial data' } ] },
+            }
+        });
+        new Vue({
+            el: '#VerticalTabExample',
+            data: {
+                sections: [
+                    { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'News Item 1', url: 'http://www.google.com', info: 'My info' } ] },
+                    { icon: 'fa-file', name: 'Tab2', selected: false, results: [ { title: 'News Item 2', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 3', url: 'http://www.google.com', info: 'My info' } ] },
+                    { icon: 'fa-file', name: 'Tab3', selected: false, results: [ { title: 'News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 6', url: 'http://www.google.com', info: 'My info' } ] },
+                ],
+                sectionPicked: { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'Initial data', url: 'http://www.google.com', info: 'My initial data' } ] },
+            },
+            methods: {
+                sectionChanged: function(newSection) {
+                    this.sectionPicked = newSection;
                 },
-                methods: {
-                    sectionChanged: function(newSection) {
-                        this.sectionPicked = newSection;
-                    },
-                    modifySections: function() {
-                        this.sections=[
-                            { icon: 'fa-file', name: 'New Tab1', selected: false, results: [ { title: 'New News Item 1', url: 'http://www.google.com', info: 'My info' } ] },
-                            { icon: 'fa-file', name: 'New Tab2', selected: false, results: [ { title: 'New News Item 2', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 3', url: 'http://www.google.com', info: 'My info' } ] },
-                            { icon: 'fa-file', name: 'New Tab3', selected: false, results: [ { title: 'New News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 6', url: 'http://www.google.com', info: 'My info' } ] },
-                        ];
-                    }
+                modifySections: function() {
+                    this.sections=[
+                        { icon: 'fa-file', name: 'New Tab1', selected: false, results: [ { title: 'New News Item 1', url: 'http://www.google.com', info: 'My info' } ] },
+                        { icon: 'fa-file', name: 'New Tab2', selected: false, results: [ { title: 'New News Item 2', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 3', url: 'http://www.google.com', info: 'My info' } ] },
+                        { icon: 'fa-file', name: 'New Tab3', selected: false, results: [ { title: 'New News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 6', url: 'http://www.google.com', info: 'My info' } ] },
+                    ];
                 }
-            });
-            new Vue({
-                el: '#TabExample',
-                data: {
-                    sections: [
-                        { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'News Item 1', url: 'http://www.google.com', info: 'My info' } ] },
-                        { icon: 'fa-file', name: 'Tab2', selected: false, results: [ { title: 'News Item 2', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 3', url: 'http://www.google.com', info: 'My info' } ] },
-                        { icon: 'fa-file', name: 'Tab3', selected: false, results: [ { title: 'News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 6', url: 'http://www.google.com', info: 'My info' } ] },
-                    ],
-                    sectionPicked: { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'Initial data', url: 'http://www.google.com', info: 'My initial data' } ] },
+            }
+        });
+        new Vue({
+            el: '#TabExample',
+            data: {
+                sections: [
+                    { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'News Item 1', url: 'http://www.google.com', info: 'My info' } ] },
+                    { icon: 'fa-file', name: 'Tab2', selected: false, results: [ { title: 'News Item 2', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 3', url: 'http://www.google.com', info: 'My info' } ] },
+                    { icon: 'fa-file', name: 'Tab3', selected: false, results: [ { title: 'News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 6', url: 'http://www.google.com', info: 'My info' } ] },
+                ],
+                sectionPicked: { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'Initial data', url: 'http://www.google.com', info: 'My initial data' } ] },
+            },
+            methods: {
+                sectionChanged: function(newSection) {
+                    this.sectionPicked = newSection;
                 },
-                methods: {
-                    sectionChanged: function(newSection) {
-                        this.sectionPicked = newSection;
-                    },
-                    modifySections: function() {
-                        this.sections=[
-                            { icon: 'fa-file', name: 'New Tab1', selected: false, results: [ { title: 'New News Item 1', url: 'http://www.google.com', info: 'My info' } ] },
-                            { icon: 'fa-file', name: 'New Tab2', selected: false, results: [ { title: 'New News Item 2', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 3', url: 'http://www.google.com', info: 'My info' } ] },
-                            { icon: 'fa-file', name: 'New Tab3', selected: false, results: [ { title: 'New News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 6', url: 'http://www.google.com', info: 'My info' } ] },
-                        ];
-                    }
+                modifySections: function() {
+                    this.sections=[
+                        { icon: 'fa-file', name: 'New Tab1', selected: false, results: [ { title: 'New News Item 1', url: 'http://www.google.com', info: 'My info' } ] },
+                        { icon: 'fa-file', name: 'New Tab2', selected: false, results: [ { title: 'New News Item 2', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 3', url: 'http://www.google.com', info: 'My info' } ] },
+                        { icon: 'fa-file', name: 'New Tab3', selected: false, results: [ { title: 'New News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 6', url: 'http://www.google.com', info: 'My info' } ] },
+                    ];
                 }
-            });
-            new Vue({
-                el: '#ModalExample',
-                data: {
-                    showModal: false
+            }
+        });
+        new Vue({
+            el: '#ModalExample',
+            data: {
+                showModal: false
+            },
+            methods: {
+                showModalFunc: function() {
+                    this.showModal = true;
                 },
-                methods: {
-                    showModalFunc: function() {
-                        this.showModal = true;
-                    },
-                    closeModal: function() {
-                        this.showModal = false;
-                    },
-                    showConsoleMessage: function() {
-                        console.log('clicked outside of the button');
-                    }
+                closeModal: function() {
+                    this.showModal = false;
+                },
+                showConsoleMessage: function() {
+                    console.log('clicked outside of the button');
                 }
-            });
-            new Vue({
-                el: '#GridExample',
-                data: {
-                    searchQuery: '',
-                    gridColumns: ['strings', 'numbers', 'dates', 'long name'],
-                    gridData: [
-                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
-                        { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
-                        { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
-                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
-                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
-                        { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
-                        { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
-                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
-                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
-                        { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
-                        { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
-                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
-                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
-                        { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
-                        { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
-                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
-                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
-                        { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
-                        { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
-                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
-                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
-                        { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
-                        { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
-                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' }
-                    ]
-                }
-            });
+            }
+        });
+        new Vue({
+            el: '#GridExample',
+            data: {
+                searchQuery: '',
+                gridColumns: ['strings', 'numbers', 'dates', 'long name'],
+                gridData: [
+                    { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
+                    { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
+                    { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
+                    { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
+                    { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
+                    { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
+                    { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
+                    { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
+                    { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
+                    { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
+                    { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
+                    { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
+                    { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
+                    { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
+                    { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
+                    { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
+                    { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
+                    { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
+                    { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
+                    { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' },
+                    { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',longname: '1' },
+                    { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',longname: '2' },
+                    { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',longname: '3' },
+                    { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',longname: '4' }
+                ]
+            }
         });
     </script>
 </body>

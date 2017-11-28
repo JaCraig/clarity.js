@@ -162,18 +162,30 @@ module Framework.Validation {
         }
 
         // Validates all elements in the form, returning false if there are errors, true otherwise.
-        public validateForm(form: HTMLFormElement): boolean {
-            let result = true;
+        public validateForm(form: HTMLFormElement): String[] {
+            let result = [];
             this.errors = [];
             let inputElements = form.getElementsByTagName("input")
-                                    .filter(x => !this.validateInput((<HTMLInputElement>x)));
-            result = result && inputElements.length === 0;
+                                    .filter(x => !this.validateInput((<HTMLInputElement>x)))
+                                    .map(x => this.getErrorMessages(<HTMLInputElement>x, (<HTMLInputElement>x).validity))
+                                    .filter(x => x.length !== 0);
+            for (let x = 0; x < inputElements.length; ++x) {
+                result = result.concat(inputElements[x]);
+            }
             let selectElements = form.getElementsByTagName("select")
-                                     .filter(x => !this.validateSelect((<HTMLSelectElement>x)));
-            result = result && selectElements.length === 0;
+                                     .filter(x => !this.validateSelect((<HTMLSelectElement>x)))
+                                     .map(x => this.getErrorMessages(<HTMLSelectElement>x, (<HTMLSelectElement>x).validity))
+                                     .filter(x => x.length !== 0);
+            for (let x = 0; x < selectElements.length; ++x) {
+                result = result.concat(selectElements[x]);
+            }
             let textareaElements = form.getElementsByTagName("textarea")
-                                     .filter(x => !this.validateTextArea((<HTMLTextAreaElement>x)));
-            result = result && textareaElements.length === 0;
+                                       .filter(x => !this.validateTextArea((<HTMLTextAreaElement>x)))
+                                       .map(x => this.getErrorMessages(<HTMLTextAreaElement>x, (<HTMLTextAreaElement>x).validity))
+                                       .filter(x => x.length !== 0);
+            for (let x = 0; x < textareaElements.length; ++x) {
+                result = result.concat(textareaElements[x]);
+            }
             return result;
         }
 
