@@ -15,6 +15,8 @@
 */
 
 /// <reference path="../FormValidation/FormValidator.ts" />
+/// <reference path="../../Extensions/Object.ts" />
+/// <reference path="../../Framework/AJAX/Request.ts" />
 
 module Components {
 
@@ -24,21 +26,53 @@ module Components {
         props: {
             schema: Object,
             model: Object,
+            action: {
+                default: "",
+                type: String,
+            },
+            ajaxAction: {
+                default: "",
+                type: String,
+            },
         },
         methods: {
             revalidate: function() {
                 return this.$refs.validation.revalidate();
             },
-            getFieldType: function(field) {
-                return "clarity-form-field-" + field.type;
-            },
-            getModelValue: function(field) {
-                return this.model[field.model];
-            },
             setModelValue: function(newValue, field) {
-                this.model[field.model] = newValue;
+                this.model = newValue;
                 this.revalidate();
                 this.$emit("changed", this.model);
+            },
+            buttonClicked: function(event, field) {
+                this.revalidate();
+                this.$emit("click", event, field);
+            },
+            reset: function() {
+                let that = this;
+                setTimeout(function() {
+                    that.revalidate();
+                }, 100);
+            },
+            submit: function(event) {
+                if (!this.revalidate()) {
+                    event.preventDefault();
+                    return false;
+                }
+                if (this.ajaxAction) {
+                    let that = this;
+                    Framework.AJAX.Request.post(this.ajaxAction, this.model)
+                                            .onSuccess(function (x) {
+                                                that.$emit("success", x);
+                                            })
+                                            .onError(function (x) {
+                                                that.$emit("error", x);
+                                            })
+                                            .send();
+                    event.preventDefault();
+                    return false;
+                }
+                return true;
             },
         },
         watch: {
@@ -54,16 +88,17 @@ module Components {
             },
         },
         template: `<div v-cloak>
-                        <clarity-form-validator ref="validation">
-                            <slot name="validationHeader">The following errors were found</slot>
-                        </clarity-form-validator>
-                        <div v-for="item in schema.fields">
-                            <component :is="getFieldType(item)"
-                                       :schema="item"
-                                       :model="getModelValue(item)"
-                                       @changed="setModelValue">
-                            </component>
-                        </div>
+                        <form :action="action" class="stacked" @reset="reset" @submit="submit" method="post">
+                            <clarity-form-validator ref="validation">
+                                <slot name="validationHeader">The following errors were found</slot>
+                            </clarity-form-validator>
+                            <clarity-form-field-complex
+                                :schema="schema"
+                                :model="model"
+                                @changed="setModelValue"
+                                @click="buttonClicked">
+                            </clarity-form-field-complex>
+                        </form>
                     </div>`,
     });
 }

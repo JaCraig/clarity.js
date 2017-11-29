@@ -31,7 +31,6 @@ module Components {
         props: {
             model: Object,
             schema: Object,
-            formOptions: Array,
         },
         methods: {
             getFieldID: function() {
@@ -42,8 +41,7 @@ module Components {
             },
             changed: function(event) {
                 let that = this;
-                that.files = [];
-                that.filesAdded = event.target.files.length;
+                that.filesAdded = that.filesAdded + event.target.files.length;
                 that.ready = false;
                 for (let x = 0; x < event.target.files.length; ++x) {
                     let reader = new FileReader();
@@ -75,6 +73,11 @@ module Components {
                 }
                 setTimeout(this.check, 100);
             },
+            removeFile: function(file) {
+                let index = this.files.indexOf(file);
+                this.files.splice(index, 1);
+                this.filesAdded--;
+            },
         },
         template: `<div>
                         <label :for="getFieldID()" v-if="!schema.label" :class="schema.labelClasses">
@@ -85,7 +88,7 @@ module Components {
                             {{ schema.label }}
                             <i class="clear-background info fa-info-circle no-border small" v-if="schema.hint">{{ schema.hint }}</i>
                         </label>
-                        <div class="file-upload">
+                        <div class="file-upload" :class="schema.inputClasses">
                             {{ schema.placeholder }}
                             <input :accept="schema.accept"
                                 :id="getFieldID()"
@@ -94,8 +97,15 @@ module Components {
                                 :name="schema.inputName || getFieldID()"
                                 :required="schema.required"
                                 type="file"
-                                :data-error-message-value-missing="schema.errorMessageValueMissing"
-                                :class="schema.inputClasses" />
+                                :data-error-message-value-missing="schema.errorMessageValueMissing" />
+                        </div>
+                        <div class="flex">
+                            <div class="flex-item upload-preview panel" v-for="file in files" :class="schema.previewClasses">
+                                <header><div class="header" @click="removeFile(file)">×</div>&nbsp;</header>
+                                <div class="body">
+                                    {{ file.filename }}
+                                </div>
+                            </div>
                         </div>
                     </div>`,
     });

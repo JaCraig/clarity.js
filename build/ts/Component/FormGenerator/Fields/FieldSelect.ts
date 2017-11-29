@@ -24,7 +24,10 @@ module Components {
         props: {
             model: Object,
             schema: Object,
-            formOptions: Array,
+            label: {
+                default: true,
+                type: Boolean,
+            },
         },
         methods: {
             getFieldID: function() {
@@ -41,10 +44,10 @@ module Components {
             },
         },
         template: `<div>
-                        <label :for="getFieldID()" v-if="!schema.label" :class="schema.labelClasses">
+                        <label :for="getFieldID()" v-if="!schema.label && label" :class="schema.labelClasses">
                             {{ schema.model | capitalize }}
                         </label>
-                        <label :for="getFieldID()" v-if="schema.label" :class="schema.labelClasses">
+                        <label :for="getFieldID()" v-if="schema.label && label" :class="schema.labelClasses">
                             {{ schema.label }}
                         </label>
                         <select v-model="model"

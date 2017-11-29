@@ -24,7 +24,6 @@ module Components {
         props: {
             model: Object,
             schema: Object,
-            formOptions: Array,
         },
         methods: {
             getFieldID: function() {

@@ -79,6 +79,58 @@ input:invalid, textarea:invalid, select:invalid, input.error, textarea.error, se
     }
 }
 
+.upload-preview {
+    margin: .625em .5em .625em 0;
+    max-width: 200px;
+    overflow: hidden;
+    
+    & .body {
+        height: 100%;
+        width:100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    & .header {
+        float: right;
+        font-size: 1.5em;
+        font-weight: @fontWeightBold;
+        line-height: .75em;
+        .opacity(.5);
+        cursor: pointer;
+
+        &:hover {
+            .opacity(.8);
+        }
+    }
+}
+
+.form-table {
+    & tbody tr td:last-child {
+        width: 1em;
+        & a {
+            cursor: pointer;
+            display: inline-block;
+            width:100%;
+        }
+    }
+    & tfoot td a {
+        display: inline-block;
+        width:100%;
+        text-align: center;
+        cursor: pointer;
+        .border;
+        padding: .5em;
+
+        &:hover {
+            background: @linkColor;
+            color: @backgroundColor;
+            text-decoration: none;
+        }
+    }
+}
+
 input.success, textarea.success, select.success {
     border-color: @successBorder;
     background-color: @successBackground;

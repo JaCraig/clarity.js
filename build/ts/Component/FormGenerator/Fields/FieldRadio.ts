@@ -17,54 +17,53 @@
 /// <reference path="../../../Extensions/String.ts" />
 
 module Components {
-    
-        declare var Vue: any;
-    
-        Vue.component("clarity-form-field-radio", {
-            props: {
-                model: Object,
-                schema: Object,
-                formOptions: Array,
+
+    declare var Vue: any;
+
+    Vue.component("clarity-form-field-radio", {
+        props: {
+            model: Object,
+            schema: Object,
+        },
+        methods: {
+            getFieldID: function(value) {
+                if (this.schema.id) {
+                    return this.schema.id + "-" + value;
+                }
+                return this.schema.model.slugify() + "-" + value;
             },
-            methods: {
-                getFieldID: function(value) {
-                    if (this.schema.id) {
-                        return this.schema.id + "-" + value;
-                    }
-                    return this.schema.model.slugify() + "-" + value;
-                },
-                getFieldName: function() {
-                    if (this.schema.id) {
-                        return this.schema.id;
-                    }
-                    return this.schema.model.slugify();
-                },
-                changed: function(newValue) {
-                    this.model = newValue;
-                    this.$emit("changed", newValue, this.schema);
-                },
-                isItemChecked: function(item) {
-                    return this.getItemValue(item) === this.model;
-                },
-                getItemValue: function(item) {
-                    return item;
-                },
+            getFieldName: function() {
+                if (this.schema.id) {
+                    return this.schema.id;
+                }
+                return this.schema.model.slugify();
             },
-            template: `<div class="flex row text-center">
-                            <div class="flex-item" v-for="value in schema.values">
-                                <input :id="getFieldID(value)"
-                                    type="radio"
-                                    :checked="isItemChecked(value)"
-                                    @click="changed(value)"
-                                    :disabled="schema.disabled"
-                                    :name="schema.inputName || getFieldName()"
-                                    :readonly="schema.readonly"
-                                    :class="schema.inputClasses"
-                                    />
-                                <label :for="getFieldID(value)">
-                                    {{ value | capitalize }}
-                                </label>
-                            </div>
-                        </div>`,
-        });
-    }
+            changed: function(newValue) {
+                this.model = newValue;
+                this.$emit("changed", newValue, this.schema);
+            },
+            isItemChecked: function(item) {
+                return this.getItemValue(item) === this.model;
+            },
+            getItemValue: function(item) {
+                return item;
+            },
+        },
+        template: `<div class="flex row text-center">
+                        <div class="flex-item" v-for="value in schema.values">
+                            <input :id="getFieldID(value)"
+                                type="radio"
+                                :checked="isItemChecked(value)"
+                                @click="changed(value)"
+                                :disabled="schema.disabled"
+                                :name="schema.inputName || getFieldName()"
+                                :readonly="schema.readonly"
+                                :class="schema.inputClasses"
+                                />
+                            <label :for="getFieldID(value)">
+                                {{ value | capitalize }}
+                            </label>
+                        </div>
+                    </div>`,
+    });
+}

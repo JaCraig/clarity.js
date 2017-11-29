@@ -57,6 +57,9 @@ module Framework.AJAX {
         // Error callback
         private error: (ev: any) => any;
 
+        // Exception callback
+        private exception: (exc: any) => any;
+
         // Any headers to add to the call
         private headers: Types.StringDictionary<string>;
 
@@ -180,16 +183,24 @@ module Framework.AJAX {
                 }
             }
             request.addEventListener("load", x => {
-                if (request.status === 200) {
-                    if (this.cacheKey !== null && this.cacheKey !== undefined) {
-                        this.cacheStorage.set(this.cacheKey, request.responseText);
+                try {
+                    if (request.status === 200) {
+                        if (this.cacheKey !== null && this.cacheKey !== undefined) {
+                            this.cacheStorage.set(this.cacheKey, request.responseText);
+                        }
+                        return this.success(this.parser(request.responseText));
                     }
-                    return this.success(this.parser(request.responseText));
+                    return this.error(this.parser(request.responseText));
+                } catch (exception) {
+                    return this.error(exception);
                 }
-                return this.error(this.parser(request.responseText));
             });
             request.addEventListener("error", x => {
-                return this.error(this.parser(request.responseText));
+                try {
+                    return this.error(this.parser(request.responseText));
+                } catch (exception) {
+                    return this.error(exception);
+                }
             });
             if (this.data !== undefined) {
                 request.send(this.serializer(this.data));

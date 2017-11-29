@@ -4,6 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Clarity CSS Framework</title>
+    <script src="js/moment.min.js"></script>
     <script src="js/vue.min.js"></script>
     <link rel="stylesheet" href="css/clarity.min.css">
     <style>
@@ -1624,10 +1625,22 @@
         </div>
         <div id="FormGenerationExample"  v-cloak>
             <h3>Form Generator</h3>
-            <form action="" class="stacked">
-                <clarity-form-generator :schema="schema" :model="model" @changed="changed"><span slot="validationHeader">DANGER! DANGER WILL ROBINSON!</span></clarity-form-generator>
-            </form>
+            <clarity-form-generator :schema="schema" 
+                                    :model="model" 
+                                    @changed="changed" 
+                                    @click="click" 
+                                    :action="action" 
+                                    :ajax-action="ajaxAction"
+                                    @success="success"
+                                    @error="error">
+                <span slot="validationHeader">DANGER! DANGER WILL ROBINSON!</span>
+            </clarity-form-generator>
+            <div class="border-bottom">Result</div>
+            <div v-model="result"></div>
+            <div class="border-bottom">Model</div>
             <pre v-html="JSON.stringify(model, undefined, 4)"></pre>
+            <div class="border-bottom">Schema</div>
+            <pre v-html="JSON.stringify(schema, undefined, 4)"></pre>
         </div>
     </div>
     <script src="js/Clarity.min.js"></script>
@@ -1650,6 +1663,9 @@
         new Vue({
             el: '#FormGenerationExample',
             data: {
+                action: "/post/action",
+                ajaxAction: "/action/goes/nowhere",
+                result: "",
                 model: {
                     id: 1,
                     name: "Jane Doe",
@@ -1661,6 +1677,23 @@
                     options: "CSS3",
                     description: "This is a description about Jane Doe.",
                     files: [],
+                    someText: "<div class='body'>This is some random text for reasons</div>",
+                    complexObject: {
+                        title: "My Title",
+                    },
+                    complexObjectList: [{
+                        order: 1,
+                        name: "Jane",
+                    },{
+                        order: 2,
+                        name: "John",
+                    }],
+                    complexObjectTabs: {
+                        order: 1,
+                        name: "Jane",
+                        number: 2,
+                        lastName: "John",
+                    }
                 },
                 schema: {
                     fields: [{
@@ -1726,10 +1759,59 @@
                         labelClasses: "fa-bullhorn",
                         maxlength: 200
                     },{
+                        type: "text",
+                        model: "someText",
+                        classes: "warning panel"
+                    },{
                         type: "upload",
                         model: "files",
                         multiple: true,
-                        placeholder: "Please Drop Files Here To Upload"
+                        placeholder: "Please Drop Files Here To Upload",
+                        previewClasses: "primary"
+                    },{
+                        type: "complex",
+                        schema: {
+                            fields: [{
+                              type: "input",
+                              inputType: "text",
+                              model: "title"
+                            },{
+                                type: "text",
+                                model: "😀"
+                            }]
+                        },
+                        model: "complexObject"
+                    },{
+                        type: "complex-list",
+                        schema: {
+                            confirmRemoval: true,
+                            fields: [{
+                              type: "input",
+                              inputType: "number",
+                              model: "order"
+                            },{
+                                type: "input",
+                                inputType: "text",
+                                model: "name"
+                            }]
+                        },
+                        model: "complexObjectList",
+                    },{
+                        type: "complex-tabs",
+                        schema: {
+                            tabs: [
+                                { icon: 'fa-user', name: 'Tab1', selected: false, fields:[{ type: "input", inputType: "number", model: "order"},{ type: "input", inputType: "text", model: "name" }] },
+                                { icon: 'fa-plus', name: 'Tab2', selected: false, fields:[{ type: "input", inputType: "number", model: "number"},{ type: "input", inputType: "text", model: "lastName",label: "Last Name" }] }
+                            ]
+                        },
+                        model: "complexObjectTabs"
+                    },{
+                        type: "buttons",
+                        buttons: [
+                            { id: 0, type: "submit", value: "This is a Submit Button" },
+                            { id: 1, type: "reset", value: "This is a Reset Button" },
+                            { id: 2, type: "button", value: "This is a Normal Button" }
+                        ]
                     }]
                 }
             },
@@ -1737,6 +1819,19 @@
                 changed: function(newModel) {
                     this.model = newModel;
                 },
+                click: function(event, field) {
+                    if (field.id === 2) {
+                        console.log("Yay I pressed a button");
+                    }
+                },
+                success: function(result) {
+                    console.log(result);
+                    this.result = result;
+                },
+                error: function(result) {
+                    console.log(result);
+                    this.result = result;
+                }
             }
         });
         new Vue({
