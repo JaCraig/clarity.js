@@ -37,6 +37,7 @@ module Components {
                             <input v-for="button in schema.buttons"
                                     :type="button.type"
                                     :value="button.value"
+                                    :class="button.classes"
                                     @click="click($event,button)" />
                         </div>
                     </div>`,
