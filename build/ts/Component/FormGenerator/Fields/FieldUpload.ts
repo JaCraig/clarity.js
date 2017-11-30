@@ -31,13 +31,20 @@ module Components {
         props: {
             model: Object,
             schema: Object,
+            idSuffix: String,
         },
         methods: {
             getFieldID: function() {
+                let result = "";
                 if (this.schema.id) {
-                    return this.schema.id;
+                    result = this.schema.id;
+                } else {
+                    result = this.schema.model.slugify();
                 }
-                return this.schema.model.slugify();
+                if (this.idSuffix) {
+                    result += this.idSuffix;
+                }
+                return result;
             },
             changed: function(event) {
                 let that = this;
@@ -82,10 +89,12 @@ module Components {
         template: `<div>
                         <label :for="getFieldID()" v-if="!schema.label" :class="schema.labelClasses">
                             {{ schema.model | capitalize }}
+                            <span class="error clear-background" v-if="schema.required">*</span>
                             <i class="clear-background info fa-info-circle no-border small" v-if="schema.hint">{{ schema.hint }}</i>
                         </label>
                         <label :for="getFieldID()" v-if="schema.label" :class="schema.labelClasses">
                             {{ schema.label }}
+                            <span class="error clear-background" v-if="schema.required">*</span>
                             <i class="clear-background info fa-info-circle no-border small" v-if="schema.hint">{{ schema.hint }}</i>
                         </label>
                         <div class="file-upload" :class="schema.inputClasses">

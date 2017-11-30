@@ -20,7 +20,7 @@ module Components {
 
     declare var Vue: any;
 
-    Vue.component("clarity-form-field-complex", {
+    Vue.component("clarity-form-field-complex-conditional", {
         props: {
             model: Object,
             schema: Object,
@@ -54,14 +54,16 @@ module Components {
             },
         },
         template: `<div>
-                        <div v-for="item in schema.fields">
-                            <component :is="getFieldType(item)"
-                                    :schema="getSchema(item)"
-                                    :model="getModelValue(item)"
-                                    :idSuffix="getIDSuffix(item)"
-                                    @changed="setModelValue"
-                                    @click="buttonClicked">
-                            </component>
+                        <div v-if="model.display">
+                            <div v-for="item in schema.fields">
+                                <component :is="getFieldType(item)"
+                                        :schema="getSchema(item)"
+                                        :model="getModelValue(item)"
+                                        :idSuffix="getIDSuffix(item)"
+                                        @changed="setModelValue"
+                                        @click="buttonClicked">
+                                </component>
+                            </div>
                         </div>
                     </div>`,
     });

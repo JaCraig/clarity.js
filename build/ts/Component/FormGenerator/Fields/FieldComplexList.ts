@@ -36,6 +36,7 @@ module Components {
         props: {
             model: Object,
             schema: Object,
+            idSuffix: String,
         },
         methods: {
             getFieldType: function(field) {
@@ -72,22 +73,33 @@ module Components {
                 this.model = this.model.concat(Object.assign({}, this.defaultItem));
                 this.$emit("changed", this.model, this.schema);
             },
+            getIDSuffix: function(field, index) {
+                return this.idSuffix + index;
+            },
         },
         template: `<div>
                         <table class="form-table" :class="schema.tableClasses">
                             <thead>
                                 <tr>
-                                    <th v-for="item in schema.fields">{{ item.model | capitalize }}</th>
+                                    <th v-for="item in schema.fields">
+                                        <span v-if="item.label">
+                                            {{ item.label | capitalize }}
+                                        </span>
+                                        <span v-else>
+                                            {{ item.model | capitalize }}
+                                        </span>
+                                    </th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="item in model">
+                                <tr v-for="(item, index) in model">
                                     <td v-for="field in schema.fields">
                                         <component :is="getFieldType(field)"
                                                     :schema="getSchema(field)"
                                                     :model="getModelValue(field,item)"
                                                     :label="false"
+                                                    :idSuffix="getIDSuffix(field,index)"
                                                     @changed="newValue => setModelValue(field,item,newValue)"
                                                     @click="buttonClicked">
                                         </component>

@@ -24,13 +24,20 @@ module Components {
         props: {
             model: Object,
             schema: Object,
+            idSuffix: String,
         },
         methods: {
             getFieldID: function() {
+                let result = "";
                 if (this.schema.id) {
-                    return this.schema.id;
+                    result = this.schema.id;
+                } else {
+                    result = this.schema.model.slugify();
                 }
-                return this.schema.model.slugify();
+                if (this.idSuffix) {
+                    result += this.idSuffix;
+                }
+                return result;
             },
             changed: function(newValue) {
                 this.$emit("changed", newValue, this.schema);
@@ -51,9 +58,11 @@ module Components {
                                 />
                             <label :for="getFieldID()" v-if="!schema.label" :class="schema.labelClasses">
                                 {{ schema.model | capitalize }}
+                                <span class="error clear-background" v-if="schema.required">*</span>
                             </label>
                             <label :for="getFieldID()" v-if="schema.label" :class="schema.labelClasses">
                                 {{ schema.label }}
+                                <span class="error clear-background" v-if="schema.required">*</span>
                             </label>
                     </div>`,
     });

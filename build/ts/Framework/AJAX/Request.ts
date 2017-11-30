@@ -112,6 +112,12 @@ module Framework.AJAX {
             return this;
         }
 
+        // Adds a callback if the AJAX request has an exception after receiving the response.
+        public onException(callback: (exc: any) => any): Request {
+            this.exception = callback;
+            return this;
+        }
+
         // Adds a header value to the AJAX request.
         public set(key: string, value: string): Request {
             this.headers[key] = value;
@@ -168,6 +174,9 @@ module Framework.AJAX {
             if (this.success === undefined || this.success === null) {
                 this.success = x => { };
             }
+            if (this.exception === undefined || this.exception === null) {
+                this.exception = x => { throw x; };
+            }
             if (this.cacheStorage === undefined || this.cacheStorage === null) {
                 this.cacheStorage = new WebStorage.LocalStorage();
             }
@@ -192,14 +201,14 @@ module Framework.AJAX {
                     }
                     return this.error(this.parser(request.responseText));
                 } catch (exception) {
-                    return this.error(exception);
+                    return this.exception(exception);
                 }
             });
             request.addEventListener("error", x => {
                 try {
                     return this.error(this.parser(request.responseText));
                 } catch (exception) {
-                    return this.error(exception);
+                    return this.exception(exception);
                 }
             });
             if (this.data !== undefined) {

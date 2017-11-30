@@ -29,6 +29,7 @@ module Components {
         props: {
             model: Object,
             schema: Object,
+            idSuffix: String,
         },
         methods: {
             getFieldType: function(field) {
@@ -59,16 +60,20 @@ module Components {
             getFields: function() {
                 return this.tabPicked.fields;
             },
+            getIDSuffix: function(field) {
+                return this.idSuffix;
+            },
         },
         template: `<div>
                         <clarity-tabs
                             :sections="schema.tabs"
                             v-on:section-changed="tabChanged"
-                            class="panel">
+                            :class="schema.tabClasses">
                             <div v-for="item in getFields()">
                                 <component :is="getFieldType(item)"
                                         :schema="getSchema(item)"
                                         :model="getModelValue(item)"
+                                        :idSuffix="getIDSuffix(item)"
                                         @changed="setModelValue"
                                         @click="buttonClicked">
                                 </component>

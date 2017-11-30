@@ -1632,15 +1632,16 @@
                                     :action="action" 
                                     :ajax-action="ajaxAction"
                                     @success="success"
-                                    @error="error">
+                                    @error="error"
+                                    @exception="exception">
                 <span slot="validationHeader">DANGER! DANGER WILL ROBINSON!</span>
             </clarity-form-generator>
-            <div class="border-bottom">Result</div>
-            <div v-model="result"></div>
             <div class="border-bottom">Model</div>
             <pre v-html="JSON.stringify(model, undefined, 4)"></pre>
             <div class="border-bottom">Schema</div>
             <pre v-html="JSON.stringify(schema, undefined, 4)"></pre>
+            <div class="border-bottom">Result</div>
+            <div>{{ result }}</div><br><br>
         </div>
     </div>
     <script src="js/Clarity.min.js"></script>
@@ -1680,6 +1681,9 @@
                     someText: "<div class='body'>This is some random text for reasons</div>",
                     complexObject: {
                         title: "My Title",
+                    },
+                    complexConditional: {
+                        display: true
                     },
                     complexObjectList: [{
                         order: 1,
@@ -1782,13 +1786,24 @@
                         },
                         model: "complexObject"
                     },{
+                        type: "complex-conditional",
+                        schema: {
+                            fields: [{
+                                type: "text",
+                                model: "This should only display if the Title above is set to 'My Title'"
+                            }]
+                        },
+                        model: "complexConditional"
+                    },{
                         type: "complex-list",
                         schema: {
+                            tableClasses: "primary",
                             confirmRemoval: true,
                             fields: [{
                               type: "input",
                               inputType: "number",
-                              model: "order"
+                              model: "order",
+                              label: "order in list"
                             },{
                                 type: "input",
                                 inputType: "text",
@@ -1799,6 +1814,7 @@
                     },{
                         type: "complex-tabs",
                         schema: {
+                            tabClasses: "panel",
                             tabs: [
                                 { icon: 'fa-user', name: 'Tab1', selected: false, fields:[{ type: "input", inputType: "number", model: "order"},{ type: "input", inputType: "text", model: "name" }] },
                                 { icon: 'fa-plus', name: 'Tab2', selected: false, fields:[{ type: "input", inputType: "number", model: "number"},{ type: "input", inputType: "text", model: "lastName",label: "Last Name" }] }
@@ -1818,6 +1834,7 @@
             methods: {
                 changed: function(newModel) {
                     this.model = newModel;
+                    this.model.complexConditional.display = this.model.complexObject.title === "My Title";
                 },
                 click: function(event, field) {
                     if (field.id === 2) {
@@ -1825,12 +1842,13 @@
                     }
                 },
                 success: function(result) {
-                    console.log(result);
                     this.result = result;
                 },
                 error: function(result) {
-                    console.log(result);
                     this.result = result;
+                },
+                exception: function(result) {
+                    this.result = result.message;
                 }
             }
         });

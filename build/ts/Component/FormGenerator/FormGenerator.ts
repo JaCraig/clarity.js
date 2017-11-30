@@ -68,11 +68,17 @@ module Components {
                                             .onError(function (x) {
                                                 that.$emit("error", x);
                                             })
+                                            .onException(function (x) {
+                                                that.$emit("exception", x);
+                                            })
                                             .send();
                     event.preventDefault();
                     return false;
                 }
                 return true;
+            },
+            getIDSuffix: function() {
+                return "";
             },
         },
         watch: {
@@ -95,6 +101,7 @@ module Components {
                             <clarity-form-field-complex
                                 :schema="schema"
                                 :model="model"
+                                :idSuffix="getIDSuffix()"
                                 @changed="setModelValue"
                                 @click="buttonClicked">
                             </clarity-form-field-complex>

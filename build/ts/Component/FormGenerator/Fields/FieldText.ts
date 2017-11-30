@@ -24,6 +24,7 @@ module Components {
         props: {
             model: Object,
             schema: Object,
+            idSuffix: String,
         },
         methods: {
         },

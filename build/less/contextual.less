@@ -261,8 +261,22 @@
     border-radius: @circularCorners;
 }
 
-.primary a {
-    color: @primaryColor;
+.primary {
+
+    & a {
+        color: @primaryColor;
+    }
+
+    & thead tr {
+        background-color: @primaryBackground;
+    }
+
+    & tfoot tr {
+        background-color: @primaryBackground;
+    }
+    & tbody tr, & tbody tr a {
+        color: @primaryBackground;
+    }
 }
 
 .primary, .panel.primary header, .panel.primary footer {

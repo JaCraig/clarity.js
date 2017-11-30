@@ -65,6 +65,7 @@ input:invalid, textarea:invalid, select:invalid, input.error, textarea.error, se
     padding: 2em 0;
     text-align: center;
     position: relative;
+    margin: .625em .125em;
 
     & input {
         position: absolute;
@@ -107,6 +108,8 @@ input:invalid, textarea:invalid, select:invalid, input.error, textarea.error, se
 }
 
 .form-table {
+    margin: .625em .125em;
+
     & tbody tr td:last-child {
         width: 1em;
         & a {
@@ -115,18 +118,27 @@ input:invalid, textarea:invalid, select:invalid, input.error, textarea.error, se
             width:100%;
         }
     }
-    & tfoot td a {
-        display: inline-block;
-        width:100%;
-        text-align: center;
-        cursor: pointer;
-        .border;
-        padding: .5em;
+    & tfoot tr:first-child {
+        border-top:0;
+        & td
+        {
+            padding: 0;
+            border-top:0;
 
-        &:hover {
-            background: @linkColor;
-            color: @backgroundColor;
-            text-decoration: none;
+            & a {
+                display: inline-block;
+                width:100%;
+                text-align: center;
+                cursor: pointer;
+                .border;
+                padding: .5em;
+
+                &:hover {
+                    background: @linkColor;
+                    color: @backgroundColor;
+                    text-decoration: none;
+                }
+            }
         }
     }
 }

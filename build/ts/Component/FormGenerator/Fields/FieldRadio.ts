@@ -24,13 +24,21 @@ module Components {
         props: {
             model: Object,
             schema: Object,
+            idSuffix: String,
         },
         methods: {
             getFieldID: function(value) {
+                let result = "";
                 if (this.schema.id) {
-                    return this.schema.id + "-" + value;
+                    result = this.schema.id;
+                } else {
+                    result = this.schema.model.slugify();
                 }
-                return this.schema.model.slugify() + "-" + value;
+                result += "-" + value;
+                if (this.idSuffix) {
+                    result += this.idSuffix;
+                }
+                return result;
             },
             getFieldName: function() {
                 if (this.schema.id) {

@@ -161,7 +161,7 @@ module Framework.Validation {
             return result;
         }
 
-        // Validates all elements in the form, returning false if there are errors, true otherwise.
+        // Validates all elements in the form, returning the list of error messages.
         public validateForm(form: HTMLFormElement): String[] {
             let result = [];
             this.errors = [];
@@ -185,6 +185,31 @@ module Framework.Validation {
                                        .filter(x => x.length !== 0);
             for (let x = 0; x < textareaElements.length; ++x) {
                 result = result.concat(textareaElements[x]);
+            }
+            return result;
+        }
+
+        // Validates an individual element, returning the list of error messages.
+        public validateElement(element: HTMLElement): String[] {
+            let result = [];
+            if (element.tagName === "INPUT" && !this.validateInput((<HTMLInputElement>element))) {
+                let tempResults = this.getErrorMessages((<HTMLInputElement>element), (<HTMLInputElement>element).validity)
+                                      .filter(x => x.length !== 0);
+                for (let x = 0; x < tempResults.length; ++x) {
+                    result = result.concat(tempResults[x]);
+                }
+            } else if (element.tagName === "SELECT" && !this.validateSelect((<HTMLSelectElement>element))) {
+                let tempResults = this.getErrorMessages((<HTMLSelectElement>element), (<HTMLSelectElement>element).validity)
+                                      .filter(x => x.length !== 0);
+                for (let x = 0; x < tempResults.length; ++x) {
+                    result = result.concat(tempResults[x]);
+                }
+            } else if (element.tagName === "TEXTAREA" && !this.validateTextArea((<HTMLTextAreaElement>element))) {
+                let tempResults = this.getErrorMessages((<HTMLTextAreaElement>element), (<HTMLTextAreaElement>element).validity)
+                                      .filter(x => x.length !== 0);
+                for (let x = 0; x < tempResults.length; ++x) {
+                    result = result.concat(tempResults[x]);
+                }
             }
             return result;
         }
