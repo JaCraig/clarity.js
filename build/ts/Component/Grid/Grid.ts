@@ -70,9 +70,12 @@ declare var Vue: any;
                 return key.replace(/\s+/g, "");
             },
             guessDataType: function(data: Array<any>): string {
+                let tempDiv = document.createElement("div");
                 let returnValue = "string";
                 for (let x = 0; x < data.length; ++x) {
-                    let cellText = data[x][this.sortKey].toString().replace(/^\s+|\s+$/g, "");
+                    let cellText = data[x][this.sortKey].toString();
+                    tempDiv.innerHTML = cellText;
+                    cellText = (tempDiv.textContent || tempDiv.innerText || "").replace(/^\s+|\s+$/g, "");
                     if (cellText !== "") {
                         if (cellText.match(/^-?[£$¤]?[\d,.]+%?$/)) {
                             return "number";
@@ -99,13 +102,15 @@ declare var Vue: any;
                 this.sortOrders[key] = this.sortOrders[key] * -1;
             },
             sortDDMMDate: function(val1: any, val2: any): number {
-                let match = val1[this.sortKey].toString().match(dateRegex);
+                let actualValue1 = this.stripHTML(val1[this.sortKey].toString());
+                let actualValue2 = this.stripHTML(val2[this.sortKey].toString());
+                let match = actualValue1.match(dateRegex);
                 let year = match[3], day = match[1], month = match[2];
                 if (month.length === 1) { month = "0" + month; }
                 if (day.length === 1) { day = "0" + day; }
                 let value1 = year + month + day;
 
-                match = val2[this.sortKey].toString().match(dateRegex);
+                match = actualValue2.match(dateRegex);
                 year = match[3];
                 day = match[1];
                 month = match[2];
@@ -117,43 +122,54 @@ declare var Vue: any;
                 return 1;
             },
             sortDate: function(val1: any, val2: any): number {
-                let value1 = new Date(val1[this.sortKey]);
-                let value2 = new Date(val2[this.sortKey]);
+                let actualValue1 = this.stripHTML(val1[this.sortKey].toString());
+                let actualValue2 = this.stripHTML(val2[this.sortKey].toString());
+                let value1 = new Date(actualValue1);
+                let value2 = new Date(actualValue2);
                 if (isNaN(value1.getTime())) { value1 = new Date(0); }
                 if (isNaN(value2.getTime())) { value2 = new Date(0); }
                 if (value1 === value2) { return 0; }
                 if (value1 < value2) { return -1; }
                 return 1;
             },
-            sortMMDDDate: function(val1: any, val2: any): number {
-                let match = val1[this.sortKey].toString().match(dateRegex);
+            sortMMDDDate: function(value1: any, value2: any): number {
+                let actualValue1 = this.stripHTML(value1[this.sortKey].toString());
+                let actualValue2 = this.stripHTML(value2[this.sortKey].toString());
+                let match = actualValue1.match(dateRegex);
                 let year = match[3], day = match[2], month = match[1];
                 if (month.length === 1) { month = "0" + month; }
                 if (day.length === 1) { day = "0" + day; }
-                let value1 = year + month + day;
+                let val1 = year + month + day;
 
-                match = val2[this.sortKey].toString().match(dateRegex);
+                match = actualValue2.match(dateRegex);
                 year = match[3];
                 day = match[2];
                 month = match[1];
                 if (month.length === 1) { month = "0" + month; }
                 if (day.length === 1) { day = "0" + day; }
-                let value2 = year + month + day;
-                if (value1 === value2) { return 0; }
-                if (value1 < value2) { return -1; }
+                let val2 = year + month + day;
+                if (val1 === val2) { return 0; }
+                if (val1 < val2) { return -1; }
                 return 1;
             },
-            sortNumber: function(val1: any, val2: any): number {
-                let value1 = parseFloat(val1[this.sortKey].toString().replace(/[^0-9.-]/g, ""));
-                let value2 = parseFloat(val2[this.sortKey].toString().replace(/[^0-9.-]/g, ""));
-                if (isNaN(value1)) { value1 = 0; }
-                if (isNaN(value2)) { value2 = 0; }
-                return value1 - value2;
+            sortNumber: function(value1: any, value2: any): number {
+                let actualValue1 = parseFloat(this.stripHTML(value1[this.sortKey].toString()).replace(/[^0-9.-]/g, ""));
+                let actualValue2 = parseFloat(this.stripHTML(value2[this.sortKey].toString()).replace(/[^0-9.-]/g, ""));
+                if (isNaN(actualValue1)) { actualValue1 = 0; }
+                if (isNaN(actualValue2)) { actualValue2 = 0; }
+                return actualValue1 - actualValue2;
             },
             sortString: function(value1: any, value2: any): number {
-                if (value1[this.sortKey] === value2[this.sortKey]) { return 0; }
-                if (value1[this.sortKey] < value2[this.sortKey]) { return -1; }
+                let actualValue1 = this.stripHTML(value1[this.sortKey].toString());
+                let actualValue2 = this.stripHTML(value2[this.sortKey].toString());
+                if (actualValue1 === actualValue2) { return 0; }
+                if (actualValue1 < actualValue2) { return -1; }
                 return 1;
+            },
+            stripHTML: function(value: any): any {
+                let tempDiv = document.createElement("div");
+                tempDiv.innerHTML = value;
+                return (tempDiv.textContent || tempDiv.innerText || "").replace(/^\s+|\s+$/g, "");
             },
         },
         props: {
