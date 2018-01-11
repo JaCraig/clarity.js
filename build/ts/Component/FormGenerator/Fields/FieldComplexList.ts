@@ -65,11 +65,17 @@ module Components {
                 if (this.schema.confirmRemoval && !confirm("Are you sure you want to remove this item?")) {
                     return;
                 }
+                if (!this.model) {
+                    this.model = [];
+                }
                 let Index = this.model.indexOf(item);
                 this.model.splice(Index, 1);
                 this.$emit("changed", this.model, this.schema);
             },
             addItem: function(item) {
+                if (!this.model) {
+                    this.model = [];
+                }
                 this.model = this.model.concat(Object.assign({}, this.defaultItem));
                 this.$emit("changed", this.model, this.schema);
             },
