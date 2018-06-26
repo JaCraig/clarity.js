@@ -53,7 +53,7 @@ module Framework {
             window.addEventListener("keydown", x => this.hotkeys.press(x));
             window.addEventListener("load", x => this.validation.initialize(), false);
             window.onerror = (msg, url, ln, col, error) => {
-                this.errorLogger.onError(msg, url, ln, col, error);
+                this.errorLogger.onError(msg.toString(), url, ln, col, error);
             };
         }
 

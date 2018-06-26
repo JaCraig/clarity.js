@@ -76,8 +76,6 @@ gulp.task('javascript:watch', function () {
 gulp.task('javascript:default', function (cb) {
     return runSequence('javascript:minify',
         'javascript:move',
-        'javascript:test',
-        'javascript:benchmark',
         'javascript:watch',
         cb);
 });
