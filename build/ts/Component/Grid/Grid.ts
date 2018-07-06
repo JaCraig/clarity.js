@@ -55,9 +55,10 @@ declare var Vue: any;
             },
         },
         data: function () {
+            let that = this;
             let sortOrders = {};
             this.columns.forEach(function (key) {
-                key = key.replace(/\s+/g, "");
+                key = that.filteredColumn(key);
                 sortOrders[key] = 1;
             });
             return {
@@ -67,7 +68,10 @@ declare var Vue: any;
         },
         methods: {
             filteredColumn: function(key) {
-                return key.replace(/\s+/g, "");
+                return key.replace(/\s+/g, "").trim();
+            },
+            getHeader: function(key) {
+                return key.replace("_", " ").replace("-", " ").replace(/([a-z])([A-Z])/g, "$1 $2");
             },
             guessDataType: function(data: Array<any>): string {
                 let tempDiv = document.createElement("div");
@@ -97,9 +101,16 @@ declare var Vue: any;
                 return returnValue;
             },
             sortBy: function (key) {
-                key = key.replace(/\s+/g, "");
+                key = this.filteredColumn(key);
                 this.sortKey = key;
-                this.sortOrders[key] = this.sortOrders[key] * -1;
+                let tempSortOrder = {};
+                if (!(key in this.sortOrders)) {
+                    tempSortOrder[key] = 1;
+                } else {
+                    tempSortOrder[key] = this.sortOrders[key];
+                }
+                tempSortOrder[key] = tempSortOrder[key] * -1;
+                this.sortOrders = tempSortOrder;
             },
             sortDDMMDate: function(val1: any, val2: any): number {
                 let actualValue1 = this.stripHTML(val1[this.sortKey].toString());
@@ -185,7 +196,7 @@ declare var Vue: any;
                 :class="{ active: sortKey == filteredColumn(key),
                             headerSortUp: sortKey == filteredColumn(key) && sortOrders[filteredColumn(key)] > 0,
                             headerSortDown: sortKey == filteredColumn(key) && sortOrders[filteredColumn(key)] < 0 }">
-                {{ key | capitalize }}
+                {{ getHeader(key) | capitalize }}
                 </th>
             </tr>
             </thead>
