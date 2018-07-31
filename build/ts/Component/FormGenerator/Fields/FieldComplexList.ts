@@ -94,6 +94,11 @@ module Components {
                                         <span v-else>
                                             {{ item.model | capitalize }}
                                         </span>
+                                        <span v-if="getSchema(item).hint"
+                                            :data-tooltip="getSchema(item).hint"
+                                            data-tooltip-size="extra-large">
+                                            <span class="fa-info-circle no-border small"></span>
+                                        </span>
                                     </th>
                                     <th></th>
                                 </tr>
