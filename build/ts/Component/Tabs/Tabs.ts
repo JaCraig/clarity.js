@@ -21,21 +21,16 @@ module Components {
     declare var Vue: any;
 
     Vue.component("clarity-tabs", {
+        beforeMount: function() {
+            this.switchSelected(this.initialSectionPicked);
+        },
         data: function() {
-            if (this.initialSectionPicked === undefined) {
+            if (this.initialSectionPicked === undefined && this.section && this.section.length > 0) {
                 this.initialSectionPicked = this.sections[0];
             }
             return {
                 sectionPicked: this.initialSectionPicked,
             };
-        },
-        beforeMount: function() {
-            this.switchSelected(this.initialSectionPicked);
-        },
-        watch: {
-            sections: function(value) {
-                this.switchSelected(this.sectionPicked);
-            },
         },
         methods: {
             switchSelected: function (item) {
@@ -44,6 +39,9 @@ module Components {
                 this.$emit("section-changed", this.sectionPicked);
             },
             switchTabs: function() {
+                if (this.sections === undefined) {
+                    return;
+                }
                 if (!this.sections.some(x => x === this.sectionPicked)) {
                     this.sectionPicked = this.sections[0];
                 }
@@ -59,8 +57,8 @@ module Components {
             },
         },
         props: {
-            sections: Array,
             initialSectionPicked: Object,
+            sections: Array,
         },
         template: `<div class="tabs" v-cloak>
                         <header>
@@ -80,5 +78,10 @@ module Components {
                             <slot></slot>
                         </section>
                     </div>`,
+        watch: {
+            sections: function(value) {
+                this.switchSelected(this.sectionPicked);
+            },
+        },
     });
 }
