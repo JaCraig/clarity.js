@@ -28,8 +28,8 @@ gulp.task('images:example-images', function () {
 });
 
 gulp.task('images:watch', function () {
-    gulp.watch(imagesLocation, ['images:example-images']);
-    gulp.watch(imagesLessLocation, ['images:minify']);
+    gulp.watch(imagesLocation, gulp.series('images:example-images'));
+    gulp.watch(imagesLessLocation, gulp.series('images:minify'));
 });
 
-gulp.task('images:default', ['images:minify', 'images:example-images', 'images:watch']);
+gulp.task('images:default', gulp.series('images:minify', 'images:example-images', 'images:watch'));

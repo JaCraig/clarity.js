@@ -17,7 +17,7 @@ gulp.task('font:move', function () {
 });
 
 gulp.task('font:watch', function () {
-    gulp.watch(fontDirectory, ['font:move']);
+    gulp.watch(fontDirectory, gulp.series('font:move'));
 });
 
-gulp.task('font:default', ['font:watch', 'font:move']);
+gulp.task('font:default', gulp.series('font:watch', 'font:move'));

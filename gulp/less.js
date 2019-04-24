@@ -21,7 +21,7 @@ gulp.task('less:build', function () {
 });
 
 gulp.task('less:watch', function () {
-    gulp.watch(lessLocation, ['less:build']);
+    gulp.watch(lessLocation, gulp.series('less:build'));
 });
 
-gulp.task('less:default', ['less:build', 'less:watch']);
+gulp.task('less:default', gulp.series('less:build', 'less:watch'));

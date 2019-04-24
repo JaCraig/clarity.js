@@ -81,7 +81,7 @@ gulp.task('typescript:build2', function () {
 });
 
 gulp.task('typescript:watch', function () {
-    gulp.watch(typescriptLocation, ['typescript:build', 'typescript:build2']);
+    gulp.watch(typescriptLocation, gulp.series('typescript:build', 'typescript:build2'));
 });
 
-gulp.task('typescript:default', ['typescript:watch', 'typescript:build', 'typescript:build2']);
+gulp.task('typescript:default', gulp.series('typescript:watch', 'typescript:build', 'typescript:build2'));

@@ -21,7 +21,7 @@ gulp.task('html:minify', function () {
 });
 
 gulp.task('html:watch', function () {
-    gulp.watch(htmlLocation, ['html:minify']);
+    gulp.watch(htmlLocation, gulp.series('html:minify'));
 });
 
-gulp.task('html:default', ['html:watch', 'html:minify']);
+gulp.task('html:default', gulp.series('html:watch', 'html:minify'));

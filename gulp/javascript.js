@@ -5,7 +5,6 @@ var uglify = require('gulp-uglify');
 var benchmark = require('gulp-bench');
 var jasmine = require('gulp-jasmine');
 var del = require('del');
-var runSequence = require('run-sequence');
 var cover = require('gulp-coverage');
 var license = require('gulp-license');
 
@@ -67,15 +66,10 @@ gulp.task('javascript:minify', function () {
 });
 
 gulp.task('javascript:watch', function () {
-    gulp.watch(javascriptLocation, ['javascript:minify', 'javascript:benchmark', 'javascript:test']);
-    gulp.watch(javascriptBenchmarkLocation, ['javascript:benchmark']);
-    gulp.watch(javascriptTestLocation, ['javascript:test']);
-    gulp.watch(javascriptTestScriptsLocation,['javascript:test']);
+    gulp.watch(javascriptLocation, gulp.series('javascript:minify', 'javascript:benchmark', 'javascript:test'));
+    gulp.watch(javascriptBenchmarkLocation, gulp.series('javascript:benchmark'));
+    gulp.watch(javascriptTestLocation, gulp.series('javascript:test'));
+    gulp.watch(javascriptTestScriptsLocation,gulp.series('javascript:test'));
 });
 
-gulp.task('javascript:default', function (cb) {
-    return runSequence('javascript:minify',
-        'javascript:move',
-        'javascript:watch',
-        cb);
-});
+gulp.task('javascript:default',gulp.series('javascript:minify',        'javascript:move',        'javascript:watch'));
