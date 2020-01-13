@@ -14,11 +14,8 @@
    limitations under the License.
 */
 
-module Framework.Hotkey.Interfaces {
-
-    // Hotkey mapping interface
-    export interface IHotkeys {
-        // maps a set of hotkeys
-        bind(keyCodes: string, callback: (event: KeyboardEvent, handler: any) => void): IHotkeys;
-    }
+// Hotkey mapping interface
+export interface IHotkeys {
+    // maps a set of hotkeys
+    bind(keyCodes: string, callback: (event: KeyboardEvent, handler: any) => void): IHotkeys;
 }

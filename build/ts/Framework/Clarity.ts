@@ -14,91 +14,85 @@
    limitations under the License.
 */
 
-/// <reference path="./Hotkey/Hotkeys.ts" />
-/// <reference path="./Router/Router.ts" />
-/// <reference path="./Validation/FormValidation.ts" />
-/// <reference path="./Logging/ErrorLogging.ts" />
-/// <reference path="./Router/Interfaces/IRouter.ts" />
-/// <reference path="./Interfaces/IRouteConfiguration.ts" />
-/// <reference path="./Interfaces/IHotkeyConfiguration.ts" />
-/// <reference path="../Types/StringDictionary.ts" />
-/// <reference path="./History/PageHistory.ts" />
-/// <reference path="./WebStorage/LocalStorage.ts" />
-/// <reference path="./WebStorage/SessionStorage.ts" />
-/// <reference path="../Component/Closer/Closer.ts" />
-/// <reference path="../Component/DropDown/DropDown.ts" />
-/// <reference path="../Component/Mobile/Mobile.ts" />
-/// <reference path="../Component/Tabs/Tabs.ts" />
+// /// <reference path='../Component/VueExtensions/VueDirectives.ts' />
+// /// <reference path='../Component/VueExtensions/VueFilters.ts' />
+// /// <reference path='../Component/Tabs/Tabs.ts' />
+// /// <reference path='../Component/Modal/Modal.ts' />
+// /// <reference path='../Component/Grid/Grid.ts' />
+// /// <reference path='../Component/FormGenerator/FormGenerator.ts' />
 
-module Framework {
+import { Hotkeys } from './Hotkey/Hotkeys'
+import { Router } from './Router/Router'
+import { FormValidation } from './Validation/FormValidation'
+import { ErrorLogging } from './Logging/ErrorLogging'
+import { PageHistory } from './History/PageHistory'
+import { LocalStorage } from './WebStorage/LocalStorage'
+import { SessionStorage } from './WebStorage/SessionStorage'
+import { Request } from './AJAX/Request'
+import { Closer } from '../Component/Closer/Closer'
+import { DropDown } from '../Component/DropDown/DropDown'
+import { Mobile } from '../Component/Mobile/Mobile'
+import { IComponent } from '../Component/Interfaces/IComponent'
 
-    // Starts up and generally manages the framework
-    export class Clarity {
-        // constructor
-        constructor() {
-            this.hotkeys = new Hotkey.Hotkeys();
-            this.router = new Router.Router();
-            this.validation = new Validation.FormValidation();
-            this.errorLogger = new Logging.ErrorLogging();
-            this.history = new History.PageHistory();
-            this.localStorage = new WebStorage.LocalStorage();
-            this.sessionStorage = new WebStorage.SessionStorage();
+// Starts up and generally manages the framework
+export class Clarity {
+    // constructor
+    constructor() {
+        this.hotkeys = new Hotkeys();
+        this.router = new Router();
+        this.validation = new FormValidation();
+        this.errorLogger = new ErrorLogging();
+        this.history = new PageHistory();
+        this.localStorage = new LocalStorage();
+        this.sessionStorage = new SessionStorage();
+        this.request = new Request('','');
 
-            this.closer = new Closer.Closer();
-            this.dropDown = new DropDown.DropDown();
-            this.mobile = new Mobile.Mobile();
-            // this.modal = new Modal.Modal();
-            // this.tabs = new Tabs.Tabs();
+        this.components=[ new Closer(), new DropDown(), new Mobile() ];
 
-            window.addEventListener("keydown", x => this.hotkeys.press(x));
-            window.addEventListener("load", x => this.validation.initialize(), false);
-            window.onerror = (msg, url, ln, col, error) => {
-                this.errorLogger.onError(msg.toString(), url, ln, col, error);
-            };
-        }
+        // this.modal = new Modal.Modal();
+        // this.tabs = new Tabs.Tabs();
 
-        // the tabs component
-        // private tabs: Tabs.Tabs;
+        window.addEventListener("keydown", x => this.hotkeys.press(x));
+        window.addEventListener("load", x => this.validation.initialize(), false);
+        window.onerror = (msg, url, ln, col, error) => {
+            this.errorLogger.onError(msg.toString(), url, ln, col, error);
+        };
+    }
 
-        // the modal component
-        // private modal: Modal.Modal;
+    // the various components
+    private components: Array<IComponent>
 
-        // the mobile component
-        private mobile: Mobile.Mobile;
+    // the hotkeys object
+    public hotkeys: Hotkeys;
 
-        // the drop down component
-        private dropDown: DropDown.DropDown;
+    // AJAX request object
+    public request: Request;
 
-        // the closer component
-        private closer: Closer.Closer;
+    // The router object
+    public router: Router;
 
-        // the hotkeys object
-        public hotkeys: Hotkey.Hotkeys;
+    // The form validation object
+    public validation: FormValidation;
 
-        // The router object
-        public router: Router.Router;
+    // The error logging object
+    public errorLogger: ErrorLogging;
 
-        // The form validation object
-        public validation: Validation.FormValidation;
+    // The page history object
+    public history: PageHistory;
 
-        // The error logging object
-        public errorLogger: Logging.ErrorLogging;
+    // The local storage object
+    public localStorage: LocalStorage;
 
-        // The page history object
-        public history: History.PageHistory;
+    // The session storage object
+    public sessionStorage: SessionStorage;
+}
 
-        // The local storage object
-        public localStorage: WebStorage.LocalStorage;
-
-        // The session storage object
-        public sessionStorage: WebStorage.SessionStorage;
+declare global {
+    // Adding clarity to the window interface
+    interface Window {
+        // The clarity object
+        clarity: Clarity;
     }
 }
 
-// Adding clarity to the window interface
-interface Window {
-    // The clarity object
-    clarity: Framework.Clarity;
-}
-
-window.clarity = window.clarity || new Framework.Clarity();
+window.clarity = window.clarity || new Clarity();

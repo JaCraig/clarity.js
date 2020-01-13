@@ -14,14 +14,10 @@
    limitations under the License.
 */
 
-/// <reference path="../Hotkey/Interfaces/IHotkeys.ts" />
+import { IHotkeys } from '../Hotkey/Interfaces/IHotkeys'
 
-
-module Framework.Interfaces {
-
-    // Hotkey configuration interface
-    export interface IHotkeyConfiguration {
-        // called when configuring the hotekeys
-        configureHotkeys(hotkeys: Hotkey.Interfaces.IHotkeys): void;
-    }
+// Hotkey configuration interface
+export interface IHotkeyConfiguration {
+    // called when configuring the hotekeys
+    configureHotkeys(hotkeys: IHotkeys): void;
 }

@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": false,
+        "target": "es5",
+        "removeComments": true,
+        "declaration": true,
+        "outFile": "clarity.min.js",
+        "lib": [
+            "dom",
+            "es5",
+            "es2015.promise"
+        ],
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node"
+    }
+}

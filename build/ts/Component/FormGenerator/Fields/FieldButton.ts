@@ -16,30 +16,27 @@
 
 /// <reference path="../../../Extensions/String.ts" />
 
-module Components {
+import Vue from 'vue/dist/vue.js'
 
-    declare var Vue: any;
-
-    Vue.component("clarity-form-field-buttons", {
-        props: {
-            model: Object,
-            schema: Object,
-            idSuffix: String,
+Vue.component("clarity-form-field-buttons", {
+    props: {
+        model: Object,
+        schema: Object,
+        idSuffix: String,
+    },
+    methods: {
+        click: function(event, button) {
+            this.$emit("click", event, button);
+            return false;
         },
-        methods: {
-            click: function(event, button) {
-                this.$emit("click", event, button);
-                return false;
-            },
-        },
-        template: `<div class="controls">
-                        <div class="input-group">
-                            <input v-for="button in schema.buttons"
-                                    :type="button.type"
-                                    :value="button.value"
-                                    :class="button.classes"
-                                    @click="click($event,button)" />
-                        </div>
-                    </div>`,
-    });
-}
+    },
+    template: `<div class="controls">
+                    <div class="input-group">
+                        <input v-for="button in schema.buttons"
+                                :type="button.type"
+                                :value="button.value"
+                                :class="button.classes"
+                                @click="click($event,button)" />
+                    </div>
+                </div>`,
+});

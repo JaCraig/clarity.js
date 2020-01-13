@@ -14,11 +14,10 @@
    limitations under the License.
 */
 
-module Framework.Router.Interfaces {
+import { RouteData } from '../DataTypes/RouteData'
 
-    // Routing interface
-    export interface IRouter {
-        // maps a set of routes
-        map(route: DataTypes.RouteData[]): void;
-    }
+// Routing interface
+export interface IRouter {
+    // maps a set of routes
+    map(route: RouteData[]): void;
 }

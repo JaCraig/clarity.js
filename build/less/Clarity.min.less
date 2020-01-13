@@ -1,0 +1,408 @@
+/*
+   Copyright 2016 James Craig
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+@import (reference) 'styles.less';
+@import url('reset.less');
+@import url('print.less');
+@import url('grid.less');
+@import url('lists.less');
+@import url('table.less');
+@import url('form.less');
+@import url('button.less');
+@import url('menu.less');
+@import url('pagination.less');
+@import url('contextual.less');
+@import url('tabs.less');
+@import url('font-awesome/fontawesome.less');
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+* {
+    transition: all .15s ease-in-out;
+    box-sizing: border-box;
+}
+
+body {
+    color: @textColor;
+    background-color: @backgroundColor;
+    font: normal normal normal 1em/1.5 "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+    margin: 0;
+}
+
+hr {
+    border: 0;
+    height: .125em;
+    background-color: @borderColor;
+}
+
+del, s {
+    text-decoration: line-through;
+}
+
+ins, u {
+    text-decoration: underline;
+}
+
+em, i {
+    font-style: italic;
+}
+
+abbr[data-original-title], abbr[title] {
+    cursor: help;
+    text-decoration: none;
+    .border-bottom(@style:dotted,@color: @darkBorderColor);
+}
+
+dt {
+    font-family: 'Helvetica Neue',Helvetica, arial, freesans, clean, sans-serif;
+    font-weight: @fontWeightBold;
+}
+
+address {
+    margin-bottom: 1.25em;
+    font-style: normal;
+}
+
+blockquote {
+    padding: .625em 1.25em;
+    margin: 0 0 1.25em;
+    .extra-large;
+    .border-left(.313em);
+    .depth-1;
+
+    &.reverse {
+        .text-right;
+        .border-right(.313em);
+        border-left: none;
+    }
+
+    & .small,
+    & footer, 
+    & small {
+        display: block;
+        .extra-small;
+        color: @darkBorderColor;
+    }
+}
+
+code {
+    padding: .175em .40em;
+    color: @primaryBackground;
+    background-color: @backgroundLight;
+    border-radius: @roundedCorner;
+}
+
+kbd {
+    padding: .175em .4em;
+    color: @backgroundColor;
+    background-color: @backgroundDark;
+    border-radius: @roundedCorner;
+}
+
+pre {
+    display: block;
+    padding: .731em;
+    margin: 0 0 .769em;
+    font-size: 1em;
+    line-height: 1.45;
+    color: @textColor;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: @backgroundLight;
+    .roundedBorder;
+    height: 27em;
+    overflow-y: scroll;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+progress {
+    width: 100%;
+    height: 1.5em;
+    background-color: @backgroundLight;
+
+    &[value]::-webkit-progress-value {
+        background-color: @primaryBackground;
+        .roundedBorder(@color:@primaryBorder);
+    }
+
+    &[value]::-webkit-progress-bar,
+    &:not([value])::-webkit-progress-bar {
+        background-color: @backgroundLight;
+        .roundedBorder();
+        .depth-minus-1;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Helvetica Neue',Helvetica, arial, freesans, clean, sans-serif;
+    font-weight: @fontWeightBold;
+}
+
+img {
+    vertical-align: middle;
+    
+    &.rounded {
+        border-radius: @roundedCornerMore;
+    }
+
+    &.circle {
+        border-radius: @circularCorners;
+    }
+
+    &.thumbnail {
+        padding: .25em;
+        background-color: @backgroundColor;
+        .roundedBorder;
+    }
+}
+
+figure {
+    padding: .25em;
+    background-color: @backgroundColor;
+    display: inline-block;
+    margin: 0;
+    .roundedBorder;
+    
+    & > figcaption {
+        padding: .5em .2em;
+    }
+}
+
+a {
+    color: @linkColor;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.roundedBorder {
+    .roundedBorder();
+}
+
+.no-border {
+    border: none;
+}
+
+.bordered {
+    .border;
+}
+
+.border-right {
+    .border-right();
+}
+
+.border-left {
+    .border-left();
+}
+
+.border-bottom {
+    .border-bottom();
+}
+
+.border-top {
+    .border-top();
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.text-nowrap {
+    white-space: nowrap;
+}
+
+.text-lowercase {
+    text-transform: lowercase;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.extra-small {
+    font-size: .7em;
+    line-height: .7em;
+}
+
+.small, small {
+    font-size: .85em;
+    line-height: .85em;
+}
+
+.large {
+    font-size: 1.15em;
+    line-height: 1.15em;
+}
+
+.extra-large {
+    font-size: 1.30em;
+    line-height: 1.30em;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.margin-left-auto {
+    margin-left:auto;
+}
+
+.margin-right-auto {
+    margin-right:auto;
+}
+
+.margin-bottom-auto {
+    margin-bottom:auto;
+}
+
+.margin-top-auto{
+    margin-top:auto;
+}
+
+.show {
+    display: block !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.responsive {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.z-depth-minus-1 {
+    .depth-minus-1;
+}
+
+.z-depth-1 {
+    .depth-1;
+}
+
+.z-depth-2 {
+    .depth-2;
+}
+
+.z-depth-3 {
+    .depth-3;
+}
+
+.z-depth-4 {
+    .depth-4;
+}
+
+.z-depth-5 {
+    .depth-5;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+}
+
+.inline{
+    display: inline;
+}
+
+.spinner {
+    animation: rotate 1s infinite linear;
+    .roundedBorder(.125em, @color:@darkBorderColor,@radius:@circularCorners);
+    border-right-color: transparent;
+    height: 1.5em;
+    margin: 1.5em auto;
+    width: 1.5em;
+    display: inline-block;
+}
+
+span.close,div.close {
+    float: right;
+    font-size: 1.5em;
+    font-weight: @fontWeightBold;
+    line-height: .75em;
+    .opacity(.8);
+    cursor: pointer;
+}
+
+.clear-background {
+    background: transparent;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    dl.horizontal dt {
+        float: left;
+        width: 10em;
+        overflow: hidden;
+        clear: left;
+        text-align: right;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-family: 'Helvetica Neue',Helvetica, arial, freesans, clean, sans-serif;
+    }
+
+    dl.horizontal dd {
+        margin-left: 11.25em;
+    }
+}

@@ -13,75 +13,74 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-/// <reference path="../Interfaces/IComponent.ts" />
+
 /// <reference path="../../Extensions/HTMLElement.ts" />
 /// <reference path="../../Extensions/NodeList.ts" />
 
-module Components {
-    declare var Vue: any;
+import Vue from 'vue/dist/vue.js'
 
-    Vue.component("clarity-tabs", {
-        beforeMount: function() {
-            this.switchSelected(this.initialSectionPicked);
+Vue.component("clarity-tabs", {
+    beforeMount: function() {
+        this.switchSelected(this.initialSectionPicked);
+    },
+    data: function() {
+        let tempSectionPicked = this.initialSectionPicked;
+        if (tempSectionPicked === undefined && this.sections && this.sections.length > 0) {
+            tempSectionPicked = this.sections[0];
+        }
+        return {
+            sectionPicked: tempSectionPicked,
+        };
+    },
+    methods: {
+        switchSelected: function (item) {
+            this.sectionPicked = item;
+            this.switchTabs();
+            this.$emit("section-changed", this.sectionPicked);
         },
-        data: function() {
-            if (this.initialSectionPicked === undefined && this.section && this.section.length > 0) {
-                this.initialSectionPicked = this.sections[0];
+        switchTabs: function() {
+            if (this.sections === undefined) {
+                return;
             }
-            return {
-                sectionPicked: this.initialSectionPicked,
-            };
-        },
-        methods: {
-            switchSelected: function (item) {
-                this.sectionPicked = item;
-                this.switchTabs();
-                this.$emit("section-changed", this.sectionPicked);
-            },
-            switchTabs: function() {
-                if (this.sections === undefined) {
-                    return;
+            if (!this.sections.some(x => x === this.sectionPicked)) {
+                this.sectionPicked = this.sections[0];
+            }
+            if (this.sectionPicked === undefined) {
+                return;
+            }
+            this.sectionPicked.selected = true;
+            for (let x = 0; x < this.sections.length; ++x) {
+                if (this.sectionPicked !== this.sections[x]) {
+                    this.sections[x].selected = false;
                 }
-                if (!this.sections.some(x => x === this.sectionPicked)) {
-                    this.sectionPicked = this.sections[0];
-                }
-                if (this.sectionPicked === undefined) {
-                    return;
-                }
-                this.sectionPicked.selected = true;
-                for (let x = 0; x < this.sections.length; ++x) {
-                    if (this.sectionPicked !== this.sections[x]) {
-                        this.sections[x].selected = false;
-                    }
-                }
-            },
+            }
         },
-        props: {
-            initialSectionPicked: Object,
-            sections: Array,
+    },
+    props: {
+        initialSectionPicked: Object,
+        sections: Array,
+    },
+    template: `<div class="tabs" v-cloak>
+                    <header>
+                        <ul class="row flex align-items-stretch">
+                            <li class="flex-item" v-for="section in sections">
+                                <a href="#!"
+                                    v-on:click.stop.prevent="switchSelected(section)"
+                                    class="tab"
+                                    v-bind:class="{ selected: section.selected }">
+                                        <span v-bind:class="[section.icon]"></span>
+                                        {{section.name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </header>
+                    <section>
+                        <slot></slot>
+                    </section>
+                </div>`,
+    watch: {
+        sections: function(value) {
+            this.switchSelected(this.sectionPicked);
         },
-        template: `<div class="tabs" v-cloak>
-                        <header>
-                            <ul class="row flex align-items-stretch">
-                                <li class="flex-item" v-for="section in sections">
-                                    <a href="#!"
-                                        v-on:click.stop.prevent="switchSelected(section)"
-                                        class="tab"
-                                        v-bind:class="{ selected: section.selected }">
-                                            <span v-bind:class="[section.icon]"></span>
-                                            {{section.name}}
-                                    </a>
-                                </li>
-                            </ul>
-                        </header>
-                        <section>
-                            <slot></slot>
-                        </section>
-                    </div>`,
-        watch: {
-            sections: function(value) {
-                this.switchSelected(this.sectionPicked);
-            },
-        },
-    });
-}
+    },
+});

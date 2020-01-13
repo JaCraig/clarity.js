@@ -13,36 +13,44 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
- /// <reference path="../Interfaces/IComponent.ts" />
- /// <reference path="../../Extensions/HTMLElement.ts" />
- /// <reference path="../../Extensions/NodeList.ts" />
 
-module DropDown {
-    export class DropDown implements Component.Interfaces.IComponent {
-        constructor() {
-            document.getElementsByClassName("drop-down")
-                    .map(x => {
-                    (<Element>x).firstElementChild
-                                .addEventListener("click", y => {
-                                    y.preventDefault();
-                                    let parentElement = (<HTMLElement>y.target).getParentByClass("drop-down");
-                                    if (parentElement.hasClass("active")) {
-                                        parentElement.removeClass("active");
-                                    } else {
-                                        parentElement.addClass("active");
-                                    }
-                                    return false;
-                                });
-                    return x;
-                    });
-            window.addEventListener("click", x => {
-                let elements = document.getElementsByClassName("drop-down");
-                for (let y = 0; y < elements.length; ++y) {
-                    if ((<HTMLElement>x.target).getParentByClass("drop-down") !== elements[y]) {
-                        elements[y].className = elements[y].className.replace("active", "");
-                    }
+/// <reference path="../../Extensions/HTMLElement.ts" />
+/// <reference path="../../Extensions/NodeList.ts" />
+
+import { IComponent } from '../Interfaces/IComponent'
+
+export class DropDown implements IComponent {
+    constructor() {
+        this.map(document.getElementsByClassName("drop-down"),
+                x => {
+                (<Element>x).firstElementChild
+                            .addEventListener("click", y => {
+                                y.preventDefault();
+                                let parentElement = (<HTMLElement>y.target).getParentByClass("drop-down");
+                                if (parentElement.hasClass("active")) {
+                                    parentElement.removeClass("active");
+                                } else {
+                                    parentElement.addClass("active");
+                                }
+                                return false;
+                            });
+                return x;
+                });
+        window.addEventListener("click", x => {
+            let elements = document.getElementsByClassName("drop-down");
+            for (let y = 0; y < elements.length; ++y) {
+                if ((<HTMLElement>x.target).getParentByClass("drop-down") !== elements[y]) {
+                    elements[y].className = elements[y].className.replace("active", "");
                 }
-            });
+            }
+        });
+    }
+
+    private map<TResult>(elements: HTMLCollectionOf<Element>, callback: (x: Node) => TResult): TResult[] {
+        let ReturnValues = [];
+        for (let x = 0; x < elements.length; ++x) {
+            ReturnValues = ReturnValues.concat(callback(elements[x]));
         }
+        return ReturnValues;
     }
 }

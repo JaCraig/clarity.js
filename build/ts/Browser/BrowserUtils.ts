@@ -13,37 +13,35 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-module Browser {
-    // A set of browser/window related util functions.
-    export class BrowserUtils {
-        // Is this running on OSX?
-        static get isOSX(): boolean {
-            return ~navigator.userAgent.indexOf("Mac OS X") !== -1;
-        }
+// A set of browser/window related util functions.
+export class BrowserUtils {
+    // Is this running on OSX?
+    static get isOSX(): boolean {
+        return ~navigator.userAgent.indexOf("Mac OS X") !== -1;
+    }
 
-        // Returns the current domain.
-        static get domain(): string {
-            return "http://" + window.location.host;
-        }
+    // Returns the current domain.
+    static get domain(): string {
+        return "http://" + window.location.host;
+    }
 
-        // Determines if this is being run locally or in production.
-        static get isLocal(): boolean {
-            return (/^http:\/\/localhost:\d{5}$/).test(BrowserUtils.domain);
-        }
+    // Determines if this is being run locally or in production.
+    static get isLocal(): boolean {
+        return (/^http:\/\/localhost:\d{5}$/).test(BrowserUtils.domain);
+    }
 
-        // Gets the URL parameter specified, unencoded.
-        public static getURLParameter(name: string): string {
-            return decodeURIComponent((new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search) || [, ""])[1].replace(/\+/g, "%20")) || null;
-        }
+    // Gets the URL parameter specified, unencoded.
+    public static getURLParameter(name: string): string {
+        return decodeURIComponent((new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search) || [, ""])[1].replace(/\+/g, "%20")) || null;
+    }
 
-        // Gets the hash without the hash bang.
-        static get HashBang(): string {
-            return window.location.hash.replace("#!", "");
-        }
+    // Gets the hash without the hash bang.
+    static get HashBang(): string {
+        return window.location.hash.replace("#!", "");
+    }
 
-        // Gets the text after the last slash. Presumably the ID needed.
-        static get Id(): string {
-            return window.location.pathname.split("/").pop();
-        }
+    // Gets the text after the last slash. Presumably the ID needed.
+    static get Id(): string {
+        return window.location.pathname.split("/").pop();
     }
 }

@@ -13,31 +13,29 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-/// <reference path="../Interfaces/IComponent.ts" />
+
 /// <reference path="../../Extensions/HTMLElement.ts" />
 
+import { IComponent } from '../Interfaces/IComponent'
 
+export class ComponentBase implements IComponent {
+    constructor(private element: HTMLElement) {
+        this.name = element.id;
+    }
 
-module Component.BaseClasses {
-    export class ComponentBase implements Component.Interfaces.IComponent {
-        constructor(private element: HTMLElement) {
-            this.name = element.id;
+    public name: string;
+
+    protected show(): void {
+        this.element.replaceClass("hidden", "show");
+        if (!this.element.hasClass("show")) {
+            this.element.addClass("show");
         }
+    }
 
-        public name: string;
-
-        protected show(): void {
-            this.element.replaceClass("hidden", "show");
-            if (!this.element.hasClass("show")) {
-                this.element.addClass("show");
-            }
-        }
-
-        protected hide(): void {
-            this.element.replaceClass("show", "hidden");
-            if (!this.element.hasClass("hidden")) {
-                this.element.addClass("hidden");
-            }
+    protected hide(): void {
+        this.element.replaceClass("show", "hidden");
+        if (!this.element.hasClass("hidden")) {
+            this.element.addClass("hidden");
         }
     }
 }

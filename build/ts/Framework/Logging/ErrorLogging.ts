@@ -13,29 +13,26 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-/// <reference path="Signature.ts" />
+
 /// <reference path="FunctionExtensions.ts" />
 
-module Framework.Logging {
+//Handles error logging
+export class ErrorLogging {
+    //constructor
+    constructor() {
+        this.logError = (ex,stack) => { };
+    }
 
-    //Handles error logging
-    export class ErrorLogging {
-        //constructor
-        constructor() {
-            this.logError = (ex,stack) => { };
-        }
+    //Logs the error message. Includes the message and stack trace information.
+    public logError: (message: string, stack: any[]) => void;
 
-        //Logs the error message. Includes the message and stack trace information.
-        public logError: (message: string, stack: any[]) => void;
+    //Sets the logging function that the system uses
+    public setLoggingFunction(logger: (message: string, stack: any[]) => void): void {
+        this.logError = logger;
+    }
 
-        //Sets the logging function that the system uses
-        public setLoggingFunction(logger: (message: string, stack: any[]) => void): void {
-            this.logError = logger;
-        }
-
-        //called when an error is thrown.
-        public onError(message: string, filename?: string, lineno?: number, colno?: number, error?:Error): void { 
-            this.logError(message, arguments.callee.trace());
-        }
+    //called when an error is thrown.
+    public onError(message: string, filename?: string, lineno?: number, colno?: number, error?:Error): void { 
+        this.logError(message, arguments.callee.trace());
     }
 }

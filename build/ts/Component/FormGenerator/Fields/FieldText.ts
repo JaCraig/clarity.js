@@ -16,18 +16,15 @@
 
 /// <reference path="../../../Extensions/String.ts" />
 
-module Components {
+import Vue from 'vue/dist/vue.js'
 
-    declare var Vue: any;
-
-    Vue.component("clarity-form-field-text", {
-        props: {
-            model: Object,
-            schema: Object,
-            idSuffix: String,
-        },
-        methods: {
-        },
-        template: `<div :class="schema.classes" v-html="model || schema.model"></div>`,
-    });
-}
+Vue.component("clarity-form-field-text", {
+    props: {
+        model: Object,
+        schema: Object,
+        idSuffix: String,
+    },
+    methods: {
+    },
+    template: `<div :class="schema.classes" v-html="model || schema.model"></div>`,
+});

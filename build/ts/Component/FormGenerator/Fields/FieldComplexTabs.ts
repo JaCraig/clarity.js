@@ -16,69 +16,66 @@
 
 /// <reference path="../../../Extensions/String.ts" />
 
-module Components {
+import Vue from 'vue/dist/vue.js'
 
-    declare var Vue: any;
-
-    Vue.component("clarity-form-field-complex-tabs", {
-        data: function() {
-            return {
-                tabPicked: this.schema.tabs[0],
-            };
+Vue.component("clarity-form-field-complex-tabs", {
+    data: function() {
+        return {
+            tabPicked: this.schema.tabs[0],
+        };
+    },
+    props: {
+        model: Object,
+        schema: Object,
+        idSuffix: String,
+    },
+    methods: {
+        getFieldType: function(field) {
+            return "clarity-form-field-" + field.type;
         },
-        props: {
-            model: Object,
-            schema: Object,
-            idSuffix: String,
+        getModelValue: function(field) {
+            return this.model[field.model];
         },
-        methods: {
-            getFieldType: function(field) {
-                return "clarity-form-field-" + field.type;
-            },
-            getModelValue: function(field) {
-                return this.model[field.model];
-            },
-            setModelValue: function(newValue, field) {
-                this.model[field.model] = newValue;
-                this.$emit("changed", this.model, this.schema);
-            },
-            buttonClicked: function(event, field) {
-                this.$emit("click", event, field);
-            },
-            getSchema: function(field) {
-                if (field.type.startsWith("complex")) {
-                    if (field.schema.model === undefined) {
-                        field.schema.model = field.model;
-                    }
-                    return field.schema;
+        setModelValue: function(newValue, field) {
+            this.model[field.model] = newValue;
+            this.$emit("changed", this.model, this.schema);
+        },
+        buttonClicked: function(event, field) {
+            this.$emit("click", event, field);
+        },
+        getSchema: function(field) {
+            if (field.type.startsWith("complex")) {
+                if (field.schema.model === undefined) {
+                    field.schema.model = field.model;
                 }
-                return field;
-            },
-            tabChanged: function(pickedTab) {
-                this.tabPicked = pickedTab;
-            },
-            getFields: function() {
-                return this.tabPicked.fields;
-            },
-            getIDSuffix: function(field) {
-                return this.idSuffix;
-            },
+                return field.schema;
+            }
+            return field;
         },
-        template: `<div>
-                        <clarity-tabs
-                            :sections="schema.tabs"
-                            v-on:section-changed="tabChanged"
-                            :class="schema.tabClasses">
-                            <div v-for="item in getFields()">
-                                <component :is="getFieldType(item)"
-                                        :schema="getSchema(item)"
-                                        :model="getModelValue(item)"
-                                        :idSuffix="getIDSuffix(item)"
-                                        @changed="setModelValue"
-                                        @click="buttonClicked">
-                                </component>
-                            </div>
-                        </clarity-tabs>
-                    </div>`,
-    });
-}
+        tabChanged: function(pickedTab) {
+            this.tabPicked = pickedTab;
+        },
+        getFields: function() {
+            return this.tabPicked.fields;
+        },
+        getIDSuffix: function(field) {
+            return this.idSuffix;
+        },
+    },
+    template: `<div>
+                    <clarity-tabs
+                        :sections="schema.tabs"
+                        v-on:section-changed="tabChanged"
+                        :class="schema.tabClasses">
+                        <div v-for="item in getFields()">
+                            <component :is="getFieldType(item)"
+                                    :schema="getSchema(item)"
+                                    :model="getModelValue(item)"
+                                    :idSuffix="getIDSuffix(item)"
+                                    @changed="setModelValue"
+                                    @click="buttonClicked">
+                            </component>
+                        </div>
+                    </clarity-tabs>
+                </div>`,
+});

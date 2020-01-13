@@ -13,25 +13,33 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-/// <reference path="../Interfaces/IComponent.ts" />
 /// <reference path="../../Extensions/HTMLElement.ts" />
 /// <reference path="../../Extensions/NodeList.ts" />
 
-module Closer {
-    export class Closer implements Component.Interfaces.IComponent {
-        constructor() {
-            document.getElementsByClassName("close")
-                    .map(x => {
-                        x.addEventListener("click", y => this.close(<HTMLElement>y.target));
-                        return x;
-                    });
-        }
+import { IComponent } from '../Interfaces/IComponent'
 
-        private close(target: HTMLElement): void {
-            let elementToClose = target.attribute("data-close");
-            let element = target.getParentByClass(elementToClose);
-            if (!element) { return; }
-            element.hide();
+
+export class Closer implements IComponent {
+    constructor() {
+        this.map(document.getElementsByClassName("close"),
+            x => {
+                x.addEventListener("click", y => this.close(<HTMLElement>y.target));
+                return x;
+            });
+    }
+
+    private close(target: HTMLElement): void {
+        let elementToClose = target.attribute("data-close");
+        let element = target.getParentByClass(elementToClose);
+        if (!element) { return; }
+        element.hide();
+    }
+
+    private map<TResult>(elements: HTMLCollectionOf<Element>, callback: (x: Node) => TResult): TResult[] {
+        let ReturnValues = [];
+        for (let x = 0; x < elements.length; ++x) {
+            ReturnValues = ReturnValues.concat(callback(elements[x]));
         }
+        return ReturnValues;
     }
 }

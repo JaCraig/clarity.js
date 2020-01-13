@@ -13,22 +13,19 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
+import Vue from 'vue/dist/vue.js'
+import moment from 'moment'
 
-module Components {
-    declare var Vue: any;
-    declare var moment: any;
+Vue.filter("moment", function (date, format) {
+    if (!date) {
+        return "N/A";
+    }
+    return moment(date, "YYYY-MM-DDThh:mm:ss").format(format);
+});
 
-    Vue.filter("moment", function (date, format) {
-        if (!date) {
-            return "N/A";
-        }
-        return moment(date, "YYYY-MM-DDThh:mm:ss").format(format);
-    });
-
-    Vue.filter("capitalize", function (str) {
-        if (!str) {
-            return "";
-        }
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    });
-}
+Vue.filter("capitalize", function (str) {
+    if (!str) {
+        return "";
+    }
+    return str.charAt(0).toUpperCase() + str.slice(1);
+});

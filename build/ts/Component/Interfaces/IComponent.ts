@@ -13,7 +13,5 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-module Component.Interfaces {
-    export interface IComponent {
-    }
+export interface IComponent {
 }

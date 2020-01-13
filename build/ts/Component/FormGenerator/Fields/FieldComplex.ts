@@ -16,53 +16,50 @@
 
 /// <reference path="../../../Extensions/String.ts" />
 
-module Components {
+import Vue from 'vue/dist/vue.js'
 
-    declare var Vue: any;
-
-    Vue.component("clarity-form-field-complex", {
-        props: {
-            model: Object,
-            schema: Object,
-            idSuffix: String,
+Vue.component("clarity-form-field-complex", {
+    props: {
+        model: Object,
+        schema: Object,
+        idSuffix: String,
+    },
+    methods: {
+        getFieldType: function(field) {
+            return "clarity-form-field-" + field.type;
         },
-        methods: {
-            getFieldType: function(field) {
-                return "clarity-form-field-" + field.type;
-            },
-            getModelValue: function(field) {
-                return this.model[field.model];
-            },
-            setModelValue: function(newValue, field) {
-                this.model[field.model] = newValue;
-                this.$emit("changed", this.model, this.schema);
-            },
-            buttonClicked: function(event, field) {
-                this.$emit("click", event, field);
-            },
-            getSchema: function(field) {
-                if (field.type.startsWith("complex")) {
-                    if (field.schema.model === undefined) {
-                        field.schema.model = field.model;
-                    }
-                    return field.schema;
+        getModelValue: function(field) {
+            return this.model[field.model];
+        },
+        setModelValue: function(newValue, field) {
+            this.model[field.model] = newValue;
+            this.$emit("changed", this.model, this.schema);
+        },
+        buttonClicked: function(event, field) {
+            this.$emit("click", event, field);
+        },
+        getSchema: function(field) {
+            if (field.type.startsWith("complex")) {
+                if (field.schema.model === undefined) {
+                    field.schema.model = field.model;
                 }
-                return field;
-            },
-            getIDSuffix: function(field) {
-                return this.idSuffix;
-            },
+                return field.schema;
+            }
+            return field;
         },
-        template: `<div>
-                        <div v-for="item in schema.fields">
-                            <component :is="getFieldType(item)"
-                                    :schema="getSchema(item)"
-                                    :model="getModelValue(item)"
-                                    :idSuffix="getIDSuffix(item)"
-                                    @changed="setModelValue"
-                                    @click="buttonClicked">
-                            </component>
-                        </div>
-                    </div>`,
-    });
-}
+        getIDSuffix: function(field) {
+            return this.idSuffix;
+        },
+    },
+    template: `<div>
+                    <div v-for="item in schema.fields">
+                        <component :is="getFieldType(item)"
+                                :schema="getSchema(item)"
+                                :model="getModelValue(item)"
+                                :idSuffix="getIDSuffix(item)"
+                                @changed="setModelValue"
+                                @click="buttonClicked">
+                        </component>
+                    </div>
+                </div>`,
+});

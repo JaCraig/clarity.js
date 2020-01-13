@@ -13,35 +13,33 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
+import Vue from 'vue/dist/vue.js'
 
-module Components {
-    declare var Vue: any;
-    let clickOutside = {
-        cb: function(event) {
-            return;
-        },
-        onEventBound: function() {
-            return;
-        },
-        onEvent: function(event) {
-            if (event.target === this.el || this.el.contains(event.target) || clickOutside.cb) {
-                clickOutside.cb(event);
-            }
-        },
-        bind: function(el) {
-            clickOutside.onEventBound = clickOutside.onEvent.bind({ el });
-            document.addEventListener("click", clickOutside.onEventBound);
-        },
-        update: function(el, binding) {
-            if (typeof binding.value !== "function") {
-                throw new Error("Argument must be a function");
-            }
-            clickOutside.cb = binding.value;
-        },
-        unbind: function () {
-            document.removeEventListener("click", clickOutside.onEventBound);
-        },
-    };
+let clickOutside = {
+    cb: function(event) {
+        return;
+    },
+    onEventBound: function() {
+        return;
+    },
+    onEvent: function(event) {
+        if (event.target === this.el || this.el.contains(event.target) || clickOutside.cb) {
+            clickOutside.cb(event);
+        }
+    },
+    bind: function(el) {
+        clickOutside.onEventBound = clickOutside.onEvent.bind({ el });
+        document.addEventListener("click", clickOutside.onEventBound);
+    },
+    update: function(el, binding) {
+        if (typeof binding.value !== "function") {
+            throw new Error("Argument must be a function");
+        }
+        clickOutside.cb = binding.value;
+    },
+    unbind: function () {
+        document.removeEventListener("click", clickOutside.onEventBound);
+    },
+};
 
-    Vue.directive("click-outside", clickOutside);
-}
+Vue.directive("click-outside", clickOutside);
