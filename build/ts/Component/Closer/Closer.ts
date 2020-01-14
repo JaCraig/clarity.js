@@ -16,7 +16,7 @@
 /// <reference path="../../Extensions/HTMLElement.ts" />
 /// <reference path="../../Extensions/NodeList.ts" />
 
-import { IComponent } from '../Interfaces/IComponent'
+import { IComponent } from "../Interfaces/IComponent";
 
 
 export class Closer implements IComponent {

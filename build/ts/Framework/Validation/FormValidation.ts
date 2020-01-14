@@ -17,7 +17,7 @@
 /// <reference path="../../Extensions/NodeList.ts" />
 /// <reference path="../../Extensions/HTMLElement.ts" />
 
-import { StringDictionary } from '../../Types/StringDictionary'
+import { StringDictionary } from "../../Types/StringDictionary";
 
 // Class to help with form validation
 export class FormValidation {
@@ -43,7 +43,7 @@ export class FormValidation {
 
     // initializes the validation system for adding custom error messages
     public initialize(): void {
-        let inputElements = this.map(document.getElementsByTagName("input"),x => <HTMLInputElement>x).filter(x => x.willValidate);
+        let inputElements = this.map(document.getElementsByTagName("input"), x => <HTMLInputElement>x).filter(x => x.willValidate);
         for (let x = 0; x < inputElements.length; ++x) {
             if (inputElements[x].type.toUpperCase() === "RADIO"
                 || inputElements[x].type.toUpperCase() === "CHECKBOX") {
@@ -53,12 +53,12 @@ export class FormValidation {
             }
             inputElements[x].addEventListener("invalid", y => this.invalidInputHandler(<HTMLInputElement>y.target));
         }
-        let textAreaElements = this.map(document.getElementsByTagName("textarea"),x => <HTMLTextAreaElement>x).filter(x => x.willValidate);
+        let textAreaElements = this.map(document.getElementsByTagName("textarea"), x => <HTMLTextAreaElement>x).filter(x => x.willValidate);
         for (let x = 0; x < textAreaElements.length; ++x) {
             textAreaElements[x].addEventListener("change", y => this.textAreaHandler(<HTMLTextAreaElement>y.target));
             textAreaElements[x].addEventListener("invalid", y => this.invalidTextAreaHandler(<HTMLTextAreaElement>y.target));
         }
-        let selectElements = this.map(document.getElementsByTagName("select"),x => <HTMLSelectElement>x).filter(x => x.willValidate);
+        let selectElements = this.map(document.getElementsByTagName("select"), x => <HTMLSelectElement>x).filter(x => x.willValidate);
         for (let x = 0; x < selectElements.length; ++x) {
             selectElements[x].addEventListener("change", y => this.selectHandler(<HTMLSelectElement>y.target));
             selectElements[x].addEventListener("invalid", y => this.invalidSelectHandler(<HTMLSelectElement>y.target));
@@ -73,7 +73,7 @@ export class FormValidation {
         return ReturnValues;
     }
 
-    private filter(elements: HTMLCollectionOf<Element>, callback: (x: Node) => boolean): Node[]{
+    private filter(elements: HTMLCollectionOf<Element>, callback: (x: Node) => boolean): Node[] {
         let ReturnValues = [];
         for (let x = 0; x < elements.length; ++x) {
             if (callback(elements[x])) {
@@ -81,11 +81,11 @@ export class FormValidation {
             }
         }
         return ReturnValues;
-    };
+    }
 
     // Initialize an individual form
     public initializeForm(form: HTMLFormElement): void {
-        let inputElements = this.map(form.getElementsByTagName("input"),x => <HTMLInputElement>x).filter(x => x.willValidate);
+        let inputElements = this.map(form.getElementsByTagName("input"), x => <HTMLInputElement>x).filter(x => x.willValidate);
         for (let x = 0; x < inputElements.length; ++x) {
             if (inputElements[x].type.toUpperCase() === "RADIO"
                 || inputElements[x].type.toUpperCase() === "CHECKBOX") {
@@ -95,12 +95,12 @@ export class FormValidation {
             }
             inputElements[x].addEventListener("invalid", y => this.invalidInputHandler(<HTMLInputElement>y.target));
         }
-        let textAreaElements = this.map(form.getElementsByTagName("textarea"),x => <HTMLTextAreaElement>x).filter(x => x.willValidate);
+        let textAreaElements = this.map(form.getElementsByTagName("textarea"), x => <HTMLTextAreaElement>x).filter(x => x.willValidate);
         for (let x = 0; x < textAreaElements.length; ++x) {
             textAreaElements[x].addEventListener("change", y => this.textAreaHandler(<HTMLTextAreaElement>y.target));
             textAreaElements[x].addEventListener("invalid", y => this.invalidTextAreaHandler(<HTMLTextAreaElement>y.target));
         }
-        let selectElements = this.map(form.getElementsByTagName("select"),x => <HTMLSelectElement>x).filter(x => x.willValidate);
+        let selectElements = this.map(form.getElementsByTagName("select"), x => <HTMLSelectElement>x).filter(x => x.willValidate);
         for (let x = 0; x < selectElements.length; ++x) {
             selectElements[x].addEventListener("change", y => this.selectHandler(<HTMLSelectElement>y.target));
             selectElements[x].addEventListener("invalid", y => this.invalidSelectHandler(<HTMLSelectElement>y.target));

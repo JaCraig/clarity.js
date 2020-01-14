@@ -40,7 +40,7 @@ Vue.component("clarity-modal", ClarityModal);
 Vue.component("clarity-tabs", ClarityTabs);
 
 // Starts up and generally manages the framework
-export class Clarity {
+export default class Clarity {
     // constructor
     constructor() {
         this.hotkeys = new Hotkeys();

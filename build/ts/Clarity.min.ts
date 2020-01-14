@@ -3,7 +3,7 @@ import "./Extensions/HTMLElement";
 import "./Extensions/NodeList";
 import "./Extensions/Object";
 import "./Extensions/String";
-import "./Framework/Clarity";
+import Clarity from "./Framework/Clarity";
 import Vue from "vue/dist/vue.js";
 import ClarityFormValidator from "./Component/FormValidation/ClarityFormValidator.vue";
 import FormGenerator from "./Component/FormGenerator/ClarityFormGenerator.vue";

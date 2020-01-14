@@ -16,7 +16,7 @@
 
 /// <reference path="../../Extensions/HTMLElement.ts" />
 
-import { IComponent } from '../Interfaces/IComponent'
+import { IComponent } from "../Interfaces/IComponent";
 
 export class ComponentBase implements IComponent {
     constructor(private element: HTMLElement) {

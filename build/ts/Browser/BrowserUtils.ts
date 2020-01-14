@@ -32,7 +32,8 @@ export class BrowserUtils {
 
     // Gets the URL parameter specified, unencoded.
     public static getURLParameter(name: string): string {
-        return decodeURIComponent((new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search) || [, ""])[1].replace(/\+/g, "%20")) || null;
+        return decodeURIComponent((new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search)
+                || [, ""])[1].replace(/\+/g, "%20")) || null;
     }
 
     // Gets the hash without the hash bang.
