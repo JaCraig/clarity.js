@@ -20,8 +20,17 @@
 import { Request } from '../../Framework/AJAX/Request'
 import Vue from 'vue/dist/vue.js'
 import ClarityFormValidator from '../FormValidation/ClarityFormValidator.vue'
+import ClarityFormFieldComplex from './Fields/ClarityFormFieldComplex.vue'
+import { RegisterFilters } from '../VueExtensions/VueFilters'
+import { RegisterDirectives } from '../VueExtensions/VueDirectives'
+
+RegisterFilters();
+RegisterDirectives();
 
 export default Vue.extend({
+    components: {
+        "clarity-form-field-complex": ClarityFormFieldComplex
+    },
     props: {
         schema: Object,
         model: Object,

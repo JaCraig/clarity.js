@@ -13,33 +13,37 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-import Vue from 'vue/dist/vue.js'
+import Vue from "vue/dist/vue.js";
 
 let clickOutside = {
-    cb: function(event) {
+    bind: function(el: any) {
+        clickOutside.onEventBound = clickOutside.onEvent.bind({ el });
+        document.addEventListener("click", clickOutside.onEventBound);
+    },
+    cb: function(event: any) {
         return;
     },
-    onEventBound: function() {
-        return;
-    },
-    onEvent: function(event) {
+    onEvent: function(event: { target: any; }) {
         if (event.target === this.el || this.el.contains(event.target) || clickOutside.cb) {
             clickOutside.cb(event);
         }
     },
-    bind: function(el) {
-        clickOutside.onEventBound = clickOutside.onEvent.bind({ el });
-        document.addEventListener("click", clickOutside.onEventBound);
+    onEventBound: function() {
+        return;
     },
-    update: function(el, binding) {
+    unbind: function () {
+        document.removeEventListener("click", clickOutside.onEventBound);
+    },
+    update: function(el: any, binding: { value: (event: any) => void; }) {
         if (typeof binding.value !== "function") {
             throw new Error("Argument must be a function");
         }
         clickOutside.cb = binding.value;
     },
-    unbind: function () {
-        document.removeEventListener("click", clickOutside.onEventBound);
-    },
 };
 
+export function RegisterDirectives() {
+
 Vue.directive("click-outside", clickOutside);
+
+}

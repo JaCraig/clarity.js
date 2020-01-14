@@ -12,5 +12,15 @@
         ],
         "allowSyntheticDefaultImports": true,
         "moduleResolution": "node"
-    }
+    },
+    "include": [
+        "build/ts/**/*.ts",
+        "build/ts/**/*.vue"
+    ],
+    "files": [
+        "build/vue-shims.d.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
 }

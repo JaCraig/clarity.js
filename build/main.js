@@ -1,13 +1,8 @@
+import "./ts/Clarity.min.js";
 import Vue from 'vue/dist/vue.js';
-import ClarityFormValidator from './ts/Component/FormValidation/ClarityFormValidator.vue';
-import FormGenerator from './ts/Component/FormGenerator/ClarityFormGenerator.vue';
 
-Vue.component('clarity-form-validator', ClarityFormValidator);
-Vue.component('clarity-form-generator',FormGenerator);
-
-window.clarity = window.clarity || new Clarity();
 window.clarity.hotkeys.bind('a b c', function(){ console.log('pressed'); });
-window.clarity.validation.initialize();
+
 new Vue({
     el: '#FormValidationExample',
     data: {

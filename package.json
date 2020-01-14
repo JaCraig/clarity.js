@@ -4,8 +4,7 @@
   "description": "Clarity is a CSS/Javascript library used to build responsive web pages. Designed to make my life a little easier.",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine",
-    "build": "gulp"
+    "build": "Build.bat"
   },
   "repository": {
     "type": "git",
@@ -30,7 +29,6 @@
     "less": "^3.10.3",
     "moment": "^2.24.0",
     "parcel-plugin-imagemin": "^3.0.0",
-    "parcel-plugin-keep-asset-folders": "^0.2.0",
     "parcel-plugin-nuke-dist": "^1.0.1",
     "parcel-plugin-wrapper": "^0.2.2",
     "typescript": "^3.7.4",

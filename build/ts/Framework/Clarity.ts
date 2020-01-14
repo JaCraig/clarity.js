@@ -14,25 +14,30 @@
    limitations under the License.
 */
 
-// /// <reference path='../Component/VueExtensions/VueDirectives.ts' />
-// /// <reference path='../Component/VueExtensions/VueFilters.ts' />
-// /// <reference path='../Component/Tabs/Tabs.ts' />
-// /// <reference path='../Component/Modal/Modal.ts' />
-// /// <reference path='../Component/Grid/Grid.ts' />
-// /// <reference path='../Component/FormGenerator/FormGenerator.ts' />
+import { Hotkeys } from "./Hotkey/Hotkeys";
+import { Router } from "./Router/Router";
+import { FormValidation } from "./Validation/FormValidation";
+import { ErrorLogging } from "./Logging/ErrorLogging";
+import { PageHistory } from "./History/PageHistory";
+import { LocalStorage } from "./WebStorage/LocalStorage";
+import { SessionStorage } from "./WebStorage/SessionStorage";
+import { Request } from "./AJAX/Request";
+import { Closer } from "../Component/Closer/Closer";
+import { DropDown } from "../Component/DropDown/DropDown";
+import { Mobile } from "../Component/Mobile/Mobile";
+import { IComponent } from "../Component/Interfaces/IComponent";
+import Vue from "vue/dist/vue.js";
+import ClarityFormValidator from "../Component/FormValidation/ClarityFormValidator.vue";
+import FormGenerator from "../Component/FormGenerator/ClarityFormGenerator.vue";
+import ClarityGrid from "../Component/Grid/ClarityGrid.vue";
+import ClarityModal from "../Component/Modal/ClarityModal.vue";
+import ClarityTabs from "../Component/Tabs/ClarityTabs.vue";
 
-import { Hotkeys } from './Hotkey/Hotkeys'
-import { Router } from './Router/Router'
-import { FormValidation } from './Validation/FormValidation'
-import { ErrorLogging } from './Logging/ErrorLogging'
-import { PageHistory } from './History/PageHistory'
-import { LocalStorage } from './WebStorage/LocalStorage'
-import { SessionStorage } from './WebStorage/SessionStorage'
-import { Request } from './AJAX/Request'
-import { Closer } from '../Component/Closer/Closer'
-import { DropDown } from '../Component/DropDown/DropDown'
-import { Mobile } from '../Component/Mobile/Mobile'
-import { IComponent } from '../Component/Interfaces/IComponent'
+Vue.component("clarity-form-validator", ClarityFormValidator);
+Vue.component("clarity-form-generator", FormGenerator);
+Vue.component("clarity-grid", ClarityGrid);
+Vue.component("clarity-modal", ClarityModal);
+Vue.component("clarity-tabs", ClarityTabs);
 
 // Starts up and generally manages the framework
 export class Clarity {
@@ -45,7 +50,7 @@ export class Clarity {
         this.history = new PageHistory();
         this.localStorage = new LocalStorage();
         this.sessionStorage = new SessionStorage();
-        this.request = new Request('','');
+        this.request = new Request("","");
 
         this.components=[ new Closer(), new DropDown(), new Mobile() ];
 
