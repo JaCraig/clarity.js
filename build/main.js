@@ -34,23 +34,23 @@ new Vue({
             files: [],
             someText: "<div class='body'>This is some random text for reasons</div>",
             complexObject: {
-                title: "My Title",
+                title: "My Title"
             },
             complexConditional: {
                 display: true
             },
             complexObjectList: [{
                 order: 1,
-                name: "Jane",
+                name: "Jane"
             },{
                 order: 2,
-                name: "John",
+                name: "John"
             }],
             complexObjectTabs: {
                 order: 1,
                 name: "Jane",
                 number: 2,
-                lastName: "John",
+                lastName: "John"
             }
         },
         schema: {
@@ -95,7 +95,7 @@ new Vue({
                             { key: 3, value: "HTML5"},
                             { key: 4, value: "Something"},
                             { key: 5, value: "Another Thing"}],
-                multiple: true,
+                multiple: true
             },{
                 type: "input",
                 inputType: "email",
@@ -165,7 +165,7 @@ new Vue({
                         hint: "Write a name here"
                     }]
                 },
-                model: "complexObjectList",
+                model: "complexObjectList"
             },{
                 type: "complex-tabs",
                 schema: {
@@ -213,9 +213,9 @@ new Vue({
         sections: [
             { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'News Item 1', url: 'http://www.google.com', info: 'My info' } ] },
             { icon: 'fa-file', name: 'Tab2', selected: false, results: [ { title: 'News Item 2', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 3', url: 'http://www.google.com', info: 'My info' } ] },
-            { icon: 'fa-file', name: 'Tab3', selected: false, results: [ { title: 'News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 6', url: 'http://www.google.com', info: 'My info' } ] },
+            { icon: 'fa-file', name: 'Tab3', selected: false, results: [ { title: 'News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 6', url: 'http://www.google.com', info: 'My info' } ] }
         ],
-        sectionPicked: { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'Initial data', url: 'http://www.google.com', info: 'My initial data' } ] },
+        sectionPicked: { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'Initial data', url: 'http://www.google.com', info: 'My initial data' } ] }
     },
     methods: {
         sectionChanged: function(newSection) {
@@ -225,7 +225,7 @@ new Vue({
             this.sections=[
                 { icon: 'fa-file', name: 'New Tab1', selected: false, results: [ { title: 'New News Item 1', url: 'http://www.google.com', info: 'My info' } ] },
                 { icon: 'fa-file', name: 'New Tab2', selected: false, results: [ { title: 'New News Item 2', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 3', url: 'http://www.google.com', info: 'My info' } ] },
-                { icon: 'fa-file', name: 'New Tab3', selected: false, results: [ { title: 'New News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 6', url: 'http://www.google.com', info: 'My info' } ] },
+                { icon: 'fa-file', name: 'New Tab3', selected: false, results: [ { title: 'New News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 6', url: 'http://www.google.com', info: 'My info' } ] }
             ];
         }
     }
@@ -236,9 +236,9 @@ new Vue({
         sections: [
             { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'News Item 1', url: 'http://www.google.com', info: 'My info' } ] },
             { icon: 'fa-file', name: 'Tab2', selected: false, results: [ { title: 'News Item 2', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 3', url: 'http://www.google.com', info: 'My info' } ] },
-            { icon: 'fa-file', name: 'Tab3', selected: false, results: [ { title: 'News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 6', url: 'http://www.google.com', info: 'My info' } ] },
+            { icon: 'fa-file', name: 'Tab3', selected: false, results: [ { title: 'News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 6', url: 'http://www.google.com', info: 'My info' } ] }
         ],
-        sectionPicked: { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'Initial data', url: 'http://www.google.com', info: 'My initial data' } ] },
+        sectionPicked: { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'Initial data', url: 'http://www.google.com', info: 'My initial data' } ] }
     },
     methods: {
         sectionChanged: function(newSection) {
@@ -248,7 +248,7 @@ new Vue({
             this.sections=[
                 { icon: 'fa-file', name: 'New Tab1', selected: false, results: [ { title: 'New News Item 1', url: 'http://www.google.com', info: 'My info' } ] },
                 { icon: 'fa-file', name: 'New Tab2', selected: false, results: [ { title: 'New News Item 2', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 3', url: 'http://www.google.com', info: 'My info' } ] },
-                { icon: 'fa-file', name: 'New Tab3', selected: false, results: [ { title: 'New News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 6', url: 'http://www.google.com', info: 'My info' } ] },
+                { icon: 'fa-file', name: 'New Tab3', selected: false, results: [ { title: 'New News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'New News Item 6', url: 'http://www.google.com', info: 'My info' } ] }
             ];
         }
     }

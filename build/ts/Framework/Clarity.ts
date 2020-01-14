@@ -50,9 +50,9 @@ export class Clarity {
         this.history = new PageHistory();
         this.localStorage = new LocalStorage();
         this.sessionStorage = new SessionStorage();
-        this.request = new Request("","");
+        this.request = new Request("", "");
 
-        this.components=[ new Closer(), new DropDown(), new Mobile() ];
+        this.components = [ new Closer(), new DropDown(), new Mobile() ];
 
         // this.modal = new Modal.Modal();
         // this.tabs = new Tabs.Tabs();
@@ -65,7 +65,7 @@ export class Clarity {
     }
 
     // the various components
-    private components: Array<IComponent>
+    private components: Array<IComponent>;
 
     // the hotkeys object
     public hotkeys: Hotkeys;
