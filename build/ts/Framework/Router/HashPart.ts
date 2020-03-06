@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-import { StringDictionary } from '../../Types/StringDictionary'
+import { StringDictionary } from '../../Types/StringDictionary.ts'
 
 // An individual hash part
 export class HashPart {

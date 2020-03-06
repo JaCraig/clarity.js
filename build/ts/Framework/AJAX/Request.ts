@@ -14,9 +14,9 @@
    limitations under the License.
 */
 
-import { StringDictionary } from '../../Types/StringDictionary'
-import { LocalStorage } from '../WebStorage/LocalStorage'
-import { IStorage } from '../WebStorage/Interfaces/IStorage'
+import { StringDictionary } from '../../Types/StringDictionary.ts'
+import { LocalStorage } from '../WebStorage/LocalStorage.ts'
+import { IStorage } from '../WebStorage/Interfaces/IStorage.ts'
 
 // Class to help make AJAX requests
 export class Request {

@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-import { RouteData } from '../DataTypes/RouteData'
+import { RouteData } from '../DataTypes/RouteData.ts'
 
 // Routing interface
 export interface IRouter {

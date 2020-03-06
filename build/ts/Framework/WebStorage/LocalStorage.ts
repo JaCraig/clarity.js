@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-import { IStorage } from './Interfaces/IStorage'
+import { IStorage } from './Interfaces/IStorage.ts'
 
 // Stores data locally on the browser
 export class LocalStorage implements IStorage {

@@ -17,7 +17,7 @@
 /// <reference path="../../Extensions/NodeList.ts" />
 /// <reference path="../../Extensions/HTMLElement.ts" />
 
-import { StringDictionary } from "../../Types/StringDictionary";
+import { StringDictionary } from "../../Types/StringDictionary.ts";
 
 // Class to help with form validation
 export class FormValidation {

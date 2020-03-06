@@ -14,10 +14,10 @@
    limitations under the License.
 */
 
-import { StringDictionary } from '../../Types/StringDictionary'
-import { PathPart } from './PathPart'
-import { QueryPart } from './QueryPart'
-import { HashPart } from './HashPart'
+import { StringDictionary } from '../../Types/StringDictionary.ts'
+import { PathPart } from './PathPart.ts'
+import { QueryPart } from './QueryPart.ts'
+import { HashPart } from './HashPart.ts'
 
 // An individual route
 export class Route {

@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-import { Signature } from './Signature'
+import { Signature } from './Signature.ts'
 
 declare global {
     interface Function {

@@ -14,10 +14,10 @@
    limitations under the License.
 */
 
-import { IHotkeys } from './Interfaces/IHotkeys'
-import { StringDictionary } from '../../Types/StringDictionary'
-import { Globals } from './Globals'
-import { Scope } from './Scope'
+import { IHotkeys } from './Interfaces/IHotkeys.ts'
+import { StringDictionary } from '../../Types/StringDictionary.ts'
+import { Globals } from './Globals.ts'
+import { Scope } from './Scope.ts'
 
 // Defines the hotkeys system
 export class Hotkeys implements IHotkeys {

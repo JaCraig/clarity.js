@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-import { IStorage } from './Interfaces/IStorage'
+import { IStorage } from './Interfaces/IStorage.ts'
 
 // Stores data for the session on the browser
 export class SessionStorage implements IStorage {

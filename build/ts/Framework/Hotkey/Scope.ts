@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-import { Sequence } from './Sequence'
+import { Sequence } from './Sequence.ts'
 
 // Defines the scope for a series of sequences
 export class Scope {

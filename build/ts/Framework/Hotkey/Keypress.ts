@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-import { Globals } from './Globals'
+import { Globals } from './Globals.ts'
 
 // Individual key press
 export class Keypress {

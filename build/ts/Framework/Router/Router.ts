@@ -14,10 +14,10 @@
    limitations under the License.
 */
 
-import { StringDictionary } from '../../Types/StringDictionary'
-import { IRouter } from './Interfaces/IRouter'
-import { Route } from './Route'
-import { RouteData } from './DataTypes/RouteData'
+import { StringDictionary } from '../../Types/StringDictionary.ts'
+import { IRouter } from './Interfaces/IRouter.ts'
+import { Route } from './Route.ts'
+import { RouteData } from './DataTypes/RouteData.ts'
 
 // Does basic path routing
 export class Router implements IRouter {

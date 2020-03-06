@@ -14,8 +14,8 @@
    limitations under the License.
 */
 
-import { Keypress } from './Keypress'
-import { Scope } from './Scope'
+import { Keypress } from './Keypress.ts'
+import { Scope } from './Scope.ts'
 
 // Sequence of key presses
 export class Sequence {

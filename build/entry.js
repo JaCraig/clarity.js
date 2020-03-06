@@ -1,7 +1,4 @@
-import "./ts/Clarity.min.ts";
 import Vue from 'vue/dist/vue.js';
-
-window.clarity.hotkeys.bind('a b c', function(){ console.log('pressed'); });
 
 new Vue({
     el: '#FormValidationExample',

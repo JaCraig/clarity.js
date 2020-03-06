@@ -14,18 +14,18 @@
    limitations under the License.
 */
 
-import { Hotkeys } from "./Hotkey/Hotkeys";
-import { Router } from "./Router/Router";
-import { FormValidation } from "./Validation/FormValidation";
-import { ErrorLogging } from "./Logging/ErrorLogging";
-import { PageHistory } from "./History/PageHistory";
-import { LocalStorage } from "./WebStorage/LocalStorage";
-import { SessionStorage } from "./WebStorage/SessionStorage";
-import { Request } from "./AJAX/Request";
-import { Closer } from "../Component/Closer/Closer";
-import { DropDown } from "../Component/DropDown/DropDown";
-import { Mobile } from "../Component/Mobile/Mobile";
-import { IComponent } from "../Component/Interfaces/IComponent";
+import { Hotkeys } from "./Hotkey/Hotkeys.ts";
+import { Router } from "./Router/Router.ts";
+import { FormValidation } from "./Validation/FormValidation.ts";
+import { ErrorLogging } from "./Logging/ErrorLogging.ts";
+import { PageHistory } from "./History/PageHistory.ts";
+import { LocalStorage } from "./WebStorage/LocalStorage.ts";
+import { SessionStorage } from "./WebStorage/SessionStorage.ts";
+import { Request } from "./AJAX/Request.ts";
+import { Closer } from "../Component/Closer/Closer.ts";
+import { DropDown } from "../Component/DropDown/DropDown.ts";
+import { Mobile } from "../Component/Mobile/Mobile.ts";
+import { IComponent } from "../Component/Interfaces/IComponent.ts";
 import Vue from "vue/dist/vue.js";
 import ClarityFormValidator from "../Component/FormValidation/ClarityFormValidator.vue";
 import FormGenerator from "../Component/FormGenerator/ClarityFormGenerator.vue";

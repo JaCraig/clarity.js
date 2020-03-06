@@ -1,10 +1,10 @@
-import "./Browser/BrowserUtils";
-import "./Extensions/HTMLElement";
-import "./Extensions/NodeList";
-import "./Extensions/Object";
-import "./Extensions/String";
-import Clarity from "./Framework/Clarity";
 import Vue from "vue/dist/vue.js";
+import "./Browser/BrowserUtils.ts";
+import "./Extensions/HTMLElement.ts";
+import "./Extensions/NodeList.ts";
+import "./Extensions/Object.ts";
+import "./Extensions/String.ts";
+import Clarity from "./Framework/Clarity.ts";
 import ClarityFormValidator from "./Component/FormValidation/ClarityFormValidator.vue";
 import FormGenerator from "./Component/FormGenerator/ClarityFormGenerator.vue";
 import ClarityGrid from "./Component/Grid/ClarityGrid.vue";
