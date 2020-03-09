@@ -1,0 +1,195 @@
+/*
+   Copyright 2016 James Craig
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+@import (reference) 'styles.less';
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+
+    & thead tr th {
+        padding: .750em 1.063em;
+        text-align: left;
+        font-weight: bold;
+    }
+    
+    & tbody tr td, 
+    & tfoot tr td {
+        padding: .438em 1.063em;
+        .border-top;
+    }
+    
+    & tbody tr:first-child, 
+    & tfoot tr:first-child {
+        .border-top(2px,@color:@lightBorderColor);
+    }
+
+    & tr {
+        background-color: @backgroundColor;
+    }
+
+    &.no-break {
+        & tbody tr td,
+        & thead tr th,
+        & tfoot tr td {
+            white-space: nowrap;
+        }
+    }
+
+    &.no-border {
+        & tbody tr td, 
+        & tfoot tr td,
+        & tbody tr:first-child, 
+        & tfoot tr:first-child {
+            .border-top(0);
+        }
+    }
+    
+    &.bordered {
+        & thead tr th {
+            .border;
+            .border-bottom(2px);
+        }
+
+        & tbody tr td, 
+        & tfoot tr td {
+            .border;
+        }
+    }
+
+    &.horizontal {
+        & tfoot tr td,
+        & thead tr th {
+            background-color: @lightBorderColor;
+        }
+    }
+
+    &.sortable {
+        & thead tr th {
+            cursor: pointer;
+            
+            &:before{
+                content:'\21C5';
+                float:right;
+            }
+        }
+
+        & thead tr th.headerSortUp:before{
+            content:'\25B2';
+        }
+
+        & thead tr th.headerSortDown:before{
+            content:'\25BC';
+        }
+    }
+
+    &.condensed thead tr th, 
+    &.condensed tbody tr td, 
+    &.condensed tfoot tr td {
+        padding: .125em 1.063em;
+    }
+
+    &.horizontal tbody tr:nth-child(even), 
+    &.vertical thead tr th:nth-child(even), 
+    &.vertical tbody tr td:nth-child(even), 
+    &.vertical tbody tr td:nth-child(even) a, 
+    &.horizontal tfoot tr:nth-child(even), 
+    &.vertical tfoot tr td:nth-child(even), 
+    &.vertical tfoot tr td:nth-child(even) a {
+        background-color: @lightBorderColor;
+    }
+
+    &.horizontal tbody tr:nth-child(odd), 
+    &.vertical thead tr th:nth-child(odd), 
+    &.vertical tbody tr td:nth-child(odd), 
+    &.vertical tbody tr td:nth-child(odd) a, 
+    &.horizontal tfoot tr:nth-child(odd), 
+    &.vertical tfoot tr td:nth-child(odd), 
+    &.vertical tfoot tr td:nth-child(odd) a {
+        background-color: @backgroundColor;
+    }
+
+    &.vertical thead tr th,
+    &.vertical tbody tr td, 
+    &.vertical tfoot tr td {
+        .border-left;
+        .border-right;
+        background-color: @backgroundColor;
+    }
+
+    &.vertical thead tr th:first-child, 
+    &.vertical tbody tr td:first-child, 
+    &.vertical tfoot tr td:first-child {
+        border-left: none;
+    }
+
+    &.vertical thead tr th:last-child,
+    &.vertical tbody tr td:last-child, 
+    &.vertical tfoot tr td:last-child {
+        border-right: none;
+    }
+
+    &.vertical.bordered thead tr th:first-child, 
+    &.vertical.bordered tbody tr td:first-child, 
+    &.vertical.bordered tfoot tr td:first-child {
+        .border-left;
+    }
+
+    &.vertical.bordered thead tr th:last-child, 
+    &.vertical.bordered tbody tr td:last-child, 
+    &.vertical.bordered tfoot tr td:last-child {
+        .border-right;
+    }
+
+    &.horizontal.hover tbody tr:hover, 
+    &.horizontal.hover tbody tr:hover a, 
+    &.hover tbody tr:hover, 
+    &.hover tbody tr:hover a {
+        background-color: @activeBackground;
+    }
+
+    & tbody {
+        & tr.primary td {
+            color: @primaryColor;
+            background-color: @primaryBackground;
+        }
+        & tr.active td {
+            background-color: @activeBackground;
+        }
+
+        & tr.success td {
+            background-color: @successBackground;
+        }
+
+        & tr.info td {
+            background-color: @infoBackground;
+        }
+
+        & tr.warning td {
+            background-color: @warningBackground;
+        }
+
+        & tr.error td {
+            background-color: @errorBackground;
+        }
+    }
+
+    & caption {
+        padding: .5em 0;
+        color: @darkBorderColor;
+        text-align: left;
+    }
+}
