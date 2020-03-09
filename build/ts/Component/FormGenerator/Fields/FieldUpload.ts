@@ -23,7 +23,7 @@ module Components {
     Vue.component("clarity-form-field-upload", {
         data: function() {
             return {
-                files: [],
+                files: <any[]>[],
                 ready: false,
                 filesAdded: 0,
             };
@@ -46,14 +46,14 @@ module Components {
                 }
                 return result;
             },
-            changed: function(event) {
+            changed: function(event: any) {
                 let that = this;
                 that.filesAdded = that.filesAdded + event.target.files.length;
                 that.ready = false;
                 for (let x = 0; x < event.target.files.length; ++x) {
                     let reader = new FileReader();
                     reader.onload = (function(file) {
-                        return function(readerEvent) {
+                        return function(readerEvent: any) {
                             that.files = that.files.concat({ filename: file, data: that.base64ArrayBuffer(reader.result) });
                             if (that.files.length === that.filesAdded) {
                                 that.ready = true;
@@ -64,7 +64,7 @@ module Components {
                 }
                 this.check();
             },
-            base64ArrayBuffer: function(buffer) {
+            base64ArrayBuffer: function(buffer: any) {
                 let binary = "";
                 let bytes = new Uint8Array( buffer );
                 let len = bytes.byteLength;
@@ -80,7 +80,7 @@ module Components {
                 }
                 setTimeout(this.check, 100);
             },
-            removeFile: function(file) {
+            removeFile: function(file: any) {
                 let index = this.files.indexOf(file);
                 this.files.splice(index, 1);
                 this.filesAdded--;

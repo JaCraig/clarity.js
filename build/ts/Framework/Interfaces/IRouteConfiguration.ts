@@ -14,14 +14,10 @@
    limitations under the License.
 */
 
-/// <reference path="../Router/Interfaces/IRouter.ts" />
+import { IRouter } from '../Router/Interfaces/IRouter'
 
-
-module Framework.Interfaces {
-
-    // Routing configuration interface
-    export interface IRouteConfiguration {
-        // called when configuring the routes
-        configureRouting(router: Router.Interfaces.IRouter): void;
-    }
+// Routing configuration interface
+export interface IRouteConfiguration {
+    // called when configuring the routes
+    configureRouting(router: IRouter): void;
 }

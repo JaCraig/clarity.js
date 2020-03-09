@@ -13,27 +13,26 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-module Framework.Logging {
-    //Holds signature information
-    export class Signature {
-        
-        //Constructor
-        constructor() {
-            this.params=[];
-        }
 
-        //Function name
-        public name: string;
+//Holds signature information
+export class Signature {
+    
+    //Constructor
+    constructor() {
+        this.params=[];
+    }
 
-        //Function parameters
-        public params: any[];
+    //Function name
+    public name: string;
 
-        //Converts the class to a string
-        public toString(): string {
-            let params = this.params.length > 0
-                ? "'" + this.params.join("', '") + "'"
-                : "";
-            return this.name + "(" + params + ")";
-        }
-    }    
-}
+    //Function parameters
+    public params: any[];
+
+    //Converts the class to a string
+    public toString(): string {
+        let params = this.params.length > 0
+            ? "'" + this.params.join("', '") + "'"
+            : "";
+        return this.name + "(" + params + ")";
+    }
+}    

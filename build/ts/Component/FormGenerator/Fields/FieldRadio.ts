@@ -27,7 +27,7 @@ module Components {
             idSuffix: String,
         },
         methods: {
-            getFieldID: function(value) {
+            getFieldID: function(value: any) {
                 let result = "";
                 if (this.schema.id) {
                     result = this.schema.id;
@@ -46,14 +46,14 @@ module Components {
                 }
                 return this.schema.model.slugify();
             },
-            changed: function(newValue) {
+            changed: function(newValue: any) {
                 this.model = newValue;
                 this.$emit("changed", newValue, this.schema);
             },
-            isItemChecked: function(item) {
+            isItemChecked: function(item: any) {
                 return this.getItemValue(item) === this.model;
             },
-            getItemValue: function(item) {
+            getItemValue: function(item: any) {
                 return item;
             },
         },

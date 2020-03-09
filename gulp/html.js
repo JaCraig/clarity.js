@@ -24,4 +24,4 @@ gulp.task('html:watch', function () {
     gulp.watch(htmlLocation, gulp.series('html:minify'));
 });
 
-gulp.task('html:default', gulp.series('html:watch', 'html:minify'));
+gulp.task('html:default', gulp.parallel('html:watch', 'html:minify'));

@@ -14,42 +14,35 @@
    limitations under the License.
 */
 
-/// <reference path="../../Types/NumberDictionary.ts" />
-/// <reference path="../../Types/StringDictionary.ts" />
-/// <reference path="../../Browser/BrowserUtils.ts" />
-/// <reference path="Globals.ts" />
+import { Globals } from './Globals'
 
+// Individual key press
+export class Keypress {
 
-module Framework.Hotkey {
+    // Constructor
+    constructor(keys: string) {
+        this.keys = this.getKeys(keys);
+    }
 
-    // Individual key press
-    export class Keypress {
+    // actual key codes
+    private keys: number[];
 
-        // Constructor
-        constructor(keys: string) {
-            this.keys = this.getKeys(keys);
+    // gets the key codes for the string passed in
+    private getKeys(keyCode: string): number[] {
+        return keyCode.toUpperCase().split(/-(?!$)/).map(x => Globals.keyMappings[x] || x.charCodeAt(0));
+    }
+
+    // determines if the key code is pressed
+    public isPressed(keyCode: number[]): boolean {
+        let keysPressed = keyCode;
+        if (keysPressed.length !== this.keys.length) {
+            return false;
         }
-
-        // actual key codes
-        private keys: number[];
-
-        // gets the key codes for the string passed in
-        private getKeys(keyCode: string): number[] {
-            return keyCode.toUpperCase().split(/-(?!$)/).map(x => Globals.keyMappings[x] || x.charCodeAt(0));
-        }
-
-        // determines if the key code is pressed
-        public isPressed(keyCode: number[]): boolean {
-            let keysPressed = keyCode;
-            if (keysPressed.length !== this.keys.length) {
+        for (let x = 0; x < keysPressed.length; ++x) {
+            if (this.keys.indexOf(keysPressed[x]) === -1) {
                 return false;
             }
-            for (let x = 0; x < keysPressed.length; ++x) {
-                if (this.keys.indexOf(keysPressed[x]) === -1) {
-                    return false;
-                }
-            }
-            return true;
         }
+        return true;
     }
 }

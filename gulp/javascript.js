@@ -7,6 +7,7 @@ var jasmine = require('gulp-jasmine');
 var del = require('del');
 var cover = require('gulp-coverage');
 var license = require('gulp-license');
+var concat = require('gulp-concat');
 
 var javascriptLocation = './tmp/js/**/*.js';
 var javascriptTestScriptsLocation = './tmp/test/js/**/*.js';
@@ -49,20 +50,21 @@ gulp.task('javascript:benchmark', function () {
 });
 
 gulp.task('javascript:minify', function () {
-    var temp = gulp.src(javascriptLocation)
-        .pipe(sourcemaps.init())
-        .pipe(rename({
-            suffix: '.min'
-        }))
-        .pipe(uglify())
-        .pipe(license('Apache', {
-            tiny: true,
-            organization: 'James Craig',
-            year: '2016'
-        }))
-        .pipe(sourcemaps.write('.'));
-    temp.pipe(gulp.dest(javascriptOut));
-    return temp.pipe(gulp.dest(javascriptDist));
+    return gulp.src(javascriptLocation)
+        // .pipe(concat('Clarity.min.js'))
+        // .pipe(sourcemaps.init())
+        // .pipe(rename({
+        //     suffix: '.min'
+        // }))
+        // .pipe(uglify())
+        // .pipe(license('Apache', {
+        //     tiny: true,
+        //     organization: 'James Craig',
+        //     year: '2016'
+        // }))
+        // .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(javascriptOut))
+        .pipe(gulp.dest(javascriptDist));
 });
 
 gulp.task('javascript:watch', function () {
@@ -72,4 +74,4 @@ gulp.task('javascript:watch', function () {
     gulp.watch(javascriptTestScriptsLocation,gulp.series('javascript:test'));
 });
 
-gulp.task('javascript:default',gulp.series('javascript:minify',        'javascript:move',        'javascript:watch'));
+gulp.task('javascript:default',gulp.parallel('javascript:minify',        'javascript:move',        'javascript:watch'));

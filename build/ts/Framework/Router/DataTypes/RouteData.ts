@@ -13,16 +13,14 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-/// <reference path="../../../Types/StringDictionary.ts" />
 
-module Framework.Router.DataTypes {
+import { StringDictionary } from '../../../Types/StringDictionary'
 
-    //An individual route
-    export class RouteData {
-        //Constructor
-        constructor(public url: string, 
-                    public action: (parameters: Types.StringDictionary<any>) => void, 
-                    public defaultValues?: Types.StringDictionary<any>) {
-        }
+//An individual route
+export class RouteData {
+    //Constructor
+    constructor(public url: string, 
+                public action: (parameters: StringDictionary<any>) => void, 
+                public defaultValues?: StringDictionary<any>) {
     }
 }

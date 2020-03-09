@@ -28,7 +28,7 @@ declare var Vue: any;
                 let order = this.sortOrders[sortKey] || 1;
                 let data = this.data;
                 if (filterKey) {
-                    data = data.filter(function (row) {
+                    data = data.filter(function (row: any) {
                         return Object.keys(row).some(function (key) {
                             return String(row[key]).toLowerCase().indexOf(filterKey) > -1;
                         });
@@ -56,8 +56,8 @@ declare var Vue: any;
         },
         data: function () {
             let that = this;
-            let sortOrders = {};
-            this.columns.forEach(function (key) {
+            let sortOrders: any = {};
+            this.columns.forEach(function (key: any) {
                 key = that.filteredColumn(key);
                 sortOrders[key] = 1;
             });
@@ -67,10 +67,10 @@ declare var Vue: any;
             };
         },
         methods: {
-            filteredColumn: function(key) {
+            filteredColumn: function(key: any) {
                 return key.replace(/\s+/g, "").trim();
             },
-            getHeader: function(key) {
+            getHeader: function(key: any) {
                 return key.replace("_", " ").replace("-", " ").replace(/([a-z])([A-Z])/g, "$1 $2");
             },
             guessDataType: function(data: Array<any>): string {
@@ -100,10 +100,10 @@ declare var Vue: any;
                 }
                 return returnValue;
             },
-            sortBy: function (key) {
+            sortBy: function (key: any) {
                 key = this.filteredColumn(key);
                 this.sortKey = key;
-                let tempSortOrder = {};
+                let tempSortOrder: any = {};
                 if (!(key in this.sortOrders)) {
                     tempSortOrder[key] = 1;
                 } else {

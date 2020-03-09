@@ -23,7 +23,7 @@ module Components {
 
     Vue.component("clarity-form-field-complex-list", {
         data: function() {
-            let DefaultItem = {};
+            let DefaultItem: any = {};
             for (let property in this.model[0]) {
                 if (this.model[0].hasOwnProperty(property)) {
                     DefaultItem[property] = "";
@@ -39,20 +39,20 @@ module Components {
             idSuffix: String,
         },
         methods: {
-            getFieldType: function(field) {
+            getFieldType: function(field: any) {
                 return "clarity-form-field-" + field.type;
             },
-            getModelValue: function(field, item) {
+            getModelValue: function(field: any, item: any) {
                 return item[field.model];
             },
-            setModelValue: function(field, item, newValue) {
+            setModelValue: function(field: any, item: any, newValue: any) {
                 item[field.model] = newValue;
                 this.$emit("changed", this.model, this.schema);
             },
-            buttonClicked: function(event, field) {
+            buttonClicked: function(event: any, field: any) {
                 this.$emit("click", event, field);
             },
-            getSchema: function(field) {
+            getSchema: function(field: any) {
                 if (field.type.startsWith("complex")) {
                     if (field.schema.model === undefined) {
                         field.schema.model = field.model;
@@ -61,7 +61,7 @@ module Components {
                 }
                 return field;
             },
-            removeItem: function(item) {
+            removeItem: function(item: any) {
                 if (this.schema.confirmRemoval && !confirm("Are you sure you want to remove this item?")) {
                     return;
                 }
@@ -72,14 +72,14 @@ module Components {
                 this.model.splice(Index, 1);
                 this.$emit("changed", this.model, this.schema);
             },
-            addItem: function(item) {
+            addItem: function(item: any) {
                 if (!this.model) {
                     this.model = [];
                 }
                 this.model = this.model.concat(Object.assign({}, this.defaultItem));
                 this.$emit("changed", this.model, this.schema);
             },
-            getIDSuffix: function(field, index) {
+            getIDSuffix: function(field: any, index: any) {
                 return this.idSuffix + index;
             },
         },

@@ -14,9 +14,7 @@
    limitations under the License.
 */
 
-module Types {
-    // Dictionary helper class
-    export class NumberDictionary<VALUET> {
-        [key: number]: VALUET;
-    }
+// Dictionary helper class
+export class NumberDictionary<VALUET> {
+    [key: number]: VALUET;
 }

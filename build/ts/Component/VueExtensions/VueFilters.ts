@@ -13,19 +13,19 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
+import Vue from 'vue';
+import * as moment from 'moment';
 
-module Components {
-    declare var Vue: any;
-    declare var moment: any;
+export function RegisterFilters() {
 
-    Vue.filter("moment", function (date, format) {
+    Vue.filter("moment", function (date: Date, format: string) {
         if (!date) {
             return "N/A";
         }
         return moment(date, "YYYY-MM-DDThh:mm:ss").format(format);
     });
 
-    Vue.filter("capitalize", function (str) {
+    Vue.filter("capitalize", function (str: string) {
         if (!str) {
             return "";
         }

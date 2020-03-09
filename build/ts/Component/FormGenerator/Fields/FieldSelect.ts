@@ -43,10 +43,10 @@ module Components {
                 }
                 return result;
             },
-            changed: function(newValue) {
+            changed: function(newValue: any) {
                 this.$emit("changed", newValue, this.schema);
             },
-            isSelected: function(value) {
+            isSelected: function(value: any) {
                 return this.model === value.key;
             },
         },
@@ -74,6 +74,7 @@ module Components {
                             <option v-for="value in schema.values" :value="value.key" :selected="isSelected(value)">
                                 {{ value.value }}
                             </option>
+                        </select>
                     </div>`,
     });
 }

@@ -13,13 +13,18 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-/// <reference path="Signature.ts" />
 
-interface Function {
-    trace(): any[];
-    signature(): Framework.Logging.Signature;
-    getName(): any;
+import { Signature } from './Signature'
+
+declare global {
+    interface Function {
+        trace(): any[];
+        signature(): Signature;
+        getName(): any;
+    }
 }
+
+// declare var Function: FunctionConstructor;
 
 //Does a stack trace of the function.
 Function.prototype.trace = function () {
@@ -34,7 +39,7 @@ Function.prototype.trace = function () {
 
 //Gets the function's signature.
 Function.prototype.signature = function () {
-    var signature = new Framework.Logging.Signature();
+    var signature = new Signature();
     signature.name= this.getName();
     if (this.arguments) {
         for (var i = 0; i < this.arguments.length; i++) {

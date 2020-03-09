@@ -39,7 +39,7 @@ module Components {
                 }
                 return result;
             },
-            changed: function(newValue) {
+            changed: function(newValue: any) {
                 this.$emit("changed", newValue, this.schema);
             },
         },

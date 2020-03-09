@@ -33,7 +33,7 @@ module Components {
             };
         },
         methods: {
-            switchSelected: function (item) {
+            switchSelected: function (item: any) {
                 this.sectionPicked = item;
                 this.switchTabs();
                 this.$emit("section-changed", this.sectionPicked);
@@ -42,7 +42,7 @@ module Components {
                 if (this.sections === undefined) {
                     return;
                 }
-                if (!this.sections.some(x => x === this.sectionPicked)) {
+                if (!this.sections.some((x: any) => x === this.sectionPicked)) {
                     this.sectionPicked = this.sections[0];
                 }
                 if (this.sectionPicked === undefined) {
@@ -79,7 +79,7 @@ module Components {
                         </section>
                     </div>`,
         watch: {
-            sections: function(value) {
+            sections: function(value: any) {
                 this.switchSelected(this.sectionPicked);
             },
         },

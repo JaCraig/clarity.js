@@ -19,7 +19,7 @@ gulp.task('css:clean', function () {
 });
 
 gulp.task('css:minify', function () {
-    var temp = gulp.src(cssMainFile)
+    return gulp.src(cssMainFile, { allowEmpty: true })
         .pipe(importCSS())
         .pipe(rename(cssOutputFile))
         .pipe(autoprefixer({
@@ -30,13 +30,13 @@ gulp.task('css:minify', function () {
             tiny: true,
             organization: 'James Craig',
             year: '2016'
-        }));
-    temp.pipe(gulp.dest(cssOut));
-    return temp.pipe(gulp.dest(cssDist));
+        }))
+        .pipe(gulp.dest(cssOut))
+        .pipe(gulp.dest(cssDist));
 });
 
 gulp.task('css:watch', function () {
-    return gulp.watch(cssLocation, gulp.series('css:minify'));
+    gulp.watch(cssLocation, gulp.series('css:minify'));
 });
 
-gulp.task('css:default', gulp.series('css:minify', 'css:watch'));
+gulp.task('css:default', gulp.parallel('css:minify', 'css:watch'));

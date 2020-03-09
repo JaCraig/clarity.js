@@ -23,7 +23,7 @@ module Components {
     Vue.component("clarity-form-validator", {
         data: function () {
             return {
-                errorMessages: [],
+                errorMessages: <any[]>[],
             };
         },
         mounted: function () {
@@ -48,7 +48,7 @@ module Components {
                     return true;
                 }
             },
-            getParentForm: function (element) {
+            getParentForm: function (element: any) {
                 let CurrentParent = element.parentNode;
                 if (CurrentParent.nodeName === "FORM" || CurrentParent === null) {
                     return CurrentParent;

@@ -11,8 +11,8 @@ var typescriptTestOut = './tmp/test/js';
 var typescriptDefinitionOut = './dist/tsdefinitions';
 var typescriptFileOutput = 'clarity.js';
 var typescriptDocumentationOut = './out/js/Docs';
-var target = 'ES5';
-var module = 'system';
+var target = 'ES6';
+var module = 'ES6';
 
 gulp.task('typescript:clean', function () {
     del(typescriptDocumentationOut);
@@ -41,7 +41,7 @@ gulp.task('typescript:build', function () {
     var tsResult = gulp.src(typescriptLocation)
         .pipe(ts({
             noImplicitAny: false,
-            out: typescriptFileOutput,
+            outDir: typescriptOut,
             target: target,
             module: module,
             removeComments: true,
@@ -84,4 +84,4 @@ gulp.task('typescript:watch', function () {
     gulp.watch(typescriptLocation, gulp.series('typescript:build', 'typescript:build2'));
 });
 
-gulp.task('typescript:default', gulp.series('typescript:watch', 'typescript:build', 'typescript:build2'));
+gulp.task('typescript:default', gulp.parallel('typescript:watch', 'typescript:build', 'typescript:build2'));

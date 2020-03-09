@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="module">
+            import { Test } from './dist/Clarity.esm.js';
+            let Item=new Test();
+            Item.UpdateValues('A','B');
+            document.getElementById("a").innerHTML=Item.Values['A'];
+        </script>
+    </head>
+    <body>
+        <div id="a"></div>
+    </body>
+</html>

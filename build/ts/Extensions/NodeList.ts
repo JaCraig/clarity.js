@@ -26,7 +26,7 @@ interface NodeList {
  * @returns {TResult[]}
  */
 NodeList.prototype.map = function <TResult>(callback: (x: Node) => TResult): TResult[] {
-    let ReturnValues = [];
+    let ReturnValues:TResult[] = [];
     for (let x = 0; x < this.length; ++x) {
         ReturnValues = ReturnValues.concat(callback(this[x]));
     }
@@ -40,7 +40,7 @@ NodeList.prototype.map = function <TResult>(callback: (x: Node) => TResult): TRe
  * @returns {Node[]}
  */
 NodeList.prototype.filter = function(callback: (x: Node) => boolean): Node[]{
-    let ReturnValues = [];
+    let ReturnValues:Node[] = [];
     for (let x = 0; x < this.length; ++x) {
         if (callback(this[x])) {
             ReturnValues = ReturnValues.concat(this[x]);

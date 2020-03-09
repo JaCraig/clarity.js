@@ -16,7 +16,7 @@
 
 /// <reference path="../FormValidation/FormValidator.ts" />
 /// <reference path="../../Extensions/Object.ts" />
-/// <reference path="../../Framework/AJAX/Request.ts" />
+import { Request } from '../../Framework/AJAX/Request'
 
 module Components {
 
@@ -39,12 +39,12 @@ module Components {
             revalidate: function() {
                 return this.$refs.validation.revalidate();
             },
-            setModelValue: function(newValue, field) {
+            setModelValue: function(newValue: any, field: any) {
                 this.model = newValue;
                 this.revalidate();
                 this.$emit("changed", this.model);
             },
-            buttonClicked: function(event, field) {
+            buttonClicked: function(event: any, field: any) {
                 this.revalidate();
                 this.$emit("click", event, field);
             },
@@ -54,14 +54,14 @@ module Components {
                     that.revalidate();
                 }, 100);
             },
-            submit: function(event) {
+            submit: function(event: any) {
                 if (!this.revalidate()) {
                     event.preventDefault();
                     return false;
                 }
                 if (this.ajaxAction) {
                     let that = this;
-                    Framework.AJAX.Request.post(this.ajaxAction, this.model)
+                    Request.post(this.ajaxAction, this.model)
                                             .onSuccess(function (x) {
                                                 that.$emit("success", x);
                                             })
@@ -82,7 +82,7 @@ module Components {
             },
         },
         watch: {
-            model: function(newModel, oldModel) {
+            model: function(newModel: any, oldModel: any) {
                 if (oldModel === newModel) {
                     return;
                 }

@@ -32,20 +32,20 @@ module Components {
             idSuffix: String,
         },
         methods: {
-            getFieldType: function(field) {
+            getFieldType: function(field: any) {
                 return "clarity-form-field-" + field.type;
             },
-            getModelValue: function(field) {
+            getModelValue: function(field: any) {
                 return this.model[field.model];
             },
-            setModelValue: function(newValue, field) {
+            setModelValue: function(newValue: any, field: any) {
                 this.model[field.model] = newValue;
                 this.$emit("changed", this.model, this.schema);
             },
-            buttonClicked: function(event, field) {
+            buttonClicked: function(event: any, field: any) {
                 this.$emit("click", event, field);
             },
-            getSchema: function(field) {
+            getSchema: function(field: any) {
                 if (field.type.startsWith("complex")) {
                     if (field.schema.model === undefined) {
                         field.schema.model = field.model;
@@ -54,13 +54,13 @@ module Components {
                 }
                 return field;
             },
-            tabChanged: function(pickedTab) {
+            tabChanged: function(pickedTab: any) {
                 this.tabPicked = pickedTab;
             },
             getFields: function() {
                 return this.tabPicked.fields;
             },
-            getIDSuffix: function(field) {
+            getIDSuffix: function(field: any) {
                 return this.idSuffix;
             },
         },

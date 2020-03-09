@@ -14,9 +14,7 @@
    limitations under the License.
 */
 
-module Types {
-    // Dictionary helper class
-    export class StringDictionary<VALUET> {
-        [key: string]: VALUET;
-    }
+// Dictionary helper class
+export class StringDictionary<VALUET> {
+    [key: string]: VALUET;
 }

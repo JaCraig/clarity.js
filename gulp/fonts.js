@@ -11,13 +11,13 @@ gulp.task('font:clean', function () {
 });
 
 gulp.task('font:move', function () {
-    var temp = gulp.src(fontDirectory);
-    temp.pipe(gulp.dest(fontDist));
-    return temp.pipe(gulp.dest(fontOut));
+    return gulp.src(fontDirectory)
+                .pipe(gulp.dest(fontDist))
+                .pipe(gulp.dest(fontOut));
 });
 
 gulp.task('font:watch', function () {
     gulp.watch(fontDirectory, gulp.series('font:move'));
 });
 
-gulp.task('font:default', gulp.series('font:watch', 'font:move'));
+gulp.task('font:default', gulp.parallel('font:watch', 'font:move'));

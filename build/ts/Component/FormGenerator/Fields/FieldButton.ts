@@ -27,7 +27,7 @@ module Components {
             idSuffix: String,
         },
         methods: {
-            click: function(event, button) {
+            click: function(event: any, button: any) {
                 this.$emit("click", event, button);
                 return false;
             },

@@ -1645,9 +1645,10 @@
             <div>{{ result }}</div><br><br>
         </div>
     </div>
-    <script src="js/Clarity.min.js"></script>
-    <script>
-        window.clarity = window.clarity || new Framework.Clarity();
+    <!-- <script src="js/Clarity.min.js"></script> -->
+    <script type="module">
+        import Clarity from '/js/Framework/Clarity.js'
+        window.clarity = window.clarity || new Clarity();
         window.clarity.hotkeys.bind('a b c', function(){ console.log('pressed'); });
         window.clarity.validation.initialize();
         new Vue({
