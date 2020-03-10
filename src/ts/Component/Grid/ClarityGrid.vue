@@ -2,22 +2,36 @@
 <template>
   <table class="sortable" v-cloak>
         <thead>
-        <tr>
-            <th v-for="key in columns" v-bind:key="key"
-            @click="sortBy(key)"
-            :class="{ active: sortKey == filteredColumn(key),
-                        headerSortUp: sortKey == filteredColumn(key) && sortOrders[filteredColumn(key)] > 0,
-                        headerSortDown: sortKey == filteredColumn(key) && sortOrders[filteredColumn(key)] < 0 }">
-            {{ getHeader(key) | capitalize }}
-            </th>
-        </tr>
+            <tr>
+                <th v-for="key in columns" v-bind:key="key"
+                @click="sortBy(key)"
+                :class="{ active: sortKey == filteredColumn(key),
+                            headerSortUp: sortKey == filteredColumn(key) && sortOrders[filteredColumn(key)] > 0,
+                            headerSortDown: sortKey == filteredColumn(key) && sortOrders[filteredColumn(key)] < 0 }">
+                {{ getHeader(key) | capitalize }}
+                </th>
+            </tr>
         </thead>
         <tbody>
-        <tr v-for="(entry, index) in filteredData" v-bind:key="index">
-            <td v-for="key in columns" v-html="entry[filteredColumn(key)]" v-bind:key="key">
-            </td>
-        </tr>
+            <tr v-for="(entry, index) in filteredData" v-bind:key="index">
+                <td v-for="key in columns" v-html="entry[filteredColumn(key)]" v-bind:key="key">
+                </td>
+            </tr>
         </tbody>
+        <tfoot v-if="pageable">
+            <tr>
+                <td :colspan="columns.length">
+                    <div class="right">Page {{ page }} of {{ finalPage }}</div>
+                    <ul class="paged">
+                        <li class="cursor-pointer fa-fast-backward text-center" v-on:click="setPage(1)" v-bind:class="{ 'disabled': (page==1) }"></li>
+                        <li class="cursor-pointer fa-step-backward text-center" v-on:click="setPage(page-1)" v-bind:class="{ 'disabled': (page==1) }"></li>
+                        <li class="cursor-pointer text-center" v-for="n in (endPage-startPage)" v-on:click="setPage(startPage+n)" v-bind:class="{ 'active': (page==(startPage+n)) }">{{ startPage+n }}</li> 
+                        <li class="cursor-pointer fa-step-forward text-center" v-on:click="setPage(page+1)" v-bind:class="{ 'disabled': (page==finalPage) }"></li>
+                        <li class="cursor-pointer fa-fast-forward text-center" v-on:click="setPage(finalPage)" v-bind:class="{ 'disabled': (page==finalPage) }"></li>
+                    </ul>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </template>
 
@@ -28,6 +42,18 @@ let dateRegex = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
 
 export default Vue.extend({
     computed: {
+        finalPage: function() {
+            return Math.ceil(this.total/this.pageSize);
+        },
+        startPage: function() {
+            return (Math.floor((this.page-1)/10)*10);
+        },
+        endPage: function() {
+            let tempPage= (Math.floor((this.page-1)/10)*10)+10;
+            if(tempPage>this.finalPage)
+                return this.finalPage;
+            return tempPage;
+        },
         filteredData: function () {
             let sortKey = this.sortKey;
             let filterKey = this.filterKey && this.filterKey.toLowerCase();
@@ -70,6 +96,7 @@ export default Vue.extend({
         return {
             sortKey: "",
             sortOrders: sortOrders,
+            direction: 0
         };
     },
     methods: {
@@ -106,6 +133,15 @@ export default Vue.extend({
             }
             return returnValue;
         },
+        setPage: function(currentPage: Number) {
+            if(currentPage>this.finalPage)
+                this.page=this.finalPage;
+            else if(currentPage<1)
+                this.page=1;
+            else
+                this.page=currentPage;
+            this.$emit("pagechange", { page: this.page, filter: this.filterKey, sortKey: this.sortKey, direction: this.direction });
+        },
         sortBy: function (key: string) {
             key = this.filteredColumn(key);
             this.sortKey = key;
@@ -116,7 +152,9 @@ export default Vue.extend({
                 tempSortOrder[key] = this.sortOrders[key];
             }
             tempSortOrder[key] = tempSortOrder[key] * -1;
+            this.direction = tempSortOrder[key];
             this.sortOrders = tempSortOrder;
+            this.$emit("pagechange", { page: this.page, filter: this.filterKey, sortKey: this.sortKey, direction: this.direction });
         },
         sortDDMMDate: function(val1: any, val2: any): number {
             let actualValue1 = this.stripHTML(val1[this.sortKey].toString());
@@ -193,6 +231,10 @@ export default Vue.extend({
         columns: Array,
         data: Array,
         filterKey: String,
+        total: Number,
+        page: Number,
+        pageSize: Number,
+        pageable: Boolean
     }
 });
 </script>
