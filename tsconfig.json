@@ -1,26 +1,26 @@
 {
     "compilerOptions": {
-        "noImplicitAny": false,
-        "target": "es5",
-        "removeComments": true,
-        "declaration": true,
-        // "outFile": "clarity.min.js",
-        "lib": [
-            "dom",
-            "es5",
-            "es2015.promise"
-        ],
-        "allowSyntheticDefaultImports": true,
-        "moduleResolution": "node"
+      "noImplicitAny": true,
+      "sourceMap": true,
+      "module": "commonjs",
+      "target": "es5",
+      "jsx": "react",
+      "allowJs": true,
+      "removeComments": true,
+      "declaration": true,
+      "moduleResolution": "node",
+      "types" : [],
+      "esModuleInterop": true
     },
+    
     "include": [
-        "build/ts/**/*.ts",
-        "build/ts/**/*.vue"
+        "src/ts/**/*.ts",
+        "src/ts/**/*.vue"
     ],
     "files": [
         "build/vue-shims.d.ts"
     ],
     "exclude": [
         "node_modules"
-    ]
+    ],
 }

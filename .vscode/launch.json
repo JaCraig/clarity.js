@@ -5,15 +5,14 @@
 			"name": "Launch localhost with sourcemaps",
 			"type": "chrome",
 			"request": "launch",
-			"url": "http://localhost:8080/index.html",
+			"url": "http://localhost:10001/index.html",
 			"sourceMaps": true
 		},
 		{
 			"name": "Launch localhost in FireFox",
 			"type":"firefox",
 			"request": "launch",
-			"url": "http://localhost:8080/index.html",
-			"sourceMaps": "server",
+			"url": "http://localhost:10001/index.html",
 			"webRoot": "${workspaceFolder}"
 		}
 	]
