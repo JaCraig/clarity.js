@@ -44,8 +44,6 @@ export default [
 			'src/ts/Extensions/*.ts',
 			'src/ts/Browser/BrowserUtils.ts',
 			'src/ts/Component/VueExtensions/*.ts',
-			'src/ts/Component/Tabs/ClairytTabs.vue',
-			'src/ts/Component/Modal/ClairytModal.vue',
 			'src/ts/Framework/Clarity.ts'
 		],
 		external: external,
@@ -85,8 +83,6 @@ export default [
 			'src/ts/Extensions/*.ts',
 			'src/ts/Browser/BrowserUtils.ts',
 			'src/ts/Component/VueExtensions/*.ts',
-			'src/ts/Component/Tabs/ClairytTabs.vue',
-			'src/ts/Component/Modal/ClairytModal.vue',
 			'src/ts/Framework/Clarity.ts'
 		],
 		external: external,
