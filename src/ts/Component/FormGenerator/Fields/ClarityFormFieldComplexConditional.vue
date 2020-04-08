@@ -8,7 +8,9 @@
                         :model="getModelValue(item)"
                         :idSuffix="getIDSuffix(item)"
                         @changed="setModelValue"
-                        @click="buttonClicked">
+                        @click="buttonClicked"
+                        @error="error"
+                        @exception="exception">
                 </component>
             </div>
         </div>
@@ -30,6 +32,12 @@ export default Vue.extend({
         },
         getModelValue: function(field: any) {
             return this.model[field.model];
+        },
+        error: function(errorCode: any){
+            this.$emit("error", errorCode);
+        },
+        exception: function(errorCode: any){
+            this.$emit("exception", errorCode);
         },
         setModelValue: function(newValue: any, field: any) {
             this.model[field.model] = newValue;

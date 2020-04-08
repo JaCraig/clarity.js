@@ -29,7 +29,9 @@
                                     :label="false"
                                     :idSuffix="getIDSuffix(field,index)"
                                     @changed="newValue => setModelValue(field,item,newValue)"
-                                    @click="buttonClicked">
+                                    @click="buttonClicked"
+                                    @error="error"
+                                    @exception="exception">
                         </component>
                     </td>
                     <td>
@@ -78,6 +80,12 @@ export default Vue.extend({
         setModelValue: function(field: any, item: any, newValue: any) {
             item[field.model] = newValue;
             this.$emit("changed", this.model, this.schema);
+        },
+        error: function(errorCode: any){
+            this.$emit("error", errorCode);
+        },
+        exception: function(errorCode: any){
+            this.$emit("exception", errorCode);
         },
         buttonClicked: function(event: any, field: any) {
             this.$emit("click", event, field);

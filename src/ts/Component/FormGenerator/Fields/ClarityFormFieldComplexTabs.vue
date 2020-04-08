@@ -11,7 +11,9 @@
                         :model="getModelValue(item)"
                         :idSuffix="getIDSuffix(item)"
                         @changed="setModelValue"
-                        @click="buttonClicked">
+                        @click="buttonClicked"
+                        @error="error"
+                        @exception="exception">
                 </component>
             </div>
         </clarity-tabs>
@@ -42,6 +44,12 @@ export default Vue.extend({
         setModelValue: function(newValue: any, field: any) {
             this.model[field.model] = newValue;
             this.$emit("changed", this.model, this.schema);
+        },
+        error: function(errorCode: any){
+            this.$emit("error", errorCode);
+        },
+        exception: function(errorCode: any){
+            this.$emit("exception", errorCode);
         },
         buttonClicked: function(event: any, field: any) {
             this.$emit("click", event, field);

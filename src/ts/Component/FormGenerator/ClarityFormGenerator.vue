@@ -10,7 +10,9 @@
                 :model="model"
                 :idSuffix="getIDSuffix()"
                 @changed="setModelValue"
-                @click="buttonClicked">
+                @click="buttonClicked"
+                @error="error"
+                @exception="exception">
             </clarity-form-field-complex>
         </form>
     </div>
@@ -56,6 +58,11 @@ export default Vue.extend({
     components: {
         "clarity-form-field-complex": ClarityFormFieldComplex
     },
+    data: function(){
+        return {
+            submitting: false
+        };
+    },
     props: {
         schema: Object,
         model: Object,
@@ -77,6 +84,12 @@ export default Vue.extend({
             this.revalidate();
             this.$emit("changed", this.model);
         },
+        error: function(errorCode: any){
+            this.$emit("error", errorCode);
+        },
+        exception: function(errorCode: any){
+            this.$emit("exception", errorCode);
+        },
         buttonClicked: function(event: any, field: any) {
             this.revalidate();
             this.$emit("click", event, field);
@@ -88,23 +101,27 @@ export default Vue.extend({
             }, 100);
         },
         submit: function(event: any) {
-            if (!this.revalidate()) {
+            let that = this;
+            if (!that.revalidate() || that.submitting) {
                 event.preventDefault();
                 return false;
             }
-            if (this.ajaxAction) {
-                let that = this;
-                Request.post(this.ajaxAction, this.model)
-                                        .onSuccess(function (x) {
-                                            that.$emit("success", x);
-                                        })
-                                        .onError(function (x) {
-                                            that.$emit("error", x);
-                                        })
-                                        .onException(function (x) {
-                                            that.$emit("exception", x);
-                                        })
-                                        .send();
+            that.submitting = true;
+            if (that.ajaxAction) {
+                Request.post(that.ajaxAction, that.model)
+                        .onSuccess(function (x) {
+                            that.submitting = false;
+                            that.$emit("success", x);
+                        })
+                        .onError(function (x) {
+                            that.submitting = false;
+                            that.$emit("error", x);
+                        })
+                        .onException(function (x) {
+                            that.submitting = false;
+                            that.$emit("exception", x);
+                        })
+                        .send();
                 event.preventDefault();
                 return false;
             }

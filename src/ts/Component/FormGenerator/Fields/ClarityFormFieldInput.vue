@@ -63,9 +63,16 @@
 </template>
 
 <script lang="ts">
+import { Request } from '../../../Framework/AJAX/Request'
 import Vue from 'vue'
 
 export default Vue.extend({
+    data: function() {
+        return {
+            count: 0,
+            timer: 0
+        };
+    },
     props: {
         model: Object,
         schema: Object,
@@ -89,6 +96,31 @@ export default Vue.extend({
             return result;
         },
         changed: function(newValue: any) {
+            let that = this;
+            if(that.schema.datalistUrl) {
+                if(that.timer !== 0) {
+                    clearTimeout(that.timer);
+                }
+                that.timer = setTimeout(function() {
+                Request.get(that.schema.datalistUrl,{ value: newValue, queryCount: ++that.count })
+                        .onSuccess(function(ev:any){
+                            if(!ev){
+                                return;
+                            }else if(ev.queryCount && ev.queryCount == that.count) {
+                                that.schema.datalist = ev.value;
+                            } else if(!ev.queryCount) {
+                                that.schema.datalist = ev;
+                            }
+                        })
+                        .onError(function (x) {
+                            that.$emit("error", x);
+                        })
+                        .onException(function (x) {
+                            that.$emit("exception", x);
+                        })
+                        .send();
+                }, 100);
+            }
             this.$emit("changed", newValue, this.schema);
         },
         getList: function() {
