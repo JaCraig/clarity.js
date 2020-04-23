@@ -13,7 +13,7 @@
         </label>
         <input :id="getFieldID()"
                 :type="schema.inputType"
-                v-model="model"
+                v-model="internalmodel"
                 @input="changed($event.target.value)"
                 :disabled="schema.disabled"
                 :accept="schema.accept"
@@ -55,7 +55,7 @@
                 :data-error-message-bad-input="schema.errorMessageBadInput"
                 :data-error-message-type-mismatch="schema.errorMessageTypeMismatch"
                 />
-        <div class="text-center" v-if="schema.inputType === 'color' || schema.inputType === 'range'">{{ model }}</div>
+        <div class="text-center" v-if="schema.inputType === 'color' || schema.inputType === 'range'">{{ internalmodel }}</div>
         <datalist v-if="schema.datalist" :id="getList()">
             <option v-for="(item, index) in schema.datalist" :value="item" v-bind:key="index" />
         </datalist>
@@ -65,12 +65,27 @@
 <script lang="ts">
 import { Request } from '../../../Framework/AJAX/Request'
 import Vue from 'vue'
+import moment from 'moment'
 
 export default Vue.extend({
     data: function() {
+        let returnedModel: string;
+        if (this.schema.inputType === "date") {
+            returnedModel= moment(this.model).format('YYYY-MM-DD');
+        }
+        else if (this.schema.inputType === "datetime-local" || this.schema.inputType === "datetime") {
+            returnedModel= moment(this.model).format('YYYY-MM-DDTHH:mm');
+        }
+        else if (this.schema.inputType === "month") {
+            returnedModel= moment(this.model).format('YYYY-MM');
+        }
+        else {
+            returnedModel= this.model;
+        }
         return {
             count: 0,
-            timer: 0
+            timer: 0,
+            internalmodel: returnedModel
         };
     },
     props: {
@@ -102,7 +117,7 @@ export default Vue.extend({
                     clearTimeout(that.timer);
                 }
                 that.timer = setTimeout(function() {
-                Request.get(that.schema.datalistUrl,{ value: newValue, queryCount: ++that.count })
+                Request.post(that.schema.datalistUrl,{ value: newValue, queryCount: ++that.count })
                         .onSuccess(function(ev:any){
                             if(!ev){
                                 return;

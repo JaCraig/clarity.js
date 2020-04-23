@@ -1681,7 +1681,8 @@
                     skills: [0,1],
                     email: "jane.doe@gmail.com",
                     status: true,
-                    date: "",
+                    date: Date.now(),
+                    datetime: Date.now(),
                     options: "CSS3",
                     description: "This is a description about Jane Doe.",
                     files: [],
@@ -1719,6 +1720,12 @@
                         inputType: "date",
                         labelClasses: "fa-calendar",
                         model: "date",
+                        inputClasses: "extra-large"
+                    },{
+                        type: "input",
+                        inputType: "datetime-local",
+                        labelClasses: "fa-calendar",
+                        model: "datetime",
                         inputClasses: "extra-large"
                     },{
                         type: "input",
