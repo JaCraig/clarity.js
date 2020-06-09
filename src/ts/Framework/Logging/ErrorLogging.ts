@@ -24,15 +24,15 @@ export class ErrorLogging {
     }
 
     //Logs the error message. Includes the message and stack trace information.
-    public logError: (message: string, stack: any[]) => void;
+    public logError: (message: string, stack: string) => void;
 
     //Sets the logging function that the system uses
-    public setLoggingFunction(logger: (message: string, stack: any[]) => void): void {
+    public setLoggingFunction(logger: (message: string, stack: string) => void): void {
         this.logError = logger;
     }
 
     //called when an error is thrown.
     public onError(message: string, filename?: string, lineno?: number, colno?: number, error?:Error): void { 
-        this.logError(message, arguments.callee.trace());
+        this.logError(message, error.stack);
     }
 }
