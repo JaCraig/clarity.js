@@ -7,7 +7,11 @@
                 @click="sortBy(key)"
                 :class="{ active: sortKey == filteredColumn(key),
                             headerSortUp: sortKey == filteredColumn(key) && sortOrders[filteredColumn(key)] > 0,
-                            headerSortDown: sortKey == filteredColumn(key) && sortOrders[filteredColumn(key)] < 0 }">
+                            headerSortDown: sortKey == filteredColumn(key) && sortOrders[filteredColumn(key)] < 0 }"
+                :draggable="draggable"
+                @dragstart="dragstart"
+                @dragenter="dragenter"
+                :columnName="key">
                 {{ getHeader(key) | capitalize }}
                 </th>
             </tr>
@@ -96,10 +100,54 @@ export default Vue.extend({
         return {
             sortKey: "",
             sortOrders: sortOrders,
-            direction: 0
+            direction: 0,
+            draggedColumn: null
         };
     },
     methods: {
+        isBefore: function(element1: string,element2: string) {
+            return this.columns.indexOf(element1) < this.columns.indexOf(element2);
+        },
+        move: function(array: Array<any>, old_index: number, new_index: number) {
+            if (old_index < 0) {
+                old_index = 0;
+            }
+            if (new_index < 0) {
+                new_index = 0;
+            }
+            if (new_index >= array.length) {
+                new_index=array.length-1;
+            }
+            array.splice(new_index, 0, array.splice(old_index, 1)[0]);  
+            return array;
+        },
+        dragenter: function(event: DragEvent) {
+            let targetElement = (<Element>event.target);
+            if (targetElement.nodeName === "TD") {
+                targetElement = <Element>targetElement.parentNode;
+            }
+
+            if(this.draggedColumn.parentNode !== targetElement.parentNode) {
+                return;
+            }
+
+            let targetColumn = targetElement.getAttribute('columnname');
+            let sourceColumn = this.draggedColumn.getAttribute('columnname');
+
+            if (this.isBefore(sourceColumn, targetColumn)) {
+                let targetColumnIndex = this.columns.indexOf(targetColumn)+1;
+                let sourceColumnIndex = this.columns.indexOf(sourceColumn);
+                this.columns = this.move(this.columns, sourceColumnIndex, targetColumnIndex);
+            } else {
+                let targetColumnIndex = this.columns.indexOf(targetColumn);
+                let sourceColumnIndex = this.columns.indexOf(sourceColumn);
+                this.columns = this.move(this.columns, sourceColumnIndex, targetColumnIndex);
+            }
+        },
+        dragstart: function(event: DragEvent) {
+            this.draggedColumn = (<Element>event.target);
+            event.dataTransfer.effectAllowed = "move";
+        },
         filteredColumn: function(key: string) {
             return key.replace(/\s+/g, "").trim();
         },
@@ -234,7 +282,8 @@ export default Vue.extend({
         total: Number,
         page: Number,
         pageSize: Number,
-        pageable: Boolean
+        pageable: Boolean,
+        draggable: Boolean
     }
 });
 </script>
