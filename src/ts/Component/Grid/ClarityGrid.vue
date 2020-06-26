@@ -11,7 +11,7 @@
                 :draggable="draggable"
                 @dragstart="dragstart"
                 @dragenter="dragenter"
-                :columnName="key">
+                :columnName="getPropertyName(key)">
                 {{ getHeader(key) | capitalize }}
                 </th>
             </tr>
@@ -154,8 +154,21 @@ export default Vue.extend({
         };
     },
     methods: {
-        isBefore: function(element1: string,element2: string) {
-            return this.columns.indexOf(element1) < this.columns.indexOf(element2);
+        getPropertyName: function(item: any) {
+            if(typeof item === 'string')
+                return item;
+            return item.property;
+        },
+        getColumnIndex: function(column: string) {
+            for(let x=0;x<this.columns.length;++x) {
+                if(this.getPropertyName(this.columns[x]) === column) {
+                    return x;
+                }
+            }
+            return -1;
+        },
+        isBefore: function(element1: string, element2: string) {
+            return this.getColumnIndex(element1) < this.getColumnIndex(element2);
         },
         move: function(array: Array<any>, old_index: number, new_index: number) {
             if (old_index < 0) {
@@ -184,12 +197,12 @@ export default Vue.extend({
             let sourceColumn = this.draggedColumn.getAttribute('columnname');
 
             if (this.isBefore(sourceColumn, targetColumn)) {
-                let targetColumnIndex = this.columns.indexOf(targetColumn) + 1;
-                let sourceColumnIndex = this.columns.indexOf(sourceColumn);
+                let targetColumnIndex = this.getColumnIndex(targetColumn) + 1;
+                let sourceColumnIndex = this.getColumnIndex(sourceColumn);
                 this.columns = this.move(this.columns, sourceColumnIndex, targetColumnIndex);
             } else {
-                let targetColumnIndex = this.columns.indexOf(targetColumn);
-                let sourceColumnIndex = this.columns.indexOf(sourceColumn);
+                let targetColumnIndex = this.getColumnIndex(targetColumn);
+                let sourceColumnIndex = this.getColumnIndex(sourceColumn);
                 this.columns = this.move(this.columns, sourceColumnIndex, targetColumnIndex);
             }
             this.$emit("reorder", { columns: this.columns });
@@ -209,9 +222,10 @@ export default Vue.extend({
                 return "";
             }
             let total = 0;
-            for(let x=0;x<this.data.length;++x) {
-                if(this.data[x][this.groupBy] === group) {
-                    total += this.data[x][key.property];
+            let data =this.filteredData;
+            for(let x=0;x<data.length;++x) {
+                if(data[x][this.groupBy] === group) {
+                    total += data[x][key.property];
                 }
             }
             return total;
