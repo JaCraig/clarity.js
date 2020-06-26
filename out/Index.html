@@ -1579,6 +1579,7 @@
                 :pageable="pageable"
                 @pagechange="pageChanged"
                 :draggable="true"
+                :group-by="groupBy"
                 class="hover">
             </clarity-grid>
             <input type="button" value="Toggle Paging" @click="pageable=!pageable" />
@@ -1939,15 +1940,31 @@
                 page:1,
                 total: 101,
                 searchQuery: '',
-                gridColumns: ['strings', 'numbers', 'dates', 'long_name', 'html'],
+                gridColumns: [
+                    { property: 'strings', display: 'Strings' },
+                    { property: 'numbers', sum: true },
+                    { property: 'dates', display: 'Dates' },
+                    'long_name',
+                    'html'
+                ],
                 gridData: [
+                    { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',long_name: '1',html: '<p>1</p>' },
                     { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',long_name: '1',html: '<p>1</p>' },
                     { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',long_name: '1',html: '<p>1</p>' },
                     { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',long_name: '1',html: '<p>1</p>' },
                     { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',long_name: '1',html: '<p>1</p>' }
                 ],
                 direction: 0,
-                sortKey: ''
+                sortKey: '',
+                groupBy: 'strings'
+
             },
             methods: {
                 pageChanged: function(event) {
@@ -1957,7 +1974,11 @@
                         { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
                         { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
                         { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
-                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',long_name: tempPage,html: '<p>'+tempPage+'</p>' }
+                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
+                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
+                        { strings: 'Bruce Lee', numbers: 19000, dates: '6/21/2014',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
+                        { strings: 'Jackie Chan', numbers: 17000, dates: '8/21/1999',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
+                        { strings: 'Jet Li', numbers: 18000, dates: '1/1/2011',long_name: tempPage,html: '<p>'+tempPage+'</p>' }
                     ];
                     this.page=event.page;
                     this.direction=event.direction;

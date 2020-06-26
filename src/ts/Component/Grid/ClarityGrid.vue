@@ -16,12 +16,35 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
-            <tr v-for="(entry, index) in filteredData" v-bind:key="index">
-                <td v-for="key in columns" v-html="entry[filteredColumn(key)]" v-bind:key="key">
-                </td>
-            </tr>
-        </tbody>
+        <template v-if="filteredGroups">
+            <tbody v-for="(group, index) in filteredGroups" v-bind:key="index">
+                <tr v-if="group !== ''"><td :colspan="columns.length"><b>{{ group }}</b></td></tr>
+                <tr v-for="(entry, index) in filteredData" v-bind:key="index">
+                    <template v-if="(groupBy in entry && entry[groupBy] === group) || group === ''">
+                        <td v-for="key in columns" v-html="entry[filteredColumn(key)]" v-bind:key="key">
+                        </td>
+                    </template>
+                </tr>
+                <tr v-if="anySum"><td :colspan="columns.length"><b>Totals:</b></td></tr>
+                <tr v-if="anySum">
+                    <td v-for="key in columns" v-html="filteredColumnSum(group, key)" v-bind:key="key">
+                    </td>
+                </tr>
+            </tbody>
+        </template>
+        <template v-else>
+            <tbody>
+                <tr v-for="(entry, index) in filteredData" v-bind:key="index">
+                    <td v-for="key in columns" v-html="entry[filteredColumn(key)]" v-bind:key="key">
+                    </td>
+                </tr>
+                <tr v-if="anySum"><td :colspan="columns.length"><b>Totals:</b></td></tr>
+                <tr v-if="anySum">
+                    <td v-for="key in columns" v-html="filteredColumnSum('', key)" v-bind:key="key">
+                    </td>
+                </tr>
+            </tbody>
+        </template>
         <tfoot v-if="pageable">
             <tr>
                 <td :colspan="columns.length">
@@ -46,6 +69,27 @@ let dateRegex = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
 
 export default Vue.extend({
     computed: {
+        anySum: function() {
+            return this.columns.some((item: any) => {
+                return typeof item !== "string" && "sum" in item && item.sum;
+            });
+        },
+        filteredGroups: function() {
+            if(!this.groupBy) return;
+
+            let returnData = [];
+            for(let x = 0; x < this.data.length; ++x) {
+                let contentText = this.data[x][this.groupBy].toString();
+                if (returnData.indexOf(contentText) === -1) {
+                    returnData.push(contentText);
+                }
+            }
+            return returnData.sort(function(a: any, b: any): number {
+                if (a === b) { return 0; }
+                if (a < b) { return -1; }
+                return 1;
+            });
+        },
         finalPage: function() {
             return Math.ceil(this.total/this.pageSize);
         },
@@ -93,9 +137,14 @@ export default Vue.extend({
     data: function () {
         let that = this;
         let sortOrders: any = {};
-        this.columns.forEach(function (key: String) {
-            key = key.replace(/\s+/g, "").trim();
-            sortOrders[key.toString()] = 1;
+        this.columns.forEach(function (key: any) {
+            if(typeof key === 'string') {
+                key = key.replace(/\s+/g, "").trim();
+                sortOrders[key.toString()] = 1;
+            } else {
+                key = key.property.replace(/\s+/g, "").trim();
+                sortOrders[key.toString()] = 1;
+            }
         });
         return {
             sortKey: "",
@@ -135,7 +184,7 @@ export default Vue.extend({
             let sourceColumn = this.draggedColumn.getAttribute('columnname');
 
             if (this.isBefore(sourceColumn, targetColumn)) {
-                let targetColumnIndex = this.columns.indexOf(targetColumn)+1;
+                let targetColumnIndex = this.columns.indexOf(targetColumn) + 1;
                 let sourceColumnIndex = this.columns.indexOf(sourceColumn);
                 this.columns = this.move(this.columns, sourceColumnIndex, targetColumnIndex);
             } else {
@@ -143,16 +192,37 @@ export default Vue.extend({
                 let sourceColumnIndex = this.columns.indexOf(sourceColumn);
                 this.columns = this.move(this.columns, sourceColumnIndex, targetColumnIndex);
             }
+            this.$emit("reorder", { columns: this.columns });
         },
         dragstart: function(event: DragEvent) {
             this.draggedColumn = (<Element>event.target);
             event.dataTransfer.effectAllowed = "move";
         },
-        filteredColumn: function(key: string) {
-            return key.replace(/\s+/g, "").trim();
+        filteredColumn: function(key: any) {
+            if(typeof key === 'string') {
+                return key.replace(/\s+/g, "").trim();
+            }
+            return key.property.replace(/\s+/g, "").trim();
         },
-        getHeader: function(key: string) {
-            return key.replace("_", " ").replace("-", " ").replace(/([a-z])([A-Z])/g, "$1 $2");
+        filteredColumnSum: function(group: any, key: any) {
+            if(typeof key === 'string' || !("sum" in key) || !key.sum) {
+                return "";
+            }
+            let total = 0;
+            for(let x=0;x<this.data.length;++x) {
+                if(this.data[x][this.groupBy] === group) {
+                    total += this.data[x][key.property];
+                }
+            }
+            return total;
+        },
+        getHeader: function(key: any) {
+            if(typeof key === 'string') {
+                return key.replace("_", " ").replace("-", " ").replace(/([a-z])([A-Z])/g, "$1 $2");
+            } else if("display" in key) {
+                return key.display;
+            }
+            return key.property.replace("_", " ").replace("-", " ").replace(/([a-z])([A-Z])/g, "$1 $2");
         },
         guessDataType: function(data: Array<any>): string {
             let tempDiv = document.createElement("div");
@@ -283,7 +353,8 @@ export default Vue.extend({
         page: Number,
         pageSize: Number,
         pageable: Boolean,
-        draggable: Boolean
+        draggable: Boolean,
+        groupBy: String,
     }
 });
 </script>
