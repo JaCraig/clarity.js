@@ -1943,23 +1943,24 @@
                 gridColumns: [
                     { property: 'strings', display: 'Strings' },
                     { property: 'numbers', sum: true },
+                    { property: 'money', sum: true, locales: "en-US", format: { style: 'currency', currency: 'USD', maximumFractionDigits:0, minimumFractionDigits:0 } },
                     { property: 'dates', display: 'Dates' },
                     'long_name',
                     'html'
                 ],
                 gridData: [
-                    { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',long_name: '1',html: '<p>1</p>' },
-                    { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',long_name: '1',html: '<p>1</p>' },
-                    { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',long_name: '1',html: '<p>1</p>' },
-                    { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',long_name: '1',html: '<p>1</p>' },
-                    { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',long_name: '1',html: '<p>1</p>' },
-                    { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',long_name: '1',html: '<p>1</p>' },
-                    { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',long_name: '1',html: '<p>1</p>' },
-                    { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',long_name: '1',html: '<p>1</p>' },
-                    { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',long_name: '1',html: '<p>1</p>' },
-                    { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',long_name: '1',html: '<p>1</p>' },
-                    { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',long_name: '1',html: '<p>1</p>' },
-                    { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',long_name: '1',html: '<p>1</p>' }
+                    { strings: 'Chuck Norris', numbers: Infinity,money: '$9000', dates: '1/1/2012',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Bruce Lee', numbers: 9000,money: '$9000', dates: '6/21/2014',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Jackie Chan', numbers: 7000,money: '$9000', dates: '8/21/1999',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Jet Li', numbers: 8000,money: '$9000', dates: '1/1/2011',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Chuck Norris', numbers: Infinity,money: '$9000', dates: '1/1/2012',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Bruce Lee', numbers: 9000,money: '$9000', dates: '6/21/2014',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Jackie Chan', numbers: 7000,money: '$9000', dates: '8/21/1999',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Jet Li', numbers: 8000,money: '$9000', dates: '1/1/2011',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Chuck Norris', numbers: Infinity,money: 9000, dates: '1/1/2012',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Bruce Lee', numbers: 9000,money: 9000, dates: '6/21/2014',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Jackie Chan', numbers: 7000,money: 9000, dates: '8/21/1999',long_name: '1',html: '<p>1</p>' },
+                    { strings: 'Jet Li', numbers: 8000,money: 9000, dates: '1/1/2011',long_name: '1',html: '<p>1</p>' }
                 ],
                 direction: 0,
                 sortKey: '',
@@ -1971,14 +1972,14 @@
                     console.table(event);
                     var tempPage=event.page;
                     this.gridData=[
-                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
-                        { strings: 'Bruce Lee', numbers: 9000, dates: '6/21/2014',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
-                        { strings: 'Jackie Chan', numbers: 7000, dates: '8/21/1999',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
-                        { strings: 'Jet Li', numbers: 8000, dates: '1/1/2011',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
-                        { strings: 'Chuck Norris', numbers: Infinity, dates: '1/1/2012',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
-                        { strings: 'Bruce Lee', numbers: 19000, dates: '6/21/2014',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
-                        { strings: 'Jackie Chan', numbers: 17000, dates: '8/21/1999',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
-                        { strings: 'Jet Li', numbers: 18000, dates: '1/1/2011',long_name: tempPage,html: '<p>'+tempPage+'</p>' }
+                        { strings: 'Chuck Norris', numbers: Infinity,money: '$9000.10', dates: '1/1/2012',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
+                        { strings: 'Bruce Lee', numbers: 9000,money: '$9000', dates: '6/21/2014',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
+                        { strings: 'Jackie Chan', numbers: 7000,money: '$9000', dates: '8/21/1999',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
+                        { strings: 'Jet Li', numbers: 8000,money: '$9000', dates: '1/1/2011',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
+                        { strings: 'Chuck Norris', numbers: Infinity,money: '$9000', dates: '1/1/2012',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
+                        { strings: 'Bruce Lee', numbers: 19000,money: '$9000', dates: '6/21/2014',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
+                        { strings: 'Jackie Chan', numbers: 17000,money: '$9000', dates: '8/21/1999',long_name: tempPage,html: '<p>'+tempPage+'</p>' },
+                        { strings: 'Jet Li', numbers: 18000,money: '$9000', dates: '1/1/2011',long_name: tempPage,html: '<p>'+tempPage+'</p>' }
                     ];
                     this.page=event.page;
                     this.direction=event.direction;

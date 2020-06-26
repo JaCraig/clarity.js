@@ -18,15 +18,15 @@
         </thead>
         <template v-if="filteredGroups">
             <tbody v-for="(group, index) in filteredGroups" v-bind:key="index">
-                <tr v-if="group !== ''"><td :colspan="columns.length"><b>{{ group }}</b></td></tr>
+                <tr v-if="group !== ''" class="grid-group-header"><td :colspan="columns.length">{{ group }}</td></tr>
                 <tr v-for="(entry, index) in filteredData" v-bind:key="index">
                     <template v-if="(groupBy in entry && entry[groupBy] === group) || group === ''">
                         <td v-for="key in columns" v-html="entry[filteredColumn(key)]" v-bind:key="key">
                         </td>
                     </template>
                 </tr>
-                <tr v-if="anySum"><td :colspan="columns.length"><b>Totals:</b></td></tr>
-                <tr v-if="anySum">
+                <tr v-if="anySum" class="grid-group-footer"><td :colspan="columns.length">Totals:</td></tr>
+                <tr v-if="anySum" class="grid-group-footer">
                     <td v-for="key in columns" v-html="filteredColumnSum(group, key)" v-bind:key="key">
                     </td>
                 </tr>
@@ -222,13 +222,22 @@ export default Vue.extend({
                 return "";
             }
             let total = 0;
-            let data =this.filteredData;
+            let data = this.filteredData;
             for(let x=0;x<data.length;++x) {
                 if(data[x][this.groupBy] === group) {
-                    total += data[x][key.property];
+                    total += this.getNumber(data[x][key.property]);
                 }
             }
-            return total;
+            let locales = "en-US";
+            let format = {};
+            if(typeof key !== "string" && "locales" in key)
+                locales = key.locales;
+            if(typeof key !== "string" && "format" in key)
+                format = key.format;
+            return this.formatValue(total,locales, format);
+        },
+        formatValue: function(value: string, locales: string, format: any): string {
+            return new Intl.NumberFormat(locales,format).format(parseFloat(value));
         },
         getHeader: function(key: any) {
             if(typeof key === 'string') {
@@ -339,9 +348,14 @@ export default Vue.extend({
             if (val1 < val2) { return -1; }
             return 1;
         },
+        getNumber: function(value: any): number {
+            if(!value) 
+                return 0;
+            return parseFloat(this.stripHTML(value.toString()).replace(/[^0-9.-]/g, ""));
+        },
         sortNumber: function(value1: any, value2: any): number {
-            let actualValue1 = parseFloat(this.stripHTML(value1[this.sortKey].toString()).replace(/[^0-9.-]/g, ""));
-            let actualValue2 = parseFloat(this.stripHTML(value2[this.sortKey].toString()).replace(/[^0-9.-]/g, ""));
+            let actualValue1 = this.getNumber(value1);
+            let actualValue2 = this.getNumber(value2);
             if (isNaN(actualValue1)) { actualValue1 = 0; }
             if (isNaN(actualValue2)) { actualValue2 = 0; }
             return actualValue1 - actualValue2;
