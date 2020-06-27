@@ -21,7 +21,7 @@
                 <tr v-if="group !== ''" class="grid-group-header"><td :colspan="columns.length">{{ group }}</td></tr>
                 <tr v-for="(entry, index) in filteredData" v-bind:key="index">
                     <template v-if="(groupBy in entry && entry[groupBy] === group) || group === ''">
-                        <td v-for="key in columns" v-html="entry[filteredColumn(key)]" v-bind:key="key">
+                        <td v-for="key in columns" v-html="formatEntry(entry[filteredColumn(key)], key)" v-bind:key="key">
                         </td>
                     </template>
                 </tr>
@@ -35,7 +35,7 @@
         <template v-else>
             <tbody>
                 <tr v-for="(entry, index) in filteredData" v-bind:key="index">
-                    <td v-for="key in columns" v-html="entry[filteredColumn(key)]" v-bind:key="key">
+                    <td v-for="key in columns" v-html="formatEntry(entry[filteredColumn(key)], key)" v-bind:key="key">
                     </td>
                 </tr>
                 <tr v-if="anySum"><td :colspan="columns.length"><b>Totals:</b></td></tr>
@@ -236,8 +236,25 @@ export default Vue.extend({
                 format = key.format;
             return this.formatValue(total,locales, format);
         },
-        formatValue: function(value: string, locales: string, format: any): string {
-            return new Intl.NumberFormat(locales,format).format(parseFloat(value));
+        formatValue: function(value: any, locales: string, format: any): string {
+            let valueType = typeof value;
+            if (valueType === "number") {
+                return new Intl.NumberFormat(locales,format).format(value);
+            }
+            var temp =value.match(/^-?[£$¤]?[\d,.]+%?$/);
+            if ((valueType === "string" && value.match(/^-?[£$¤]?[\d,.]+%?$/))) {
+                return new Intl.NumberFormat(locales,format).format(parseFloat(value.replace(/[^0-9.]/g, "")));
+            }
+            return value;
+        },
+        formatEntry: function(value: string, key: any) {
+            let locales = "en-US";
+            let format = {};
+            if(typeof key !== "string" && "locales" in key)
+                locales = key.locales;
+            if(typeof key !== "string" && "format" in key)
+                format = key.format;
+            return this.formatValue(value, locales, format);
         },
         getHeader: function(key: any) {
             if(typeof key === 'string') {
