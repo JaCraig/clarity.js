@@ -67,6 +67,20 @@ import Vue from 'vue'
 let dateRegex = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
 
 export default Vue.extend({
+    watch: {
+        columns: function(newColumns, oldColumns) {
+            this.internalColumns.length = 0;
+            this.sortOrders.length = 0;
+            for (let x = 0; x <this.columns.length; ++x) {
+                let column: any = this.columns[x];
+                this.internalColumns.push(this.getColumnInfo(column));
+            }
+            this.internalColumns.forEach(function (key: any) {
+                key = key.property.replace(/\s+/g, "").trim();
+                this.sortOrders[key.toString()] = 1;
+            });
+        }
+    },
     computed: {
         anySum: function() {
             return this.internalColumns.some((item: any) => {
@@ -75,13 +89,18 @@ export default Vue.extend({
         },
         filteredGroups: function() {
             if(!this.groupBy) return;
-
+            let filterKey = this.filterKey && this.filterKey.toLowerCase();
             let returnData = [];
             for(let x = 0; x < this.data.length; ++x) {
                 let contentText = this.data[x][this.groupBy].toString();
                 if (returnData.indexOf(contentText) === -1) {
                     returnData.push(contentText);
                 }
+            }
+            if (filterKey) {
+                returnData = returnData.filter(function (row: any) {
+                    return String(row).toLowerCase().indexOf(filterKey) > -1;
+                });
             }
             return returnData.sort(function(a: any, b: any): number {
                 if (a === b) { return 0; }
