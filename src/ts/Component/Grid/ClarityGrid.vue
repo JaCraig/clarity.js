@@ -1,33 +1,32 @@
-
 <template>
   <table class="sortable" v-cloak>
         <thead>
             <tr>
-                <th v-for="key in columns" v-bind:key="key"
+                <th v-for="key in internalColumns" v-bind:key="key"
                 @click="sortBy(key)"
-                :class="{ active: sortKey == filteredColumn(key),
-                            headerSortUp: sortKey == filteredColumn(key) && sortOrders[filteredColumn(key)] > 0,
-                            headerSortDown: sortKey == filteredColumn(key) && sortOrders[filteredColumn(key)] < 0 }"
+                :class="{ active: sortKey == key.property,
+                            headerSortUp: sortKey == key.property && sortOrders[key.property] > 0,
+                            headerSortDown: sortKey == key.property && sortOrders[key.property] < 0 }"
                 :draggable="draggable"
                 @dragstart="dragstart"
                 @dragenter="dragenter"
-                :columnName="getPropertyName(key)">
-                {{ getHeader(key) | capitalize }}
+                :columnName="key.property">
+                {{ key.display | capitalize }}
                 </th>
             </tr>
         </thead>
         <template v-if="filteredGroups">
             <tbody v-for="(group, index) in filteredGroups" v-bind:key="index">
-                <tr v-if="group !== ''" class="grid-group-header"><td :colspan="columns.length">{{ group }}</td></tr>
+                <tr v-if="group !== ''" class="grid-group-header"><td :colspan="internalColumns.length">{{ group }}</td></tr>
                 <tr v-for="(entry, index) in filteredData" v-bind:key="index">
                     <template v-if="(groupBy in entry && entry[groupBy] === group) || group === ''">
-                        <td v-for="key in columns" v-html="formatEntry(entry[filteredColumn(key)], key)" v-bind:key="key">
+                        <td v-for="key in internalColumns" v-html="formatValue(entry[key.property], key)" v-bind:key="key">
                         </td>
                     </template>
                 </tr>
-                <tr v-if="anySum" class="grid-group-footer"><td :colspan="columns.length">Totals:</td></tr>
+                <tr v-if="anySum" class="grid-group-footer"><td :colspan="internalColumns.length">Totals:</td></tr>
                 <tr v-if="anySum" class="grid-group-footer">
-                    <td v-for="key in columns" v-html="filteredColumnSum(group, key)" v-bind:key="key">
+                    <td v-for="key in internalColumns" v-html="filteredColumnSum(group, key)" v-bind:key="key">
                     </td>
                 </tr>
             </tbody>
@@ -35,19 +34,19 @@
         <template v-else>
             <tbody>
                 <tr v-for="(entry, index) in filteredData" v-bind:key="index">
-                    <td v-for="key in columns" v-html="formatEntry(entry[filteredColumn(key)], key)" v-bind:key="key">
+                    <td v-for="key in internalColumns" v-html="formatValue(entry[key.property], key)" v-bind:key="key">
                     </td>
                 </tr>
-                <tr v-if="anySum"><td :colspan="columns.length"><b>Totals:</b></td></tr>
+                <tr v-if="anySum"><td :colspan="internalColumns.length"><b>Totals:</b></td></tr>
                 <tr v-if="anySum">
-                    <td v-for="key in columns" v-html="filteredColumnSum('', key)" v-bind:key="key">
+                    <td v-for="key in internalColumns" v-html="filteredColumnSum('', key)" v-bind:key="key">
                     </td>
                 </tr>
             </tbody>
         </template>
         <tfoot v-if="pageable">
             <tr>
-                <td :colspan="columns.length">
+                <td :colspan="internalColumns.length">
                     <div class="right">Page {{ page }} of {{ finalPage }}</div>
                     <ul class="paged">
                         <li class="cursor-pointer fa-fast-backward text-center" v-on:click="setPage(1)" v-bind:class="{ 'disabled': (page==1) }"></li>
@@ -70,8 +69,8 @@ let dateRegex = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
 export default Vue.extend({
     computed: {
         anySum: function() {
-            return this.columns.some((item: any) => {
-                return typeof item !== "string" && "sum" in item && item.sum;
+            return this.internalColumns.some((item: any) => {
+                return item.sum;
             });
         },
         filteredGroups: function() {
@@ -115,7 +114,7 @@ export default Vue.extend({
                 });
             }
             if (sortKey) {
-                let sortFunction = this.guessDataType(data);
+                let sortFunction = this.internalColumns[this.getColumnIndex(this.sortKey)].dataType;
                 if (sortFunction === "string") {
                     data = data.sort(this.sortString);
                 } else if (sortFunction === "number") {
@@ -137,38 +136,110 @@ export default Vue.extend({
     data: function () {
         let that = this;
         let sortOrders: any = {};
-        this.columns.forEach(function (key: any) {
-            if(typeof key === 'string') {
-                key = key.replace(/\s+/g, "").trim();
-                sortOrders[key.toString()] = 1;
-            } else {
-                key = key.property.replace(/\s+/g, "").trim();
-                sortOrders[key.toString()] = 1;
-            }
+        let internalColumns:any[] = [];
+        for (let x = 0; x <this.columns.length; ++x) {
+            let column: any = this.columns[x];
+            internalColumns.push(that.getColumnInfo(column));
+        }
+        internalColumns.forEach(function (key: any) {
+            key = key.property.replace(/\s+/g, "").trim();
+            sortOrders[key.toString()] = 1;
         });
         return {
             sortKey: "",
             sortOrders: sortOrders,
             direction: 0,
-            draggedColumn: null
+            draggedColumn: null,
+            internalColumns: internalColumns
         };
     },
     methods: {
-        getPropertyName: function(item: any) {
-            if(typeof item === 'string')
-                return item;
-            return item.property;
+        getColumnInfo: function(column: any) {
+            let internalColumn: any = {};
+            if(typeof column === "string") {
+                internalColumn.property = column.replace(/\s+/g, "").trim();
+                internalColumn.display = this.fixHeader(column);
+                internalColumn.dataType = this.guessDataType(column);
+                internalColumn.sum = false;
+                internalColumn.locales = "en-US";
+                internalColumn.format = {};
+            } else {
+                if ("property" in column) {
+                    internalColumn.property = column.property.replace(/\s+/g, "").trim();
+                }
+                if ("dataType" in column) {
+                    internalColumn.dataType = column.dataType;
+                } 
+                if ("sum" in column) {
+                    internalColumn.sum = column.sum;
+                }
+                if ("locales" in column) {
+                    internalColumn.locales = column.locales;
+                }
+                if ("format" in column) {
+                    internalColumn.format = column.format;
+                }
+                if ("display" in column) {
+                    internalColumn.display = column.display;
+                }
+            }
+            if (!("property" in internalColumn)) {
+                internalColumn.property = internalColumn.display.replace(/\s+/g, "").trim();
+            } 
+            if (!("dataType" in internalColumn)) {
+                internalColumn.dataType = this.guessDataType(internalColumn.property);
+            }
+            if (!("sum" in internalColumn)) {
+                internalColumn.sum = false;
+            }
+            if (!("locales" in internalColumn)) {
+                internalColumn.locales = "en-US";
+            }
+            if (!("format" in internalColumn)) {
+                internalColumn.format = {};
+            }
+            if (!("display" in internalColumn)) {
+                internalColumn.display = this.fixHeader(internalColumn.property);
+            }
+            return internalColumn;
+        },
+        guessDataType: function(column: string) {
+            let tempDiv = document.createElement("div");
+            let returnValue = "string";
+            for (let x = 0; x < this.data.length; ++x) {
+                if(!(column in this.data[x])) {
+                    continue;
+                }
+                let cellText = this.data[x][column].toString();
+                tempDiv.innerHTML = cellText;
+                cellText = (tempDiv.textContent || tempDiv.innerText || "").replace(/^\s+|\s+$/g, "");
+                if (cellText !== "") {
+                    if (cellText.match(/^-?[£$¤]?[\d,.]+%?$/) && !cellText.match(/^\d\d\d.\d\d\d.\d\d\d\d$/)) {
+                        return "number";
+                    }
+                    let dateParts = cellText.match(dateRegex);
+                    if (dateParts) {
+                        let first = parseInt(dateParts[1], 10);
+                        let second = parseInt(dateParts[2], 10);
+                        if (first > 12) {
+                            return "DDMM Date";
+                        } else if (second > 12) {
+                            return "MMDD Date";
+                        } else {
+                            returnValue = "MMDD Date";
+                        }
+                    }
+                }
+            }
+            return returnValue;
         },
         getColumnIndex: function(column: string) {
-            for(let x=0;x<this.columns.length;++x) {
-                if(this.getPropertyName(this.columns[x]) === column) {
+            for(let x = 0; x < this.internalColumns.length; ++x) {
+                if (this.internalColumns[x].property === column) {
                     return x;
                 }
             }
             return -1;
-        },
-        isBefore: function(element1: string, element2: string) {
-            return this.getColumnIndex(element1) < this.getColumnIndex(element2);
         },
         move: function(array: Array<any>, old_index: number, new_index: number) {
             if (old_index < 0) {
@@ -196,29 +267,23 @@ export default Vue.extend({
             let targetColumn = targetElement.getAttribute('columnname');
             let sourceColumn = this.draggedColumn.getAttribute('columnname');
 
-            if (this.isBefore(sourceColumn, targetColumn)) {
+            if (this.getColumnIndex(sourceColumn) < this.getColumnIndex(targetColumn)) {
                 let targetColumnIndex = this.getColumnIndex(targetColumn) + 1;
                 let sourceColumnIndex = this.getColumnIndex(sourceColumn);
-                this.columns = this.move(this.columns, sourceColumnIndex, targetColumnIndex);
+                this.internalColumns = this.move(this.internalColumns, sourceColumnIndex, targetColumnIndex);
             } else {
                 let targetColumnIndex = this.getColumnIndex(targetColumn);
                 let sourceColumnIndex = this.getColumnIndex(sourceColumn);
-                this.columns = this.move(this.columns, sourceColumnIndex, targetColumnIndex);
+                this.internalColumns = this.move(this.internalColumns, sourceColumnIndex, targetColumnIndex);
             }
-            this.$emit("reorder", { columns: this.columns });
+            this.$emit("reorder", { columns: this.internalColumns });
         },
         dragstart: function(event: DragEvent) {
             this.draggedColumn = (<Element>event.target);
             event.dataTransfer.effectAllowed = "move";
         },
-        filteredColumn: function(key: any) {
-            if(typeof key === 'string') {
-                return key.replace(/\s+/g, "").trim();
-            }
-            return key.property.replace(/\s+/g, "").trim();
-        },
         filteredColumnSum: function(group: any, key: any) {
-            if(typeof key === 'string' || !("sum" in key) || !key.sum) {
+            if(!key.sum) {
                 return "";
             }
             let total = 0;
@@ -228,68 +293,32 @@ export default Vue.extend({
                     total += this.getNumber(data[x][key.property]);
                 }
             }
-            let locales = "en-US";
-            let format = {};
-            if(typeof key !== "string" && "locales" in key)
-                locales = key.locales;
-            if(typeof key !== "string" && "format" in key)
-                format = key.format;
-            return this.formatValue(total,locales, format);
+            return this.formatValue(total, key);
         },
-        formatValue: function(value: any, locales: string, format: any): string {
-            let valueType = typeof value;
-            if (valueType === "number") {
-                return new Intl.NumberFormat(locales,format).format(value);
+        formatValue: function(value: any, column: any): string {
+            if(!value || column.dataType === "string") {
+                return value || "";
             }
-            var temp =value.match(/^-?[£$¤]?[\d,.]+%?$/);
-            if ((valueType === "string" && value.match(/^-?[£$¤]?[\d,.]+%?$/))) {
-                return new Intl.NumberFormat(locales,format).format(parseFloat(value.replace(/[^0-9.]/g, "")));
+            let valueType = typeof value;
+            if (column.dataType === "number") {
+                if (valueType === "number") {
+                    return new Intl.NumberFormat(column.locales, column.format).format(value);
+                }
+                if ((valueType === "string" && value.match(/^-?[£$¤]?[\d,.]+%?$/) && !value.match(/^\d\d\d.\d\d\d.\d\d\d\d$/))) {
+                    return new Intl.NumberFormat(column.locales, column.format).format(this.getNumber(value));
+                }
+            } else if (column.dataType === "date") {
+                if (valueType === "number") {
+                    return new Intl.DateTimeFormat(column.locales, column.format).format(value);
+                }
+                if (valueType === "string") {
+                    return new Intl.DateTimeFormat(column.locales, column.format).format(new Date(value));
+                }
             }
             return value;
         },
-        formatEntry: function(value: string, key: any) {
-            let locales = "en-US";
-            let format = {};
-            if(typeof key !== "string" && "locales" in key)
-                locales = key.locales;
-            if(typeof key !== "string" && "format" in key)
-                format = key.format;
-            return this.formatValue(value, locales, format);
-        },
-        getHeader: function(key: any) {
-            if(typeof key === 'string') {
-                return key.replace("_", " ").replace("-", " ").replace(/([a-z])([A-Z])/g, "$1 $2");
-            } else if("display" in key) {
-                return key.display;
-            }
-            return key.property.replace("_", " ").replace("-", " ").replace(/([a-z])([A-Z])/g, "$1 $2");
-        },
-        guessDataType: function(data: Array<any>): string {
-            let tempDiv = document.createElement("div");
-            let returnValue = "string";
-            for (let x = 0; x < data.length; ++x) {
-                let cellText = data[x][this.sortKey].toString();
-                tempDiv.innerHTML = cellText;
-                cellText = (tempDiv.textContent || tempDiv.innerText || "").replace(/^\s+|\s+$/g, "");
-                if (cellText !== "") {
-                    if (cellText.match(/^-?[£$¤]?[\d,.]+%?$/)) {
-                        return "number";
-                    }
-                    let dateParts = cellText.match(dateRegex);
-                    if (dateParts) {
-                        let first = parseInt(dateParts[1], 10);
-                        let second = parseInt(dateParts[2], 10);
-                        if (first > 12) {
-                            return "DDMM Date";
-                        } else if (second > 12) {
-                            return "MMDD Date";
-                        } else {
-                            returnValue = "MMDD Date";
-                        }
-                    }
-                }
-            }
-            return returnValue;
+        fixHeader: function(column: string) {
+            return column.replace("_", " ").replace("-", " ").replace(/([a-z])([A-Z])/g, "$1 $2");
         },
         setPage: function(currentPage: Number) {
             if(currentPage>this.finalPage)
@@ -300,8 +329,8 @@ export default Vue.extend({
                 this.page=currentPage;
             this.$emit("pagechange", { page: this.page, filter: this.filterKey, sortKey: this.sortKey, direction: this.direction });
         },
-        sortBy: function (key: string) {
-            key = this.filteredColumn(key);
+        sortBy: function (key: any) {
+            key = key.property;
             this.sortKey = key;
             let tempSortOrder: any = {};
             if (!(key in this.sortOrders)) {

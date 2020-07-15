@@ -1941,10 +1941,10 @@
                 total: 101,
                 searchQuery: '',
                 gridColumns: [
-                    { property: 'strings', display: 'Strings' },
+                    { property: 'strings', display: 'Strings', dataType: "string" },
                     { property: 'numbers', sum: true },
-                    { property: 'money', sum: true, locales: "en-US", format: { style: 'currency', currency: 'USD', maximumFractionDigits:0, minimumFractionDigits:0 } },
-                    { property: 'dates', display: 'Dates' },
+                    { property: 'money', dataType: "number", sum: true, locales: "en-US", format: { style: 'currency', currency: 'USD', maximumFractionDigits:0, minimumFractionDigits:0 } },
+                    { property: 'dates', display: 'Dates', dataType: "date" },
                     'long_name',
                     'html'
                 ],
