@@ -18,7 +18,7 @@
         <template v-if="filteredGroups">
             <tbody v-for="(group, index) in filteredGroups" v-bind:key="index">
                 <tr v-if="group !== ''" class="grid-group-header"><td :colspan="internalColumns.length">{{ group }}</td></tr>
-                <tr v-for="(entry, index) in filteredData" v-bind:key="index">
+                <tr v-for="(entry, index) in filteredData" v-bind:key="index" @click="rowClicked(entry)">
                     <template v-if="(groupBy in entry && entry[groupBy] === group) || group === ''">
                         <td v-for="key in internalColumns" v-html="formatValue(entry[key.property], key)" v-bind:key="key">
                         </td>
@@ -33,7 +33,7 @@
         </template>
         <template v-else>
             <tbody>
-                <tr v-for="(entry, index) in filteredData" v-bind:key="index">
+                <tr v-for="(entry, index) in filteredData" v-bind:key="index" @click="rowClicked(entry)">
                     <td v-for="key in internalColumns" v-html="formatValue(entry[key.property], key)" v-bind:key="key">
                     </td>
                 </tr>
@@ -173,6 +173,9 @@ export default Vue.extend({
         };
     },
     methods: {
+        rowClicked: function(entry: any) {
+            this.$emit("row-clicked", { entry: entry });
+        },
         getColumnInfo: function(column: any) {
             let internalColumn: any = {};
             if(typeof column === "string") {
@@ -233,6 +236,12 @@ export default Vue.extend({
                 tempDiv.innerHTML = cellText;
                 cellText = (tempDiv.textContent || tempDiv.innerText || "").replace(/^\s+|\s+$/g, "");
                 if (cellText !== "") {
+                    if (cellText.match(/^(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))$/)) {
+                        return "image";
+                    }
+                    if (cellText.match(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/)) {
+                        return "link";
+                    }
                     if (cellText.match(/^-?[£$¤]?[\d,.]+%?$/) && !cellText.match(/^\d\d\d.\d\d\d.\d\d\d\d$/)) {
                         return "number";
                     }
@@ -320,6 +329,7 @@ export default Vue.extend({
             }
             let valueType = typeof value;
             if (column.dataType === "number") {
+                value = this.stripHTML(value);
                 if (valueType === "number") {
                     return new Intl.NumberFormat(column.locales, column.format).format(value);
                 }
@@ -327,12 +337,17 @@ export default Vue.extend({
                     return new Intl.NumberFormat(column.locales, column.format).format(this.getNumber(value));
                 }
             } else if (column.dataType === "date") {
+                value = this.stripHTML(value);
                 if (valueType === "number") {
                     return new Intl.DateTimeFormat(column.locales, column.format).format(value);
                 }
                 if (valueType === "string") {
                     return new Intl.DateTimeFormat(column.locales, column.format).format(new Date(value));
                 }
+            } else if (column.dataType === "link") {
+                return "<a href='" + value + "'>" + value + "</a>";
+            } else if (column.dataType === "image") {
+                return "<img src='" + value + "' alt='" + value + "' />";
             }
             return value;
         },
