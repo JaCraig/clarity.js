@@ -72,11 +72,29 @@
 
     table {
         border-collapse: collapse !important;
-    }
-    table td, table th {
-        background-color: @backgroundColor !important;
-    }
-    table.bordered th, table.bordered td {
-        border: 1px solid @lightBorderColor !important;
+
+        & td, & th {
+            background-color: @backgroundColor !important;
+        }
+
+        &.bordered th, &.bordered td {
+            border: 1px solid @lightBorderColor !important;
+        }
+
+        &.sortable {
+            & thead tr th {
+                &:before{
+                    content:'' !important;
+                }
+            }
+    
+            & thead tr th.headerSortUp:before{
+                content:'' !important;
+            }
+    
+            & thead tr th.headerSortDown:before{
+                content:'' !important;
+            }
+        }
     }
 }

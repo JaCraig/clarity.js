@@ -44,7 +44,7 @@
                 </tr>
             </tbody>
         </template>
-        <tfoot v-if="pageable">
+        <tfoot v-if="pageable" class="do-not-print">
             <tr>
                 <td :colspan="internalColumns.length">
                     <div class="right">Page {{ page }} of {{ finalPage }}</div>
@@ -70,6 +70,9 @@ export default Vue.extend({
     watch: {
         columns: function(newColumns, oldColumns) {
             this.internalColumns.length = 0;
+            if(!this.sortOrders) {
+                this.sortOrders = {};
+            }
             this.sortOrders.length = 0;
             for (let x = 0; x <this.columns.length; ++x) {
                 let column: any = this.columns[x];
@@ -89,18 +92,14 @@ export default Vue.extend({
         },
         filteredGroups: function() {
             if(!this.groupBy) return;
+            let tempData =this.filteredData;
             let filterKey = this.filterKey && this.filterKey.toLowerCase();
             let returnData = [];
-            for(let x = 0; x < this.data.length; ++x) {
-                let contentText = this.data[x][this.groupBy].toString();
+            for(let x = 0; x < tempData.length; ++x) {
+                let contentText = tempData[x][this.groupBy].toString();
                 if (returnData.indexOf(contentText) === -1) {
                     returnData.push(contentText);
                 }
-            }
-            if (filterKey) {
-                returnData = returnData.filter(function (row: any) {
-                    return String(row).toLowerCase().indexOf(filterKey) > -1;
-                });
             }
             return returnData.sort(function(a: any, b: any): number {
                 if (a === b) { return 0; }
