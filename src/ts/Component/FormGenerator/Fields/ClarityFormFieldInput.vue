@@ -70,17 +70,28 @@ import moment from 'moment'
 export default Vue.extend({
     data: function() {
         let returnedModel: string;
-        if (this.schema.inputType === "date") {
-            returnedModel= moment(this.model).format('YYYY-MM-DD');
-        }
-        else if (this.schema.inputType === "datetime-local" || this.schema.inputType === "datetime") {
-            returnedModel= moment(this.model).format('YYYY-MM-DDTHH:mm');
-        }
-        else if (this.schema.inputType === "month") {
-            returnedModel= moment(this.model).format('YYYY-MM');
+        if (this.schema.inputType === "date"
+            || this.schema.inputType === "datetime-local" 
+            || this.schema.inputType === "datetime"
+            || this.schema.inputType === "month") {
+
+            let tempDate = moment(this.model);
+            if (this.schema.isUTC) {
+                tempDate = moment.utc(this.model).local();
+            }
+
+            if (this.schema.inputType === "date") {
+                returnedModel= tempDate.format('YYYY-MM-DD');
+            }
+            else if (this.schema.inputType === "datetime-local" || this.schema.inputType === "datetime") {
+                returnedModel= tempDate.format('YYYY-MM-DDTHH:mm');
+            }
+            else if (this.schema.inputType === "month") {
+                returnedModel= tempDate.format('YYYY-MM');
+            }
         }
         else {
-            returnedModel= this.model;
+            returnedModel = this.model;
         }
         return {
             count: 0,

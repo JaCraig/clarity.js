@@ -1,7 +1,7 @@
 
 <template>
     <div>
-        <div v-if="model.display">
+        <div v-if="show(model.display || schema.display)">
             <div v-for="(item, index) in schema.fields" v-bind:key="index">
                 <component :is="getFieldType(item)"
                         :schema="getSchema(item)"
@@ -27,6 +27,12 @@ export default Vue.extend({
         idSuffix: String,
     },
     methods: {
+        show: function(method: any) {
+            if(typeof method === 'function') {
+                return method();
+            }
+            return method;
+        },
         getFieldType: function(field: any) {
             return "clarity-form-field-" + field.type;
         },
