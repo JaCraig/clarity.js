@@ -30,6 +30,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { Request } from '../../../Framework/AJAX/Request'
 
 export default Vue.extend({
     props: {
@@ -60,6 +61,49 @@ export default Vue.extend({
         isSelected: function(value: any) {
             return this.model === value.key;
         },
+        getValues: function(data: any) {
+            if(!data) {
+                return null;
+            }
+            let itemToCheck=data;
+            if(Array.isArray(data)) {
+                itemToCheck = data[0];
+            }
+            let propertyNames = Object.getOwnPropertyNames(itemToCheck);
+            for(let x=0;x<propertyNames.length;++x) {
+                if(propertyNames[x]==="key"){
+                    return data;
+                }
+                let tempData=this.getValues(itemToCheck[propertyNames[x]]);
+                if(tempData) {
+                    return tempData;
+                }
+            }
+            return null;
+        }
+    },
+    beforeMount: function() {
+        if(!this.schema.valuesUrl) {
+            return;
+        }
+        let that = this;
+        Request.post(that.schema.valuesUrl,that.schema.valuesUrlData)
+            .onSuccess(function(ev:any){
+                if(!ev){
+                    return;
+                }
+                let values = that.getValues(ev);
+                if(values){
+                    that.schema.values = values;
+                }
+            })
+            .onError(function (x) {
+                that.$emit("error", x);
+            })
+            .onException(function (x) {
+                that.$emit("exception", x);
+            })
+            .send();
     }
 });
 
