@@ -4,10 +4,11 @@
         <div v-for="(item, index) in model"  v-bind:key="index" class="border-bottom">
             <a class="fa-minus-circle right" @click.stop.prevent="removeItem(item)"></a>
             <div v-for="(field, fieldindex) in schema.fields"  v-bind:key="fieldindex">
+
                 <component :is="getFieldType(field)"
                             :schema="getSchema(field)"
                             :model="getModelValue(field,item)"
-                            :label="false"
+                            :label="true"
                             :idSuffix="getIDSuffix(field,index)"
                             @changed="newValue => setModelValue(field,item,newValue)"
                             @click="buttonClicked"
@@ -15,7 +16,6 @@
                             @exception="exception">
                 </component>
             </div>
-            {{schema}}
         </div>
         <a class="fa-plus-circle" @click.stop.prevent="addItem">Add More</a>
     </div>
