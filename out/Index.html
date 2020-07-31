@@ -1708,7 +1708,16 @@
                         name: "Jane",
                         number: 2,
                         lastName: "John",
-                    }
+                    },
+                    repeater: [{
+                        complexObjectList: [{
+                        order: 1,
+                        name: "Jane",
+                        },{
+                            order: 2,
+                            name: "John",
+                        }], 
+                    }]
                 },
                 schema: {
                     fields: [{
@@ -1839,6 +1848,32 @@
                             ]
                         },
                         model: "complexObjectTabs"
+                    },{
+                        type: "complex-repeater",
+                        schema: {
+                            tableClasses: "primary",
+                            confirmRemoval: true,
+                            fields: [{
+                                type: "complex-list",
+                                schema: {
+                                    tableClasses: "primary",
+                                    confirmRemoval: true,
+                                    fields: [{
+                                    type: "input",
+                                    inputType: "number",
+                                    model: "order",
+                                    label: "order in list"
+                                    },{
+                                        type: "input",
+                                        inputType: "text",
+                                        model: "name",
+                                        hint: "Write a name here"
+                                    }]
+                                },
+                                model: "complexObjectList",
+                            }]
+                        },
+                        model: "repeater",
                     },{
                         type: "buttons",
                         buttons: [

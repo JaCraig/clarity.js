@@ -36,6 +36,7 @@ import ClarityFormFieldComplexConditional from './Fields/ClarityFormFieldComplex
 import ClarityFormFieldComplexList from './Fields/ClarityFormFieldComplexList.vue';
 import ClarityFormFieldComplexTabs from './Fields/ClarityFormFieldComplexTabs.vue';
 import ClarityFormFieldComplex from './Fields/ClarityFormFieldComplex.vue';
+import ClarityFormFieldRepeater from './Fields/ClarityFormFieldComplexRepeater.vue';
 
 
 Vue.component('clarity-form-field-complex',ClarityFormFieldComplex);
@@ -50,6 +51,7 @@ Vue.component('clarity-form-field-textarea', ClarityFormFieldTextarea);
 Vue.component('clarity-form-field-text', ClarityFormFieldText);
 Vue.component('clarity-form-field-upload', ClarityFormFieldUpload);
 Vue.component('clarity-form-field-buttons', ClarityFormFieldButtons);
+Vue.component('clarity-form-field-complex-repeater', ClarityFormFieldRepeater);
 
 RegisterFilters();
 RegisterDirectives();
