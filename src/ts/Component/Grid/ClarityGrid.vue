@@ -62,9 +62,10 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
+import moment from 'moment';
 
-let dateRegex = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
+let dateRegex = /^((\d\d)?\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)(T\d\d:\d\d:\d\dZ?)?$/ig;
 
 export default Vue.extend({
     watch: {
@@ -139,10 +140,6 @@ export default Vue.extend({
                     data = data.sort(this.sortNumber);
                 } else if (sortFunction === "date") {
                     data = data.sort(this.sortDate);
-                } else if (sortFunction === "MMDD Date") {
-                    data = data.sort(this.sortMMDDDate);
-                } else if (sortFunction === "DDMM Date") {
-                    data = data.sort(this.sortDDMMDate);
                 }
                 if (order === 1) {
                     this.data.reverse();
@@ -246,15 +243,7 @@ export default Vue.extend({
                     }
                     let dateParts = cellText.match(dateRegex);
                     if (dateParts) {
-                        let first = parseInt(dateParts[1], 10);
-                        let second = parseInt(dateParts[2], 10);
-                        if (first > 12) {
-                            return "DDMM Date";
-                        } else if (second > 12) {
-                            return "MMDD Date";
-                        } else {
-                            returnValue = "MMDD Date";
-                        }
+                        return "date";
                     }
                 }
             }
@@ -316,14 +305,14 @@ export default Vue.extend({
             let total = 0;
             let data = this.filteredData;
             for(let x=0;x<data.length;++x) {
-                if(data[x][this.groupBy] === group) {
+                if(!this.groupBy||data[x][this.groupBy] === group) {
                     total += this.getNumber(data[x][key.property]);
                 }
             }
             return this.formatValue(total, key);
         },
         formatValue: function(value: any, column: any): string {
-            if(!value || column.dataType === "string") {
+            if(typeof value==='undefined'|| value===null || column.dataType === "string") {
                 return value || "";
             }
             let valueType = typeof value;
@@ -341,7 +330,7 @@ export default Vue.extend({
                     return new Intl.DateTimeFormat(column.locales, column.format).format(value);
                 }
                 if (valueType === "string") {
-                    return new Intl.DateTimeFormat(column.locales, column.format).format(new Date(value));
+                    return new Intl.DateTimeFormat(column.locales, column.format).format(Date.parse(value));
                 }
             } else if (column.dataType === "link") {
                 return "<a href='" + value + "'>" + value + "</a>";
@@ -376,55 +365,20 @@ export default Vue.extend({
             this.sortOrders = tempSortOrder;
             this.$emit("pagechange", { page: this.page, filter: this.filterKey, sortKey: this.sortKey, direction: this.direction });
         },
-        sortDDMMDate: function(val1: any, val2: any): number {
-            let actualValue1 = this.stripHTML(val1[this.sortKey].toString());
-            let actualValue2 = this.stripHTML(val2[this.sortKey].toString());
-            let match = actualValue1.match(dateRegex);
-            let year = match[3], day = match[1], month = match[2];
-            if (month.length === 1) { month = "0" + month; }
-            if (day.length === 1) { day = "0" + day; }
-            let value1 = year + month + day;
-
-            match = actualValue2.match(dateRegex);
-            year = match[3];
-            day = match[1];
-            month = match[2];
-            if (month.length === 1) { month = "0" + month; }
-            if (day.length === 1) { day = "0" + day; }
-            let value2 = year + month + day;
-            if (value1 === value2) { return 0; }
-            if (value1 < value2) { return -1; }
-            return 1;
-        },
         sortDate: function(val1: any, val2: any): number {
             let actualValue1 = this.stripHTML(val1[this.sortKey].toString());
             let actualValue2 = this.stripHTML(val2[this.sortKey].toString());
-            let value1 = new Date(actualValue1);
-            let value2 = new Date(actualValue2);
-            if (isNaN(value1.getTime())) { value1 = new Date(0); }
-            if (isNaN(value2.getTime())) { value2 = new Date(0); }
-            if (value1 === value2) { return 0; }
-            if (value1 < value2) { return -1; }
-            return 1;
-        },
-        sortMMDDDate: function(value1: any, value2: any): number {
-            let actualValue1 = this.stripHTML(value1[this.sortKey].toString());
-            let actualValue2 = this.stripHTML(value2[this.sortKey].toString());
-            let match = actualValue1.match(dateRegex);
-            let year = match[3], day = match[2], month = match[1];
-            if (month.length === 1) { month = "0" + month; }
-            if (day.length === 1) { day = "0" + day; }
-            let val1 = year + month + day;
-
-            match = actualValue2.match(dateRegex);
-            year = match[3];
-            day = match[2];
-            month = match[1];
-            if (month.length === 1) { month = "0" + month; }
-            if (day.length === 1) { day = "0" + day; }
-            let val2 = year + month + day;
-            if (val1 === val2) { return 0; }
-            if (val1 < val2) { return -1; }
+            let value1 = moment(new Date(actualValue1));
+            let value2 = moment(new Date(actualValue2));
+            if(!value1.isValid()) {
+                value1 = moment(new Date(0));
+            }
+            if(!value2.isValid()) {
+                value2 = moment(new Date(0));
+            }
+            let returnVal = value1.diff(value2);
+            if (returnVal === 0) { return 0; }
+            if (returnVal < 0) { return -1; }
             return 1;
         },
         getNumber: function(value: any): number {
@@ -433,8 +387,8 @@ export default Vue.extend({
             return parseFloat(this.stripHTML(value.toString()).replace(/[^0-9.-]/g, ""));
         },
         sortNumber: function(value1: any, value2: any): number {
-            let actualValue1 = this.getNumber(value1);
-            let actualValue2 = this.getNumber(value2);
+            let actualValue1 = this.getNumber(value1[this.sortKey]);
+            let actualValue2 = this.getNumber(value2[this.sortKey]);
             if (isNaN(actualValue1)) { actualValue1 = 0; }
             if (isNaN(actualValue2)) { actualValue2 = 0; }
             return actualValue1 - actualValue2;
