@@ -1656,9 +1656,8 @@
     </div>
      <script src="Clarity.umd.js"></script>
     <script>
-        window.clarity = window.clarity || new Clarity();
+        Clarity.init();
         window.clarity.hotkeys.bind('a b c', function(){ console.log('pressed'); });
-        window.clarity.validation.initialize();
         new Vue({
             el: '#FormValidationExample',
             data: {

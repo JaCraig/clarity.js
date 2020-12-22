@@ -57,7 +57,7 @@
                 />
         <div class="text-center" v-if="schema.inputType === 'color' || schema.inputType === 'range'">{{ internalmodel }}</div>
         <datalist v-if="schema.datalist" :id="getList()">
-            <option v-for="(item, index) in schema.datalist" :value="item" v-bind:key="index" />
+            <option v-for="(item) in schema.datalist" :value="item" v-bind:key="item" />
         </datalist>
     </div>
 </template>
@@ -155,6 +155,19 @@ export default Vue.extend({
             } else {
                 return null;
             }
+        },
+        generateGuid: function (item: any) {
+            let Key = item.key;
+            if(Key) {
+                return Key;
+            }
+            let result = ''
+            for (let j = 0; j < 32; j++) {
+                let i = Math.floor(Math.random() * 16).toString(16).toUpperCase();
+                result = result + i;
+            }
+            item.key = result;
+            return item.key;
         },
     }
 });

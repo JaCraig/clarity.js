@@ -22,6 +22,7 @@ import { PageHistory } from "./History/PageHistory";
 import { LocalStorage } from "./WebStorage/LocalStorage";
 import { SessionStorage } from "./WebStorage/SessionStorage";
 import { Request } from "./AJAX/Request";
+import { DatabaseConnection } from "./Database/Database";
 import { Closer } from "../Component/Closer/Closer";
 import { DropDown } from "../Component/DropDown/DropDown";
 import { Mobile } from "../Component/Mobile/Mobile";
@@ -34,15 +35,14 @@ import ClarityFormValidator from "../Component/FormValidation/ClarityFormValidat
 import ClarityFormGenerator from "../Component/FormGenerator/ClarityFormGenerator.vue";
 import Vue from 'vue';
 
-export { Request };
-
 // Starts up and generally manages the framework
-export class Clarity {
+class Clarity {
     // constructor
     constructor() {
         this.hotkeys = new Hotkeys();
         this.router = new Router();
         this.validation = new FormValidation();
+        this.validation.initialize();
         this.errorLogger = new ErrorLogging();
         this.history = new PageHistory();
         this.localStorage = new LocalStorage();
@@ -56,7 +56,7 @@ export class Clarity {
         window.onerror = (msg, url, ln, col, error) => {
             this.errorLogger.onError(msg.toString(), url, ln, col, error);
         };
-        this.errorLogger.setLoggingFunction((message:string, stack: any[])=>{ console.log(message); });
+        this.errorLogger.setLoggingFunction((message:string, stack: string) => { console.log(message); });
 
         Vue.component('clarity-modal', ClarityModal);
         Vue.component('clarity-tabs', ClarityTabs);
@@ -101,4 +101,8 @@ declare global {
     }
 }
 
-window.clarity = window.clarity || new Clarity();
+function init() {
+    window.clarity = window.clarity || new Clarity();
+}
+
+export { Request, DatabaseConnection , init };

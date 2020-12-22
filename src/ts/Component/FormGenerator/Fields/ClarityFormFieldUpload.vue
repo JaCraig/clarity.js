@@ -23,7 +23,7 @@
                 :data-error-message-value-missing="schema.errorMessageValueMissing" />
         </div>
         <div class="flex">
-            <div class="flex-item upload-preview panel" v-for="(file, index) in files" :class="schema.previewClasses" v-bind:key="index">
+            <div class="flex-item upload-preview panel" v-for="(file) in files" :class="schema.previewClasses" v-bind:key="generateGuid(file)">
                 <header><div class="header" @click="removeFile(file)">×</div>&nbsp;</header>
                 <div class="body">
                     {{ file.filename }}
@@ -100,6 +100,19 @@ export default Vue.extend({
             let index = this.files.indexOf(file);
             this.files.splice(index, 1);
             this.filesAdded--;
+        },
+        generateGuid: function (item: any) {
+            let Key = item.key;
+            if(Key) {
+                return Key;
+            }
+            let result = ''
+            for (let j = 0; j < 32; j++) {
+                let i = Math.floor(Math.random() * 16).toString(16).toUpperCase();
+                result = result + i;
+            }
+            item.key = result;
+            return item.key;
         },
     }
 });

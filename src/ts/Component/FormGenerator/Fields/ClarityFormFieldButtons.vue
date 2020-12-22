@@ -2,8 +2,8 @@
 <template>
     <div class="controls">
         <div class="input-group">
-            <input v-for="(button, index) in schema.buttons"
-                    v-bind:key="index"
+            <input v-for="(button) in schema.buttons"
+                    v-bind:key="generateGuid(button)"
                     :type="button.type"
                     :value="button.value"
                     :class="button.classes"
@@ -25,6 +25,19 @@ export default Vue.extend({
         click: function(event: any, button: any) {
             this.$emit("click", event, button);
             return false;
+        },
+        generateGuid: function (item: any) {
+            let Key = item.key;
+            if(Key) {
+                return Key;
+            }
+            let result = ''
+            for (let j = 0; j < 32; j++) {
+                let i = Math.floor(Math.random() * 16).toString(16).toUpperCase();
+                result = result + i;
+            }
+            item.key = result;
+            return item.key;
         },
     }
 });

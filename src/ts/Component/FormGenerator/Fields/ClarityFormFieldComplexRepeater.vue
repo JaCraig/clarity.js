@@ -1,9 +1,9 @@
 
 <template>
     <div>
-        <div v-for="(item, index) in model"  v-bind:key="index" class="border-bottom">
+        <div v-for="(item, index) in model"  v-bind:key="generateGuid(item)" class="border-bottom">
             <a class="fa-minus-circle right" @click.stop.prevent="removeItem(item)"></a>
-            <div v-for="(field, fieldindex) in schema.fields"  v-bind:key="fieldindex">
+            <div v-for="(field) in schema.fields"  v-bind:key="generateGuid(field)">
 
                 <component :is="getFieldType(field)"
                             :schema="getSchema(field)"
@@ -90,6 +90,19 @@ export default Vue.extend({
         },
         getIDSuffix: function(field: any, index: any) {
             return this.idSuffix + index;
+        },
+        generateGuid: function (item: any) {
+            let Key = item.key;
+            if(Key) {
+                return Key;
+            }
+            let result = ''
+            for (let j = 0; j < 32; j++) {
+                let i = Math.floor(Math.random() * 16).toString(16).toUpperCase();
+                result = result + i;
+            }
+            item.key = result;
+            return item.key;
         },
     }
 });

@@ -6,7 +6,6 @@ import serve from 'rollup-plugin-serve';
 import {terser} from 'rollup-plugin-terser';
 import license from 'rollup-plugin-license';
 import path from 'path';
-import analyze from 'rollup-plugin-analyzer'
 import postcss from 'rollup-plugin-postcss';
 import copy from "rollup-plugin-copy-assets";
 import autoprefixer from 'autoprefixer';
@@ -38,45 +37,6 @@ export default [
 			copy({ assets: ['src/less/fonts'] })
 		]
 	},
-	// browser-friendly UMD build
-	{
-		input: [
-			'src/ts/Extensions/*.ts',
-			'src/ts/Browser/BrowserUtils.ts',
-			'src/ts/Component/VueExtensions/*.ts',
-			'src/ts/Framework/Clarity.ts'
-		],
-		external: external,
-		output: [
-			{ name: 'Clarity', file: pkg.browser, format: 'umd', globals: globals },
-			{ name: 'Clarity', file: 'dist/Clarity.umd.min.js', format: 'umd', plugins: [terser()], globals: globals }
-		],
-		plugins: [
-			resolve(),
-			commonjs(),
-			typescript(),
-			VuePlugin(),
-			!isProduction && serve({ contentBase: ['out','dist'] }),
-			license({
-				banner: {
-					content: {
-						file: path.join(__dirname, 'LICENSE-CODE'),
-					},
-				},
-				thirdParty: {
-					allow: '(MIT OR Apache-2.0)',
-				},
-			}),
-			isProduction && analyze({ summaryOnly: true }),
-			multi(),
-			!isProduction && livereload(),
-			alias({
-				entries: [
-				  { find: 'vue', replacement: 'vue/dist/vue.js' },
-				]
-			})
-		]
-	},
 	// Node and package system builds
 	{
 		input: [
@@ -87,8 +47,16 @@ export default [
 		],
 		external: external,
 		plugins: [
+			resolve(),
 			typescript(),
 			VuePlugin(),
+			commonjs(),
+			multi(),
+			alias({
+				entries: [
+				  { find: 'vue', replacement: 'vue/dist/vue.js' },
+				]
+			}),
 			license({
 				banner: {
 					content: {
@@ -99,19 +67,16 @@ export default [
 					allow: '(MIT OR Apache-2.0)',
 				},
 			}),
-			isProduction && analyze({ summaryOnly: true }),
-			multi(),
-			alias({
-				entries: [
-				  { find: 'vue', replacement: 'vue/dist/vue.js' },
-				]
-			})
+			!isProduction && serve({ contentBase: ['out','dist'] }),
+			!isProduction && livereload(),
 		],
 		output: [
 			{ file: pkg.main, format: 'cjs', globals: globals },
 			{ file: pkg.module, format: 'es', globals: globals  },
 			{ file: 'dist/Clarity.cjs.min.js', format: 'cjs', plugins: [terser()], globals: globals  },
-			{ file: 'dist/Clarity.esm.min.js', format: 'es', plugins: [terser()], globals: globals  }
+			{ file: 'dist/Clarity.esm.min.js', format: 'es', plugins: [terser()], globals: globals  },
+			{ name: 'Clarity', file: pkg.browser, format: 'umd', globals: globals },
+			{ name: 'Clarity', file: 'dist/Clarity.umd.min.js', format: 'umd', plugins: [terser()], globals: globals }
 		]
 	},
 ];

@@ -1,7 +1,7 @@
 
 <template>
     <div>
-        <div v-for="(item, index) in schema.fields" v-bind:key="index">
+        <div v-for="(item) in schema.fields" v-bind:key="generateGuid(item)">
             <component :is="getFieldType(item)"
                     :schema="getSchema(item)"
                     :model="getModelValue(item)"
@@ -55,6 +55,19 @@ export default Vue.extend({
         },
         getIDSuffix: function(field: any) {
             return this.idSuffix;
+        },
+        generateGuid: function (item: any) {
+            let Key = item.key;
+            if(Key) {
+                return Key;
+            }
+            let result = ''
+            for (let j = 0; j < 32; j++) {
+                let i = Math.floor(Math.random() * 16).toString(16).toUpperCase();
+                result = result + i;
+            }
+            item.key = result;
+            return item.key;
         },
     }
 });

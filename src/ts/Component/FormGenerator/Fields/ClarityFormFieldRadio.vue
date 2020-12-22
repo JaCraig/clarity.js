@@ -1,7 +1,7 @@
 
 <template>
     <div class="flex row text-center">
-        <div class="flex-item" v-for="(value, index) in schema.values" v-bind:key="index">
+        <div class="flex-item" v-for="(value) in schema.values" v-bind:key="value">
             <input :id="getFieldID(value)"
                 type="radio"
                 :checked="isItemChecked(value)"
@@ -56,6 +56,19 @@ export default Vue.extend({
         },
         getItemValue: function(item: any) {
             return item;
+        },
+        generateGuid: function (item: any) {
+            let Key = item.key;
+            if(Key) {
+                return Key;
+            }
+            let result = ''
+            for (let j = 0; j < 32; j++) {
+                let i = Math.floor(Math.random() * 16).toString(16).toUpperCase();
+                result = result + i;
+            }
+            item.key = result;
+            return item.key;
         },
     }
 });

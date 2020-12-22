@@ -4,7 +4,7 @@
         <table class="form-table" :class="schema.tableClasses">
             <thead>
                 <tr>
-                    <th v-for="(item, index) in schema.fields" v-bind:key="index">
+                    <th v-for="(item) in schema.fields" v-bind:key="generateGuid(item)">
                         <span v-if="item.label">
                             {{ item.label | capitalize }}
                         </span>
@@ -21,8 +21,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in model"  v-bind:key="index">
-                    <td v-for="(field, fieldindex) in schema.fields"  v-bind:key="fieldindex">
+                <tr v-for="(item) in model"  v-bind:key="generateGuid(item)">
+                    <td v-for="(field) in schema.fields"  v-bind:key="generateGuid(field)">
                         <component :is="getFieldType(field)"
                                     :schema="getSchema(field)"
                                     :model="getModelValue(field,item)"
@@ -119,6 +119,19 @@ export default Vue.extend({
         },
         getIDSuffix: function(field: any, index: any) {
             return this.idSuffix + index;
+        },
+        generateGuid: function (item: any) {
+            let Key = item.key;
+            if(Key) {
+                return Key;
+            }
+            let result = ''
+            for (let j = 0; j < 32; j++) {
+                let i = Math.floor(Math.random() * 16).toString(16).toUpperCase();
+                result = result + i;
+            }
+            item.key = result;
+            return item.key;
         },
     }
 });
