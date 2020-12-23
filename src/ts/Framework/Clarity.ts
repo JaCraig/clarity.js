@@ -21,7 +21,7 @@ import { ErrorLogging } from "./Logging/ErrorLogging";
 import { PageHistory } from "./History/PageHistory";
 import { LocalStorage } from "./WebStorage/LocalStorage";
 import { SessionStorage } from "./WebStorage/SessionStorage";
-import { Request } from "./AJAX/Request";
+import { Request, StorageMode } from "./AJAX/Request";
 import { DatabaseConnection } from "./Database/Database";
 import { Closer } from "../Component/Closer/Closer";
 import { DropDown } from "../Component/DropDown/DropDown";
@@ -105,4 +105,4 @@ function init() {
     window.clarity = window.clarity || new Clarity();
 }
 
-export { Request, DatabaseConnection , init };
+export { Request, DatabaseConnection , init, StorageMode };
