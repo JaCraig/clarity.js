@@ -9,7 +9,7 @@
                 <component :is="getFieldType(item)"
                         :schema="getSchema(item)"
                         :model="getModelValue(item)"
-                        :idSuffix="getIDSuffix(item)"
+                        :id-suffix="getIDSuffix(item)"
                         @changed="setModelValue"
                         @click="buttonClicked"
                         @error="error"
@@ -70,6 +70,9 @@ export default Vue.extend({
             return this.tabPicked.fields;
         },
         getIDSuffix: function(field: any) {
+            if(this.idSuffix === undefined) {
+                return "";
+            }
             return this.idSuffix;
         },
         generateGuid: function (item: any) {

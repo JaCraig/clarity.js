@@ -36,7 +36,7 @@ export default Vue.extend({
                 result = this.schema.model.slugify();
             }
             result += "-" + value;
-            if (this.idSuffix) {
+            if (this.idSuffix !== undefined) {
                 result += this.idSuffix;
             }
             return result;

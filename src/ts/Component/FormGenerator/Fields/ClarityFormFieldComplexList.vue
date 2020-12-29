@@ -21,13 +21,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item) in model"  v-bind:key="generateGuid(item)">
+                <tr v-for="(item, index) in model"  v-bind:key="generateGuid(item)">
                     <td v-for="(field) in schema.fields"  v-bind:key="generateGuid(field)">
                         <component :is="getFieldType(field)"
                                     :schema="getSchema(field)"
                                     :model="getModelValue(field,item)"
                                     :label="false"
-                                    :idSuffix="getIDSuffix(field,index)"
+                                    :id-suffix="getIDSuffix(field,index)"
                                     @changed="newValue => setModelValue(field,item,newValue)"
                                     @click="buttonClicked"
                                     @error="error"
@@ -118,6 +118,9 @@ export default Vue.extend({
             this.$emit("changed", this.model, this.schema);
         },
         getIDSuffix: function(field: any, index: any) {
+            if(this.idSuffix === undefined) {
+                return index;
+            }
             return this.idSuffix + index;
         },
         generateGuid: function (item: any) {

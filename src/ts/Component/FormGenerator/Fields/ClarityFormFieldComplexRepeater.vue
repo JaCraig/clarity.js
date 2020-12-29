@@ -9,7 +9,7 @@
                             :schema="getSchema(field)"
                             :model="getModelValue(field,item)"
                             :label="true"
-                            :idSuffix="getIDSuffix(field,index)"
+                            :id-suffix="getIDSuffix(field,index)"
                             @changed="newValue => setModelValue(field,item,newValue)"
                             @click="buttonClicked"
                             @error="error"
@@ -89,6 +89,9 @@ export default Vue.extend({
             this.$emit("changed", this.model, this.schema);
         },
         getIDSuffix: function(field: any, index: any) {
+            if(this.idSuffix === undefined) {
+                return index;
+            }
             return this.idSuffix + index;
         },
         generateGuid: function (item: any) {

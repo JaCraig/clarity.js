@@ -58,7 +58,7 @@ export default Vue.extend({
             } else {
                 result = this.schema.model.slugify();
             }
-            if (this.idSuffix) {
+            if (this.idSuffix !== undefined) {
                 result += this.idSuffix;
             }
             return result;
