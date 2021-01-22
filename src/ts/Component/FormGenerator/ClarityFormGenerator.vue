@@ -119,10 +119,6 @@ export default Vue.extend({
                             that.submitting = false;
                             that.$emit("error", x);
                         })
-                        .onException(function (x) {
-                            that.submitting = false;
-                            that.$emit("exception", x);
-                        })
                         .send();
                 event.preventDefault();
                 return false;

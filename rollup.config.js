@@ -34,7 +34,7 @@ export default [
 		output: [{ file: 'dist/Clarity.min.css' },],
 		plugins: [
 			postcss({ extract: true, plugins: [autoprefixer()], minimize: true, sourceMap: true }),
-			copy({ assets: ['src/less/fonts'] })
+			copy({ assets: ['fonts'] })
 		]
 	},
 	// Node and package system builds
