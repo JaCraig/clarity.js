@@ -1,11 +1,10 @@
-
 <template>
     <div class="tabs" v-cloak>
         <header>
             <ul class="row flex align-items-stretch">
                 <li class="flex-item" v-for="(section, index) in sections" v-bind:key="index">
                     <a href="#!"
-                        v-on:click.stop.prevent="switchSelected(section)"
+                        v-on:click.stop.prevent="switchSelected(section.name)"
                         class="tab"
                         v-bind:class="{ selected: section.selected }">
                             <span v-bind:class="[section.icon]"></span>
@@ -24,21 +23,18 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-    beforeMount: function() {
-        this.switchSelected(this.initialSectionPicked);
-    },
-    data() {
-        let tempSectionPicked = this.initialSectionPicked;
-        if (tempSectionPicked === undefined && this.sections && this.sections.length > 0) {
-            tempSectionPicked = this.sections[0];
-        }
-        return {
-            sectionPicked: tempSectionPicked,
-        };
-    },
     methods: {
-        switchSelected: function (item: any) {
-            this.sectionPicked = item;
+        findTab: function(tabName: string) {
+            if(!this.sections || this.sections.length === 0) {
+                return null;
+            }
+            if(!tabName || tabName === undefined){
+                tabName = this.sections[0].name;
+            }
+            return this.sections.filter((x:any) =>  x.name === tabName)[0];
+        },
+        switchSelected: function (item: string) {
+            this.sectionPicked = this.findTab(item);
             this.switchTabs();
             this.$emit("section-changed", this.sectionPicked);
         },
@@ -68,6 +64,18 @@ export default Vue.extend({
         sections: function(value) {
             this.switchSelected(this.sectionPicked);
         },
+        initialSectionPicked: function(value) {
+            this.switchSelected(this.initialSectionPicked);
+        }
     },
+    data() {
+        let tempSectionPicked = this.findTab(this.initialSectionPicked);
+        return {
+            sectionPicked: tempSectionPicked,
+        };
+    },
+    beforeMount: function() {
+        this.switchSelected(this.initialSectionPicked);
+    }
 });
 </script>

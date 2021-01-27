@@ -1608,6 +1608,7 @@
             <h3>Vertical Tabs</h3>
             <clarity-tabs
                 :sections="sections"
+                :initial-section-picked="initialSection"
                 v-on:section-changed="sectionChanged"
                 class="panel vertical">
                 <div v-for="result in sectionPicked.results">
@@ -1621,6 +1622,7 @@
                     <br />
                 </div>
             </clarity-tabs>
+            <button v-on:click="initialSection='Tab3'">Update Tab</button>
             <button v-on:click="modifySections">Update Sections</button>
         </div>
         <div id="FormValidationExample"  v-cloak>
@@ -1907,12 +1909,13 @@
         new Vue({
             el: '#VerticalTabExample',
             data: {
+                initialSection: 'Tab2',
                 sections: [
                     { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'News Item 1', url: 'http://www.google.com', info: 'My info' } ] },
                     { icon: 'fa-file', name: 'Tab2', selected: false, results: [ { title: 'News Item 2', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 3', url: 'http://www.google.com', info: 'My info' } ] },
                     { icon: 'fa-file', name: 'Tab3', selected: false, results: [ { title: 'News Item 4', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 5', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 6', url: 'http://www.google.com', info: 'My info' } ] },
                 ],
-                sectionPicked: { icon: 'fa-file', name: 'Tab1', selected: false, results: [ { title: 'Initial data', url: 'http://www.google.com', info: 'My initial data' } ] },
+                sectionPicked: { icon: 'fa-file', name: 'Tab2', selected: false, results: [ { title: 'News Item 2', url: 'http://www.google.com', info: 'My info' }, { title: 'News Item 3', url: 'http://www.google.com', info: 'My info' } ] },
             },
             methods: {
                 sectionChanged: function(newSection) {
