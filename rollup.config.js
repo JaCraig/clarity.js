@@ -40,10 +40,7 @@ export default [
 	// Node and package system builds
 	{
 		input: [
-			'src/ts/Extensions/*.ts',
-			'src/ts/Browser/BrowserUtils.ts',
-			'src/ts/Component/VueExtensions/*.ts',
-			'src/ts/Framework/Clarity.ts'
+			'src/ts/**/*.ts'
 		],
 		external: external,
 		plugins: [

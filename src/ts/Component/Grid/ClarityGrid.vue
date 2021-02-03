@@ -70,6 +70,7 @@ let dateRegex = /^((\d\d)?\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)(T\d\d:\d\d:\d
 export default Vue.extend({
     watch: {
         columns: function(newColumns, oldColumns) {
+            let that = this;
             this.internalColumns.length = 0;
             if(!this.sortOrders) {
                 this.sortOrders = {};
@@ -81,7 +82,7 @@ export default Vue.extend({
             }
             this.internalColumns.forEach(function (key: any) {
                 key = key.property.replace(/\s+/g, "").trim();
-                this.sortOrders[key.toString()] = 1;
+                that.sortOrders[key.toString()] = 1;
             });
         }
     },
