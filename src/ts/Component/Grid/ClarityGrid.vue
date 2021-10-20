@@ -11,7 +11,7 @@
                 @dragstart="dragstart"
                 @dragenter="dragenter"
                 :columnName="key.property">
-                {{ key.display | capitalize }}
+                {{ $filters.capitalize(key.display) }}
                 </th>
             </tr>
         </thead>
@@ -67,7 +67,7 @@ import moment from 'moment';
 
 let dateRegex = /^((\d\d)?\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)(T\d\d:\d\d:\d\dZ?)?$/ig;
 
-export default Vue.extend({
+export default Vue.defineComponent({
     watch: {
         columns: function(newColumns, oldColumns) {
             let that = this;

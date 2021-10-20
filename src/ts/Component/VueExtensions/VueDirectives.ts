@@ -42,8 +42,7 @@ let clickOutside: any = {
     },
 };
 
-export function RegisterDirectives() {
-
-Vue.directive("click-outside", clickOutside);
-
+export function RegisterDirectives(app: Vue.App<Element>):Vue.App<Element> {
+    app.directive("click-outside", clickOutside);
+    return app;
 }

@@ -1,2 +1,2 @@
 # clarity.js
-Clarity.js is a simple set of CSS and JS tools designed to simplify building responsive, mobile ready projects for the web. The framework is still being worked on at the moment but has a number of features found in Bootstrap and other frameworks.
+Clarity.js is a simple set of CSS and JS tools designed to simplify building responsive, mobile ready projects for the web.

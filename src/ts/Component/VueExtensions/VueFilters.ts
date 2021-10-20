@@ -16,19 +16,20 @@
 import Vue from 'vue';
 import moment from 'moment';
 
-export function RegisterFilters() {
-
-    Vue.filter("moment", function (date: Date, format: string) {
-        if (!date) {
-            return "N/A";
-        }
-        return moment(date, "YYYY-MM-DDThh:mm:ss").format(format);
-    });
-
-    Vue.filter("capitalize", function (str: string) {
+export function RegisterFilters(app: Vue.App<Element>):Vue.App<Element> {
+    app.config.globalProperties.$filters = {
+        moment: function (date: Date, format: string) {
+            if (!date) {
+                return "N/A";
+            }
+            return moment(date, "YYYY-MM-DDThh:mm:ss").format(format);
+        },
+        capitalize: function (str: string) {
         if (!str) {
             return "";
         }
         return str.charAt(0).toUpperCase() + str.slice(1);
-    });
+        }
+    };
+    return app;
 }

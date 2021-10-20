@@ -6,10 +6,10 @@
                 <tr>
                     <th v-for="(item) in schema.fields" v-bind:key="generateGuid(item)">
                         <span v-if="item.label">
-                            {{ item.label | capitalize }}
+                            {{ $filters.capitalize(item.label) }}
                         </span>
                         <span v-else>
-                            {{ item.model | capitalize }}
+                            {{ $filters.capitalize(item.model) }}
                         </span>
                         <span v-if="getSchema(item).hint"
                             :data-tooltip="getSchema(item).hint"
@@ -53,7 +53,7 @@
 <script lang="ts">
 import Vue from 'vue';
 
-export default Vue.extend({
+export default Vue.defineComponent({
     data: function() {
         let DefaultItem: any = {};
         for (let property in this.model[0]) {

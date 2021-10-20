@@ -15,25 +15,22 @@
 */
 // A set of browser/window related util functions.
 export class BrowserUtils {
-    // Is this running on OSX?
-    static get isOSX(): boolean {
-        return ~navigator.userAgent.indexOf("Mac OS X") !== -1;
-    }
-
     // Returns the current domain.
     static get domain(): string {
-        return "http://" + window.location.host;
+        return window.location.protocol + "//" + window.location.host + "/";
     }
 
     // Determines if this is being run locally or in production.
     static get isLocal(): boolean {
-        return (/^http:\/\/localhost:\d{5}$/).test(BrowserUtils.domain);
+        return (/^https?:\/\/localhost:\d{1,5}\/$/).test(BrowserUtils.domain);
     }
 
-    // Gets the URL parameter specified, unencoded.
-    public static getURLParameter(name: string): string {
-        return decodeURIComponent((new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search)
-                || [, ""])[1].replace(/\+/g, "%20")) || null;
+    // Gets a value from the query string.
+    public static GetQueryString(field: string): string {
+        let href = window.location.href;
+        var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
+        var string = reg.exec(href);
+        return string ? string[1] : null;
     }
 
     // Gets the hash without the hash bang.
@@ -43,6 +40,6 @@ export class BrowserUtils {
 
     // Gets the text after the last slash. Presumably the ID needed.
     static get Id(): string {
-        return window.location.pathname.split("/").pop();
+        return window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
     }
 }

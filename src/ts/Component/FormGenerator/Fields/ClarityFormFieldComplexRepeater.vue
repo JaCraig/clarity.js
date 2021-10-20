@@ -24,7 +24,7 @@
 <script lang="ts">
 import Vue from 'vue';
 
-export default Vue.extend({
+export default Vue.defineComponent({
     data: function() {
         let DefaultItem: any = {};
         for (let property in this.model[0]) {

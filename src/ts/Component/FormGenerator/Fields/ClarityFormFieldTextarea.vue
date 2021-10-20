@@ -2,7 +2,7 @@
 <template>
     <div>
         <label :for="getFieldID()" v-if="!schema.label && label" :class="schema.labelClasses">
-            {{ schema.model | capitalize }}
+            {{ $filters.capitalize(schema.model) }}
             <span class="error clear-background" v-if="schema.required">*</span>
             <i class="clear-background info fa-info-circle no-border small" v-if="schema.hint">{{ schema.hint }}</i>
         </label>
@@ -40,7 +40,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({
+export default Vue.defineComponent({
     props: {
         model: Object,
         schema: Object,

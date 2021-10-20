@@ -12,7 +12,7 @@
 <script lang="ts">
 import Vue from "vue";
 
-export default Vue.extend({
+export default Vue.defineComponent({
     data() {
         return {
             errorMessages: <string[]>[],
@@ -25,15 +25,15 @@ export default Vue.extend({
     },
     methods: {
         revalidate: function () {
-            if (this.$el === null || this.$el === undefined) {
+            if (this.$el == null) {
                 return true;
             }
             let FormElement = this.getParentForm(this.$el);
-            if (FormElement !== null && window.clarity.validation.validateForm(FormElement).length > 0) {
-                this.errorMessages = window.clarity.validation.validateForm(FormElement);
+            if (FormElement !== null && window.clarity.instance.validation.validateForm(FormElement).length > 0) {
+                this.errorMessages = window.clarity.instance.validation.validateForm(FormElement);
                 return false;
-            } else if (FormElement === null && !window.clarity.validation.validate()) {
-                this.errorMessages = window.clarity.validation.errors;
+            } else if (FormElement === null && !window.clarity.instance.validation.validate()) {
+                this.errorMessages = window.clarity.instance.validation.errors;
                 return false;
             } else {
                 this.errorMessages = [];

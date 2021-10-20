@@ -16,7 +16,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({
+export default Vue.defineComponent({
     data() {
         return {
             classes: this.cssClasses,
@@ -24,7 +24,6 @@ export default Vue.extend({
     },
     methods: {
         closeModal: function() {
-            this.showModal = false;
             this.$emit("close");
         },
     },

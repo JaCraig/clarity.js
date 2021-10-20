@@ -12,7 +12,7 @@
                 :class="schema.inputClasses"
                 />
             <label :for="getFieldID(value)">
-                {{ value | capitalize }}
+                {{ $filters.capitalize(value) }}
             </label>
         </div>
     </div>
@@ -21,7 +21,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({
+export default Vue.defineComponent({
     props: {
         model: Object,
         schema: Object,

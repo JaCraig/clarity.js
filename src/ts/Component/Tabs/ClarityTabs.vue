@@ -22,7 +22,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({
+export default Vue.defineComponent({
     methods: {
         findTab: function(tabName: string) {
             if(!this.sections || this.sections.length === 0) {

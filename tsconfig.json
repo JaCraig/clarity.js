@@ -2,25 +2,23 @@
     "compilerOptions": {
       "noImplicitAny": true,
       "sourceMap": true,
-      "module": "commonjs",
-      "target": "es5",
+      "module": "ES2015",
+      "target": "es6",
       "jsx": "react",
       "allowJs": true,
       "removeComments": true,
-      "declaration": true,
+      "declaration": false,
       "moduleResolution": "node",
-      "types" : [],
+      "types": [],
       "esModuleInterop": true
     },
-    
+  
     "include": [
-        "src/ts/**/*.ts",
-        "src/ts/**/*.vue"
+      "src/ts/**/*.ts",
+      "src/ts/**/*.vue"
     ],
-    "files": [
-        "build/vue-shims.d.ts"
-    ],
+    "files": ["build/vue-shims.d.ts"],
     "exclude": [
-        "node_modules"
-    ],
-}
+      "node_modules"
+    ]
+  }

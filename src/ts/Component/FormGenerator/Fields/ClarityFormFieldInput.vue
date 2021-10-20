@@ -2,7 +2,7 @@
 <template>
     <div>
         <label :for="getFieldID()" v-if="!schema.label && label" :class="schema.labelClasses">
-            {{ schema.model | capitalize }}
+            {{ $filters.capitalize(schema.model) }}
             <span class="error clear-background" v-if="schema.required">*</span>
             <i class="clear-background info fa-info-circle no-border small" v-if="schema.hint">{{ schema.hint }}</i>
         </label>
@@ -67,9 +67,9 @@ import { Request } from '../../../Framework/AJAX/Request'
 import Vue from 'vue'
 import moment from 'moment'
 
-export default Vue.extend({
+export default Vue.defineComponent({
     data: function() {
-        let returnedModel: string;
+        let returnedModel: any;
         if (this.schema.inputType === "date"
             || this.schema.inputType === "datetime-local" 
             || this.schema.inputType === "datetime"
