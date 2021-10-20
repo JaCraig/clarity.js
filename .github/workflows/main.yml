@@ -31,8 +31,8 @@ jobs:
         
       # Run node install
       - name: Run Install
-        run: node install
+        run: npm install
         
       # Run build
       - name: Run Build
-        run: node run build
+        run: npm run build
