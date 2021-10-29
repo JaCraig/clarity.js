@@ -17,7 +17,7 @@
 
  input[type='text'], input[type='password'], input[type='email'], input[type='url'], input[type='date'], input[type='month'], input[type='time'], input[type='datetime'], input[type='datetime-local'], input[type='week'], input[type='number'], input[type='search'], input[type='tel'], input[type='color'], input[type='file'], input[list], select, textarea {
     display: inline-block;
-    background: @backgroundColor;
+    background: @lightBackgroundColor;
     .roundedBorder;
     .depth-minus-1;
     margin: .625em .125em;
@@ -45,13 +45,13 @@ input[type='color'], select, input[list] {
 
 input:not([type])[disabled],input[disabled], select[disabled], textarea[disabled], fieldset:disabled input, fieldset:disabled select, fieldset:disabled textarea {
     cursor: not-allowed;
-    background-color: @backgroundLight;
-    color: @borderColor;
+    background-color: @lightBackgroundHighlightColor;
+    color: @lightBorderColor;
 }
 
 input[readonly], select[readonly], textarea[readonly] {
-    background-color: @backgroundLight;
-    color: @darkBorderColor;
+    background-color: @lightBackgroundHighlightColor;
+    color: @lightBorderColor;
 }
 
 input:invalid, textarea:invalid, select:invalid, input.error, textarea.error, select.error {
@@ -61,7 +61,7 @@ input:invalid, textarea:invalid, select:invalid, input.error, textarea.error, se
 }
 
 .file-upload {
-    border: 2px dashed @borderColor;
+    border: 2px dashed @lightBorderColor;
     padding: 2em 0;
     text-align: center;
     position: relative;
@@ -96,7 +96,7 @@ input:invalid, textarea:invalid, select:invalid, input.error, textarea.error, se
     & .header {
         float: right;
         font-size: 1.5em;
-        font-weight: @fontWeightBold;
+        font-weight: @defaultFontWeightBold;
         line-height: .75em;
         .opacity(.5);
         cursor: pointer;
@@ -134,8 +134,8 @@ input:invalid, textarea:invalid, select:invalid, input.error, textarea.error, se
                 padding: .5em;
 
                 &:hover {
-                    background: @linkColor;
-                    color: @backgroundColor;
+                    background: @lightCallToActionColor;
+                    color: @lightBackgroundColor;
                     text-decoration: none;
                 }
             }
@@ -156,13 +156,13 @@ input.warning, textarea.warning, select.warning {
 }
 
 input:focus, textarea:focus, select:focus {
-    background-color: @backgroundColor;
+    background-color: @lightBackgroundColor;
     .depth-1(@color2:rgba(102, 175, 233, .6));
-    border-color: @activeBorder;
+    border-color: @lightActiveBorder;
 }
 
 input[type='file']:focus, input[type='radio']:focus, input[type='checkbox']:focus {
-    outline-color: @activeBorder;
+    outline-color: @lightActiveBorder;
 }
 
 textarea {
@@ -185,7 +185,7 @@ legend {
     width: 100%;
     padding: .3em 0;
     margin-bottom: .3em;
-    color: @textColor;
+    color: @lightTextColor;
     .border-bottom;
 }
 

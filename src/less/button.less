@@ -15,7 +15,8 @@
 */
 @import (reference) 'styles.less';
 button, input[type='button'], input[type='submit'], input[type='reset'] {
-    background: @backgroundLight;
+    background: @lightBackgroundHighlightColor;
+    color: @lightTextColor;
     .roundedBorder;
     outline: none;
     margin: .625em .125em;
@@ -28,15 +29,15 @@ button, input[type='button'], input[type='submit'], input[type='reset'] {
     font-size: 1em;
         
     &:active,&.active{
-        background: @activeBackground;
-        color: @activeColor;
-        .border(@color:@activeBorder);
+        background: @lightActiveBackground;
+        color: @lightActiveColor;
+        .border(@color:@lightActiveBorder);
     }
     
     &.primary {
-        background: @primaryBackground;
-        color: @primaryColor;
-        .border(@color:@primaryBorder);
+        background: @lightPrimaryBackground;
+        color: @lightPrimaryText;
+        .border(@color:@lightPrimaryBorder);
     }
     
     &.success {
@@ -66,7 +67,7 @@ button, input[type='button'], input[type='submit'], input[type='reset'] {
     
     &:focus{
         .depth-1(@color2:rgba(102, 175, 233, .6));
-        border-color: @activeBorder;
+        border-color: @lightActiveBorder;
     }
     
     &:hover{

@@ -24,8 +24,8 @@
     display: block;
     padding: 1em;
     line-height: 1;
-    color: @textColor;
-    background-color: @backgroundColor;
+    color: @lightTextColor;
+    background-color: @lightBackgroundColor;
     .border;
     border-radius: .25em;
     margin-bottom: .5em;
@@ -43,7 +43,7 @@
 
 *[data-tooltip] {
     cursor: help;
-    .border-bottom(@style:dotted,@color: @darkBorderColor);
+    .border-bottom(@style:dotted,@color: @lightBorderColor);
     position: relative;
     display: inline-block;
     &:before,
@@ -199,11 +199,11 @@
     }
 
     &.primary .body {
-        background-color: @backgroundColor;
-        color: @primaryBackground;
+        background-color: @lightBackgroundColor;
+        color: @lightPrimaryBackground;
 
         & a {
-            color: @primaryBackground;
+            color: @lightPrimaryBackground;
             background-color: clear;
         }
     }
@@ -236,10 +236,10 @@
 .label {
     display: inline;
     padding: .2em .6em .3em;
-    font-weight: @fontWeightBold;
+    font-weight: @defaultFontWeightBold;
     line-height: 1;
-    color: @backgroundColor;
-    background-color: @darkBorderColor;
+    color: @lightBackgroundColor;
+    background-color: @lightBorderColor;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
@@ -251,46 +251,46 @@
     min-width: 0.625em;
     padding: .2em .4em;
     font-size: .8em;
-    font-weight: @fontWeightBold;
+    font-weight: @defaultFontWeightBold;
     line-height: 1;
-    color: @backgroundColor;
+    color: @lightBackgroundColor;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
-    background-color: @darkBorderColor;
+    background-color: @lightBorderColor;
     border-radius: @circularCorners;
 }
 
 .primary {
 
     & a {
-        color: @primaryColor;
+        color: @lightPrimaryText;
     }
 
     & thead tr {
-        background-color: @primaryBackground;
+        background-color: @lightPrimaryBackground;
     }
 
     & tfoot tr {
-        background-color: @primaryBackground;
+        background-color: @lightPrimaryBackground;
     }
     & tbody tr, & tbody tr a {
-        color: @primaryBackground;
+        color: @lightPrimaryBackground;
     }
 }
 
 .primary, .panel.primary header, .panel.primary footer {
-    color: @primaryColor;
-    background-color: @primaryBackground;
+    color: @lightPrimaryText;
+    background-color: @lightPrimaryBackground;
 }
 
 .active {
-    background-color: @activeBackground;
-    color: @activeColor;
+    background-color: @lightActiveBackground;
+    color: @lightActiveColor;
 }
 
 .active a {
-    color: @activeColor;
+    color: @lightActiveColor;
 }
 
 .success {
@@ -329,36 +329,36 @@
 }
 
 .primary a, .active a, .success a, .info a, .warning a, .error a {
-    font-weight: @fontWeightBold;
+    font-weight: @defaultFontWeightBold;
 }
 
 .label.success, .panel.success header, .panel.success footer {
     background-color: @successBorder;
-    color: @backgroundColor;
+    color: @lightBackgroundColor;
 }
 
 .label.info, .panel.info header, .panel.info footer {
     background-color: @infoBorder;
-    color: @backgroundColor;
+    color: @lightBackgroundColor;
 }
 
 .label.warning, .panel.warning header, .panel.warning footer {
     background-color: @warningBorder;
-    color: @backgroundColor;
+    color: @lightBackgroundColor;
 }
 
 .label.error, .panel.error header, .panel.error footer {
     background-color: @errorBorder;
-    color: @backgroundColor;
+    color: @lightBackgroundColor;
 }
 
 .label.active, .panel.active header, .panel.active footer {
-    background-color: @activeBorder;
-    color: @backgroundColor;
+    background-color: @lightActiveBorder;
+    color: @lightBackgroundColor;
 }
 
 .alert.primary, .panel.primary {
-    border-color: @primaryBorder;
+    border-color: @lightPrimaryBorder;
 }
 
 .alert.success, .panel.success {
@@ -378,12 +378,12 @@
 }
 
 .alert.active, .panel.active {
-    border-color: @activeBorder;
+    border-color: @lightActiveBorder;
 }
 
 .label .badge {
-    background: @backgroundColor;
-    color: @darkBorderColor;
+    background: @lightBackgroundColor;
+    color: @lightBorderColor;
 }
 
 .label.success .badge {
@@ -403,35 +403,35 @@
 }
 
 .label.active .badge {
-    color: @activeColor;
+    color: @lightActiveColor;
 }
 
 .primary .badge {
-    color: @primaryBackground;
-    background: @backgroundColor;
+    color: @lightPrimaryBackground;
+    background: @lightBackgroundColor;
 }
 
 .active .badge {
-    background: @backgroundColor;
-    color: @primaryBackground;
+    background: @lightBackgroundColor;
+    color: @lightPrimaryBackground;
 }
 
 .success .badge {
-    background: @backgroundColor;
+    background: @lightBackgroundColor;
     color: @successBorder;
 }
 
 .info .badge {
-    background: @backgroundColor;
+    background: @lightBackgroundColor;
     color: @infoBorder;
 }
 
 .warning .badge {
-    background: @backgroundColor;
+    background: @lightBackgroundColor;
     color: @warningBorder;
 }
 
 .error .badge {
-    background: @backgroundColor;
+    background: @lightBackgroundColor;
     color: @errorBorder;
 }

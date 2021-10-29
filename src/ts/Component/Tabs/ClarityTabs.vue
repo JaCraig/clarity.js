@@ -2,7 +2,7 @@
     <div class="tabs" v-cloak>
         <header>
             <ul class="row flex align-items-stretch">
-                <li class="flex-item" v-for="(section, index) in sections" v-bind:key="index">
+                <li v-for="(section, index) in sections" v-bind:key="index">
                     <a href="#!"
                         v-on:click.stop.prevent="switchSelected(section.name)"
                         class="tab"

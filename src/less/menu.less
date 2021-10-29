@@ -47,7 +47,7 @@
         .roundedBorder;
         border-left: 0;
         .depth-1;
-        background-color: @backgroundColor;
+        background-color: @lightBackgroundColor;
     }
     
     & > ul > li:hover > ul,
@@ -68,25 +68,25 @@
     }
         
     & .separator {
-        background-color: @borderColor;
+        background-color: @lightBorderColor;
         height: .125em;
         margin: .3em 0;
     }
     
         
     & .heading {
-        font-weight: @fontWeightBold;
-        color: @textColor;
+        font-weight: @defaultFontWeightBold;
+        color: @lightTextColor;
     }
     
     & a {
-        color: @darkBorderColor;
+        color: @lightBorderColor;
     }
     
     & > ul > li > ul > li,
     & > ul > li.active > ul > li > a {
-        background-color: @backgroundColor;
-        color: @darkBorderColor;
+        background-color: @lightBackgroundColor;
+        color: @lightBorderColor;
     }
         
     & a,
@@ -102,14 +102,14 @@
     &.horizontal ul li.item:hover,
     & > ul > li > ul > li>a:hover {
         background-color: @lightBorderColor;
-        color: @darkBorderColor;
+        color: @lightBorderColor;
         text-decoration: none;
     }
     
     & .disabled a {
         padding: 0;
         .opacity(.5);
-        color: @darkBorderColor;
+        color: @lightBorderColor;
         cursor: not-allowed;
         background-color: transparent;
     }
@@ -126,7 +126,7 @@
     & .selected a:visited,
     & a.selected,
     & a.selected:visited {
-        color: @textColor;
+        color: @lightTextColor;
         background-color: @lightBorderColor;
     }
 
@@ -178,46 +178,46 @@
         }
         
         & .separator {
-            background: @borderColor;
+            background: @lightBorderColor;
         }
         
         & ul li ul li {
-            background-color: @backgroundColor;
+            background-color: @lightBackgroundColor;
         }
 
         & ul li.success a:hover {
             background-color: @successBorder;
-            color: @backgroundColor;
+            color: @lightBackgroundColor;
         }
 
         & ul li.info a:hover {
             background-color: @infoBorder;
-            color: @backgroundColor;
+            color: @lightBackgroundColor;
         }
 
         & ul li.warning a:hover {
             background-color: @warningBorder;
-            color: @backgroundColor;
+            color: @lightBackgroundColor;
         }
 
         & ul li.error a:hover {
             background-color: @errorBorder;
-            color: @backgroundColor;
+            color: @lightBackgroundColor;
         }
 
         & ul li.active a {
-            background-color: @activeBackground;
-            color: @primaryBackground;
+            background-color: @lightActiveBackground;
+            color: @lightPrimaryBackground;
         }
 
         & ul li.active a:hover {
-            background-color: @activeBorder;
-            color: @backgroundColor;
+            background-color: @lightActiveBorder;
+            color: @lightBackgroundColor;
         }
 
         & ul li.primary a:hover {
-            background-color: @backgroundColor;
-            color: @primaryBackground;
+            background-color: @lightBackgroundColor;
+            color: @lightPrimaryBackground;
         }
     }
 }
@@ -228,7 +228,7 @@
     }
     
     .mobile-toggler {
-        color: @textColor;
+        color: @lightTextColor;
         width:1.563em;
         margin-left:0.625em;
     }

@@ -1,7 +1,7 @@
 
 <template>
     <div class="flex row text-center">
-        <div class="flex-item" v-for="(value) in schema.values" v-bind:key="value">
+        <div v-for="(value) in schema.values" v-bind:key="value">
             <input :id="getFieldID(value)"
                 type="radio"
                 :checked="isItemChecked(value)"

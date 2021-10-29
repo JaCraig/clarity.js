@@ -49,11 +49,11 @@
                 <td :colspan="internalColumns.length">
                     <div class="right">Page {{ page }} of {{ finalPage }}</div>
                     <ul class="paged">
-                        <li class="cursor-pointer fa-fast-backward text-center" v-on:click="setPage(1)" v-bind:class="{ 'disabled': (page==1) }"></li>
-                        <li class="cursor-pointer fa-step-backward text-center" v-on:click="setPage(page-1)" v-bind:class="{ 'disabled': (page==1) }"></li>
-                        <li class="cursor-pointer text-center" v-for="n in (endPage-startPage)" v-on:click="setPage(startPage+n)" v-bind:class="{ 'active': (page==(startPage+n)) }">{{ startPage+n }}</li> 
-                        <li class="cursor-pointer fa-step-forward text-center" v-on:click="setPage(page+1)" v-bind:class="{ 'disabled': (page==finalPage) }"></li>
-                        <li class="cursor-pointer fa-fast-forward text-center" v-on:click="setPage(finalPage)" v-bind:class="{ 'disabled': (page==finalPage) }"></li>
+                        <li class="cursor-pointer fas fa-fast-backward text-center" v-on:click="setPage(1)" v-bind:class="{ 'disabled': (page==1) }"></li>
+                        <li class="cursor-pointer fas fa-step-backward text-center" v-on:click="setPage(page-1)" v-bind:class="{ 'disabled': (page==1) }"></li>
+                        <li class="cursor-pointer text-center" v-for="n in (endPage-startPage)" v-bind:class="{ 'active': (page==(startPage+n)) }"><a v-on:click="setPage(startPage+n)">{{ startPage+n }}</a></li> 
+                        <li class="cursor-pointer fas fa-step-forward text-center" v-on:click="setPage(page+1)" v-bind:class="{ 'disabled': (page==finalPage) }"></li>
+                        <li class="cursor-pointer fas fa-fast-forward text-center" v-on:click="setPage(finalPage)" v-bind:class="{ 'disabled': (page==finalPage) }"></li>
                     </ul>
                 </td>
             </tr>

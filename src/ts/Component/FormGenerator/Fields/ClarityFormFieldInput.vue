@@ -4,12 +4,12 @@
         <label :for="getFieldID()" v-if="!schema.label && label" :class="schema.labelClasses">
             {{ $filters.capitalize(schema.model) }}
             <span class="error clear-background" v-if="schema.required">*</span>
-            <i class="clear-background info fa-info-circle no-border small" v-if="schema.hint">{{ schema.hint }}</i>
+            <i class="clear-background active no-border small" v-if="schema.hint"><span class="fas fa-info-circle"></span>{{ schema.hint }}</i>
         </label>
         <label :for="getFieldID()" v-if="schema.label && label" :class="schema.labelClasses">
             {{ schema.label }}
             <span class="error clear-background" v-if="schema.required">*</span>
-            <i class="clear-background info fa-info-circle no-border small" v-if="schema.hint">{{ schema.hint }}</i>
+            <i class="clear-background active no-border small" v-if="schema.hint"><span class="fas fa-info-circle"></span>{{ schema.hint }}</i>
         </label>
         <input :id="getFieldID()"
                 :type="schema.inputType"

@@ -2,7 +2,7 @@
 <template>
     <div>
         <div v-for="(item, index) in model"  v-bind:key="generateGuid(item)" class="border-bottom">
-            <a class="fa-minus-circle right" @click.stop.prevent="removeItem(item)"></a>
+            <a class="fas fa-minus-circle right" @click.stop.prevent="removeItem(item)"></a>
             <div v-for="(field) in schema.fields"  v-bind:key="generateGuid(field)">
 
                 <component :is="getFieldType(field)"
@@ -17,7 +17,7 @@
                 </component>
             </div>
         </div>
-        <a class="fa-plus-circle" @click.stop.prevent="addItem">Add More</a>
+        <a class="fas fa-plus-circle" @click.stop.prevent="addItem">Add More</a>
     </div>
 </template>
 

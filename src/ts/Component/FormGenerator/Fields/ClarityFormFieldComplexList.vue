@@ -14,7 +14,7 @@
                         <span v-if="getSchema(item).hint"
                             :data-tooltip="getSchema(item).hint"
                             data-tooltip-size="extra-large">
-                            <span class="fa-info-circle no-border small"></span>
+                            <span class="fas fa-info-circle no-border small"></span>
                         </span>
                     </th>
                     <th></th>
@@ -35,14 +35,14 @@
                         </component>
                     </td>
                     <td>
-                        <a class="fa-minus-circle" @click.stop.prevent="removeItem(item)"></a>
+                        <a class="fas fa-minus-circle" @click.stop.prevent="removeItem(item)"></a>
                     </td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
                     <td :colspan="schema.fields.length + 1">
-                        <a class="fa-plus-circle" @click.stop.prevent="addItem">Add More</a>
+                        <a class="fas fa-plus-circle" @click.stop.prevent="addItem">Add More</a>
                     </td>
                 </tr>
             </tfoot>

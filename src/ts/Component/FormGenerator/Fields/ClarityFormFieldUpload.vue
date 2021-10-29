@@ -4,12 +4,12 @@
         <label :for="getFieldID()" v-if="!schema.label" :class="schema.labelClasses">
             {{ $filters.capitalize(schema.model) }}
             <span class="error clear-background" v-if="schema.required">*</span>
-            <i class="clear-background info fa-info-circle no-border small" v-if="schema.hint">{{ schema.hint }}</i>
+            <i class="clear-background active no-border small" v-if="schema.hint"><span class="fas fa-info-circle"></span>{{ schema.hint }}</i>
         </label>
         <label :for="getFieldID()" v-if="schema.label" :class="schema.labelClasses">
             {{ schema.label }}
             <span class="error clear-background" v-if="schema.required">*</span>
-            <i class="clear-background info fa-info-circle no-border small" v-if="schema.hint">{{ schema.hint }}</i>
+            <i class="clear-background active no-border small" v-if="schema.hint"><span class="fas fa-info-circle"></span>{{ schema.hint }}</i>
         </label>
         <div class="file-upload" :class="schema.inputClasses">
             {{ schema.placeholder }}
@@ -23,7 +23,7 @@
                 :data-error-message-value-missing="schema.errorMessageValueMissing" />
         </div>
         <div class="flex">
-            <div class="flex-item upload-preview panel" v-for="(file) in files" :class="schema.previewClasses" v-bind:key="generateGuid(file)">
+            <div class="upload-preview panel" v-for="(file) in files" :class="schema.previewClasses" v-bind:key="generateGuid(file)">
                 <header><div class="header" @click="removeFile(file)">×</div>&nbsp;</header>
                 <div class="body">
                     {{ file.filename }}

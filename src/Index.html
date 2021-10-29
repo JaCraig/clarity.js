@@ -4,14 +4,13 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Clarity CSS Framework</title>
-    <script src="/js/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.20/vue.global.prod.js"></script>
     <link rel="stylesheet" href="clarity.min.css">
     <style>
         .mainContent {
             position: absolute;
             padding: 10px 30px;
-            background-color: #FFF;
             left: 200px;
         }
         
@@ -33,21 +32,18 @@
         
         .green {
             background-color: #00AA00;
-            min-height: 10px;
             color: white;
             text-align: center;
         }
 
         .red {
             background-color: #AA0000;
-            min-height: 10px;
             color: white;
             text-align: center;
         }
 
         .blue {
             background-color: #0000AA;
-            min-height: 10px;
             color: white;
             text-align: center;
         }
@@ -77,7 +73,6 @@
             <li class="item"><a href="#lists">Lists</a></li>
             <li class="item"><a href="#menus">Menus</a></li>
             <li class="item"><a href="#forms">Forms</a></li>
-            <li class="item"><a href="#grids">Grids</a></li>
             <li class="item"><a href="#flexbox">Flexbox</a></li>
             <li class="item"><a href="#components">Components</a></li>
             <li class="item"><a href="/js/Docs">Typescript Modules</a></li>
@@ -108,6 +103,7 @@
         <pre>&lt;p&gt;Sample text here...&lt;/p&gt;</pre>
         <var>y</var> = <var>m</var><var>x</var> + <var>b</var><br /><br />
         <samp>This text is meant to be treated as sample output from a computer program.</samp><br /><br />
+        <div>This text is <mark>highlighted based on the call to action color</mark>.</div><br /><br />
         <abbr title="Abbreviations look like this">Abbreviation</abbr><br /><br />
         
         <div data-tooltip-size="small" data-tooltip="Balloon items look like this" data-tooltip-pos="left">Small Balloon Left</div><br /><br />
@@ -189,19 +185,19 @@
         </div>
         <h3>Depth/Box Shadow</h3>
         <div class="flex row">
-            <div class="z-depth-1 two columns bordered text-center">
+            <div class="z-depth-1 bordered text-center" style="margin: 10px;">
                 Depth 1
             </div>
-            <div class="z-depth-2 two columns offset-by-two bordered text-center">
+            <div class="z-depth-2 bordered text-center" style="margin: 10px;">
                 Depth 2
             </div>
-            <div class="z-depth-3 two columns offset-by-two bordered text-center">
+            <div class="z-depth-3 bordered text-center" style="margin: 10px;">
                 Depth 3
             </div>
-            <div class="z-depth-4 two columns offset-by-two bordered text-center">
+            <div class="z-depth-4 bordered text-center" style="margin: 10px;">
                 Depth 4
             </div>
-            <div class="z-depth-5 two columns offset-by-two bordered text-center">
+            <div class="z-depth-5 bordered text-center" style="margin: 10px;">
                 Depth 5
             </div>
         </div>
@@ -210,13 +206,17 @@
         <h2>Progress Bars</h2>
         <h3>Progress Bar With Value</h3>
         <progress value="25" max="100"></progress><br /><br />
+        <h3>Meter With Value</h3>
+        <meter value="25" max="100"></meter><br /><br />
         <h3>Progress Bar Without Value</h3>
         <progress max="100"></progress>
+        <h3>Meter Without Value</h3>
+        <meter max="100"></meter><br /><br />
         <br class="clear" />
         <a id="imageShapes"></a>
         <h2>Image Shapes</h2>
         <h3>Responsive Images</h3>
-        <div class="five columns">
+        <div style="width: 25%">
             <img src="./images/Lenna.jpg" class="responsive" />
         </div>
         <br class="clear" />
@@ -797,7 +797,7 @@
             <li>Item 3</li>
         </ul>
         <h3>Grouped list</h3>
-        <ul class="grouped four columns">
+        <ul class="grouped" style="width: 25%">
             <li>Item 1 <span class="badge">4</span></li>
             <li><a href="#">Item 2</a></li>
             <li>Item 3</li>
@@ -1024,24 +1024,24 @@
                 <fieldset>
                     <legend>Legend</legend>
                     <h2>Input item examples:</h2>
-                    <div  class="flex column">
-                        <input type="text" placeholder="Text with error feedback" required class="flex-item" />
-                        <input type="time" placeholder="Time" class="flex-item" />
-                        <input type="url" placeholder="Url" class="flex-item" />
-                        <input type="email" placeholder="Email" class="flex-item" />
-                        <input type="password" placeholder="password" class="flex-item" />
-                        <input type="date" placeholder="Date" class="flex-item" />
-                        <input type="month" placeholder="Month" class="flex-item" />
-                        <input type="datetime-local" placeholder="Date/Time Local" class="flex-item" />
-                        <input type="number" placeholder="Number" class="flex-item" />
-                        <input type="range" placeholder="Range" min="1" max="5" value="3" class="flex-item" />
-                        <input type="color" placeholder="Color" class="flex-item" />
-                        <input type="checkbox" placeholder="Checkbox" class="flex-item" />
-                        <input type="radio" placeholder="Radio" class="flex-item" />
-                        <input type="file" placeholder="File" required class="flex-item" />
-                        <textarea placeholder="Textarea" class="flex-item"></textarea>
-                        <label class="flex-item">Select</label>
-                        <select class="flex-item">
+                    <div class="flex column">
+                        <input type="text" placeholder="Text with error feedback" required   />
+                        <input type="time" placeholder="Time"  />
+                        <input type="url" placeholder="Url"  />
+                        <input type="email" placeholder="Email"  />
+                        <input type="password" placeholder="password"  />
+                        <input type="date" placeholder="Date"  />
+                        <input type="month" placeholder="Month"  />
+                        <input type="datetime-local" placeholder="Date/Time Local"  />
+                        <input type="number" placeholder="Number"  />
+                        <input type="range" placeholder="Range" min="1" max="5" value="3"  />
+                        <input type="color" placeholder="Color"  />
+                        <input type="checkbox" placeholder="Checkbox"  />
+                        <input type="radio" placeholder="Radio"  />
+                        <input type="file" placeholder="File" required  />
+                        <textarea placeholder="Textarea" ></textarea>
+                        <label >Select</label>
+                        <select >
                             <optgroup label="Group 1">
                                 <option>Item 1</option>
                                 <option>Item 2</option>
@@ -1053,13 +1053,13 @@
                                 <option>Item 3</option>
                             </optgroup>
                         </select>
-                        <label class="flex-item">Select Multiple</label>
-                        <select multiple class="flex-item">
+                        <label >Select Multiple</label>
+                        <select multiple >
                             <option>Item 1</option>
                             <option>Item 2</option>
                             <option>Item 3</option>
                         </select>
-                        <input placeholder="Datalist" list="browsers" name="browser" class="flex-item">
+                        <input placeholder="Datalist" list="browsers" name="browser" >
                         <datalist id="browsers">
                             <option value="Internet Explorer"></option>
                             <option value="Firefox"></option>
@@ -1079,7 +1079,7 @@
         </div>
         <hr />
         <h3>Aligned Form</h3>
-        <div class="center ten columns">
+        <div class="center" style="width: 50%">
         <fieldset><legend>Legend</legend></fieldset>
         <form class="aligned">
             <label>Text:</label>
@@ -1151,7 +1151,7 @@
         </div>
         <hr />
         <h3>Stacked Form</h3>
-        <div class="center ten columns">
+        <div class="center " style="width: 50%">
             <form class="stacked">
                 <legend>Legend</legend>
                 <label>Text:</label>
@@ -1233,7 +1233,7 @@
         <br class="clear" />
         <hr />
         <h3>Form Validation</h3>
-        <div class="center ten columns">
+        <div class="center " style="width: 50%">
             <form class="stacked">
                 <label>Required:</label>
                 <input type="text" required data-error-message-value-missing="Missing a value here." />
@@ -1258,224 +1258,141 @@
         </div>
         <br class="clear" />
         <hr />
-        <a id="grids"></a>
-        <h2>Grid Layout</h2>
-        <div class="content-wrapper">
-            <h3>One Column</h3>
-            <div class="one column green"></div>
-            <h3>Two Columns</h3>
-            <div class="two columns  green"></div>
-            <h3>Three Columns</h3>
-            <div class="three columns  green"></div>
-            <h3>Four Columns</h3>
-            <div class="four columns  green"></div>
-            <h3>Five Columns</h3>
-            <div class="five columns  green"></div>
-            <h3>Six Columns</h3>
-            <div class="six columns  green"></div>
-            <h3>Seven Columns</h3>
-            <div class="seven columns  green"></div>
-            <h3>Eight Columns</h3>
-            <div class="eight columns  green"></div>
-            <h3>Nine Columns</h3>
-            <div class="nine columns  green"></div>
-            <h3>Ten Columns</h3>
-            <div class="ten columns  green"></div>
-            <h3>Eleven Columns</h3>
-            <div class="eleven columns  green"></div>
-            <h3>Twelve Columns</h3>
-            <div class="twelve columns  green"></div>
-            <h3>Thirteen Columns</h3>
-            <div class="thirteen columns  green"></div>
-            <h3>Fourteen Columns</h3>
-            <div class="fourteen columns  green"></div>
-            <h3>Fifteen Columns</h3>
-            <div class="fifteen columns  green"></div>
-            <h3>Sixteen Columns</h3>
-            <div class="sixteen columns  green"></div>
-            <h3>Seventeen Columns</h3>
-            <div class="seventeen columns  green"></div>
-            <h3>Eighteen Columns</h3>
-            <div class="eighteen columns  green"></div>
-            <h3>Nineteen Columns</h3>
-            <div class="nineteen columns  green"></div>
-            <h3>Twenty Columns</h3>
-            <div class="twenty columns  green"></div>
-            <h3>Offset By One Columns</h3>
-            <div class="offset-by-one columns green one"></div>
-            <h3>Offset By Two Columns</h3>
-            <div class="offset-by-two columns green one"></div>
-            <h3>Offset By Three Columns</h3>
-            <div class="offset-by-three columns green one"></div>
-            <h3>Offset By Four Columns</h3>
-            <div class="offset-by-four columns green one"></div>
-            <h3>Offset By Five Columns</h3>
-            <div class="offset-by-five columns green one"></div>
-            <h3>Offset By Six Columns</h3>
-            <div class="offset-by-six columns green one"></div>
-            <h3>Offset By Seven Columns</h3>
-            <div class="offset-by-seven columns green one"></div>
-            <h3>Offset By Eight Columns</h3>
-            <div class="offset-by-eight columns green one"></div>
-            <h3>Offset By Nine Columns</h3>
-            <div class="offset-by-nine columns green one"></div>
-            <h3>Offset By Ten Columns</h3>
-            <div class="offset-by-ten columns green one"></div>
-            <h3>Offset By Eleven Columns</h3>
-            <div class="offset-by-eleven columns green one"></div>
-            <h3>Offset By Twelve Columns</h3>
-            <div class="offset-by-twelve columns green one"></div>
-            <h3>Offset By Thirteen Columns</h3>
-            <div class="offset-by-thirteen columns green one"></div>
-            <h3>Offset By Fourteen Columns</h3>
-            <div class="offset-by-fourteen columns green one"></div>
-            <h3>Offset By Fifteen Columns</h3>
-            <div class="offset-by-fifteen columns green one"></div>
-            <h3>Offset By Sixteen Columns</h3>
-            <div class="offset-by-sixteen columns green one"></div>
-            <h3>Offset By Seventeen Columns</h3>
-            <div class="offset-by-seventeen columns green one"></div>
-            <h3>Offset By Eighteen Columns</h3>
-            <div class="offset-by-eighteen columns green one"></div>
-            <h3>Offset By Nineteen Columns</h3>
-            <div class="offset-by-nineteen columns green one"></div>
-        </div>
-        <hr />
         <a id="flexbox"></a>
         <h2>Flex Wrapping Behavior</h2>
         <h3>Wrap</h3>
-        <div class="flex row wrap">
-            <div class="green flex-item ten columns"></div>
-            <div class="red flex-item ten columns"></div>
-            <div class="blue flex-item ten columns"></div>
+        <div class="flex row wrap basic-box">
+            <div class="green " style="min-width: 50%">1</div>
+            <div class="red " style="min-width: 50%">2</div>
+            <div class="blue " style="min-width: 50%">3</div>
         </div>
         <h3>No Wrap</h3>
-        <div class="flex row no-wrap">
-            <div class="green flex-item ten columns"></div>
-            <div class="red flex-item ten columns"></div>
-            <div class="blue flex-item ten columns"></div>
+        <div class="flex row no-wrap basic-box">
+            <div class="green " style="min-width: 50%">1</div>
+            <div class="red " style="min-width: 50%">2</div>
+            <div class="blue " style="min-width: 50%">3</div>
         </div>
         <hr />
         <h2>Flex Direction</h2>
         <h3>Row</h3>
         <div class="flex row">
-            <div class="green flex-item">1</div>
-            <div class="red flex-item">2</div>
-            <div class="blue flex-item">3</div>
+            <div class="green">1</div>
+            <div class="red">2</div>
+            <div class="blue">3</div>
         </div>
         <h3>Column</h3>
         <div class="flex column">
-            <div class="green flex-item">1</div>
-            <div class="red flex-item">2</div>
-            <div class="blue flex-item">3</div>
+            <div class="green">1</div>
+            <div class="red">2</div>
+            <div class="blue">3</div>
         </div>
         <h3>Reverse Row</h3>
         <div class="flex row-reverse">
-            <div class="green flex-item">1</div>
-            <div class="red flex-item">2</div>
-            <div class="blue flex-item">3</div>
+            <div class="green">1</div>
+            <div class="red">2</div>
+            <div class="blue">3</div>
         </div>
         <h3>Reverse Column</h3>
         <div class="flex column-reverse">
-            <div class="green flex-item">1</div>
-            <div class="red flex-item">2</div>
-            <div class="blue flex-item">3</div>
+            <div class="green">1</div>
+            <div class="red">2</div>
+            <div class="blue">3</div>
         </div>
         <hr />
         <h2>Flex Justify</h2>
         <h3>Start</h3>
         <div class="flex row justify-start">
-            <div class="green three columns">1</div>
-            <div class="red three columns">2</div>
-            <div class="blue three columns">3</div>
+            <div class="green zero columns" style="min-width: 20%">1</div>
+            <div class="red zero columns" style="min-width: 20%">2</div>
+            <div class="blue zero columns" style="min-width: 20%">3</div>
         </div>
         <h3>End</h3>
         <div class="flex row justify-end">
-            <div class="green three columns">1</div>
-            <div class="red three columns">2</div>
-            <div class="blue three columns">3</div>
+            <div class="green zero columns" style="min-width: 20%">1</div>
+            <div class="red zero columns" style="min-width: 20%">2</div>
+            <div class="blue zero columns" style="min-width: 20%">3</div>
         </div>
         <h3>Center</h3>
         <div class="flex row justify-center">
-            <div class="green three columns">1</div>
-            <div class="red three columns">2</div>
-            <div class="blue three columns">3</div>
+            <div class="green zero columns" style="min-width: 20%">1</div>
+            <div class="red zero columns" style="min-width: 20%">2</div>
+            <div class="blue zero columns" style="min-width: 20%">3</div>
         </div>
         <h3>Space Between</h3>
         <div class="flex row justify-space-between">
-            <div class="green three columns">1</div>
-            <div class="red three columns">2</div>
-            <div class="blue three columns">3</div>
+            <div class="green zero columns" style="min-width: 20%">1</div>
+            <div class="red zero columns" style="min-width: 20%">2</div>
+            <div class="blue zero columns" style="min-width: 20%">3</div>
         </div>
         <h3>Space Around</h3>
         <div class="flex row justify-space-around">
-            <div class="green three columns">1</div>
-            <div class="red three columns">2</div>
-            <div class="blue three columns">3</div>
+            <div class="green zero columns" style="min-width: 20%">1</div>
+            <div class="red zero columns" style="min-width: 20%">2</div>
+            <div class="blue zero columns" style="min-width: 20%">3</div>
         </div>
         <hr />
         <h2>Flex Align Items</h2>
         <h3>Start</h3>
         <div class="flex row align-items-start basic-box">
-            <div class="green flex-item">1</div>
-            <div class="red flex-item">2</div>
-            <div class="blue flex-item">3</div>
+            <div class="green">1</div>
+            <div class="red">2</div>
+            <div class="blue">3</div>
         </div>
         <h3>End</h3>
         <div class="flex row align-items-end basic-box">
-            <div class="green flex-item">1</div>
-            <div class="red flex-item">2</div>
-            <div class="blue flex-item">3</div>
+            <div class="green">1</div>
+            <div class="red">2</div>
+            <div class="blue">3</div>
         </div>
         <h3>Center</h3>
         <div class="flex row align-items-center basic-box">
-            <div class="green flex-item">1</div>
-            <div class="red flex-item">2</div>
-            <div class="blue flex-item">3</div>
+            <div class="green">1</div>
+            <div class="red">2</div>
+            <div class="blue">3</div>
         </div>
         <h3>Baseline</h3>
         <div class="flex row align-items-baseline basic-box">
-            <div class="green flex-item" style="font-size:20px;">1</div>
-            <div class="red flex-item"style="font-size:30px;">2</div>
-            <div class="blue flex-item">3</div>
+            <div class="green" style="font-size:20px;">1</div>
+            <div class="red"style="font-size:30px;">2</div>
+            <div class="blue">3</div>
         </div>
         <h3>Stretch</h3>
         <div class="flex row align-items-stretch basic-box">
-            <div class="green flex-item">1</div>
-            <div class="red flex-item">2</div>
-            <div class="blue flex-item">3</div>
+            <div class="green">1</div>
+            <div class="red">2</div>
+            <div class="blue">3</div>
         </div>
         <hr />
         <h2>Flex Align Individual Items</h2>
         <h3>Start</h3>
         <div class="flex row basic-box">
-            <div class="green flex-item">1</div>
-            <div class="red flex-item align-self-start">2</div>
-            <div class="blue flex-item">3</div>
+            <div class="green">1</div>
+            <div class="red align-self-start">2</div>
+            <div class="blue">3</div>
         </div>
         <h3>End</h3>
         <div class="flex row basic-box">
-            <div class="green flex-item">1</div>
-            <div class="red flex-item align-self-end">2</div>
-            <div class="blue flex-item">3</div>
+            <div class="green">1</div>
+            <div class="red align-self-end">2</div>
+            <div class="blue">3</div>
         </div>
         <h3>Center</h3>
         <div class="flex row basic-box">
-            <div class="green flex-item">1</div>
-            <div class="red flex-item align-self-center">2</div>
-            <div class="blue flex-item">3</div>
+            <div class="green">1</div>
+            <div class="red align-self-center">2</div>
+            <div class="blue">3</div>
         </div>
         <h3>Baseline</h3>
         <div class="flex row basic-box">
-            <div class="green flex-item" style="font-size:20px;">1</div>
-            <div class="red flex-item align-self-baseline"style="font-size:30px;">2</div>
-            <div class="blue flex-item">3</div>
+            <div class="green" style="font-size:20px;">1</div>
+            <div class="red align-self-baseline"style="font-size:30px;">2</div>
+            <div class="blue">3</div>
         </div>
         <h3>Stretch</h3>
         <div class="flex row basic-box">
-            <div class="green flex-item">1</div>
-            <div class="red flex-item align-self-stretch">2</div>
-            <div class="blue flex-item">3</div>
+            <div class="green">1</div>
+            <div class="red align-self-stretch">2</div>
+            <div class="blue">3</div>
         </div>
         <hr />
         <h2>Flex Align Content</h2>
@@ -1519,16 +1436,16 @@
         <h2>Flex Item Sizes</h2>
         <h3>All sizes are relative to other items</h3>
         <div class="flex row">
-            <div class="flex-item green bordered">1</div>
-            <div class="flex-item green two-columns bordered">2</div>
-            <div class="flex-item green three-columns bordered">3</div>
-            <div class="flex-item green four-columns bordered">4</div>
-            <div class="flex-item green five-columns bordered">5</div>
-            <div class="flex-item green six-columns bordered">6</div>
-            <div class="flex-item green seven-columns bordered">7</div>
-            <div class="flex-item green eight-columns bordered">8</div>
-            <div class="flex-item green nine-columns bordered">9</div>
-            <div class="flex-item green ten-columns bordered">10</div>
+            <div class="green bordered">1</div>
+            <div class="green two columns bordered">2</div>
+            <div class="green three columns bordered">3</div>
+            <div class="green four columns bordered">4</div>
+            <div class="green five columns bordered">5</div>
+            <div class="green six columns bordered">6</div>
+            <div class="green seven columns bordered">7</div>
+            <div class="green eight columns bordered">8</div>
+            <div class="green nine columns bordered">9</div>
+            <div class="green ten columns bordered">10</div>
         </div>
         <hr />
         <h3>Hidden/Display on Each Device</h3>
@@ -1544,7 +1461,7 @@
         <div class="hidden-on-desktop display-on-mobile-landscape hidden-on-mobile-portrait">
             Shown on mobile landscape
         </div>
-        <div class="hidden-on-desktop show-on-mobile-portrait">
+        <div class="hidden-on-desktop display-on-mobile-portrait">
             Shown on mobile portrait
         </div>
         <hr />
