@@ -20,6 +20,7 @@ declare global {
         slugify(): string;
         stripHTML(): string;
         toNumber(): number;
+        replaceAll(): string;
     }
 }
 

@@ -1,6 +1,4 @@
 import ColumnData from "./ColumnData";
-import { DataType } from "./Enums/DataType";
-import moment from 'moment';
 
 // An individual entry in a cell
 export default class Entry  {

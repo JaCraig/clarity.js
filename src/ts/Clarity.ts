@@ -27,6 +27,8 @@ import { Closer } from "./Component/Closer/Closer";
 import { DropDown } from "./Component/DropDown/DropDown";
 import { Mobile } from "./Component/Mobile/Mobile";
 import { IComponent } from "./Component/Interfaces/IComponent";
+import SetupPolyfills from "./Framework/Polyfills/Polyfill";
+import { Downloader } from "./Framework/IO/Downloader";
 
 import ClarityModal from "./Component/Modal/ClarityModal.vue";
 import ClarityTabs from "./Component/Tabs/ClarityTabs.vue";
@@ -51,6 +53,7 @@ import ClarityFormFieldRepeater from './Component/FormGenerator/Fields/ClarityFo
 import { RegisterDirectives } from "./Component/VueExtensions/VueDirectives";
 import { RegisterFilters } from "./Component/VueExtensions/VueFilters";
 import Vue from 'vue';
+import { Grid } from "./Component/Grid/Enums";
 
 // Starts up and generally manages the framework
 class Clarity {
@@ -74,6 +77,7 @@ class Clarity {
             this.errorLogger.onError(msg.toString(), url, ln, col, error);
         };
         this.errorLogger.setLoggingFunction((message:string, stack: string) => { console.log(message); });
+        SetupPolyfills();
     }
 
     // the various components
@@ -149,4 +153,4 @@ function init() {
     window.clarity.instance = window.clarity.instance || new Clarity();
 }
 
-export { Request, DatabaseConnection , init, StorageMode,Hotkeys, Clarity };
+export { Request, DatabaseConnection , init, StorageMode,Hotkeys, Clarity, Downloader, Grid };

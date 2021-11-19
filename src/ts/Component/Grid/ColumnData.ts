@@ -1,8 +1,8 @@
 import moment from "moment";
-import { DatabaseConnection } from "../../Clarity";
+import { DatabaseConnection } from "../../Framework/Database/Database";
 import ColumnFilter from "./ColumnFilter";
 import DatabaseSettings from "./DatabaseSettings";
-import { DataType } from "./Enums/DataType";
+import { Grid } from "./Enums";
 import "../../Extensions/String";
 
 // Column information
@@ -48,6 +48,20 @@ export default class ColumnData {
             }
         }
         if ("filter" in source) {
+            let propertiesToCopy = [
+                { name: 'value', default: (column: ColumnFilter) => "" },
+                { name: 'comparison', default: (column: ColumnFilter) => Grid.ComparisonType.Contains },
+                { name: 'type', default: (column: ColumnFilter) => Grid.FilterType.Textbox },
+                { name: 'filtered', default: (column: ColumnFilter) => false }
+            ];
+            for (let x = 0; x < propertiesToCopy.length; ++x) {
+                let property = propertiesToCopy[x];
+                if(source.filter.hasOwnProperty(property.name)) {
+                    (<{[index: string]: any}>this.filter)[property.name] = (<{[index: string]: any}>source.filter)[property.name];
+                } else {
+                    (<{[index: string]: any}>this.filter)[property.name] = property.default(this.filter);
+                }
+            }
             ColumnData.returnValueFromDB(this.property, databaseSettings, (data : string) => this.filter.value = data);
         }
     }
@@ -57,7 +71,7 @@ export default class ColumnData {
     // The property of the data object to show in the column
     property: string;
     // Data type (string, number, image, etc.)
-    dataType: DataType = DataType.String;
+    dataType: Grid.ColumnDataType = Grid.ColumnDataType.String;
     // Should the value be summed?
     sum: boolean = false;
     // locale for formatting purposes
@@ -90,18 +104,18 @@ export default class ColumnData {
         if (value === "") {
             return value;
         }
-        if (this.dataType === DataType.String) {
+        if (this.dataType === Grid.ColumnDataType.String) {
             return value?.toString().replace(/\n/gi,"<br />") || "";
         }
         let valueType = typeof value;
-        if (this.dataType === DataType.Number) {
+        if (this.dataType === Grid.ColumnDataType.Number) {
             if (valueType === "number") {
                 return new Intl.NumberFormat(this.locales, this.format).format(value);
             }
             if (valueType === "string") {
                 return new Intl.NumberFormat(this.locales, this.format).format(ColumnData.getNumber(value.stripHTML()));
             }
-        } else if (this.dataType === DataType.Date) {
+        } else if (this.dataType === Grid.ColumnDataType.Date) {
             if (valueType === "number") {
                 return new Intl.DateTimeFormat(this.locales, <Intl.DateTimeFormatOptions>this.format).format(value);
             }
@@ -112,14 +126,58 @@ export default class ColumnData {
                 }
                 return new Intl.DateTimeFormat(this.locales, <Intl.DateTimeFormatOptions> this.format).format(Date.parse(value));
             }
-        } else if (this.dataType === DataType.Link) {
+        } else if (this.dataType === Grid.ColumnDataType.Link) {
             value = value.stripHTML();
             return "<a href='" + value + "'>" + value + "</a>";
-        } else if (this.dataType === DataType.Image) {
+        } else if (this.dataType === Grid.ColumnDataType.Image) {
             value = value.stripHTML();
             return "<img src='" + value + "' alt='" + value + "'" + (this.default?" onerror='this.src=\""+this.default+"\"'":"") + " />";
         }
         return value;
+    }
+
+    // Determines if a specific cell data passes the column's filter.
+    public passesFilter(cellData: string): boolean {
+        var filterString = (this.filter.value || "").toLowerCase();
+        if(filterString === "") {
+            return true;
+        }
+        if(cellData === "") {
+            return false;
+        }
+        cellData = cellData.toLowerCase();
+        if(this.dataType === Grid.ColumnDataType.Date) {
+            let momentEntry = moment(cellData);
+            let filterValue = moment(filterString);
+            if (this.filter.comparison === Grid.ComparisonType.After) {
+                return momentEntry.isAfter(filterValue);
+            } else if (this.filter.comparison === Grid.ComparisonType.AfterOrEqual) {
+                return momentEntry.isSameOrAfter(filterValue);
+            } else if (this.filter.comparison === Grid.ComparisonType.BeforeOrEqual) {
+                return momentEntry.isSameOrBefore(filterValue);
+            } else if (this.filter.comparison === Grid.ComparisonType.Before) {
+                return momentEntry.isBefore(filterValue);
+            }
+            return momentEntry.isSame(filterValue);
+        }
+        if (this.filter.comparison === Grid.ComparisonType.After) {
+            return cellData > filterString;
+        } else if (this.filter.comparison === Grid.ComparisonType.AfterOrEqual) {
+            return cellData >= filterString;
+        } else if (this.filter.comparison === Grid.ComparisonType.BeforeOrEqual) {
+            return cellData <= filterString;
+        } else if (this.filter.comparison === Grid.ComparisonType.Before) {
+            return cellData < filterString;
+        } else if (this.filter.comparison === Grid.ComparisonType.Contains) {
+            return cellData.indexOf(filterString) > -1;
+        } else if (this.filter.comparison === Grid.ComparisonType.EndsWith) {
+            return cellData.endsWith(filterString);
+        } else if (this.filter.comparison === Grid.ComparisonType.StartsWith) {
+            return cellData.startsWith(filterString);
+        } else if (this.filter.comparison === Grid.ComparisonType.Equals) {
+            return cellData === filterString;
+        }
+        return true;
     }
 
     // Date Regex
@@ -151,7 +209,7 @@ export default class ColumnData {
     }
 
     // Guesses the data type for the column
-    private static guessDataType (column: string, data: Array<any>): DataType {
+    private static guessDataType (column: string, data: Array<any>): Grid.ColumnDataType {
         let tempDiv = document.createElement("div");
         for (let x = 0; x < data.length; ++x) {
             if (!(column in data[x])) {
@@ -164,19 +222,19 @@ export default class ColumnData {
                 continue;
             }
             if (cellText.match(this.imageRegex)) {
-                return DataType.Image;
+                return Grid.ColumnDataType.Image;
             }
             if (cellText.match(this.urlRegex)) {
-                return DataType.Link;
+                return Grid.ColumnDataType.Link;
             }
             if (cellText.match(this.numberRegex) && !cellText.match(this.phoneRegex)) {
-                return DataType.Number;
+                return Grid.ColumnDataType.Number;
             }
             if (cellText.match(this.dateRegex)) {
-                return DataType.Date;
+                return Grid.ColumnDataType.Date;
             }
         }
-        return DataType.String;
+        return Grid.ColumnDataType.String;
     }
 
     // Gets a value from the database/cache

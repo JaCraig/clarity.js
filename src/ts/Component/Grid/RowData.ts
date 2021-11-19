@@ -1,5 +1,4 @@
 import ColumnData from "./ColumnData";
-import Entry from "./Entry";
 import RowValue from "./RowValue";
 
 // Contains all of the rows of data.

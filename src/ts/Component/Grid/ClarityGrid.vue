@@ -1,10 +1,11 @@
 <template>
     <div v-cloak>
         <div>
-            <span class="Right do-not-print" v-if="searchable">
+            <span class="right do-not-print" v-if="searchable">
                 Search:
                 <input type="text" placeholder="Filter Entries" v-model="filterKey" @keyup="filterChanged" />
             </span>
+            <a href="#!" class="fas fa-file-csv" @click="exportData('CSV')" v-if="exportInfo.exportable"></a>
             <span v-if="paged" class="do-not-print">
                 Show
                 <select v-model="pageSize">
@@ -24,8 +25,8 @@
             <div style="display: inline-block" v-for="group in filteredGroups" :key="group">
                 <a :href="'#'+group">{{group}}</a>
             </div>
+            <br />
         </div>
-        <br />
         <table class="sortable" id="filteredTable">
             <thead>
                 <tr>
@@ -34,55 +35,38 @@
                         :class="{ active: sortKey == index,headerSortUp: sortKey==index && column.sortDirection > 0,headerSortDown: sortKey == index && column.sortDirection < 0 }"
                         :columnName="column.property">
                         {{ $filters.capitalize(column.display) }}
-                        <div v-if="column.filter && getFilter(column.filter).type !='dropdown'" class="do-not-print">
-                            <input :type="getFilter(column.filter).type" :placeholder="getFilter(column.filter).placeholder" v-model="getFilter(column.filter).value" :list="column.property" @click.stop.prevent @keyup="filterChanged" />
-                            <datalist :id="column.property">
-                                <option v-for="value in getDistinctValues(column)" :key="value">{{value}}</option>
-                            </datalist>
-                        </div>
-                        <div v-if="column.filter && getFilter(column.filter).type =='dropdown'" class="do-not-print">
-                            <select v-model="getFilter(column.filter).value" @click.stop.prevent @change="filterChanged">
-                                <option v-for="value in getDistinctValues(column)" :key="value">{{value}}</option>
-                            </select>
+                        <div v-if="column.filter.filtered">
+                            <div v-if="column.filter.type == 1" class="do-not-print">
+                                <input :type="column.filter.type" :placeholder="column.filter.placeholder" v-model="column.filter.value" :list="column.property" @click.stop.prevent @keyup="filterChanged" />
+                                <datalist :id="column.property">
+                                    <option v-for="value in getDistinctValues(column)" :key="value">{{value}}</option>
+                                </datalist>
+                            </div>
+                            <div v-if="column.filter.type == 0" class="do-not-print">
+                                <select v-model="column.filter.value" @click.stop.prevent @change="filterChanged">
+                                    <option v-for="value in getDistinctValues(column)" :key="value">{{value}}</option>
+                                </select>
+                            </div>
                         </div>
                     </th>
                 </tr>
             </thead>
-            <template v-if="filteredGroups">
-                <tbody v-for="group in filteredGroups" v-bind:key="group">
-                    <tr v-if="group!==''" class="grid-group-header"><td :colspan="internalColumns.length"><a :id="group"></a>{{ group }}</td></tr>
-                    <tr v-for="(entry, index) in getPeopleInGroup(group)" v-bind:key="index" @click="rowClicked(entry)">
-                        <td v-for="column in entry.columns" v-bind:key="column" :class="entry.style">
-                            <div v-for="item in column.data" :key="item">
-                                <div v-html="item.value" v-if="!item.url"></div>
-                                <a v-html="item.value" v-if="item.url" :href="item.url"></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr v-if="anySum" class="grid-group-footer"><td :colspan="internalColumns.length">Totals:</td></tr>
-                    <tr v-if="anySum" class="grid-group-footer">
-                        <td v-for="key in internalColumns" v-html="filteredColumnSum(group, key)" v-bind:key="key">
-                        </td>
-                    </tr>
-                </tbody>
-            </template>
-            <template v-else>
-                <tbody>
-                    <tr v-for="(entry, index) in filteredData" v-bind:key="index" @click="rowClicked(entry)" :class="entry.style" :id="entry.id">
-                        <td v-for="column in entry.columns" v-bind:key="column" :class="entry.style">
-                            <div v-for="item in column.data" :key="item">
-                                <div v-html="item.value" v-if="!item.url"></div>
-                                <a v-html="item.value" v-if="item.url" :href="item.url"></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr v-if="anySum"><td :colspan="internalColumns.length"><b>Totals:</b></td></tr>
-                    <tr v-if="anySum">
-                        <td v-for="key in internalColumns" v-html="filteredColumnSum('', key)" v-bind:key="key">
-                        </td>
-                    </tr>
-                </tbody>
-            </template>
+            <tbody v-for="group in filteredGroups" v-bind:key="group">
+                <tr v-if="group!==''" class="grid-group-header"><td :colspan="internalColumns.length"><a :id="group"></a>{{ group }}</td></tr>
+                <tr v-for="(entry, index) in getEntriesInGroup(group)" v-bind:key="index" @click="rowClicked(entry)">
+                    <td v-for="column in entry.columns" v-bind:key="column" :class="entry.style">
+                        <div v-for="item in column.data" :key="item">
+                            <div v-html="item.value" v-if="!item.url"></div>
+                            <a v-html="item.value" v-if="item.url" :href="item.url"></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr v-if="anySum" class="grid-group-footer"><td :colspan="internalColumns.length">Totals:</td></tr>
+                <tr v-if="anySum" class="grid-group-footer">
+                    <td v-for="key in internalColumns" v-html="sumColumn(group, key)" v-bind:key="key">
+                    </td>
+                </tr>
+            </tbody>
             <tfoot v-if="pageable" class="do-not-print">
                 <tr>
                     <td :colspan="internalColumns.length">
@@ -105,15 +89,16 @@
 </template>
 
 <script lang="ts">
-    import moment from 'moment';
     import Vue from 'vue';
     import ColumnData from "./ColumnData";
     import DatabaseSettings from './DatabaseSettings';
     import RowData from "./RowData";
     import SortFuncs from "../../Framework/Utils/SortFuncs";
-    import { DataType } from './Enums/DataType';
-    import { FilterType } from './Enums/FilterType';
-    import { ComparisonType } from './Enums/ComparisonType';
+    import { Grid } from './Enums';
+    import RowValue from './RowValue';
+    import Entry from './Entry';
+    import { Downloader, FileTypes } from '../../Framework/IO/Downloader';
+    import { BrowserUtils } from '../../Framework/Browser/BrowserUtils';
 
     export default Vue.defineComponent({
         watch: {
@@ -130,19 +115,19 @@
             }
         },
         computed: {
-            anySum: function () {
+            anySum: function (): boolean {
                 return this.internalColumns.some((item: any) => {
                     return item.sum;
                 });
             },
-            endPage: function () {
+            endPage: function (): number {
                 let tempPage = (Math.floor((this.page - 1) / 10) * 10) + 10;
                 if (tempPage > this.finalPage)
                     return this.finalPage;
                 return tempPage;
             },
             filteredGroups: function() {
-                if(!this.groupBy) return;
+                if(!this.groupBy) return [""];
                 let tempData: Array<any> = this.filteredData;
                 let returnData = [];
                 for(let x = 0; x < tempData.length; ++x) {
@@ -173,20 +158,20 @@
                         return 1;
                     });
             },
-            filteredData: function () {
-                let data = this.filter(this.internalData, this.internalColumns, this.filterKey?.toLowerCase());
+            filteredData: function (): Array<RowData> {
+                let data = this.filter(this.internalData, this.filterKey?.toLowerCase());
                 return this.sort(data, this.internalColumns, this.sortKey);
             },
-            finalPage: function () {
+            finalPage: function (): number {
                 if (this.pageSize === -1) {
                     return 1;
                 }
                 return Math.ceil(this.total / this.pageSize);
             },
-            pageable: function () {
+            pageable: function (): boolean {
                 return this.pageSize > 0 && this.filteredData.length > this.pageSize;
             },
-            startPage: function () {
+            startPage: function (): number {
                 return (Math.floor((this.page - 1) / 10) * 10);
             },
         },
@@ -194,65 +179,25 @@
             let that = this;
             let databaseSettings = new DatabaseSettings(this.saveFilters);
             let internalColumns = that.getColumnInfos(this.columns, this.data, databaseSettings);
+            let sortMethods = [];
+            sortMethods[Grid.ColumnDataType.String] = this.sortString;
+            sortMethods[Grid.ColumnDataType.Number] = this.sortNumber;
+            sortMethods[Grid.ColumnDataType.Date] = this.sortDate;
             return {
                 sortKey: -1,
                 draggedColumn: null,
                 internalColumns: internalColumns,
                 databaseSettings: databaseSettings,
                 filterKey: that.filterValue,
-                internalData: that.getData(this.data, internalColumns)
+                internalData: that.getData(this.data, internalColumns),
+                sortMethods: sortMethods
             };
         },
         methods: {
-            filter: function (data: Array<RowData>, columns: Array<ColumnData>, filterKey: string): Array<RowData> {
-                // Main filter
-                if (filterKey && this.groupBy==="") {
-                    data = data.filter(function (row: any) {
-                        for (let x = 0; x < row.columns.length; ++x) {
-                            let column = row.columns[x];
-                            if(column.data.some((item: any) => item.value.toLowerCase().indexOf(filterKey) > -1)) {
-                                return true;
-                            }
-                        }
-                        return false;
-                    });
-                }
-                return data.filter((row: any) => {
-                    for (let x = 0; x < row.columns.length; ++x) {
-                        let column = row.columns[x];
-                        let filterString = (column.column.filter?.value||"").toLowerCase();
-                        if(filterString === "") {
-                            continue;
-                        }
-                        if(!column.data.some((item: any) => {
-                            let entry = item.value.toLowerCase();
-                            if (entry === "") {
-                                return false;
-                            }
-                            if (column.column.dataType === DataType.Date) {
-                                let momentEntry = moment(entry);
-                                let filterValue = moment(filterString);
-                                if (!column.column.filter.comparison || column.column.filter.comparison ===  ComparisonType.After) {
-                                    return !momentEntry.isBefore(filterValue);
-                                }
-                                return !momentEntry.isAfter(filterValue);
-                            }
-                            if (column.column.filter.type !== FilterType.Dropdown) {
-                                return entry.indexOf(filterString) > -1;
-                            } else {
-                                return entry === filterString;
-                            }
-                        })) {
-                                return false;
-                            }
-                    }
-                    return true;
-                });
-            },
-            filterChanged: function() {
+            exportData: function(type: string) {
                 let returnValue: Array<any> = [];
                 if(this.groupBy === "") {
-                    let data = this.filteredData;
+                    let data: Array<RowData> = this.filteredData;
                     for (let x = 0; x < data.length; ++x) {
                         let row = data[x];
                         let newItem = {};
@@ -266,7 +211,7 @@
                     let groups = this.filteredGroups;
                     for (let x = 0; x < groups.length; ++x) {
                         let group = groups[x];
-                        let data = this.getPeopleInGroup(group);
+                        let data = this.getEntriesInGroup(group);
                         let tempHeader = {};
                         (<{[index: string]: any}>tempHeader)[data[0].columns[0].column.property] = group;
                         for (let y = 1; y < data[0].columns.length; ++y) {
@@ -285,20 +230,17 @@
                         }
                     }
                 }
-                this.$emit("data-updated", { data: returnValue });
+                Downloader.exportData(returnValue, this.columns, this.exportInfo.fileName + "." + type, FileTypes.CSV);
             },
-            filteredColumnSum: function (group: any, key: any) {
-                if (!key.sum) {
-                    return "";
+            filter: function (data: Array<RowData>, filterKey: string): Array<RowData> {
+                // Main filter
+                if (filterKey && this.groupBy === "") {
+                    data = data.filter((row: RowData) => row.columns.some((column: RowValue) => column.data.some((item: Entry) => item.value.toLowerCase().indexOf(filterKey) > -1)));
                 }
-                let total = 0;
-                let data = this.filteredData;
-                for (let x = 0; x < data.length; ++x) {
-                    if (!this.groupBy || data[x][this.groupBy] === group) {
-                        total += data[x].originalData[key.property].toString().toNumber();
-                    }
-                }
-                return key.formatValue(total);
+                return data.filter((row: RowData) => row.columns.every((column: RowValue) => column.data.map((cell: Entry) => cell.value).some((cell: string) => column.column.passesFilter(cell))));
+            },
+            filterChanged: function() {
+                this.$emit("data-updated", { data: this.filteredData });
             },
             getColumnInfos: function (columns: Array<ColumnData | String>, data: Array<any>, databaseSettings: DatabaseSettings): Array<ColumnData> {
                 return columns.map(column => new ColumnData(column,data,databaseSettings));
@@ -308,46 +250,34 @@
             },
             getDistinctValues: function (column: any) {
                 let returnValue = [''];
-                let finalData = column.filter.filtered ? this.filteredData : this.internalData;
+                let finalData: Array<RowData> = this.filteredData;
                 for (let x = 0; x < finalData.length; ++x) {
                     let entries = finalData[x].columns
                                                 .find((tempColumn: any) => tempColumn.column.property === column.property)
                                                 ?.data
-                                                .map((data: any)=>data.value) || [];
+                                                .map((data: Entry) => data.value) || [];
                     for (let y = 0; y < entries.length; ++y) {
-                        returnValue.push(entries[y]);
+                        if(returnValue.indexOf(entries[y])===-1) {
+                            returnValue.push(entries[y]);
+                        }
                     }
                 }
-                return returnValue.filter((value, index, self) => self.indexOf(value) === index)
-                                    .sort(SortFuncs.sortString);
+                return returnValue.sort(SortFuncs.sortString);
             },
-            getFilter: function (filter: any) {
-                return filter || { type: "", value: "" };
-            },
-            getPeopleInGroup: function(group: string): Array<any> {
-                let data = this.filteredData;
-                let returnValue = [];
-                for(let x = 0; x < data.length; ++x) {
-                    let row = data[x].originalData;
-                    if(this.isInGroup(row[this.groupBy], group)) {
-                        returnValue.push(data[x]);
-                    }
+            getEntriesInGroup: function(group: string): Array<RowData> {
+                let data: Array<RowData> = this.filteredData;
+                let that = this;
+                if (that.groupBy === "") {
+                    return data;
                 }
-                return returnValue;
+                return data.filter(row => that.isInGroup(row.originalData[that.groupBy], group));
             },
             isInGroup: function(value: any, groupName: string): boolean {
-                if (value == null || groupName == null) {
-                    return false;
+                let that = this;
+                if(Array.isArray(value)) {
+                    return value.some(item => that.isInGroup(item, groupName));
                 }
-                if(!Array.isArray(value)) {
-                    return value.toString() === groupName;
-                }
-                for(let x=0;x<value.length;++x) {
-                    if(this.isInGroup(value[x], groupName)) {
-                        return true;
-                    }
-                }
-                return false;
+                return value?.toString() === groupName;
             },
             rowClicked: function (entry: any) {
                 for (let x = 0; x < this.internalColumns.length; ++x) {
@@ -368,7 +298,7 @@
                     this.page = currentPage;
                 this.$emit("pagechange", { page: this.page, filter: this.filterKey, sort: this.sortKey, direction: this.internalColumns[this.sortKey].sortDirection });
             },
-            sort: function(data: Array<any>, columns: Array<any>, sortKey: number) {
+            sort: function(data: Array<RowData>, columns: Array<ColumnData>, sortKey: number) {
                 // Sort the results
                 if(!this.sortable){
                     return data;
@@ -382,13 +312,7 @@
                         continue;
                     }
                     this.sortKey = x;
-                    if (internalColumn.dataType === DataType.String) {
-                        data = data.sort(this.sortString);
-                    } else if (internalColumn.dataType === DataType.Number) {
-                        data = data.sort(this.sortNumber);
-                    } else if (internalColumn.dataType === DataType.Date) {
-                        data = data.sort(this.sortDate);
-                    }
+                    data = data.sort(this.sortMethods[internalColumn.dataType]);
                 }
                 this.sortKey = tempSortKey;
                 if (sortKey === -1) {
@@ -396,37 +320,39 @@
                 }
                 // Sort by a column
                 let sortedColumn = columns[sortKey];
-                if (sortedColumn.dataType === DataType.String) {
-                    data = data.sort(this.sortString);
-                } else if (sortedColumn.dataType === DataType.Number) {
-                    data = data.sort(this.sortNumber);
-                } else if (sortedColumn.dataType === DataType.Date) {
-                    data = data.sort(this.sortDate);
-                }
+                data = data.sort(this.sortMethods[sortedColumn.dataType]);
                 if (sortedColumn.sortDirection === 1) {
                     return data.reverse();
                 }
                 return data;
             },
-            sortBy: function (column: any, index: number) {
+            sortBy: function (column: ColumnData, index: number) {
                 this.sortKey = index;
                 column.sortDirection = column.sortDirection * -1;
                 this.$emit("pagechange", { page: this.page, filter: this.filterKey, sort: this.sortKey, direction: column.sortDirection });
             },
-            sortDate: function (val1: any, val2: any): number {
+            sortDate: function (val1: RowData, val2: RowData): number {
                 let actualValue1 = (val1.columns[this.sortKey].data[0]?.value || "");
                 let actualValue2 = (val2.columns[this.sortKey].data[0]?.value || "");
                 return SortFuncs.sortDate(new Date(actualValue1), new Date(actualValue2));
             },
-            sortNumber: function (val1: any, val2: any): number {
+            sortNumber: function (val1: RowData, val2: RowData): number {
                 let actualValue1 = (val1.columns[this.sortKey].data[0]?.value || "").toString().toNumber();
                 let actualValue2 = (val2.columns[this.sortKey].data[0]?.value || "").toString().toNumber();
                 return SortFuncs.sortNumber(actualValue1, actualValue2);
             },
-            sortString: function (val1: any, val2: any): number {
+            sortString: function (val1: RowData, val2: RowData): number {
                 let actualValue1 = val1.columns[this.sortKey].data[0]?.value || "";
                 let actualValue2 = val2.columns[this.sortKey].data[0]?.value || "";
                 return SortFuncs.sortString(actualValue1, actualValue2);
+            },
+            sumColumn: function (groupName: string, column: ColumnData) {
+                if (!column.sum) {
+                    return "";
+                }
+                let data: Array<RowData> = this.getEntriesInGroup(groupName);
+                return column.formatValue(data.map((row: RowData) => (<{[index: string]: any }>row.originalData)[column.property]?.toString().toNumber())
+                                              .reduce((val1: number, val2: number) => val1 + val2));
             },
         },
         props: {
@@ -468,6 +394,9 @@
             },
             filterValue: {
                 default: "", type: String
+            },
+            exportInfo: {
+                default: { exportable: true, fileName: BrowserUtils.Id }, type: Object
             }
         }
     });
