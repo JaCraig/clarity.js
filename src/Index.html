@@ -1912,7 +1912,7 @@
                 exportInfo: { exportable: true, fileName: "MyFileExport" },
                 gridColumns: [
                     { property: 'strings', display: 'Strings', dataType: clarity.Grid.ColumnDataType.String, filter: { type: clarity.Grid.FilterType.Dropdown, filtered: true, value: '', comparison: clarity.Grid.ComparisonType.Equals } },
-                    { property: 'numbers', sum: true },
+                    { property: 'numbers', sum: true,filter: { type: clarity.Grid.FilterType.Textbox, filtered: true } },
                     { property: 'money', dataType: clarity.Grid.ColumnDataType.Number, sum: true, locales: "en-US", format: { style: 'currency', currency: 'USD', maximumFractionDigits:0, minimumFractionDigits:0 } },
                     { property: 'dates', display: "Dates", dataType: clarity.Grid.ColumnDataType.Date },
                     'long_name',
