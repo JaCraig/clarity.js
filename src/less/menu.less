@@ -16,7 +16,6 @@
 @import (reference) 'styles.less';
 
 .menu,nav {
-    font-family: 'Helvetica Neue',Helvetica, arial, freesans, clean, sans-serif;
     & ul, & ul li {
         position: relative;
         list-style: none;
@@ -44,10 +43,8 @@
         .layer(2);
         min-width: 10em;
         background-clip: padding-box;
-        .roundedBorder;
         border-left: 0;
         .depth-1;
-        background-color: @lightBackgroundColor;
     }
     
     & > ul > li:hover > ul,
@@ -68,7 +65,6 @@
     }
         
     & .separator {
-        background-color: @lightBorderColor;
         height: .125em;
         margin: .3em 0;
     }
@@ -76,17 +72,6 @@
         
     & .heading {
         font-weight: @defaultFontWeightBold;
-        color: @lightTextColor;
-    }
-    
-    & a {
-        color: @lightBorderColor;
-    }
-    
-    & > ul > li > ul > li,
-    & > ul > li.active > ul > li > a {
-        background-color: @lightBackgroundColor;
-        color: @lightBorderColor;
     }
         
     & a,
@@ -101,33 +86,13 @@
     & ul li.item:hover,
     &.horizontal ul li.item:hover,
     & > ul > li > ul > li>a:hover {
-        background-color: @lightBorderColor;
-        color: @lightBorderColor;
         text-decoration: none;
     }
     
     & .disabled a {
         padding: 0;
         .opacity(.5);
-        color: @lightBorderColor;
         cursor: not-allowed;
-        background-color: transparent;
-    }
-        
-    & .disabled a:hover,
-    &.horizontal .disabled a:hover,
-    &.horizontal ul li.disabled:hover,
-    & a.disabled:hover,
-    & .heading a {
-        background-color: transparent;
-    }
-    
-    & .selected a,
-    & .selected a:visited,
-    & a.selected,
-    & a.selected:visited {
-        color: @lightTextColor;
-        background-color: @lightBorderColor;
     }
 
     &.horizontal, &.pill {
@@ -147,7 +112,6 @@
             left: 0;
             top: auto;
             width: inherit;
-            .border;
             border-top: 0;
             .depth-1;
         }
@@ -162,64 +126,6 @@
             margin: 0 .3em ;
         }
     }
-    
-    &.pill {
-        .roundedBorder;
-
-        & ul li,
-        & > ul > li > a:hover {
-            background-color: @lightBorderColor;
-        }
-                
-        & ul li.heading,
-        & .disabled a,
-        & .disabled a:hover {
-            background-color: transparent;
-        }
-        
-        & .separator {
-            background: @lightBorderColor;
-        }
-        
-        & ul li ul li {
-            background-color: @lightBackgroundColor;
-        }
-
-        & ul li.success a:hover {
-            background-color: @successBorder;
-            color: @lightBackgroundColor;
-        }
-
-        & ul li.info a:hover {
-            background-color: @infoBorder;
-            color: @lightBackgroundColor;
-        }
-
-        & ul li.warning a:hover {
-            background-color: @warningBorder;
-            color: @lightBackgroundColor;
-        }
-
-        & ul li.error a:hover {
-            background-color: @errorBorder;
-            color: @lightBackgroundColor;
-        }
-
-        & ul li.active a {
-            background-color: @lightActiveBackground;
-            color: @lightPrimaryBackground;
-        }
-
-        & ul li.active a:hover {
-            background-color: @lightActiveBorder;
-            color: @lightBackgroundColor;
-        }
-
-        & ul li.primary a:hover {
-            background-color: @lightBackgroundColor;
-            color: @lightPrimaryBackground;
-        }
-    }
 }
 
 @media only screen and (max-width: 1024px) {
@@ -228,7 +134,6 @@
     }
     
     .mobile-toggler {
-        color: @lightTextColor;
         width:1.563em;
         margin-left:0.625em;
     }

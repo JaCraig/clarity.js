@@ -1,31 +1,51 @@
 <template>
-    <div v-cloak>
-        <div>
-            <span class="right do-not-print" v-if="searchable">
-                Search:
-                <input type="text" placeholder="Filter Entries" v-model="filterKey" @keyup="filterChanged" />
-            </span>
-            <a href="#!" class="fas fa-file-csv" @click="exportData('CSV')" v-if="exportInfo.exportable"></a>
-            <span v-if="paged" class="do-not-print">
-                Show
-                <select v-model="pageSize">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="200">200</option>
-                    <option value="-1">All</option>
-                </select>
-                entries
-            </span>
-        </div>
-        <br class="Clear" />
-        <div class="quick-nav do-not-print" v-if="quickNav && filteredGroups">
-            Quick nav: 
-            <div style="display: inline-block" v-for="group in filteredGroups" :key="group">
-                <a :href="'#'+group">{{group}}</a>
+    <div v-cloak class="grid-component">
+        <div class="panel">
+            <div class="body">
+                <div class="right do-not-print flex column" v-if="searchable">
+                    <table class="no-border">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Search:
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="Filter Entries" v-model="filterKey" @keyup="filterChanged" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Export:
+                                </td>
+                                <td>
+                                    <a href="#!" class="fas fa-file-csv" @click="exportData('CSV')" v-if="exportInfo.exportable"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <span v-if="paged" class="do-not-print">
+                    Show
+                    <select v-model="pageSize">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                        <option value="-1">All</option>
+                    </select>
+                    entries
+                </span>
+                <div class="quick-nav do-not-print" v-if="quickNav && filteredGroups">
+                    <ul class="inline">
+                        <li>Quick nav:</li>
+                        <li v-for="group in filteredGroups" :key="group">
+                            <a :href="'#'+group">{{group}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <br class="clear" />
             </div>
-            <br />
         </div>
         <table class="sortable" id="filteredTable">
             <thead>
@@ -72,11 +92,11 @@
                     <td :colspan="internalColumns.length">
                         <div class="right">Page {{ page }} of {{ finalPage }}</div>
                         <ul class="paged">
-                            <li class="cursor-pointer fa-fast-backward text-center" v-on:click="setPage(1)" v-bind:class="{ 'disabled': (page==1) }"></li>
-                            <li class="cursor-pointer fa-step-backward text-center" v-on:click="setPage(page-1)" v-bind:class="{ 'disabled': (page==1) }"></li>
-                            <li class="cursor-pointer text-center" v-for="n in (endPage-startPage)" v-on:click="setPage(startPage+n)" v-bind:class="{ 'active': (page==(startPage+n)) }" :key="n">{{ startPage+n }}</li>
-                            <li class="cursor-pointer fa-step-forward text-center" v-on:click="setPage(page+1)" v-bind:class="{ 'disabled': (page==finalPage) }"></li>
-                            <li class="cursor-pointer fa-fast-forward text-center" v-on:click="setPage(finalPage)" v-bind:class="{ 'disabled': (page==finalPage) }"></li>
+                            <li class="cursor-pointer fas fa-fast-backward text-center" @click="setPage(1)" v-bind:class="{ 'disabled': (page==1) }"></li>
+                            <li class="cursor-pointer fas fa-step-backward text-center" @click="setPage(page-1)" v-bind:class="{ 'disabled': (page==1) }"></li>
+                            <li class="cursor-pointer text-center" v-for="n in (endPage-startPage)" @click="setPage(startPage+n)" v-bind:class="{ 'active': (page==(startPage+n)) }" :key="n">{{ startPage+n }}</li>
+                            <li class="cursor-pointer fas fa-step-forward text-center" @click="setPage(page+1)" v-bind:class="{ 'disabled': (page==finalPage) }"></li>
+                            <li class="cursor-pointer fas fa-fast-forward text-center" @click="setPage(finalPage)" v-bind:class="{ 'disabled': (page==finalPage) }"></li>
                         </ul>
                     </td>
                 </tr>
@@ -169,7 +189,7 @@
                 return Math.ceil(this.total / this.pageSize);
             },
             pageable: function (): boolean {
-                return this.pageSize > 0 && this.filteredData.length > this.pageSize;
+                return this.paged && this.pageSize > 0 && this.filteredData.length > this.pageSize;
             },
             startPage: function (): number {
                 return (Math.floor((this.page - 1) / 10) * 10);
@@ -291,12 +311,12 @@
             },
             setPage: function (currentPage: Number) {
                 if (currentPage > this.finalPage)
-                    this.page = this.finalPage;
+                    currentPage = this.finalPage;
                 else if (currentPage < 1)
-                    this.page = 1;
-                else
-                    this.page = currentPage;
-                this.$emit("pagechange", { page: this.page, filter: this.filterKey, sort: this.sortKey, direction: this.internalColumns[this.sortKey].sortDirection });
+                    currentPage = 1;
+                let sortedColumn: ColumnData = this.internalColumns[this.sortKey];
+                let direction = sortedColumn?.sortDirection || 0;
+                this.$emit("pagechange", { page: currentPage, filter: this.filterKey, sort: this.sortKey, direction: direction });
             },
             sort: function(data: Array<RowData>, columns: Array<ColumnData>, sortKey: number) {
                 // Sort the results

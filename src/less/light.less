@@ -288,4 +288,126 @@
             .border-top(@color: @lightBorderColor);
         }
     }
+
+    .menu,nav {
+        & > ul > li > ul {
+            .roundedBorder(@color: @lightBorderColor);
+        }
+        
+        & .separator {
+            background-color: @lightBorderColor;
+        }
+        
+        & > ul > li > ul > li,
+        & > ul > li.active > ul > li > a {
+            background-color: @lightBackgroundColor;
+        }
+            
+        & a:hover,
+        & a:focus,
+        & ul li.item:hover,
+        &.horizontal ul li.item:hover,
+        & > ul > li > ul > li>a:hover {
+            background-color: @lightBackgroundHighlightColor;
+        }
+        
+        & .disabled a {
+            color: @lightTextShadowColor;
+        }
+        
+        & .selected a,
+        & .selected a:visited,
+        & a.selected,
+        & a.selected:visited {
+            color: @lightActiveColor;
+            background-color: @lightActiveBackground;
+        }
+
+        &.horizontal, &.pill {
+            & > ul > li > ul {
+                .border(@color: @lightBorderColor);
+            }
+        }
+        
+        &.pill {
+            .roundedBorder(@color: @lightBorderColor);
+                    
+            & .separator {
+                background: @lightBorderColor;
+            }
+            
+            & ul li ul li {
+                background-color: @lightBackgroundColor;
+            }
+
+            & ul li.success {
+                & a:hover {
+                    background-color: @successColor;
+                    color: @successBackground;
+                }
+                & > ul > li > a {
+                    background-color: @successBackground;
+                    color: @successColor;
+                }
+            }
+
+            & ul li.info {
+                & a:hover {
+                    background-color: @infoColor;
+                    color: @infoBackground;
+                }
+                & > ul > li > a {
+                    background-color: @infoBackground;
+                    color: @infoColor;
+                }
+            }
+
+            & ul li.warning {
+                & a:hover {
+                    background-color: @warningColor;
+                    color: @warningBackground;
+                }
+                & > ul > li > a {
+                    background-color: @warningBackground;
+                    color: @warningColor;
+                }
+            }
+
+            & ul li.error {
+                & a:hover {
+                    background-color: @errorColor;
+                    color: @errorBackground;
+                }
+                & > ul > li > a {
+                    background-color: @errorBackground;
+                    color: @errorColor;
+                }
+            }
+
+            & ul li.active {
+                & a:hover {
+                    background-color: @lightActiveColor;
+                    color: @lightActiveBackground;
+                }
+                & > ul > li > a {
+                    background-color: @lightActiveBackground;
+                    color: @lightActiveColor;
+                }
+            }
+
+            & ul li.primary {
+                & a:hover {
+                    background-color: @lightPrimaryText;
+                    color:  @lightPrimaryBackground;
+                }
+                & > ul > li > a {
+                    background-color:  @lightPrimaryBackground;
+                    color: @lightPrimaryText;
+                }
+            }
+        }
+    }
+    .mobile-toggler {
+        color: @lightTextColor;
+    }
 }

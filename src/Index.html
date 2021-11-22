@@ -1484,9 +1484,6 @@
         </div>
         <div id="GridExample"  v-cloak>
             <h3>Grid</h3>
-            <form id="search">
-                 Search <input name="query" v-model="searchQuery" type="text" @keyup="queryChanged" /> 
-            </form>
             <clarity-grid
                 :data="gridData"
                 :columns="gridColumns"
@@ -1495,11 +1492,12 @@
                 :total="total"
                 :page="page"
                 :page-size="pageSize"
-                :pageable="pageable"
+                :paged="pageable"
                 @pagechange="pageChanged"
                 :draggable="true"
                 :group-by="groupBy"
                 @row-clicked="rowClicked"
+                :quick-nav="quickNav"
                 class="hover">
             </clarity-grid>
             <input type="button" value="Toggle Paging" @click="pageable=!pageable" />
@@ -1909,6 +1907,7 @@
                 page:1,
                 total: 101,
                 searchQuery: '',
+                quickNav: true,
                 exportInfo: { exportable: true, fileName: "MyFileExport" },
                 gridColumns: [
                     { property: 'strings', display: 'Strings', dataType: clarity.Grid.ColumnDataType.String, filter: { type: clarity.Grid.FilterType.Dropdown, filtered: true, value: '', comparison: clarity.Grid.ComparisonType.Equals } },
