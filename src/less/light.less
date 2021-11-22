@@ -339,75 +339,377 @@
             & ul li ul li {
                 background-color: @lightBackgroundColor;
             }
-
-            & ul li.success {
-                & a:hover {
-                    background-color: @successColor;
-                    color: @successBackground;
-                }
-                & > ul > li > a {
-                    background-color: @successBackground;
-                    color: @successColor;
-                }
-            }
-
-            & ul li.info {
-                & a:hover {
-                    background-color: @infoColor;
-                    color: @infoBackground;
-                }
-                & > ul > li > a {
-                    background-color: @infoBackground;
-                    color: @infoColor;
-                }
-            }
-
-            & ul li.warning {
-                & a:hover {
-                    background-color: @warningColor;
-                    color: @warningBackground;
-                }
-                & > ul > li > a {
-                    background-color: @warningBackground;
-                    color: @warningColor;
-                }
-            }
-
-            & ul li.error {
-                & a:hover {
-                    background-color: @errorColor;
-                    color: @errorBackground;
-                }
-                & > ul > li > a {
-                    background-color: @errorBackground;
-                    color: @errorColor;
-                }
-            }
-
-            & ul li.active {
-                & a:hover {
-                    background-color: @lightActiveColor;
-                    color: @lightActiveBackground;
-                }
-                & > ul > li > a {
-                    background-color: @lightActiveBackground;
-                    color: @lightActiveColor;
-                }
-            }
-
-            & ul li.primary {
-                & a:hover {
-                    background-color: @lightPrimaryText;
-                    color:  @lightPrimaryBackground;
-                }
-                & > ul > li > a {
-                    background-color:  @lightPrimaryBackground;
-                    color: @lightPrimaryText;
-                }
-            }
         }
     }
     .mobile-toggler {
         color: @lightTextColor;
+    }
+    
+    ul.grouped {
+        &>li {
+            .border(@color: @lightBorderColor);
+        }
+    }
+    
+    .step-list {
+        & > li {
+            .border-left(@color: @lightBorderColor);
+        }
+    
+        & > li:before {
+            color: @lightTextShadowColor;
+        }
+    }
+    
+    ul.breadcrumb {
+        & > li {
+            &:before {
+                color: @lightTextShadowColor;
+            }
+        }
+    }
+
+    button, input[type='button'], input[type='submit'], input[type='reset'] {
+        background: @lightBackgroundHighlightColor;
+        color: @lightTextColor;
+        .roundedBorder(@color: @lightBorderColor);
+            
+        &:active{
+            background: @lightActiveBackground;
+            color: @lightActiveColor;
+            .border(@color:@lightActiveBorder);
+        }
+        
+        
+        &:focus{
+            .depth-1(@color2: @lightCallToActionColor);
+            border-color: @lightActiveBorder;
+        }
+        
+        &:hover{
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#1a000000',GradientType=0);
+            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(40%, rgba(0,0,0, .05)), to(rgba(0,0,0, .10)));
+            background-image: -webkit-linear-gradient(transparent, rgba(0,0,0, .05) 40%, rgba(0,0,0, .10));
+            background-image:    -moz-linear-gradient(top, rgba(0,0,0, .05) 0%, rgba(0,0,0, .10));
+            background-image:      -o-linear-gradient(transparent, rgba(0,0,0, .05) 40%, rgba(0,0,0, .10));
+            background-image:         linear-gradient(transparent, rgba(0,0,0, .05) 40%, rgba(0,0,0, .10));
+        }
+    }
+
+
+    input[type='text'], input[type='password'], input[type='email'], input[type='url'], input[type='date'], input[type='month'], input[type='time'], input[type='datetime'], input[type='datetime-local'], input[type='week'], input[type='number'], input[type='search'], input[type='tel'], input[type='color'], input[type='file'], input[list], select, textarea {
+        background: @lightBackgroundColor;
+        .roundedBorder(@color: @lightBorderColor);
+
+        &:focus {
+            background-color: @lightBackgroundColor;
+            .depth-1(@color2: @lightCallToActionColor);
+            border-color: @lightActiveBorder;
+            color: @lightTextColor;
+        }
+    }
+    
+    .file-upload {
+        border: 2px dashed @lightBorderColor;
+    }
+    
+    .form-table {
+        & tfoot tr:first-child {
+            & td
+            {
+                & a {
+                    .border(@color: @lightBorderColor);
+                    &:hover {
+                        background: @lightCallToActionColor;
+                        color: @lightBackgroundColor;
+                    }
+                }
+            }
+        }
+    }
+
+    input {
+        &[type='file']:focus, &[type='radio']:focus, &[type='checkbox']:focus {
+            outline-color: @lightActiveBorder;
+        }
+    }
+    
+    legend {
+        .border-bottom(@color: @lightBorderColor);
+    }
+
+    input, textarea, select {
+        color: @lightTextColor;
+
+        &:not([type])[disabled],&[disabled], fieldset:disabled & {
+            background-color: @lightBackgroundHighlightColor;
+            color: @lightTextShadowColor;
+        }
+
+        &[readonly] {
+            background-color: @lightBackgroundHighlightColor;
+            color: @lightTextShadowColor;
+        }
+        &:invalid {
+            border-color: @errorBorder;
+            background-color: @errorBackground;
+            color: @errorColor;
+        }
+    }
+
+    
+    *[data-tooltip] {
+        .border-bottom(@style:dotted,@color: @lightBorderColor);
+        &:before,
+        &:after {
+            background: @infoBackground;
+            color:@infoColor;
+        }
+        &:before {
+            .svg-arrow(@infoBackground, up, 0.375em);
+        }
+    }
+
+    [data-tooltip-pos="down"] {
+        &:before {
+            .svg-arrow(@infoBackground, down, 0.375em);
+        }
+    }
+
+    [data-tooltip-pos="left"] {
+        &:before {
+            .svg-arrow(@infoBackground, left, 0.375em);
+        }
+    }
+
+    [data-tooltip-pos="right"] {
+        &:before {
+            .svg-arrow(@infoBackground, right, 0.375em);
+        }
+    }
+
+    .modal {
+        background: rgba(0,0,0,.25);
+    }
+
+    .alert, .panel, .label, .badge {
+        background: @lightBackgroundColor;
+        .border(@color: @lightBorderColor);
+    }
+
+    .panel {
+        & header {
+            .border-bottom(@color: @lightBorderColor);
+        }
+
+        & footer {
+            .border-top(@color: @lightBorderColor);
+        }
+    }
+
+    .primary {
+        color: @lightPrimaryText;
+        background-color: @lightPrimaryBackground;
+        border-color: @lightPrimaryBorder;
+        & a {
+            color: @lightPrimaryText;
+        }
+        .label&, .panel& header, .panel& footer {
+            background-color: @lightPrimaryBackground;
+            color: @lightPrimaryText;
+        }
+        & .body, & tbody tr {
+            color: @lightPrimaryBackground;
+            background-color: @lightPrimaryText;
+            & a {
+                color: @lightCallToActionColor;
+                background-color: transparent;
+            }
+        }
+        & .badge {
+            background: @lightBackgroundColor;
+            color: @lightPrimaryBorder;
+        }
+        input&, textarea&, select&, button& {
+            background-color: @lightPrimaryBackground;
+            color: @lightPrimaryText;
+            border-color: @lightPrimaryBorder;
+        }
+        .menu ul li&,
+        nav ul li& {
+            & a:hover {
+                background-color: @lightPrimaryText;
+                color: @lightPrimaryBackground;
+            }
+            & > ul > li > a {
+                color: @lightPrimaryText;
+                background-color: @lightPrimaryBackground;
+            }
+        }
+    }
+
+    .active {
+        background-color: @lightActiveBackground;
+        color: @lightActiveColor;
+        border-color: @lightActiveBorder;
+        & a {
+            color: @lightActiveColor;
+        }
+        .label&, .panel& header, .panel& footer {
+            background-color: @lightActiveBorder;
+            color: @lightBackgroundColor;
+        }
+        & .badge {
+            background: @lightBackgroundColor;
+            color: @lightActiveBorder;
+        }
+        input&, textarea&, select&, button& {
+            background-color: @lightActiveBackground;
+            color: @lightActiveColor;
+            border-color: @lightActiveBorder;
+        }
+        .menu ul li&,
+        nav ul li& {
+            & a:hover {
+                background-color: @lightActiveColor;
+                color:  @lightActiveBackground;
+            }
+            & > ul > li > a {
+                color: @lightActiveColor;
+                background-color: @lightActiveBackground;
+            }
+        }
+    }
+
+    .success {
+        background-color: @successBackground;
+        color: @successColor;
+        border-color: @successBorder;
+        & a {
+            color: @successColor;
+        }
+        .label&, .panel& header, .panel& footer {
+            background-color: @successBorder;
+            color: @lightBackgroundColor;
+        }
+        & .badge {
+            background: @lightBackgroundColor;
+            color: @successBorder;
+        }
+        input&, textarea&, select&, button& {
+            background-color: @successBackground;
+            color: @successColor;
+            border-color: @successBorder;
+        }
+        .menu ul li&,
+        nav ul li& {
+            & a:hover {
+                background-color: @successColor;
+                color: @successBackground;
+            }
+            & > ul > li > a {
+                background-color: @successBackground;
+                color: @successColor;
+            }
+        }
+    }
+
+    .info {
+        background-color: @infoBackground;
+        color: @infoColor;
+        border-color: @infoBorder;
+        & a {
+            color: @infoColor;
+        }
+        .label&, .panel& header, .panel& footer {
+            background-color: @infoBorder;
+            color: @lightBackgroundColor;
+        }
+        & .badge {
+            background: @lightBackgroundColor;
+            color: @infoBorder;
+        }
+        input&, textarea&, select&, button& {
+            background-color: @infoBackground;
+            color: @infoColor;
+            border-color: @infoBorder;
+        }
+        .menu ul li&,
+        nav ul li& {
+            & a:hover {
+                background-color: @infoColor;
+                color: @infoBackground;
+            }
+            & > ul > li > a {
+                background-color: @infoBackground;
+                color: @infoColor;
+            }
+        }
+    }
+
+    .warning {
+        background-color: @warningBackground;
+        color: @warningColor;
+        border-color: @warningBorder;
+        & a {
+            color: @warningColor;
+        }
+        .label&, .panel& header, .panel& footer {
+            background-color: @warningBorder;
+            color: @lightBackgroundColor;
+        }
+        & .badge {
+            background: @lightBackgroundColor;
+            color: @warningBorder;
+        }
+        input&, textarea&, select&, button& {
+            background-color: @warningBackground;
+            color: @warningColor;
+            border-color: @warningBorder;
+        }
+        .menu ul li&,
+        nav ul li& {
+            & a:hover {
+                background-color: @warningColor;
+                color: @warningBackground;
+            }
+            & > ul > li > a {
+                background-color: @warningBackground;
+                color: @warningColor;
+            }
+        }
+    }
+
+    .error {
+        background-color: @errorBackground;
+        color: @errorColor;
+        border-color: @errorBorder;
+        & a {
+            color: @errorColor;
+        }
+        .label&, .panel& header, .panel& footer {
+            background-color: @errorBorder;
+            color: @lightBackgroundColor;
+        }
+        & .badge {
+            background: @lightBackgroundColor;
+            color: @errorBorder;
+        }
+        input&, textarea&, select&, button& {
+            background-color: @errorBackground;
+            color: @errorColor;
+            .border(@color:@errorBorder);
+        }
+        .menu ul li&,
+        nav ul li& {
+            & a:hover {
+                background-color: @errorColor;
+                color: @errorBackground;
+            }
+            & > ul > li > a {
+                background-color: @errorBackground;
+                color: @errorColor;
+            }
+        }
     }
 }

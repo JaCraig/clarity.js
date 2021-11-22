@@ -58,17 +58,16 @@
 
     
     pre {
-        color: @darkTextColor;
         color: @darkPrimaryShadowColor;
         background-color: @darkBackgroundHighlightColor;
         .roundedBorder(@color:@darkBorderColor);
     }
-    
+
     mark {
         background-color: @darkSecondaryCallToActionColor;
         color: @darkBackgroundColor;
     }
-    
+
     meter {
         &::-webkit-meter-optimum-value {
             background-color: @darkPrimaryBackground;
@@ -138,7 +137,6 @@
     .spinner {
         .roundedBorder(.125em, @color:@darkBorderColor,@radius:@circularCorners);
     }
-
     
     table {
         & tbody tr td, 
@@ -208,7 +206,6 @@
         }
     }
 
-    
     ul.chevron > li,
     ul.dotted > li {
         & > a {
@@ -342,75 +339,377 @@
             & ul li ul li {
                 background-color: @darkBackgroundColor;
             }
-
-            & ul li.success {
-                & a:hover {
-                    background-color: @successColor;
-                    color: @successBackground;
-                }
-                & > ul > li > a {
-                    background-color: @successBackground;
-                    color: @successColor;
-                }
-            }
-
-            & ul li.info {
-                & a:hover {
-                    background-color: @infoColor;
-                    color: @infoBackground;
-                }
-                & > ul > li > a {
-                    background-color: @infoBackground;
-                    color: @infoColor;
-                }
-            }
-
-            & ul li.warning {
-                & a:hover {
-                    background-color: @warningColor;
-                    color: @warningBackground;
-                }
-                & > ul > li > a {
-                    background-color: @warningBackground;
-                    color: @warningColor;
-                }
-            }
-
-            & ul li.error {
-                & a:hover {
-                    background-color: @errorColor;
-                    color: @errorBackground;
-                }
-                & > ul > li > a {
-                    background-color: @errorBackground;
-                    color: @errorColor;
-                }
-            }
-
-            & ul li.active {
-                & a:hover {
-                    background-color: @darkActiveColor;
-                    color: @darkActiveBackground;
-                }
-                & > ul > li > a {
-                    background-color: @darkActiveBackground;
-                    color: @darkActiveColor;
-                }
-            }
-
-            & ul li.primary {
-                & a:hover {
-                    background-color: @darkPrimaryText;
-                    color:  @darkPrimaryBackground;
-                }
-                & > ul > li > a {
-                    background-color: @darkPrimaryBackground;
-                    color: @darkPrimaryText;
-                }
-            }
         }
     }
     .mobile-toggler {
         color: @darkTextColor;
+    }
+    
+    ul.grouped {
+        &>li {
+            .border(@color: @darkBorderColor);
+        }
+    }
+    
+    .step-list {
+        & > li {
+            .border-left(@color: @darkBorderColor);
+        }
+    
+        & > li:before {
+            color: @darkTextShadowColor;
+        }
+    }
+    
+    ul.breadcrumb {
+        & > li {
+            &:before {
+                color: @darkTextShadowColor;
+            }
+        }
+    }
+
+    button, input[type='button'], input[type='submit'], input[type='reset'] {
+        background: @darkBackgroundHighlightColor;
+        color: @darkTextColor;
+        .roundedBorder(@color: @darkBorderColor);
+            
+        &:active{
+            background: @darkActiveBackground;
+            color: @darkActiveColor;
+            .border(@color:@darkActiveBorder);
+        }
+        
+        
+        &:focus{
+            .depth-1(@color2: @darkCallToActionColor);
+            border-color: @darkActiveBorder;
+        }
+        
+        &:hover{
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#1a000000',GradientType=0);
+            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(40%, rgba(0,0,0, .05)), to(rgba(0,0,0, .10)));
+            background-image: -webkit-linear-gradient(transparent, rgba(0,0,0, .05) 40%, rgba(0,0,0, .10));
+            background-image:    -moz-linear-gradient(top, rgba(0,0,0, .05) 0%, rgba(0,0,0, .10));
+            background-image:      -o-linear-gradient(transparent, rgba(0,0,0, .05) 40%, rgba(0,0,0, .10));
+            background-image:         linear-gradient(transparent, rgba(0,0,0, .05) 40%, rgba(0,0,0, .10));
+        }
+    }
+
+
+    input[type='text'], input[type='password'], input[type='email'], input[type='url'], input[type='date'], input[type='month'], input[type='time'], input[type='datetime'], input[type='datetime-local'], input[type='week'], input[type='number'], input[type='search'], input[type='tel'], input[type='color'], input[type='file'], input[list], select, textarea {
+        background: @darkBackgroundColor;
+        .roundedBorder(@color: @darkBorderColor);
+
+        &:focus {
+            background-color: @darkBackgroundColor;
+            .depth-1(@color2: @darkCallToActionColor);
+            border-color: @darkActiveBorder;
+            color: @darkTextColor;
+        }
+    }
+    
+    .file-upload {
+        border: 2px dashed @darkBorderColor;
+    }
+    
+    .form-table {
+        & tfoot tr:first-child {
+            & td
+            {
+                & a {
+                    .border(@color: @darkBorderColor);
+                    &:hover {
+                        background: @darkCallToActionColor;
+                        color: @darkBackgroundColor;
+                    }
+                }
+            }
+        }
+    }
+
+    input {
+        &[type='file']:focus, &[type='radio']:focus, &[type='checkbox']:focus {
+            outline-color: @darkActiveBorder;
+        }
+    }
+    
+    legend {
+        .border-bottom(@color: @darkBorderColor);
+    }
+
+    input, textarea, select {
+        color: @darkTextColor;
+
+        &:not([type])[disabled],&[disabled], fieldset:disabled & {
+            background-color: @darkBackgroundHighlightColor;
+            color: @darkTextShadowColor;
+        }
+
+        &[readonly] {
+            background-color: @darkBackgroundHighlightColor;
+            color: @darkTextShadowColor;
+        }
+        &:invalid {
+            border-color: @errorBorder;
+            background-color: @errorBackground;
+            color: @errorColor;
+        }
+    }
+
+    
+    *[data-tooltip] {
+        .border-bottom(@style:dotted,@color: @darkBorderColor);
+        &:before,
+        &:after {
+            background: @infoBackground;
+            color:@infoColor;
+        }
+        &:before {
+            .svg-arrow(@infoBackground, up, 0.375em);
+        }
+    }
+
+    [data-tooltip-pos="down"] {
+        &:before {
+            .svg-arrow(@infoBackground, down, 0.375em);
+        }
+    }
+
+    [data-tooltip-pos="left"] {
+        &:before {
+            .svg-arrow(@infoBackground, left, 0.375em);
+        }
+    }
+
+    [data-tooltip-pos="right"] {
+        &:before {
+            .svg-arrow(@infoBackground, right, 0.375em);
+        }
+    }
+
+    .modal {
+        background: rgba(0,0,0,.25);
+    }
+
+    .alert, .panel, .label, .badge {
+        background: @darkBackgroundColor;
+        .border(@color: @darkBorderColor);
+    }
+
+    .panel {
+        & header {
+            .border-bottom(@color: @darkBorderColor);
+        }
+
+        & footer {
+            .border-top(@color: @darkBorderColor);
+        }
+    }
+
+    .primary {
+        color: @darkPrimaryText;
+        background-color: @darkPrimaryBackground;
+        border-color: @darkPrimaryBorder;
+        & a {
+            color: @darkPrimaryText;
+        }
+        .label&, .panel& header, .panel& footer {
+            background-color: @darkPrimaryBackground;
+            color: @darkPrimaryText;
+        }
+        & .body, & tbody tr {
+            color: @darkPrimaryBackground;
+            background-color: @darkPrimaryText;
+            & a {
+                color: @darkCallToActionColor;
+                background-color: transparent;
+            }
+        }
+        & .badge {
+            background: @darkBackgroundColor;
+            color: @darkPrimaryBorder;
+        }
+        input&, textarea&, select&, button& {
+            background-color: @darkPrimaryBackground;
+            color: @darkPrimaryText;
+            border-color: @darkPrimaryBorder;
+        }
+        .menu ul li&,
+        nav ul li& {
+            & a:hover {
+                background-color: @darkPrimaryText;
+                color: @darkPrimaryBackground;
+            }
+            & > ul > li > a {
+                color: @darkPrimaryText;
+                background-color: @darkPrimaryBackground;
+            }
+        }
+    }
+
+    .active {
+        background-color: @darkActiveBackground;
+        color: @darkActiveColor;
+        border-color: @darkActiveBorder;
+        & a {
+            color: @darkActiveColor;
+        }
+        .label&, .panel& header, .panel& footer {
+            background-color: @darkActiveBorder;
+            color: @darkBackgroundColor;
+        }
+        & .badge {
+            background: @darkBackgroundColor;
+            color: @darkActiveBorder;
+        }
+        input&, textarea&, select&, button& {
+            background-color: @darkActiveBackground;
+            color: @darkActiveColor;
+            border-color: @darkActiveBorder;
+        }
+        .menu ul li&,
+        nav ul li& {
+            & a:hover {
+                background-color: @darkActiveColor;
+                color:  @darkActiveBackground;
+            }
+            & > ul > li > a {
+                color: @darkActiveColor;
+                background-color: @darkActiveBackground;
+            }
+        }
+    }
+
+    .success {
+        background-color: @successBackground;
+        color: @successColor;
+        border-color: @successBorder;
+        & a {
+            color: @successColor;
+        }
+        .label&, .panel& header, .panel& footer {
+            background-color: @successBorder;
+            color: @darkBackgroundColor;
+        }
+        & .badge {
+            background: @darkBackgroundColor;
+            color: @successBorder;
+        }
+        input&, textarea&, select&, button& {
+            background-color: @successBackground;
+            color: @successColor;
+            border-color: @successBorder;
+        }
+        .menu ul li&,
+        nav ul li& {
+            & a:hover {
+                background-color: @successColor;
+                color: @successBackground;
+            }
+            & > ul > li > a {
+                background-color: @successBackground;
+                color: @successColor;
+            }
+        }
+    }
+
+    .info {
+        background-color: @infoBackground;
+        color: @infoColor;
+        border-color: @infoBorder;
+        & a {
+            color: @infoColor;
+        }
+        .label&, .panel& header, .panel& footer {
+            background-color: @infoBorder;
+            color: @darkBackgroundColor;
+        }
+        & .badge {
+            background: @darkBackgroundColor;
+            color: @infoBorder;
+        }
+        input&, textarea&, select&, button& {
+            background-color: @infoBackground;
+            color: @infoColor;
+            border-color: @infoBorder;
+        }
+        .menu ul li&,
+        nav ul li& {
+            & a:hover {
+                background-color: @infoColor;
+                color: @infoBackground;
+            }
+            & > ul > li > a {
+                background-color: @infoBackground;
+                color: @infoColor;
+            }
+        }
+    }
+
+    .warning {
+        background-color: @warningBackground;
+        color: @warningColor;
+        border-color: @warningBorder;
+        & a {
+            color: @warningColor;
+        }
+        .label&, .panel& header, .panel& footer {
+            background-color: @warningBorder;
+            color: @darkBackgroundColor;
+        }
+        & .badge {
+            background: @darkBackgroundColor;
+            color: @warningBorder;
+        }
+        input&, textarea&, select&, button& {
+            background-color: @warningBackground;
+            color: @warningColor;
+            border-color: @warningBorder;
+        }
+        .menu ul li&,
+        nav ul li& {
+            & a:hover {
+                background-color: @warningColor;
+                color: @warningBackground;
+            }
+            & > ul > li > a {
+                background-color: @warningBackground;
+                color: @warningColor;
+            }
+        }
+    }
+
+    .error {
+        background-color: @errorBackground;
+        color: @errorColor;
+        border-color: @errorBorder;
+        & a {
+            color: @errorColor;
+        }
+        .label&, .panel& header, .panel& footer {
+            background-color: @errorBorder;
+            color: @darkBackgroundColor;
+        }
+        & .badge {
+            background: @darkBackgroundColor;
+            color: @errorBorder;
+        }
+        input&, textarea&, select&, button& {
+            background-color: @errorBackground;
+            color: @errorColor;
+            .border(@color:@errorBorder);
+        }
+        .menu ul li&,
+        nav ul li& {
+            & a:hover {
+                background-color: @errorColor;
+                color: @errorBackground;
+            }
+            & > ul > li > a {
+                background-color: @errorBackground;
+                color: @errorColor;
+            }
+        }
     }
 }

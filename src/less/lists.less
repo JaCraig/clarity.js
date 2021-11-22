@@ -39,8 +39,6 @@ ul.grouped {
         position: relative;
         display: block;
         padding: .5em .8em;
-        background-color: @lightBackgroundColor;
-        .border;
         
         &:first-child {
             border-top-left-radius: @roundedCorner;
@@ -104,7 +102,6 @@ ul.arrow {
     counter-reset: li;
 
     & > li {
-        .border-left;
         position: relative;
         padding: 0 .625em;
         margin: .625em;
@@ -116,7 +113,6 @@ ul.arrow {
         content: counter(li);
         counter-increment: li;
         font-size: 2em;
-        color: @lightBorderColor;
         left: 0;
         top: .3125em;
         margin-left: -1.5em;
@@ -142,7 +138,6 @@ ul.breadcrumb {
         }
 
         &:before {
-            color: @lightBorderColor;
             content: '/';
             margin-right: .5em;
         }

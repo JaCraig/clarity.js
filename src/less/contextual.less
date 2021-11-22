@@ -24,9 +24,6 @@
     display: block;
     padding: 1em;
     line-height: 1;
-    color: @lightTextColor;
-    background-color: @lightBackgroundColor;
-    .border;
     border-radius: .25em;
     margin-bottom: .5em;
     
@@ -43,7 +40,6 @@
 
 *[data-tooltip] {
     cursor: help;
-    .border-bottom(@style:dotted,@color: @lightBorderColor);
     position: relative;
     display: inline-block;
     &:before,
@@ -60,10 +56,7 @@
         width: 100%;
     }
     &:after {
-        background: @infoBackground;
-        color:@infoColor;
         font-size: .8em;
-        .roundedBorder;
         .layer(2);
         .depth-1;
         content: attr(data-tooltip);
@@ -71,7 +64,6 @@
         margin-bottom:.5em;
     }
     &:before {
-        .svg-arrow(@infoBackground, up, 0.375em);
         content: "";
         margin-bottom:0.1875em;
     }
@@ -97,7 +89,6 @@
         margin-top: 0.375em;
     }
     &:before {
-        .svg-arrow(@infoBackground, down, 0.375em);
         margin-top: 0.1875em;
         margin-bottom: 0;
     }
@@ -122,7 +113,6 @@
         margin-right: 0.375em;
     }
     &:before {
-        .svg-arrow(@infoBackground, left, 0.375em);
         margin-right: 0.1875em;
         margin-bottom: 0;
     }
@@ -146,7 +136,6 @@
         margin-left: 0.375em;
     }
     &:before {
-        .svg-arrow(@infoBackground, right, 0.375em);
         margin-bottom: 0;
         margin-left: 0.1875em;
     }
@@ -174,7 +163,6 @@
     left:0;
     height:100%;
     width:100%;
-    background: rgba(0,0,0,.25);
     padding:5% 5%;
     .layer(3);
     .opacity(0);
@@ -198,29 +186,11 @@
         padding: 1em;
     }
 
-    &.primary .body {
-        background-color: @lightBackgroundColor;
-        color: @lightPrimaryBackground;
-
-        & a {
-            color: @lightPrimaryBackground;
-            background-color: clear;
-        }
-    }
-
     & header,
     & footer {
         padding: 1em;
     }
 
-    & header {
-        .border-bottom;
-    }
-
-    & footer {
-        .border-top;
-    }
-    
     & ul.grouped {
         margin: 0;
         border-radius: 0;
@@ -238,8 +208,6 @@
     padding: .2em .6em .3em;
     font-weight: @defaultFontWeightBold;
     line-height: 1;
-    color: @lightBackgroundColor;
-    background-color: @lightBorderColor;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
@@ -253,185 +221,12 @@
     font-size: .8em;
     font-weight: @defaultFontWeightBold;
     line-height: 1;
-    color: @lightBackgroundColor;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
-    background-color: @lightBorderColor;
     border-radius: @circularCorners;
-}
-
-.primary {
-
-    & a {
-        color: @lightPrimaryText;
-    }
-
-    & thead tr {
-        background-color: @lightPrimaryBackground;
-    }
-
-    & tfoot tr {
-        background-color: @lightPrimaryBackground;
-    }
-    & tbody tr, & tbody tr a {
-        color: @lightPrimaryBackground;
-    }
-}
-
-.primary, .panel.primary header, .panel.primary footer {
-    color: @lightPrimaryText;
-    background-color: @lightPrimaryBackground;
-}
-
-.active {
-    background-color: @lightActiveBackground;
-    color: @lightActiveColor;
-}
-
-.active a {
-    color: @lightActiveColor;
-}
-
-.success {
-    background-color: @successBackground;
-    color: @successColor;
-}
-.success a {
-    color: @successColor;
-}
-
-.info {
-    background-color: @infoBackground;
-    color: @infoColor;
-}
-
-.info a {
-    color: @infoColor;
-}
-
-.warning {
-    background-color: @warningBackground;
-    color: @warningColor;
-}
-
-.warning a {
-    color: @warningColor;
-}
-
-.error {
-    background-color: @errorBackground;
-    color: @errorColor;
-}
-
-.error a {
-    color: @errorColor;
 }
 
 .primary a, .active a, .success a, .info a, .warning a, .error a {
     font-weight: @defaultFontWeightBold;
-}
-
-.label.success, .panel.success header, .panel.success footer {
-    background-color: @successBorder;
-    color: @lightBackgroundColor;
-}
-
-.label.info, .panel.info header, .panel.info footer {
-    background-color: @infoBorder;
-    color: @lightBackgroundColor;
-}
-
-.label.warning, .panel.warning header, .panel.warning footer {
-    background-color: @warningBorder;
-    color: @lightBackgroundColor;
-}
-
-.label.error, .panel.error header, .panel.error footer {
-    background-color: @errorBorder;
-    color: @lightBackgroundColor;
-}
-
-.label.active, .panel.active header, .panel.active footer {
-    background-color: @lightActiveBorder;
-    color: @lightBackgroundColor;
-}
-
-.alert.primary, .panel.primary {
-    border-color: @lightPrimaryBorder;
-}
-
-.alert.success, .panel.success {
-    border-color: @successBorder;
-}
-
-.alert.info, .panel.info {
-    border-color: @infoBorder;
-}
-
-.alert.warning, .panel.warning {
-    border-color: @warningBorder;
-}
-
-.alert.error, .panel.error {
-    border-color: @errorBorder;
-}
-
-.alert.active, .panel.active {
-    border-color: @lightActiveBorder;
-}
-
-.label .badge {
-    background: @lightBackgroundColor;
-    color: @lightBorderColor;
-}
-
-.label.success .badge {
-    color: @successBorder;
-}
-
-.label.info .badge {
-    color: @infoBorder;
-}
-
-.label.warning .badge {
-    color: @warningBorder;
-}
-
-.label.error .badge {
-    color: @errorBorder;
-}
-
-.label.active .badge {
-    color: @lightActiveColor;
-}
-
-.primary .badge {
-    color: @lightPrimaryBackground;
-    background: @lightBackgroundColor;
-}
-
-.active .badge {
-    background: @lightBackgroundColor;
-    color: @lightPrimaryBackground;
-}
-
-.success .badge {
-    background: @lightBackgroundColor;
-    color: @successBorder;
-}
-
-.info .badge {
-    background: @lightBackgroundColor;
-    color: @infoBorder;
-}
-
-.warning .badge {
-    background: @lightBackgroundColor;
-    color: @warningBorder;
-}
-
-.error .badge {
-    background: @lightBackgroundColor;
-    color: @errorBorder;
 }
