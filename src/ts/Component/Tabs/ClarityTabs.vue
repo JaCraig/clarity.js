@@ -1,5 +1,5 @@
 <template>
-    <div class="tabs" v-cloak>
+    <div class="clarity-tabs" v-cloak>
         <header>
             <ul class="row flex align-items-stretch">
                 <li v-for="(section, index) in sections" v-bind:key="index">
@@ -21,60 +21,64 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import Tab from "./Tab";
 
 export default Vue.defineComponent({
     methods: {
-        findTab: function(tabName: string) {
+        findTab: function(tabName: string): Tab {
             if(!this.sections || this.sections.length === 0) {
                 return null;
             }
-            if(!tabName || tabName === undefined){
+            if(!tabName){
                 tabName = this.sections[0].name;
             }
             return this.sections.filter((x:any) =>  x.name === tabName)[0];
         },
-        switchSelected: function (item: string) {
+        switchSelected: function (item: string): void {
             this.sectionPicked = this.findTab(item);
             this.switchTabs();
             this.$emit("section-changed", this.sectionPicked);
         },
-        switchTabs: function() {
-            if (this.sections === undefined) {
+        switchTabs: function(): void {
+            if (!this.sections || this.sections.length === 0) {
                 return;
             }
             if (!this.sections.some((x: any) => x === this.sectionPicked)) {
                 this.sectionPicked = this.sections[0];
             }
-            if (this.sectionPicked === undefined) {
+            if (!this.sectionPicked) {
                 return;
             }
-            this.sectionPicked.selected = true;
             for (let x = 0; x < this.sections.length; ++x) {
-                if (this.sectionPicked !== this.sections[x]) {
-                    this.sections[x].selected = false;
-                }
+                this.sections[x].selected = false;
             }
+            this.sectionPicked.selected = true;
         },
     },
     props: {
-        initialSectionPicked: Object,
-        sections: Array,
+        initialSectionPicked: {
+            type: Object,
+            default: {}
+        },
+        sections: {
+            type: Array,
+            default: []
+        }
     },
     watch: {
-        sections: function(value) {
+        sections: function(value): void {
             this.switchSelected(this.sectionPicked);
         },
-        initialSectionPicked: function(value) {
+        initialSectionPicked: function(value): void {
             this.switchSelected(this.initialSectionPicked);
         }
     },
     data() {
-        let tempSectionPicked = this.findTab(this.initialSectionPicked);
         return {
-            sectionPicked: tempSectionPicked,
+            sectionPicked: this.findTab(this.initialSectionPicked),
         };
     },
-    beforeMount: function() {
+    beforeMount: function(): void {
         this.switchSelected(this.initialSectionPicked);
     }
 });

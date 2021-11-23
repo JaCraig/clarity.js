@@ -31,7 +31,7 @@ export default [
 			format: "cjs",
 		},
 		plugins: [
-			copy({ assets: [{ source: "index.html", destination: "./index.html" }] }),
+			copy({ assets: [{ source: "index.html", destination: "./index.html" },{ source: "index2.html", destination: "./index2.html" }] }),
 		],
 	},
 	// Image files

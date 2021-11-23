@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-/// <reference path="FunctionExtensions.ts" />
+import "./FunctionExtensions";
 
 //Handles error logging
 export class ErrorLogging {

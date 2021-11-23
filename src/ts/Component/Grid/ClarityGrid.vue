@@ -1,5 +1,5 @@
 <template>
-    <div v-cloak class="grid-component">
+    <div v-cloak class="clarity-grid">
         <div class="panel">
             <div class="body">
                 <div class="right do-not-print flex column" v-if="searchable">

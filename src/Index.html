@@ -871,7 +871,7 @@
                         <li class="item"><a href="#">Sub Link 3</a></li>
                     </ul>
                 </li>
-                <li class="item drop-down has-children">
+                <li class="item has-children">
                     <a href="#">Drop Down Sub Menu</a>
                     <ul>
                         <li class="item"><a href="#">Sub Link 1</a></li>
@@ -905,30 +905,6 @@
             </ul>
         </div>
         <hr />
-        <h3>Mobile Horizontal Menu</h3>
-        <div>
-            <div class="menu horizontal mobile">
-                <ul>
-                    <li class="heading">Browse</li>
-                    <li class="item"><a href="#">Back</a></li>
-                    <li class="item"><a href="#">Forward</a></li>
-                    <li class="separator"></li>
-                    <li class="heading">Clipboard</li>
-                    <li class="item"><a href="#">Copy</a></li>
-                    <li class="item"><a href="#">Cut</a></li>
-                    <li class="item"><a href="#">Paste</a></li>
-                    <li class="separator"></li>
-                    <li class="heading">Screenshot</li>
-                    <li class="item has-children">
-                        <a href="#">Options</a>
-                        <ul>
-                            <li class="item"><a href="#">Whole screen</a></li>
-                            <li class="item"><a href="#">Portion of screen</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
         <hr />
         <h3>Horizontal Menu</h3>
         <div class="menu horizontal">
@@ -1482,6 +1458,18 @@
                 </div>
             </clarity-modal>
         </div>
+        <div id="AlertExample"  v-cloak>
+            <h3>Alert</h3>
+            <button @click="show = !show">Toggle Alert</button>
+            <clarity-alert :show="show" class="success">
+                You successfully clicked the button. Yay or something.
+            </clarity-alert>
+        </div>
+        <div id="ContentLoaderExample"  v-cloak>
+            <h3>Content Loader</h3>
+            <clarity-content-loader :url="'index2.html'">
+            </clarity-content-loader>
+        </div>
         <div id="GridExample"  v-cloak>
             <h3>Grid</h3>
             <clarity-grid
@@ -1898,6 +1886,17 @@
                 }
             }
         })).mount('#ModalExample');
+        window.clarity.instance.SetupComponents(Vue.createApp({
+            el: '#AlertExample',
+            data: function() {
+                return {
+                    show: false
+                };
+            }
+        })).mount('#AlertExample');
+        window.clarity.instance.SetupComponents(Vue.createApp({
+            el: '#ContentLoaderExample'
+        })).mount('#ContentLoaderExample');
         window.clarity.instance.SetupComponents(Vue.createApp({
             el: '#GridExample',
             data: function(){

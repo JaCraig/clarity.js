@@ -23,10 +23,6 @@ import { LocalStorage } from "./Framework/WebStorage/LocalStorage";
 import { SessionStorage } from "./Framework/WebStorage/SessionStorage";
 import { Request, StorageMode } from "./Framework/AJAX/Request";
 import { DatabaseConnection } from "./Framework/Database/Database";
-import { Closer } from "./Component/Closer/Closer";
-import { DropDown } from "./Component/DropDown/DropDown";
-import { Mobile } from "./Component/Mobile/Mobile";
-import { IComponent } from "./Component/Interfaces/IComponent";
 import SetupPolyfills from "./Framework/Polyfills/Polyfill";
 import { Downloader } from "./Framework/IO/Downloader";
 
@@ -49,6 +45,8 @@ import ClarityFormFieldComplexList from './Component/FormGenerator/Fields/Clarit
 import ClarityFormFieldComplexTabs from './Component/FormGenerator/Fields/ClarityFormFieldComplexTabs.vue';
 import ClarityFormFieldComplex from './Component/FormGenerator/Fields/ClarityFormFieldComplex.vue';
 import ClarityFormFieldRepeater from './Component/FormGenerator/Fields/ClarityFormFieldComplexRepeater.vue';
+import ClarityAlert from './Component/Alert/ClarityAlert.vue';
+import ClarityContentLoader from './Component/ContentLoader/ClarityContentLoader.vue';
 
 import { RegisterDirectives } from "./Component/VueExtensions/VueDirectives";
 import { RegisterFilters } from "./Component/VueExtensions/VueFilters";
@@ -69,8 +67,6 @@ class Clarity {
         this.sessionStorage = new SessionStorage();
         this.request = new Request("", "");
 
-        this.components = [ new Closer(), new DropDown(), new Mobile() ];
-
         window.addEventListener("keydown", x => this.hotkeys.press(x));
         window.addEventListener("load", x => this.validation.initialize(), false);
         window.onerror = (msg, url, ln, col, error) => {
@@ -79,9 +75,6 @@ class Clarity {
         this.errorLogger.setLoggingFunction((message:string, stack: string) => { console.log(message); });
         SetupPolyfills();
     }
-
-    // the various components
-    private components: Array<IComponent>;
 
     // the hotkeys object
     public hotkeys: Hotkeys;
@@ -128,6 +121,8 @@ class Clarity {
         app.component('clarity-form-field-buttons', ClarityFormFieldButtons);
         app.component('clarity-form-field-complex-repeater', ClarityFormFieldRepeater);
         app.component('clarity-form-validator', ClarityFormValidator);
+        app.component('clarity-alert', ClarityAlert);
+        app.component('clarity-content-loader', ClarityContentLoader);
         RegisterFilters(app);
         return RegisterDirectives(app);
     }

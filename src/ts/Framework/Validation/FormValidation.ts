@@ -85,6 +85,9 @@ export class FormValidation {
 
     // Initialize an individual form
     public initializeForm(form: HTMLFormElement): void {
+        if (form == null) {
+            return;
+        }
         let inputElements = this.map(form.getElementsByTagName("input"), x => <HTMLInputElement>x).filter(x => x.willValidate);
         for (let x = 0; x < inputElements.length; ++x) {
             if (inputElements[x].type.toUpperCase() === "RADIO"
@@ -180,6 +183,9 @@ export class FormValidation {
 
     // Validates all elements in the form, returning the list of error messages.
     public validateForm(form: HTMLFormElement): String[] {
+        if (form == null) {
+            return [];
+        }
         let result: String[] = [];
         this.errors = [];
         let inputElements = this.filter(form.getElementsByTagName("input"),
@@ -208,6 +214,9 @@ export class FormValidation {
 
     // Validates an individual element, returning the list of error messages.
     public validateElement(element: HTMLElement): String[] {
+        if (element == null) {
+            return [];
+        }
         let result: String[] = [];
         if (element.tagName === "INPUT" && !this.validateInput((<HTMLInputElement>element))) {
             let tempResults = this.getErrorMessages((<HTMLInputElement>element), (<HTMLInputElement>element).validity)

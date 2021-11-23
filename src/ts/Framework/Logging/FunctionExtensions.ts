@@ -61,3 +61,5 @@ Function.prototype.getName = function () {
     }
     return "anonymous";
 };
+
+export {}

@@ -22,13 +22,28 @@ export function RegisterFilters(app: Vue.App<Element>):Vue.App<Element> {
             if (!date) {
                 return "N/A";
             }
+            format = format || "MM/D/YYYY h:mm:ss A"
             return moment(date, "YYYY-MM-DDThh:mm:ss").format(format);
         },
         capitalize: function (str: string) {
-        if (!str) {
-            return "";
-        }
-        return str.charAt(0).toUpperCase() + str.slice(1);
+            if (!str) {
+                return "";
+            }
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        },
+        maxsize: function (value: string, size: number) {
+            if (!value) {
+                return "";
+            }
+            return value.substr(0, size) + "...";
+        },
+        currency: function (value: number, locales?:string, format?: Intl.NumberFormatOptions) {
+            if (!value) {
+                return "";
+            }
+            locales = locales || "en-US";
+            format = format || { style: 'currency', currency: 'USD' };
+            return Intl.NumberFormat(locales, format).format(value);
         }
     };
     return app;

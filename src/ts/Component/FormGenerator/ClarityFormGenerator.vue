@@ -1,21 +1,19 @@
 
 <template>
-  <div v-cloak>
-        <form :action="action" class="stacked" @reset="reset" @submit="submit" method="post">
-            <clarity-form-validator ref="validation">
-                <slot name="validationHeader">The following errors were found</slot>
-            </clarity-form-validator>
-            <clarity-form-field-complex
-                :schema="schema"
-                :model="model"
-                :idSuffix="getIDSuffix()"
-                @changed="setModelValue"
-                @click="buttonClicked"
-                @error="error"
-                @exception="exception">
-            </clarity-form-field-complex>
-        </form>
-    </div>
+    <form :action="action" class="stacked clarity-form" @reset="reset" @submit="submit" method="post" v-cloak>
+        <clarity-form-validator ref="validation">
+            <slot name="validationHeader">The following errors were found</slot>
+        </clarity-form-validator>
+        <clarity-form-field-complex
+            :schema="schema"
+            :model="model"
+            :idSuffix="getIDSuffix()"
+            @changed="setModelValue"
+            @click="buttonClicked"
+            @error="error"
+            @exception="exception">
+        </clarity-form-field-complex>
+    </form>
 </template>
 
 <script lang="ts">

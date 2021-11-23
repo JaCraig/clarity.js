@@ -1,7 +1,7 @@
 
 <template>
-    <div :class="{'modal': true, 'show': showModal}" v-cloak>
-        <div :class="['panel', classes]">
+    <div :class="{'clarity-modal': true, 'show': showModal}" v-cloak>
+        <div :class="['panel', cssClasses]">
             <header><slot name="header">Header</slot></header>
             <div class="body"><slot name="body">Body</slot></div>
             <footer>
@@ -19,7 +19,6 @@ import Vue from 'vue'
 export default Vue.defineComponent({
     data() {
         return {
-            classes: this.cssClasses,
         };
     },
     methods: {
