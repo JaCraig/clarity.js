@@ -33,6 +33,6 @@ export class ErrorLogging {
 
     //called when an error is thrown.
     public onError(message: string, filename?: string, lineno?: number, colno?: number, error?:Error): void { 
-        this.logError(message, error.stack);
+        this.logError(message, error?.stack ?? "");
     }
 }

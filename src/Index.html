@@ -6,6 +6,7 @@
     <title>Clarity CSS Framework</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.20/vue.global.prod.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
     <link rel="stylesheet" href="clarity.min.css">
     <style>
         .mainContent {
@@ -1470,6 +1471,11 @@
             <clarity-content-loader :url="'index2.html'">
             </clarity-content-loader>
         </div>
+        <div id="SimpleEditorExample"  v-cloak>
+            <h3>Simple Editor</h3>
+            <clarity-simple-editor :title="'My Editor'">
+            </clarity-simple-editor>
+        </div>
         <div id="GridExample"  v-cloak>
             <h3>Grid</h3>
             <clarity-grid
@@ -1565,6 +1571,10 @@
     <script type="module">
         clarity.init();
         window.clarity.instance.hotkeys.bind('a b c', function(){ console.log('pressed'); });
+        window.clarity.instance.SetupComponents(Vue.createApp({
+            el: '#SimpleEditorExample'
+        }))
+        .mount('#SimpleEditorExample');
         window.clarity.instance.SetupComponents(Vue.createApp({
             el: '#FormValidationExample',
             data: function() {

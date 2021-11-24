@@ -47,6 +47,7 @@ import ClarityFormFieldComplex from './Component/FormGenerator/Fields/ClarityFor
 import ClarityFormFieldRepeater from './Component/FormGenerator/Fields/ClarityFormFieldComplexRepeater.vue';
 import ClarityAlert from './Component/Alert/ClarityAlert.vue';
 import ClarityContentLoader from './Component/ContentLoader/ClarityContentLoader.vue';
+import ClaritySimpleEditor from './Component/Editor/SimpleEditor.vue';
 
 import { RegisterDirectives } from "./Component/VueExtensions/VueDirectives";
 import { RegisterFilters } from "./Component/VueExtensions/VueFilters";
@@ -123,6 +124,7 @@ class Clarity {
         app.component('clarity-form-validator', ClarityFormValidator);
         app.component('clarity-alert', ClarityAlert);
         app.component('clarity-content-loader', ClarityContentLoader);
+        app.component("clarity-simple-editor", ClaritySimpleEditor);
         RegisterFilters(app);
         return RegisterDirectives(app);
     }

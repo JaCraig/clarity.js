@@ -19,7 +19,7 @@ import copy from './build/rollup-plugin-copy';
 
 const external = Object.keys(pkg.dependencies);
 const isProduction = !process.env.ROLLUP_WATCH;
-const globals = { vue: 'Vue', moment: 'moment' };
+const globals = { vue: 'Vue', moment: 'moment', showdown: 'showdown' };
 
 
 export default [
