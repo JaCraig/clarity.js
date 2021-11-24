@@ -2,14 +2,14 @@
 <template>
     <div>
         <label :for="getFieldID()" v-if="!schema.label && label" :class="schema.labelClasses">
-            {{ schema.model | capitalize }}
+            {{ $filters.capitalize(schema.model) }}
             <span class="error clear-background" v-if="schema.required">*</span>
-            <i class="clear-background info fa-info-circle no-border small" v-if="schema.hint">{{ schema.hint }}</i>
+            <i class="clear-background active no-border small" v-if="schema.hint"><span class="fas fa-info-circle"></span>{{ schema.hint }}</i>
         </label>
         <label :for="getFieldID()" v-if="schema.label && label" :class="schema.labelClasses">
             {{ schema.label }}
             <span class="error clear-background" v-if="schema.required">*</span>
-            <i class="clear-background info fa-info-circle no-border small" v-if="schema.hint">{{ schema.hint }}</i>
+            <i class="clear-background active no-border small" v-if="schema.hint"><span class="fas fa-info-circle"></span>{{ schema.hint }}</i>
         </label>
         <textarea :id="getFieldID()"
                 v-model="model"
@@ -30,7 +30,7 @@
                 :data-error-message-too-long="schema.errorMessageTooLong"
                 :data-error-message-too-short="schema.errorMessageTooShort">
         </textarea>
-        <div class="clear-background fa-info-circle info right small" v-if="schema.maxlength">
+        <div class="clear-background active right small" v-if="schema.maxlength"><span class="fas fa-info-circle"></span>
             {{ schema.maxlength - model.length }} characters remaining ({{ schema.maxlength }} max)
         </div>
         <br class="clear" />
@@ -40,7 +40,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({
+export default Vue.defineComponent({
     props: {
         model: Object,
         schema: Object,

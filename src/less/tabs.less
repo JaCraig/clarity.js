@@ -15,21 +15,19 @@
 */
 @import (reference) 'styles.less';
 
-.tabs
+.clarity-tabs
 {
     position: relative;
     
     &>section
     {
         padding: 1em;
-        background-color: @backgroundColor;
     }
     
     
     &>header
     {
         padding:0;
-        background-color: @lightBorderColor;
         
         &>ul
         {
@@ -47,8 +45,6 @@
                 
                 &>a
                 {
-                    background-color: @lightBorderColor;
-                    color: @darkBorderColor;
                     display: block;
                     width: 100%;
                     line-height: 1.8em;
@@ -56,12 +52,6 @@
                     text-decoration: none;
                     outline: 0 none;
                     padding: 0.5em 0.5em;
-                    .border-left;
-                    
-                    &:hover,&.selected {
-                        background-color: @backgroundColor;
-                        color: @textColor;
-                    }
                 }
                 
                 &:first-child>a
@@ -74,7 +64,6 @@
     
     &.vertical
     {
-        background-color: @lightBorderColor;
         display: flex;
         flex-flow: row;
                 
@@ -83,7 +72,6 @@
             flex: 1 1 100%;
             align-items: stretch;
             padding: 1em;
-            background-color: @backgroundColor;
         }
         
         &>header
@@ -101,7 +89,6 @@
                     flex: 1 1 auto;
                     &>a
                     {
-                        .border-top;
                         border-left: none;
                     }
                     

@@ -1,7 +1,7 @@
 
 <template>
     <div class="flex row text-center">
-        <div class="flex-item" v-for="(value) in schema.values" v-bind:key="value">
+        <div v-for="(value) in schema.values" v-bind:key="value">
             <input :id="getFieldID(value)"
                 type="radio"
                 :checked="isItemChecked(value)"
@@ -12,7 +12,7 @@
                 :class="schema.inputClasses"
                 />
             <label :for="getFieldID(value)">
-                {{ value | capitalize }}
+                {{ $filters.capitalize(value) }}
             </label>
         </div>
     </div>
@@ -21,7 +21,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({
+export default Vue.defineComponent({
     props: {
         model: Object,
         schema: Object,

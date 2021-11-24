@@ -1,29 +1,25 @@
 
 <template>
-  <div v-cloak>
-        <form :action="action" class="stacked" @reset="reset" @submit="submit" method="post">
-            <clarity-form-validator ref="validation">
-                <slot name="validationHeader">The following errors were found</slot>
-            </clarity-form-validator>
-            <clarity-form-field-complex
-                :schema="schema"
-                :model="model"
-                :idSuffix="getIDSuffix()"
-                @changed="setModelValue"
-                @click="buttonClicked"
-                @error="error"
-                @exception="exception">
-            </clarity-form-field-complex>
-        </form>
-    </div>
+    <form :action="action" class="stacked clarity-form" @reset="reset" @submit="submit" method="post" v-cloak>
+        <clarity-form-validator ref="validation">
+            <slot name="validationHeader">The following errors were found</slot>
+        </clarity-form-validator>
+        <clarity-form-field-complex
+            :schema="schema"
+            :model="model"
+            :idSuffix="getIDSuffix()"
+            @changed="setModelValue"
+            @click="buttonClicked"
+            @error="error"
+            @exception="exception">
+        </clarity-form-field-complex>
+    </form>
 </template>
 
 <script lang="ts">
-import { Request } from '../../Framework/AJAX/Request'
-import Vue from 'vue'
-import ClarityFormValidator from '../FormValidation/ClarityFormValidator.vue'
-import { RegisterFilters } from '../VueExtensions/VueFilters'
-import { RegisterDirectives } from '../VueExtensions/VueDirectives'
+import { Request } from '../../Framework/AJAX/Request';
+import Vue from 'vue';
+import ClarityFormValidator from '../FormValidation/ClarityFormValidator.vue';
 import ClarityFormFieldInput from './Fields/ClarityFormFieldInput.vue';
 import ClarityFormFieldSelect from './Fields/ClarityFormFieldSelect.vue';
 import ClarityFormFieldCheckbox from './Fields/ClarityFormFieldCheckbox.vue';
@@ -38,27 +34,22 @@ import ClarityFormFieldComplexTabs from './Fields/ClarityFormFieldComplexTabs.vu
 import ClarityFormFieldComplex from './Fields/ClarityFormFieldComplex.vue';
 import ClarityFormFieldRepeater from './Fields/ClarityFormFieldComplexRepeater.vue';
 
-
-Vue.component('clarity-form-field-complex',ClarityFormFieldComplex);
-Vue.component('clarity-form-field-complex-conditional',ClarityFormFieldComplexConditional);
-Vue.component('clarity-form-field-complex-list',ClarityFormFieldComplexList);
-Vue.component('clarity-form-field-complex-tabs',ClarityFormFieldComplexTabs);
-Vue.component('clarity-form-field-input', ClarityFormFieldInput);
-Vue.component('clarity-form-field-select', ClarityFormFieldSelect);
-Vue.component('clarity-form-field-checkbox', ClarityFormFieldCheckbox);
-Vue.component('clarity-form-field-radio', ClarityFormFieldRadio);
-Vue.component('clarity-form-field-textarea', ClarityFormFieldTextarea);
-Vue.component('clarity-form-field-text', ClarityFormFieldText);
-Vue.component('clarity-form-field-upload', ClarityFormFieldUpload);
-Vue.component('clarity-form-field-buttons', ClarityFormFieldButtons);
-Vue.component('clarity-form-field-complex-repeater', ClarityFormFieldRepeater);
-
-RegisterFilters();
-RegisterDirectives();
-
-export default Vue.extend({
+export default Vue.defineComponent({
     components: {
-        "clarity-form-field-complex": ClarityFormFieldComplex
+        "clarity-form-field-complex": ClarityFormFieldComplex,
+        'clarity-form-field-complex-conditional':ClarityFormFieldComplexConditional,
+        'clarity-form-field-complex-list':ClarityFormFieldComplexList,
+        'clarity-form-field-complex-tabs':ClarityFormFieldComplexTabs,
+        'clarity-form-field-input': ClarityFormFieldInput,
+        'clarity-form-field-select': ClarityFormFieldSelect,
+        'clarity-form-field-checkbox': ClarityFormFieldCheckbox,
+        'clarity-form-field-radio': ClarityFormFieldRadio,
+        'clarity-form-field-textarea': ClarityFormFieldTextarea,
+        'clarity-form-field-text': ClarityFormFieldText,
+        'clarity-form-field-upload': ClarityFormFieldUpload,
+        'clarity-form-field-buttons': ClarityFormFieldButtons,
+        'clarity-form-field-complex-repeater': ClarityFormFieldRepeater,
+        'clarity-form-validator': ClarityFormValidator
     },
     data: function(){
         return {

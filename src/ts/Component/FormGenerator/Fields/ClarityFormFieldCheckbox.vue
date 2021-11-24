@@ -14,7 +14,7 @@
                 :class="schema.inputClasses"
                 />
         <label :for="getFieldID()" v-if="!schema.label" :class="schema.labelClasses">
-            {{ schema.model | capitalize }}
+            {{ $filters.capitalize(schema.model) }}
             <span class="error clear-background" v-if="schema.required">*</span>
         </label>
         <label :for="getFieldID()" v-if="schema.label" :class="schema.labelClasses">
@@ -27,7 +27,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({
+export default Vue.defineComponent({
     props: {
         model: Object,
         schema: Object,

@@ -6,15 +6,15 @@
                 <tr>
                     <th v-for="(item) in schema.fields" v-bind:key="generateGuid(item)">
                         <span v-if="item.label">
-                            {{ item.label | capitalize }}
+                            {{ $filters.capitalize(item.label) }}
                         </span>
                         <span v-else>
-                            {{ item.model | capitalize }}
+                            {{ $filters.capitalize(item.model) }}
                         </span>
                         <span v-if="getSchema(item).hint"
                             :data-tooltip="getSchema(item).hint"
                             data-tooltip-size="extra-large">
-                            <span class="fa-info-circle no-border small"></span>
+                            <span class="fas fa-info-circle no-border small"></span>
                         </span>
                     </th>
                     <th></th>
@@ -35,14 +35,14 @@
                         </component>
                     </td>
                     <td>
-                        <a class="fa-minus-circle" @click.stop.prevent="removeItem(item)"></a>
+                        <a class="fas fa-minus-circle" @click.stop.prevent="removeItem(item)"></a>
                     </td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
                     <td :colspan="schema.fields.length + 1">
-                        <a class="fa-plus-circle" @click.stop.prevent="addItem">Add More</a>
+                        <a class="fas fa-plus-circle" @click.stop.prevent="addItem">Add More</a>
                     </td>
                 </tr>
             </tfoot>
@@ -53,7 +53,7 @@
 <script lang="ts">
 import Vue from 'vue';
 
-export default Vue.extend({
+export default Vue.defineComponent({
     data: function() {
         let DefaultItem: any = {};
         for (let property in this.model[0]) {

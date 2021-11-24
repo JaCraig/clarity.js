@@ -39,8 +39,6 @@ ul.grouped {
         position: relative;
         display: block;
         padding: .5em .8em;
-        background-color: @backgroundColor;
-        .border;
         
         &:first-child {
             border-top-left-radius: @roundedCorner;
@@ -68,7 +66,7 @@ ul.checklist {
         display: inline-block;
         width: 1.1em;
         margin-right: .25em;
-        font-weight: @fontWeightNormal;
+        font-weight: @defaultFontWeight;
         font-style: normal;
         text-decoration: inherit;
         -webkit-font-smoothing: antialiased;
@@ -90,7 +88,7 @@ ul.arrow {
         display: inline-block;
         width: 1.1em;
         margin-right: .25em;
-        font-weight: @fontWeightNormal;
+        font-weight: @defaultFontWeight;
         font-style: normal;
         text-decoration: inherit;
         -webkit-font-smoothing: antialiased;
@@ -104,7 +102,6 @@ ul.arrow {
     counter-reset: li;
 
     & > li {
-        .border-left;
         position: relative;
         padding: 0 .625em;
         margin: .625em;
@@ -116,7 +113,6 @@ ul.arrow {
         content: counter(li);
         counter-increment: li;
         font-size: 2em;
-        color: @darkBorderColor;
         left: 0;
         top: .3125em;
         margin-left: -1.5em;
@@ -142,7 +138,6 @@ ul.breadcrumb {
         }
 
         &:before {
-            color: @borderColor;
             content: '/';
             margin-right: .5em;
         }

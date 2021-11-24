@@ -24,9 +24,6 @@
     display: block;
     padding: 1em;
     line-height: 1;
-    color: @textColor;
-    background-color: @backgroundColor;
-    .border;
     border-radius: .25em;
     margin-bottom: .5em;
     
@@ -43,7 +40,6 @@
 
 *[data-tooltip] {
     cursor: help;
-    .border-bottom(@style:dotted,@color: @darkBorderColor);
     position: relative;
     display: inline-block;
     &:before,
@@ -60,10 +56,7 @@
         width: 100%;
     }
     &:after {
-        background: @infoBackground;
-        color:@infoColor;
         font-size: .8em;
-        .roundedBorder;
         .layer(2);
         .depth-1;
         content: attr(data-tooltip);
@@ -71,7 +64,6 @@
         margin-bottom:.5em;
     }
     &:before {
-        .svg-arrow(@infoBackground, up, 0.375em);
         content: "";
         margin-bottom:0.1875em;
     }
@@ -97,7 +89,6 @@
         margin-top: 0.375em;
     }
     &:before {
-        .svg-arrow(@infoBackground, down, 0.375em);
         margin-top: 0.1875em;
         margin-bottom: 0;
     }
@@ -122,7 +113,6 @@
         margin-right: 0.375em;
     }
     &:before {
-        .svg-arrow(@infoBackground, left, 0.375em);
         margin-right: 0.1875em;
         margin-bottom: 0;
     }
@@ -146,7 +136,6 @@
         margin-left: 0.375em;
     }
     &:before {
-        .svg-arrow(@infoBackground, right, 0.375em);
         margin-bottom: 0;
         margin-left: 0.1875em;
     }
@@ -167,14 +156,13 @@
     }
 }
 
-.modal {
+.clarity-modal {
     display: none;
     position:fixed;
     top:0;
     left:0;
     height:100%;
     width:100%;
-    background: rgba(0,0,0,.25);
     padding:5% 5%;
     .layer(3);
     .opacity(0);
@@ -191,6 +179,15 @@
     }
 }
 
+.clarity-alert {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    .layer(3);
+}
+
 .panel {
     padding: 0;
 
@@ -198,29 +195,11 @@
         padding: 1em;
     }
 
-    &.primary .body {
-        background-color: @backgroundColor;
-        color: @primaryBackground;
-
-        & a {
-            color: @primaryBackground;
-            background-color: clear;
-        }
-    }
-
     & header,
     & footer {
         padding: 1em;
     }
 
-    & header {
-        .border-bottom;
-    }
-
-    & footer {
-        .border-top;
-    }
-    
     & ul.grouped {
         margin: 0;
         border-radius: 0;
@@ -236,10 +215,8 @@
 .label {
     display: inline;
     padding: .2em .6em .3em;
-    font-weight: @fontWeightBold;
+    font-weight: @defaultFontWeightBold;
     line-height: 1;
-    color: @backgroundColor;
-    background-color: @darkBorderColor;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
@@ -251,187 +228,14 @@
     min-width: 0.625em;
     padding: .2em .4em;
     font-size: .8em;
-    font-weight: @fontWeightBold;
+    font-weight: @defaultFontWeightBold;
     line-height: 1;
-    color: @backgroundColor;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
-    background-color: @darkBorderColor;
     border-radius: @circularCorners;
 }
 
-.primary {
-
-    & a {
-        color: @primaryColor;
-    }
-
-    & thead tr {
-        background-color: @primaryBackground;
-    }
-
-    & tfoot tr {
-        background-color: @primaryBackground;
-    }
-    & tbody tr, & tbody tr a {
-        color: @primaryBackground;
-    }
-}
-
-.primary, .panel.primary header, .panel.primary footer {
-    color: @primaryColor;
-    background-color: @primaryBackground;
-}
-
-.active {
-    background-color: @activeBackground;
-    color: @activeColor;
-}
-
-.active a {
-    color: @activeColor;
-}
-
-.success {
-    background-color: @successBackground;
-    color: @successColor;
-}
-.success a {
-    color: @successColor;
-}
-
-.info {
-    background-color: @infoBackground;
-    color: @infoColor;
-}
-
-.info a {
-    color: @infoColor;
-}
-
-.warning {
-    background-color: @warningBackground;
-    color: @warningColor;
-}
-
-.warning a {
-    color: @warningColor;
-}
-
-.error {
-    background-color: @errorBackground;
-    color: @errorColor;
-}
-
-.error a {
-    color: @errorColor;
-}
-
 .primary a, .active a, .success a, .info a, .warning a, .error a {
-    font-weight: @fontWeightBold;
-}
-
-.label.success, .panel.success header, .panel.success footer {
-    background-color: @successBorder;
-    color: @backgroundColor;
-}
-
-.label.info, .panel.info header, .panel.info footer {
-    background-color: @infoBorder;
-    color: @backgroundColor;
-}
-
-.label.warning, .panel.warning header, .panel.warning footer {
-    background-color: @warningBorder;
-    color: @backgroundColor;
-}
-
-.label.error, .panel.error header, .panel.error footer {
-    background-color: @errorBorder;
-    color: @backgroundColor;
-}
-
-.label.active, .panel.active header, .panel.active footer {
-    background-color: @activeBorder;
-    color: @backgroundColor;
-}
-
-.alert.primary, .panel.primary {
-    border-color: @primaryBorder;
-}
-
-.alert.success, .panel.success {
-    border-color: @successBorder;
-}
-
-.alert.info, .panel.info {
-    border-color: @infoBorder;
-}
-
-.alert.warning, .panel.warning {
-    border-color: @warningBorder;
-}
-
-.alert.error, .panel.error {
-    border-color: @errorBorder;
-}
-
-.alert.active, .panel.active {
-    border-color: @activeBorder;
-}
-
-.label .badge {
-    background: @backgroundColor;
-    color: @darkBorderColor;
-}
-
-.label.success .badge {
-    color: @successBorder;
-}
-
-.label.info .badge {
-    color: @infoBorder;
-}
-
-.label.warning .badge {
-    color: @warningBorder;
-}
-
-.label.error .badge {
-    color: @errorBorder;
-}
-
-.label.active .badge {
-    color: @activeColor;
-}
-
-.primary .badge {
-    color: @primaryBackground;
-    background: @backgroundColor;
-}
-
-.active .badge {
-    background: @backgroundColor;
-    color: @primaryBackground;
-}
-
-.success .badge {
-    background: @backgroundColor;
-    color: @successBorder;
-}
-
-.info .badge {
-    background: @backgroundColor;
-    color: @infoBorder;
-}
-
-.warning .badge {
-    background: @backgroundColor;
-    color: @warningBorder;
-}
-
-.error .badge {
-    background: @backgroundColor;
-    color: @errorBorder;
+    font-weight: @defaultFontWeightBold;
 }

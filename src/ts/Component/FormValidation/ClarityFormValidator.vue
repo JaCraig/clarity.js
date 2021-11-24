@@ -1,6 +1,6 @@
 
 <template>
-  <div v-show="errorMessages.length > 0" class="panel error" v-cloak>
+  <div v-show="errorMessages.length > 0" class="panel error clarity-validator" v-cloak>
     <a name="errorSection"></a>
     <header><slot>Some Errors Were Discovered</slot></header>
     <ul>
@@ -11,11 +11,13 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { FormValidation } from "../../Framework/Validation/FormValidation";
 
-export default Vue.extend({
+export default Vue.defineComponent({
     data() {
         return {
             errorMessages: <string[]>[],
+            formValidator: new FormValidation()
         };
     },
     mounted() {
@@ -25,20 +27,21 @@ export default Vue.extend({
     },
     methods: {
         revalidate: function () {
-            if (this.$el === null || this.$el === undefined) {
+            if (this.$el == null) {
                 return true;
             }
             let FormElement = this.getParentForm(this.$el);
-            if (FormElement !== null && window.clarity.validation.validateForm(FormElement).length > 0) {
-                this.errorMessages = window.clarity.validation.validateForm(FormElement);
+            if(FormElement == null && !this.formValidator.validate()) {
+                this.errorMessages = this.formValidator.errors;
                 return false;
-            } else if (FormElement === null && !window.clarity.validation.validate()) {
-                this.errorMessages = window.clarity.validation.errors;
-                return false;
-            } else {
-                this.errorMessages = [];
-                return true;
             }
+            let Errors = this.formValidator.validateForm(FormElement);
+            if (Errors.length > 0) {
+                this.errorMessages = Errors;
+                return false;
+            }
+            this.errorMessages = [];
+            return true;
         },
         getParentForm: function (element: any) {
             let CurrentParent = element.parentNode;

@@ -15,6 +15,8 @@
 */
 @import (reference) 'styles.less';
 @import url('reset.less');
+@import url('light.less');
+@import url('dark.less');
 @import url('print.less');
 @import url('grid.less');
 @import url('lists.less');
@@ -25,7 +27,10 @@
 @import url('pagination.less');
 @import url('contextual.less');
 @import url('tabs.less');
-@import url('font-awesome/fontawesome.less');
+@import url('../../node_modules/@fortawesome/fontawesome-free/less/fontawesome.less');
+@import url('../../node_modules/@fortawesome/fontawesome-free/less/solid.less');
+@import url('../../node_modules/@fortawesome/fontawesome-free/less/regular.less');
+@import url('../../node_modules/@fortawesome/fontawesome-free/less/brands.less');
 
 @keyframes rotate {
     0% {
@@ -37,21 +42,18 @@
 }
 
 * {
-    transition: all .15s ease-in-out;
     box-sizing: border-box;
 }
 
 body {
-    color: @textColor;
-    background-color: @backgroundColor;
-    font: normal normal normal 1em/1.5 "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+    font: normal normal @defaultFontWeight @defaultFontSize/@defaultLineSize @defaultFontFamily;
     margin: 0;
+    padding: 0;
 }
 
 hr {
     border: 0;
     height: .125em;
-    background-color: @borderColor;
 }
 
 del, s {
@@ -69,12 +71,17 @@ em, i {
 abbr[data-original-title], abbr[title] {
     cursor: help;
     text-decoration: none;
-    .border-bottom(@style:dotted,@color: @darkBorderColor);
 }
 
 dt {
-    font-family: 'Helvetica Neue',Helvetica, arial, freesans, clean, sans-serif;
-    font-weight: @fontWeightBold;
+    font-weight: @defaultFontWeightBold;
+}
+
+details {
+    & summary {
+        cursor: pointer;
+        font-weight: @defaultFontWeightBold;
+    }
 }
 
 address {
@@ -86,12 +93,10 @@ blockquote {
     padding: .625em 1.25em;
     margin: 0 0 1.25em;
     .extra-large;
-    .border-left(.313em);
     .depth-1;
 
     &.reverse {
         .text-right;
-        .border-right(.313em);
         border-left: none;
     }
 
@@ -100,22 +105,15 @@ blockquote {
     & small {
         display: block;
         .extra-small;
-        color: @darkBorderColor;
     }
 }
 
 code {
     padding: .175em .40em;
-    color: @primaryBackground;
-    background-color: @backgroundLight;
-    border-radius: @roundedCorner;
 }
 
 kbd {
     padding: .175em .4em;
-    color: @backgroundColor;
-    background-color: @backgroundDark;
-    border-radius: @roundedCorner;
 }
 
 pre {
@@ -124,38 +122,35 @@ pre {
     margin: 0 0 .769em;
     font-size: 1em;
     line-height: 1.45;
-    color: @textColor;
     word-break: break-all;
     word-wrap: break-word;
-    background-color: @backgroundLight;
-    .roundedBorder;
     height: 27em;
     overflow-y: scroll;
     word-wrap: break-word;
     white-space: pre-wrap;
 }
 
+mark {
+    padding: 3px 0;
+}
+
+meter {
+    width: 100%;
+    height: 3em;
+}
+
 progress {
     width: 100%;
     height: 1.5em;
-    background-color: @backgroundLight;
-
-    &[value]::-webkit-progress-value {
-        background-color: @primaryBackground;
-        .roundedBorder(@color:@primaryBorder);
-    }
 
     &[value]::-webkit-progress-bar,
     &:not([value])::-webkit-progress-bar {
-        background-color: @backgroundLight;
-        .roundedBorder();
         .depth-minus-1;
     }
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Helvetica Neue',Helvetica, arial, freesans, clean, sans-serif;
-    font-weight: @fontWeightBold;
+    font-weight: @defaultFontWeightBold;
 }
 
 img {
@@ -171,17 +166,13 @@ img {
 
     &.thumbnail {
         padding: .25em;
-        background-color: @backgroundColor;
-        .roundedBorder;
     }
 }
 
 figure {
     padding: .25em;
-    background-color: @backgroundColor;
     display: inline-block;
     margin: 0;
-    .roundedBorder;
     
     & > figcaption {
         padding: .5em .2em;
@@ -189,41 +180,12 @@ figure {
 }
 
 a {
-    color: @linkColor;
     text-decoration: none;
     font-weight: bold;
 }
 
-a:hover {
-    text-decoration: underline;
-}
-
-.roundedBorder {
-    .roundedBorder();
-}
-
 .no-border {
     border: none;
-}
-
-.bordered {
-    .border;
-}
-
-.border-right {
-    .border-right();
-}
-
-.border-left {
-    .border-left();
-}
-
-.border-bottom {
-    .border-bottom();
-}
-
-.border-top {
-    .border-top();
 }
 
 .text-right {
@@ -292,22 +254,6 @@ a:hover {
     margin-right: auto;
 }
 
-.margin-left-auto {
-    margin-left:auto;
-}
-
-.margin-right-auto {
-    margin-right:auto;
-}
-
-.margin-bottom-auto {
-    margin-bottom:auto;
-}
-
-.margin-top-auto{
-    margin-top:auto;
-}
-
 .show {
     display: block !important;
 }
@@ -351,21 +297,8 @@ a:hover {
     .depth-5;
 }
 
-.inline-block {
-    display: inline-block;
-}
-
-.block {
-    display: block;
-}
-
-.inline{
-    display: inline;
-}
-
 .spinner {
     animation: rotate 1s infinite linear;
-    .roundedBorder(.125em, @color:@darkBorderColor,@radius:@circularCorners);
     border-right-color: transparent;
     height: 1.5em;
     margin: 1.5em auto;
@@ -375,9 +308,9 @@ a:hover {
 
 span.close,div.close {
     float: right;
-    font-size: 1.5em;
-    font-weight: @fontWeightBold;
-    line-height: .75em;
+    font-size: @defaultFontSize;
+    font-weight: @defaultFontWeightBold;
+    line-height: @defaultLineSize/2;
     .opacity(.8);
     cursor: pointer;
 }
@@ -387,14 +320,42 @@ span.close,div.close {
 }
 
 .clear-background {
-    background: transparent;
+    background-color: transparent;
 }
 
 [v-cloak] {
     display: none;
 }
 
-@media (min-width: 768px) {
+.fas, .fab, .far, .fa {
+    font: normal normal @defaultFontWeight @defaultFontSize/@defaultLineSize @defaultFontFamily;
+    
+    &::before {
+        margin: 0 .25em;
+    }
+}
+
+.fas, .fa {
+    &::before {
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+    }
+}
+.far {
+    &::before {
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 400;
+    }
+}
+
+.fab {
+    &::before {
+        font-family: 'Font Awesome 5 Brands';
+        font-weight: 400;
+    }
+}
+
+@media (min-width: @tabletPortrait) {
     dl.horizontal dt {
         float: left;
         width: 10em;
@@ -403,7 +364,6 @@ span.close,div.close {
         text-align: right;
         text-overflow: ellipsis;
         white-space: nowrap;
-        font-family: 'Helvetica Neue',Helvetica, arial, freesans, clean, sans-serif;
     }
 
     dl.horizontal dd {

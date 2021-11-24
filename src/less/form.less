@@ -17,8 +17,6 @@
 
  input[type='text'], input[type='password'], input[type='email'], input[type='url'], input[type='date'], input[type='month'], input[type='time'], input[type='datetime'], input[type='datetime-local'], input[type='week'], input[type='number'], input[type='search'], input[type='tel'], input[type='color'], input[type='file'], input[list], select, textarea {
     display: inline-block;
-    background: @backgroundColor;
-    .roundedBorder;
     .depth-minus-1;
     margin: .625em .125em;
     padding: .3em;
@@ -45,23 +43,9 @@ input[type='color'], select, input[list] {
 
 input:not([type])[disabled],input[disabled], select[disabled], textarea[disabled], fieldset:disabled input, fieldset:disabled select, fieldset:disabled textarea {
     cursor: not-allowed;
-    background-color: @backgroundLight;
-    color: @borderColor;
-}
-
-input[readonly], select[readonly], textarea[readonly] {
-    background-color: @backgroundLight;
-    color: @darkBorderColor;
-}
-
-input:invalid, textarea:invalid, select:invalid, input.error, textarea.error, select.error {
-    border-color: @errorBorder;
-    background-color: @errorBackground;
-    color: @errorColor;
 }
 
 .file-upload {
-    border: 2px dashed @borderColor;
     padding: 2em 0;
     text-align: center;
     position: relative;
@@ -96,7 +80,7 @@ input:invalid, textarea:invalid, select:invalid, input.error, textarea.error, se
     & .header {
         float: right;
         font-size: 1.5em;
-        font-weight: @fontWeightBold;
+        font-weight: @defaultFontWeightBold;
         line-height: .75em;
         .opacity(.5);
         cursor: pointer;
@@ -130,39 +114,14 @@ input:invalid, textarea:invalid, select:invalid, input.error, textarea.error, se
                 width:100%;
                 text-align: center;
                 cursor: pointer;
-                .border;
                 padding: .5em;
 
                 &:hover {
-                    background: @linkColor;
-                    color: @backgroundColor;
                     text-decoration: none;
                 }
             }
         }
     }
-}
-
-input.success, textarea.success, select.success {
-    border-color: @successBorder;
-    background-color: @successBackground;
-    color: @successColor;
-}
-
-input.warning, textarea.warning, select.warning {
-    border-color: @warningBorder;
-    background-color: @warningBackground;
-    color: @warningColor;
-}
-
-input:focus, textarea:focus, select:focus {
-    background-color: @backgroundColor;
-    .depth-1(@color2:rgba(102, 175, 233, .6));
-    border-color: @activeBorder;
-}
-
-input[type='file']:focus, input[type='radio']:focus, input[type='checkbox']:focus {
-    outline-color: @activeBorder;
 }
 
 textarea {
@@ -185,8 +144,6 @@ legend {
     width: 100%;
     padding: .3em 0;
     margin-bottom: .3em;
-    color: @textColor;
-    .border-bottom;
 }
 
 form.stacked {

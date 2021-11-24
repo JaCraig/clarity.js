@@ -34,8 +34,9 @@ export class Request {
         this.parser = x => x.json();
         this.serializer = x => JSON.stringify(x);
         this.storageMode = StorageMode.NetworkOnly;
-        this.databaseName = "IntranetStorage"
+        this.databaseName = "ClarityStorage"
         this.cacheKey = this.url + this.serializer(this.data);
+        this.credentials = "same-origin";
     }
 
     // The serializer that the application uses
@@ -43,6 +44,9 @@ export class Request {
 
     // URL to call
     private url: string;
+
+    // Credentials type sent with the request ("same-origin", "include", or "omit")
+    private credentials: RequestCredentials;
 
     // Method to use when calling
     private method: string;
@@ -120,6 +124,12 @@ export class Request {
         return this;
     }
 
+    // Sets the credentials type used for the call
+    public setCredentials(type: RequestCredentials): Request {
+        this.credentials = type;
+        return this;
+    }
+
     // Short hand for setting the content type header value
     public type(value: string): Request {
         return this.setHeader("Content-Type", value);
@@ -137,7 +147,7 @@ export class Request {
     }
 
     // Ensures that the result of the request will be cached and used in future requests.
-    public setMode(storageMode: StorageMode, databaseName: string = "IntranetStorage"): Request {
+    public setMode(storageMode: StorageMode, databaseName: string = "ClarityStorage"): Request {
         this.databaseName = databaseName;
         this.storageMode = storageMode;
         return this;
@@ -151,11 +161,11 @@ export class Request {
 
     // Actually sends the request, parses it, and calls either the
     // success or error functions if they exist.
-    public send(): void {
-        if (this.error === undefined || this.error === null) {
+    public async send(): Promise<any> {
+        if (this.error == null) {
             this.error = x => {};
         }
-        if (this.success === undefined || this.success === null) {
+        if (this.success == null) {
             this.success = x => {};
         }
         let serializedData = this.serializer(this.data);
@@ -164,7 +174,7 @@ export class Request {
             this.queryNetwork(serializedData, this.cacheKey, this.databaseName, response => {}, response => {
                 Request.saveValueToDB(response, this.cacheKey, this.databaseName);
             });
-            return;
+            await Promise.resolve("A");
         }
         if (this.storageMode === StorageMode.StorageAndUpdate) {
             Request.returnValueFromDB(this.cacheKey, this.databaseName, this.success);
@@ -211,7 +221,7 @@ export class Request {
             return;
         }
         fetch(this.url, {
-                credentials: 'same-origin',
+                credentials: this.credentials,
                 method: this.method,
                 body: serializedData,
                 headers: this.headers

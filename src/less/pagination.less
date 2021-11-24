@@ -23,8 +23,6 @@ ul.dotted > li {
     & > a {
         float: left;
         padding: .45em .9em;
-        background-color: @backgroundColor;
-        .border;
     }
     
     &:last-child:after {
@@ -52,7 +50,6 @@ ul.paged {
         & > a:focus,
         & > a:hover {
             text-decoration: none;
-            background-color: @lightBorderColor;
         }
             
         &.disabled {
@@ -60,9 +57,7 @@ ul.paged {
             & > a,
             & > a:focus,
             & > a:hover {
-                color: @darkBorderColor;
                 cursor: not-allowed;
-                background-color: @backgroundColor;
             }
         }
             
@@ -71,10 +66,7 @@ ul.paged {
             & > a,
             & > a:focus,
             & > a:hover {
-                color: @activeColor;
                 cursor: default;
-                background-color: @activeBackground;
-                border-color: @activeBorder;
             }
         }
         
@@ -95,10 +87,8 @@ ul.chevron > li {
     &:first-child > a,
     &:last-child > a {
         border-radius: @circularCorners;
-        background: @backgroundDark;
         .opacity(.6);
         padding: .5em 1em;
-        color: @backgroundColor;
     }
 
     &:first-child > a:hover,
@@ -114,16 +104,8 @@ ul.dotted > li {
     & > a {
         padding: 0;
         border-radius: @circularCorners;
-        background: @borderColor;
-        color: @borderColor;
         margin-right: .6em;
         height: 1em;
         width: 1em;
-    }
-
-    & > a:hover,
-    & > a:focus {
-        background: @darkBorderColor;
-        color: @darkBorderColor;
     }
 }
