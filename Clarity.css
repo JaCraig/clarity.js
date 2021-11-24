@@ -467,6 +467,15 @@ textarea {
   table.bordered td {
     border: 1px solid #DDD !important;
   }
+  table.sortable thead tr th:before {
+    content: '' !important;
+  }
+  table.sortable thead tr th.headerSortUp:before {
+    content: '' !important;
+  }
+  table.sortable thead tr th.headerSortDown:before {
+    content: '' !important;
+  }
 }
 /*
    Copyright 2016 James Craig
@@ -493,7 +502,7 @@ textarea {
 }
 .flex {
   display: flex;
-  flex: 0 1 auto;
+  flex: 1 1 0px;
 }
 .flex.column {
   flex-direction: column;
@@ -625,7 +634,7 @@ textarea {
 .flex.row > .flex-item,
 .flex.row-reverse > .flex-item,
 .flex.column-reverse > .flex-item {
-  flex-grow: 1;
+  flex: 1 1 0px;
 }
 .flex.column > .flex-item.align-self-start,
 .flex.row > .flex-item.align-self-start,
@@ -1755,6 +1764,10 @@ table caption {
   padding: 0.5em 0;
   color: #777;
   text-align: left;
+}
+table .grid-group-header,
+table .grid-group-footer {
+  font-weight: bold;
 }
 /*
    Copyright 2016 James Craig
@@ -3068,23 +3081,23 @@ ul.dotted > li > a:focus {
   padding: 1em;
   background-color: #FFF;
 }
-.tabs header {
+.tabs > header {
   padding: 0;
   background-color: #DDD;
 }
-.tabs header > ul {
+.tabs > header > ul {
   list-style-type: none;
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
 }
-.tabs header > ul > li {
+.tabs > header > ul > li {
   flex: 1 1 auto;
   display: inline-block;
   list-style: none;
 }
-.tabs header > ul > li > a {
+.tabs > header > ul > li > a {
   background-color: #DDD;
   color: #777;
   display: block;
@@ -3096,12 +3109,12 @@ ul.dotted > li > a:focus {
   padding: 0.5em 0.5em;
   border-left: 1px solid #CCC;
 }
-.tabs header > ul > li > a:hover,
-.tabs header > ul > li > a.selected {
+.tabs > header > ul > li > a:hover,
+.tabs > header > ul > li > a.selected {
   background-color: #FFF;
   color: #333;
 }
-.tabs header > ul > li:first-child > a {
+.tabs > header > ul > li:first-child > a {
   border-left: none;
 }
 .tabs.vertical {
@@ -3115,33 +3128,34 @@ ul.dotted > li > a:focus {
   padding: 1em;
   background-color: #FFF;
 }
-.tabs.vertical header {
+.tabs.vertical > header {
   border-bottom: none;
   min-width: 100px;
   display: block;
 }
-.tabs.vertical header > ul {
+.tabs.vertical > header > ul {
   display: flex;
   flex-flow: column;
 }
-.tabs.vertical header > ul > li {
+.tabs.vertical > header > ul > li {
   flex: 1 1 auto;
 }
-.tabs.vertical header > ul > li > a {
+.tabs.vertical > header > ul > li > a {
   border-top: 1px solid #CCC;
   border-left: none;
 }
-.tabs.vertical header > ul > li:first-child > a {
+.tabs.vertical > header > ul > li:first-child > a {
   border-top: none;
 }
 /*!
- * Font Awesome Free 5.1.0 by @fontawesome - https://fontawesome.com
- * License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ * Font Awesome Free 5.13.1 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 .fa,
 .fas,
 .far,
 .fal,
+.fad,
 .fab {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -3281,6 +3295,7 @@ ul.dotted > li > a:focus {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   transform: scale(1, -1);
 }
+.fa-flip-both,
 .fa-flip-horizontal.fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   transform: scale(-1, -1);
@@ -3289,9 +3304,9 @@ ul.dotted > li > a:focus {
 :root .fa-rotate-180,
 :root .fa-rotate-270,
 :root .fa-flip-horizontal,
-:root .fa-flip-vertical {
-  -webkit-filter: none;
-          filter: none;
+:root .fa-flip-vertical,
+:root .fa-flip-both {
+  filter: none;
 }
 .fa-stack {
   display: inline-block;
@@ -3328,6 +3343,12 @@ ul.dotted > li > a:focus {
 .fa-accusoft:before {
   content: "\f369";
 }
+.fa-acquisitions-incorporated:before {
+  content: "\f6af";
+}
+.fa-ad:before {
+  content: "\f641";
+}
 .fa-address-book:before {
   content: "\f2b9";
 }
@@ -3340,11 +3361,20 @@ ul.dotted > li > a:focus {
 .fa-adn:before {
   content: "\f170";
 }
+.fa-adobe:before {
+  content: "\f778";
+}
 .fa-adversal:before {
   content: "\f36a";
 }
 .fa-affiliatetheme:before {
   content: "\f36b";
+}
+.fa-air-freshener:before {
+  content: "\f5d0";
+}
+.fa-airbnb:before {
+  content: "\f834";
 }
 .fa-algolia:before {
   content: "\f36c";
@@ -3360,6 +3390,9 @@ ul.dotted > li > a:focus {
 }
 .fa-align-right:before {
   content: "\f038";
+}
+.fa-alipay:before {
+  content: "\f642";
 }
 .fa-allergies:before {
   content: "\f461";
@@ -3421,6 +3454,9 @@ ul.dotted > li > a:focus {
 .fa-angular:before {
   content: "\f420";
 }
+.fa-ankh:before {
+  content: "\f644";
+}
 .fa-app-store:before {
   content: "\f36f";
 }
@@ -3432,6 +3468,9 @@ ul.dotted > li > a:focus {
 }
 .fa-apple:before {
   content: "\f179";
+}
+.fa-apple-alt:before {
+  content: "\f5d1";
 }
 .fa-apple-pay:before {
   content: "\f415";
@@ -3487,6 +3526,9 @@ ul.dotted > li > a:focus {
 .fa-arrows-alt-v:before {
   content: "\f338";
 }
+.fa-artstation:before {
+  content: "\f77a";
+}
 .fa-assistive-listening-systems:before {
   content: "\f2a2";
 }
@@ -3501,6 +3543,12 @@ ul.dotted > li > a:focus {
 }
 .fa-atlas:before {
   content: "\f558";
+}
+.fa-atlassian:before {
+  content: "\f77b";
+}
+.fa-atom:before {
+  content: "\f5d2";
 }
 .fa-audible:before {
   content: "\f373";
@@ -3523,14 +3571,38 @@ ul.dotted > li > a:focus {
 .fa-aws:before {
   content: "\f375";
 }
+.fa-baby:before {
+  content: "\f77c";
+}
+.fa-baby-carriage:before {
+  content: "\f77d";
+}
 .fa-backspace:before {
   content: "\f55a";
 }
 .fa-backward:before {
   content: "\f04a";
 }
+.fa-bacon:before {
+  content: "\f7e5";
+}
+.fa-bacteria:before {
+  content: "\f959";
+}
+.fa-bacterium:before {
+  content: "\f95a";
+}
+.fa-bahai:before {
+  content: "\f666";
+}
 .fa-balance-scale:before {
   content: "\f24e";
+}
+.fa-balance-scale-left:before {
+  content: "\f515";
+}
+.fa-balance-scale-right:before {
+  content: "\f516";
 }
 .fa-ban:before {
   content: "\f05e";
@@ -3571,6 +3643,9 @@ ul.dotted > li > a:focus {
 .fa-battery-three-quarters:before {
   content: "\f241";
 }
+.fa-battle-net:before {
+  content: "\f835";
+}
 .fa-bed:before {
   content: "\f236";
 }
@@ -3592,14 +3667,23 @@ ul.dotted > li > a:focus {
 .fa-bezier-curve:before {
   content: "\f55b";
 }
+.fa-bible:before {
+  content: "\f647";
+}
 .fa-bicycle:before {
   content: "\f206";
+}
+.fa-biking:before {
+  content: "\f84a";
 }
 .fa-bimobject:before {
   content: "\f378";
 }
 .fa-binoculars:before {
   content: "\f1e5";
+}
+.fa-biohazard:before {
+  content: "\f780";
 }
 .fa-birthday-cake:before {
   content: "\f1fd";
@@ -3622,8 +3706,14 @@ ul.dotted > li > a:focus {
 .fa-blender:before {
   content: "\f517";
 }
+.fa-blender-phone:before {
+  content: "\f6b6";
+}
 .fa-blind:before {
   content: "\f29d";
+}
+.fa-blog:before {
+  content: "\f781";
 }
 .fa-blogger:before {
   content: "\f37c";
@@ -3646,17 +3736,41 @@ ul.dotted > li > a:focus {
 .fa-bomb:before {
   content: "\f1e2";
 }
+.fa-bone:before {
+  content: "\f5d7";
+}
 .fa-bong:before {
   content: "\f55c";
 }
 .fa-book:before {
   content: "\f02d";
 }
+.fa-book-dead:before {
+  content: "\f6b7";
+}
+.fa-book-medical:before {
+  content: "\f7e6";
+}
 .fa-book-open:before {
   content: "\f518";
 }
+.fa-book-reader:before {
+  content: "\f5da";
+}
 .fa-bookmark:before {
   content: "\f02e";
+}
+.fa-bootstrap:before {
+  content: "\f836";
+}
+.fa-border-all:before {
+  content: "\f84c";
+}
+.fa-border-none:before {
+  content: "\f850";
+}
+.fa-border-style:before {
+  content: "\f853";
 }
 .fa-bowling-ball:before {
   content: "\f436";
@@ -3667,11 +3781,20 @@ ul.dotted > li > a:focus {
 .fa-box-open:before {
   content: "\f49e";
 }
+.fa-box-tissue:before {
+  content: "\f95b";
+}
 .fa-boxes:before {
   content: "\f468";
 }
 .fa-braille:before {
   content: "\f2a1";
+}
+.fa-brain:before {
+  content: "\f5dc";
+}
+.fa-bread-slice:before {
+  content: "\f7ec";
 }
 .fa-briefcase:before {
   content: "\f0b1";
@@ -3690,6 +3813,9 @@ ul.dotted > li > a:focus {
 }
 .fa-btc:before {
   content: "\f15a";
+}
+.fa-buffer:before {
+  content: "\f837";
 }
 .fa-bug:before {
   content: "\f188";
@@ -3715,6 +3841,12 @@ ul.dotted > li > a:focus {
 .fa-bus-alt:before {
   content: "\f55e";
 }
+.fa-business-time:before {
+  content: "\f64a";
+}
+.fa-buy-n-large:before {
+  content: "\f8a6";
+}
 .fa-buysellads:before {
   content: "\f20d";
 }
@@ -3730,6 +3862,9 @@ ul.dotted > li > a:focus {
 .fa-calendar-check:before {
   content: "\f274";
 }
+.fa-calendar-day:before {
+  content: "\f783";
+}
 .fa-calendar-minus:before {
   content: "\f272";
 }
@@ -3739,11 +3874,23 @@ ul.dotted > li > a:focus {
 .fa-calendar-times:before {
   content: "\f273";
 }
+.fa-calendar-week:before {
+  content: "\f784";
+}
 .fa-camera:before {
   content: "\f030";
 }
 .fa-camera-retro:before {
   content: "\f083";
+}
+.fa-campground:before {
+  content: "\f6bb";
+}
+.fa-canadian-maple-leaf:before {
+  content: "\f785";
+}
+.fa-candy-cane:before {
+  content: "\f786";
 }
 .fa-cannabis:before {
   content: "\f55f";
@@ -3753,6 +3900,21 @@ ul.dotted > li > a:focus {
 }
 .fa-car:before {
   content: "\f1b9";
+}
+.fa-car-alt:before {
+  content: "\f5de";
+}
+.fa-car-battery:before {
+  content: "\f5df";
+}
+.fa-car-crash:before {
+  content: "\f5e1";
+}
+.fa-car-side:before {
+  content: "\f5e4";
+}
+.fa-caravan:before {
+  content: "\f8ff";
 }
 .fa-caret-down:before {
   content: "\f0d7";
@@ -3778,11 +3940,20 @@ ul.dotted > li > a:focus {
 .fa-caret-up:before {
   content: "\f0d8";
 }
+.fa-carrot:before {
+  content: "\f787";
+}
 .fa-cart-arrow-down:before {
   content: "\f218";
 }
 .fa-cart-plus:before {
   content: "\f217";
+}
+.fa-cash-register:before {
+  content: "\f788";
+}
+.fa-cat:before {
+  content: "\f6be";
 }
 .fa-cc-amazon-pay:before {
   content: "\f42d";
@@ -3817,14 +3988,23 @@ ul.dotted > li > a:focus {
 .fa-centercode:before {
   content: "\f380";
 }
+.fa-centos:before {
+  content: "\f789";
+}
 .fa-certificate:before {
   content: "\f0a3";
+}
+.fa-chair:before {
+  content: "\f6c0";
 }
 .fa-chalkboard:before {
   content: "\f51b";
 }
 .fa-chalkboard-teacher:before {
   content: "\f51c";
+}
+.fa-charging-station:before {
+  content: "\f5e7";
 }
 .fa-chart-area:before {
   content: "\f1fe";
@@ -3849,6 +4029,9 @@ ul.dotted > li > a:focus {
 }
 .fa-check-square:before {
   content: "\f14a";
+}
+.fa-cheese:before {
+  content: "\f7ef";
 }
 .fa-chess:before {
   content: "\f439";
@@ -3904,6 +4087,9 @@ ul.dotted > li > a:focus {
 .fa-chrome:before {
   content: "\f268";
 }
+.fa-chromecast:before {
+  content: "\f838";
+}
 .fa-church:before {
   content: "\f51d";
 }
@@ -3912,6 +4098,12 @@ ul.dotted > li > a:focus {
 }
 .fa-circle-notch:before {
   content: "\f1ce";
+}
+.fa-city:before {
+  content: "\f64f";
+}
+.fa-clinic-medical:before {
+  content: "\f7f2";
 }
 .fa-clipboard:before {
   content: "\f328";
@@ -3936,6 +4128,27 @@ ul.dotted > li > a:focus {
 }
 .fa-cloud-download-alt:before {
   content: "\f381";
+}
+.fa-cloud-meatball:before {
+  content: "\f73b";
+}
+.fa-cloud-moon:before {
+  content: "\f6c3";
+}
+.fa-cloud-moon-rain:before {
+  content: "\f73c";
+}
+.fa-cloud-rain:before {
+  content: "\f73d";
+}
+.fa-cloud-showers-heavy:before {
+  content: "\f740";
+}
+.fa-cloud-sun:before {
+  content: "\f6c4";
+}
+.fa-cloud-sun-rain:before {
+  content: "\f743";
 }
 .fa-cloud-upload-alt:before {
   content: "\f382";
@@ -3985,14 +4198,23 @@ ul.dotted > li > a:focus {
 .fa-comment-alt:before {
   content: "\f27a";
 }
+.fa-comment-dollar:before {
+  content: "\f651";
+}
 .fa-comment-dots:before {
   content: "\f4ad";
+}
+.fa-comment-medical:before {
+  content: "\f7f5";
 }
 .fa-comment-slash:before {
   content: "\f4b3";
 }
 .fa-comments:before {
   content: "\f086";
+}
+.fa-comments-dollar:before {
+  content: "\f653";
 }
 .fa-compact-disc:before {
   content: "\f51f";
@@ -4003,8 +4225,17 @@ ul.dotted > li > a:focus {
 .fa-compress:before {
   content: "\f066";
 }
+.fa-compress-alt:before {
+  content: "\f422";
+}
+.fa-compress-arrows-alt:before {
+  content: "\f78c";
+}
 .fa-concierge-bell:before {
   content: "\f562";
+}
+.fa-confluence:before {
+  content: "\f78d";
 }
 .fa-connectdevelop:before {
   content: "\f20e";
@@ -4023,6 +4254,9 @@ ul.dotted > li > a:focus {
 }
 .fa-copyright:before {
   content: "\f1f9";
+}
+.fa-cotton-bureau:before {
+  content: "\f89e";
 }
 .fa-couch:before {
   content: "\f4b8";
@@ -4069,14 +4303,23 @@ ul.dotted > li > a:focus {
 .fa-creative-commons-share:before {
   content: "\f4f2";
 }
+.fa-creative-commons-zero:before {
+  content: "\f4f3";
+}
 .fa-credit-card:before {
   content: "\f09d";
+}
+.fa-critical-role:before {
+  content: "\f6c9";
 }
 .fa-crop:before {
   content: "\f125";
 }
 .fa-crop-alt:before {
   content: "\f565";
+}
+.fa-cross:before {
+  content: "\f654";
 }
 .fa-crosshairs:before {
   content: "\f05b";
@@ -4086,6 +4329,9 @@ ul.dotted > li > a:focus {
 }
 .fa-crown:before {
   content: "\f521";
+}
+.fa-crutch:before {
+  content: "\f7f7";
 }
 .fa-css3:before {
   content: "\f13c";
@@ -4108,6 +4354,12 @@ ul.dotted > li > a:focus {
 .fa-d-and-d:before {
   content: "\f38d";
 }
+.fa-d-and-d-beyond:before {
+  content: "\f6ca";
+}
+.fa-dailymotion:before {
+  content: "\f952";
+}
 .fa-dashcube:before {
   content: "\f210";
 }
@@ -4117,8 +4369,14 @@ ul.dotted > li > a:focus {
 .fa-deaf:before {
   content: "\f2a4";
 }
+.fa-deezer:before {
+  content: "\f977";
+}
 .fa-delicious:before {
   content: "\f1a5";
+}
+.fa-democrat:before {
+  content: "\f747";
 }
 .fa-deploydog:before {
   content: "\f38e";
@@ -4129,14 +4387,32 @@ ul.dotted > li > a:focus {
 .fa-desktop:before {
   content: "\f108";
 }
+.fa-dev:before {
+  content: "\f6cc";
+}
 .fa-deviantart:before {
   content: "\f1bd";
+}
+.fa-dharmachakra:before {
+  content: "\f655";
+}
+.fa-dhl:before {
+  content: "\f790";
 }
 .fa-diagnoses:before {
   content: "\f470";
 }
+.fa-diaspora:before {
+  content: "\f791";
+}
 .fa-dice:before {
   content: "\f522";
+}
+.fa-dice-d20:before {
+  content: "\f6cf";
+}
+.fa-dice-d6:before {
+  content: "\f6d1";
 }
 .fa-dice-five:before {
   content: "\f523";
@@ -4165,11 +4441,17 @@ ul.dotted > li > a:focus {
 .fa-digital-tachograph:before {
   content: "\f566";
 }
+.fa-directions:before {
+  content: "\f5eb";
+}
 .fa-discord:before {
   content: "\f392";
 }
 .fa-discourse:before {
   content: "\f393";
+}
+.fa-disease:before {
+  content: "\f7fa";
 }
 .fa-divide:before {
   content: "\f529";
@@ -4185,6 +4467,9 @@ ul.dotted > li > a:focus {
 }
 .fa-docker:before {
   content: "\f395";
+}
+.fa-dog:before {
+  content: "\f6d3";
 }
 .fa-dollar-sign:before {
   content: "\f155";
@@ -4219,6 +4504,12 @@ ul.dotted > li > a:focus {
 .fa-drafting-compass:before {
   content: "\f568";
 }
+.fa-dragon:before {
+  content: "\f6d5";
+}
+.fa-draw-polygon:before {
+  content: "\f5ee";
+}
 .fa-dribbble:before {
   content: "\f17d";
 }
@@ -4234,11 +4525,23 @@ ul.dotted > li > a:focus {
 .fa-drum-steelpan:before {
   content: "\f56a";
 }
+.fa-drumstick-bite:before {
+  content: "\f6d7";
+}
 .fa-drupal:before {
   content: "\f1a9";
 }
 .fa-dumbbell:before {
   content: "\f44b";
+}
+.fa-dumpster:before {
+  content: "\f793";
+}
+.fa-dumpster-fire:before {
+  content: "\f794";
+}
+.fa-dungeon:before {
+  content: "\f6d9";
 }
 .fa-dyalog:before {
   content: "\f399";
@@ -4252,8 +4555,14 @@ ul.dotted > li > a:focus {
 .fa-edge:before {
   content: "\f282";
 }
+.fa-edge-legacy:before {
+  content: "\f978";
+}
 .fa-edit:before {
   content: "\f044";
+}
+.fa-egg:before {
+  content: "\f7fb";
 }
 .fa-eject:before {
   content: "\f052";
@@ -4267,6 +4576,9 @@ ul.dotted > li > a:focus {
 .fa-ellipsis-v:before {
   content: "\f142";
 }
+.fa-ello:before {
+  content: "\f5f1";
+}
 .fa-ember:before {
   content: "\f423";
 }
@@ -4278,6 +4590,9 @@ ul.dotted > li > a:focus {
 }
 .fa-envelope-open:before {
   content: "\f2b6";
+}
+.fa-envelope-open-text:before {
+  content: "\f658";
 }
 .fa-envelope-square:before {
   content: "\f199";
@@ -4297,11 +4612,17 @@ ul.dotted > li > a:focus {
 .fa-ethereum:before {
   content: "\f42e";
 }
+.fa-ethernet:before {
+  content: "\f796";
+}
 .fa-etsy:before {
   content: "\f2d7";
 }
 .fa-euro-sign:before {
   content: "\f153";
+}
+.fa-evernote:before {
+  content: "\f839";
 }
 .fa-exchange-alt:before {
   content: "\f362";
@@ -4317,6 +4638,9 @@ ul.dotted > li > a:focus {
 }
 .fa-expand:before {
   content: "\f065";
+}
+.fa-expand-alt:before {
+  content: "\f424";
 }
 .fa-expand-arrows-alt:before {
   content: "\f31e";
@@ -4351,11 +4675,20 @@ ul.dotted > li > a:focus {
 .fa-facebook-square:before {
   content: "\f082";
 }
+.fa-fan:before {
+  content: "\f863";
+}
+.fa-fantasy-flight-games:before {
+  content: "\f6dc";
+}
 .fa-fast-backward:before {
   content: "\f049";
 }
 .fa-fast-forward:before {
   content: "\f050";
+}
+.fa-faucet:before {
+  content: "\f905";
 }
 .fa-fax:before {
   content: "\f1ac";
@@ -4366,11 +4699,20 @@ ul.dotted > li > a:focus {
 .fa-feather-alt:before {
   content: "\f56b";
 }
+.fa-fedex:before {
+  content: "\f797";
+}
+.fa-fedora:before {
+  content: "\f798";
+}
 .fa-female:before {
   content: "\f182";
 }
 .fa-fighter-jet:before {
   content: "\f0fb";
+}
+.fa-figma:before {
+  content: "\f799";
 }
 .fa-file:before {
   content: "\f15b";
@@ -4389,6 +4731,9 @@ ul.dotted > li > a:focus {
 }
 .fa-file-contract:before {
   content: "\f56c";
+}
+.fa-file-csv:before {
+  content: "\f6dd";
 }
 .fa-file-download:before {
   content: "\f56d";
@@ -4456,11 +4801,17 @@ ul.dotted > li > a:focus {
 .fa-fire:before {
   content: "\f06d";
 }
+.fa-fire-alt:before {
+  content: "\f7e4";
+}
 .fa-fire-extinguisher:before {
   content: "\f134";
 }
 .fa-firefox:before {
   content: "\f269";
+}
+.fa-firefox-browser:before {
+  content: "\f907";
 }
 .fa-first-aid:before {
   content: "\f479";
@@ -4477,11 +4828,17 @@ ul.dotted > li > a:focus {
 .fa-fish:before {
   content: "\f578";
 }
+.fa-fist-raised:before {
+  content: "\f6de";
+}
 .fa-flag:before {
   content: "\f024";
 }
 .fa-flag-checkered:before {
   content: "\f11e";
+}
+.fa-flag-usa:before {
+  content: "\f74d";
 }
 .fa-flask:before {
   content: "\f0c3";
@@ -4501,8 +4858,14 @@ ul.dotted > li > a:focus {
 .fa-folder:before {
   content: "\f07b";
 }
+.fa-folder-minus:before {
+  content: "\f65d";
+}
 .fa-folder-open:before {
   content: "\f07c";
+}
+.fa-folder-plus:before {
+  content: "\f65e";
 }
 .fa-font:before {
   content: "\f031";
@@ -4561,6 +4924,9 @@ ul.dotted > li > a:focus {
 .fa-fulcrum:before {
   content: "\f50b";
 }
+.fa-funnel-dollar:before {
+  content: "\f662";
+}
 .fa-futbol:before {
   content: "\f1e3";
 }
@@ -4594,11 +4960,20 @@ ul.dotted > li > a:focus {
 .fa-gg-circle:before {
   content: "\f261";
 }
+.fa-ghost:before {
+  content: "\f6e2";
+}
 .fa-gift:before {
   content: "\f06b";
 }
+.fa-gifts:before {
+  content: "\f79c";
+}
 .fa-git:before {
   content: "\f1d3";
+}
+.fa-git-alt:before {
+  content: "\f841";
 }
 .fa-git-square:before {
   content: "\f1d2";
@@ -4621,11 +4996,17 @@ ul.dotted > li > a:focus {
 .fa-gitter:before {
   content: "\f426";
 }
+.fa-glass-cheers:before {
+  content: "\f79f";
+}
 .fa-glass-martini:before {
   content: "\f000";
 }
 .fa-glass-martini-alt:before {
   content: "\f57b";
+}
+.fa-glass-whiskey:before {
+  content: "\f7a0";
 }
 .fa-glasses:before {
   content: "\f530";
@@ -4648,6 +5029,9 @@ ul.dotted > li > a:focus {
 .fa-globe-asia:before {
   content: "\f57e";
 }
+.fa-globe-europe:before {
+  content: "\f7a2";
+}
 .fa-gofore:before {
   content: "\f3a7";
 }
@@ -4666,6 +5050,9 @@ ul.dotted > li > a:focus {
 .fa-google-drive:before {
   content: "\f3aa";
 }
+.fa-google-pay:before {
+  content: "\f979";
+}
 .fa-google-play:before {
   content: "\f3ab";
 }
@@ -4680,6 +5067,9 @@ ul.dotted > li > a:focus {
 }
 .fa-google-wallet:before {
   content: "\f1ee";
+}
+.fa-gopuram:before {
+  content: "\f664";
 }
 .fa-graduation-cap:before {
   content: "\f19d";
@@ -4741,6 +5131,12 @@ ul.dotted > li > a:focus {
 .fa-grip-horizontal:before {
   content: "\f58d";
 }
+.fa-grip-lines:before {
+  content: "\f7a4";
+}
+.fa-grip-lines-vertical:before {
+  content: "\f7a5";
+}
 .fa-grip-vertical:before {
   content: "\f58e";
 }
@@ -4749,6 +5145,9 @@ ul.dotted > li > a:focus {
 }
 .fa-grunt:before {
   content: "\f3ad";
+}
+.fa-guitar:before {
+  content: "\f7a6";
 }
 .fa-gulp:before {
   content: "\f3ae";
@@ -4762,17 +5161,38 @@ ul.dotted > li > a:focus {
 .fa-hacker-news-square:before {
   content: "\f3af";
 }
+.fa-hackerrank:before {
+  content: "\f5f7";
+}
+.fa-hamburger:before {
+  content: "\f805";
+}
+.fa-hammer:before {
+  content: "\f6e3";
+}
+.fa-hamsa:before {
+  content: "\f665";
+}
 .fa-hand-holding:before {
   content: "\f4bd";
 }
 .fa-hand-holding-heart:before {
   content: "\f4be";
 }
+.fa-hand-holding-medical:before {
+  content: "\f95c";
+}
 .fa-hand-holding-usd:before {
   content: "\f4c0";
 }
+.fa-hand-holding-water:before {
+  content: "\f4c1";
+}
 .fa-hand-lizard:before {
   content: "\f258";
+}
+.fa-hand-middle-finger:before {
+  content: "\f806";
 }
 .fa-hand-paper:before {
   content: "\f256";
@@ -4801,6 +5221,9 @@ ul.dotted > li > a:focus {
 .fa-hand-scissors:before {
   content: "\f257";
 }
+.fa-hand-sparkles:before {
+  content: "\f95d";
+}
 .fa-hand-spock:before {
   content: "\f259";
 }
@@ -4810,14 +5233,50 @@ ul.dotted > li > a:focus {
 .fa-hands-helping:before {
   content: "\f4c4";
 }
+.fa-hands-wash:before {
+  content: "\f95e";
+}
 .fa-handshake:before {
   content: "\f2b5";
+}
+.fa-handshake-alt-slash:before {
+  content: "\f95f";
+}
+.fa-handshake-slash:before {
+  content: "\f960";
+}
+.fa-hanukiah:before {
+  content: "\f6e6";
+}
+.fa-hard-hat:before {
+  content: "\f807";
 }
 .fa-hashtag:before {
   content: "\f292";
 }
+.fa-hat-cowboy:before {
+  content: "\f8c0";
+}
+.fa-hat-cowboy-side:before {
+  content: "\f8c1";
+}
+.fa-hat-wizard:before {
+  content: "\f6e8";
+}
 .fa-hdd:before {
   content: "\f0a0";
+}
+.fa-head-side-cough:before {
+  content: "\f961";
+}
+.fa-head-side-cough-slash:before {
+  content: "\f962";
+}
+.fa-head-side-mask:before {
+  content: "\f963";
+}
+.fa-head-side-virus:before {
+  content: "\f964";
 }
 .fa-heading:before {
   content: "\f1dc";
@@ -4834,6 +5293,9 @@ ul.dotted > li > a:focus {
 .fa-heart:before {
   content: "\f004";
 }
+.fa-heart-broken:before {
+  content: "\f7a9";
+}
 .fa-heartbeat:before {
   content: "\f21e";
 }
@@ -4842,6 +5304,12 @@ ul.dotted > li > a:focus {
 }
 .fa-highlighter:before {
   content: "\f591";
+}
+.fa-hiking:before {
+  content: "\f6ec";
+}
+.fa-hippo:before {
+  content: "\f6ed";
 }
 .fa-hips:before {
   content: "\f452";
@@ -4855,6 +5323,9 @@ ul.dotted > li > a:focus {
 .fa-hockey-puck:before {
   content: "\f453";
 }
+.fa-holly-berry:before {
+  content: "\f7aa";
+}
 .fa-home:before {
   content: "\f015";
 }
@@ -4863,6 +5334,12 @@ ul.dotted > li > a:focus {
 }
 .fa-hornbill:before {
   content: "\f592";
+}
+.fa-horse:before {
+  content: "\f6f0";
+}
+.fa-horse-head:before {
+  content: "\f7ab";
 }
 .fa-hospital:before {
   content: "\f0f8";
@@ -4873,8 +5350,14 @@ ul.dotted > li > a:focus {
 .fa-hospital-symbol:before {
   content: "\f47e";
 }
+.fa-hospital-user:before {
+  content: "\f80d";
+}
 .fa-hot-tub:before {
   content: "\f593";
+}
+.fa-hotdog:before {
+  content: "\f80f";
 }
 .fa-hotel:before {
   content: "\f594";
@@ -4894,8 +5377,17 @@ ul.dotted > li > a:focus {
 .fa-hourglass-start:before {
   content: "\f251";
 }
+.fa-house-damage:before {
+  content: "\f6f1";
+}
+.fa-house-user:before {
+  content: "\f965";
+}
 .fa-houzz:before {
   content: "\f27c";
+}
+.fa-hryvnia:before {
+  content: "\f6f2";
 }
 .fa-html5:before {
   content: "\f13b";
@@ -4906,6 +5398,15 @@ ul.dotted > li > a:focus {
 .fa-i-cursor:before {
   content: "\f246";
 }
+.fa-ice-cream:before {
+  content: "\f810";
+}
+.fa-icicles:before {
+  content: "\f7ad";
+}
+.fa-icons:before {
+  content: "\f86d";
+}
 .fa-id-badge:before {
   content: "\f2c1";
 }
@@ -4914,6 +5415,12 @@ ul.dotted > li > a:focus {
 }
 .fa-id-card-alt:before {
   content: "\f47f";
+}
+.fa-ideal:before {
+  content: "\f913";
+}
+.fa-igloo:before {
+  content: "\f7ae";
 }
 .fa-image:before {
   content: "\f03e";
@@ -4945,14 +5452,26 @@ ul.dotted > li > a:focus {
 .fa-instagram:before {
   content: "\f16d";
 }
+.fa-instagram-square:before {
+  content: "\f955";
+}
+.fa-intercom:before {
+  content: "\f7af";
+}
 .fa-internet-explorer:before {
   content: "\f26b";
+}
+.fa-invision:before {
+  content: "\f7b0";
 }
 .fa-ioxhost:before {
   content: "\f208";
 }
 .fa-italic:before {
   content: "\f033";
+}
+.fa-itch-io:before {
+  content: "\f83a";
 }
 .fa-itunes:before {
   content: "\f3b4";
@@ -4963,11 +5482,17 @@ ul.dotted > li > a:focus {
 .fa-java:before {
   content: "\f4e4";
 }
+.fa-jedi:before {
+  content: "\f669";
+}
 .fa-jedi-order:before {
   content: "\f50e";
 }
 .fa-jenkins:before {
   content: "\f3b6";
+}
+.fa-jira:before {
+  content: "\f7b1";
 }
 .fa-joget:before {
   content: "\f3b7";
@@ -4978,6 +5503,9 @@ ul.dotted > li > a:focus {
 .fa-joomla:before {
   content: "\f1aa";
 }
+.fa-journal-whills:before {
+  content: "\f66a";
+}
 .fa-js:before {
   content: "\f3b8";
 }
@@ -4986,6 +5514,12 @@ ul.dotted > li > a:focus {
 }
 .fa-jsfiddle:before {
   content: "\f1cc";
+}
+.fa-kaaba:before {
+  content: "\f66b";
+}
+.fa-kaggle:before {
+  content: "\f5fa";
 }
 .fa-key:before {
   content: "\f084";
@@ -4998,6 +5532,9 @@ ul.dotted > li > a:focus {
 }
 .fa-keycdn:before {
   content: "\f3ba";
+}
+.fa-khanda:before {
+  content: "\f66d";
 }
 .fa-kickstarter:before {
   content: "\f3bb";
@@ -5020,11 +5557,23 @@ ul.dotted > li > a:focus {
 .fa-korvue:before {
   content: "\f42f";
 }
+.fa-landmark:before {
+  content: "\f66f";
+}
 .fa-language:before {
   content: "\f1ab";
 }
 .fa-laptop:before {
   content: "\f109";
+}
+.fa-laptop-code:before {
+  content: "\f5fc";
+}
+.fa-laptop-house:before {
+  content: "\f966";
+}
+.fa-laptop-medical:before {
+  content: "\f812";
 }
 .fa-laravel:before {
   content: "\f3bd";
@@ -5046,6 +5595,9 @@ ul.dotted > li > a:focus {
 }
 .fa-laugh-wink:before {
   content: "\f59c";
+}
+.fa-layer-group:before {
+  content: "\f5fd";
 }
 .fa-leaf:before {
   content: "\f06c";
@@ -5137,6 +5689,12 @@ ul.dotted > li > a:focus {
 .fa-luggage-cart:before {
   content: "\f59d";
 }
+.fa-lungs:before {
+  content: "\f604";
+}
+.fa-lungs-virus:before {
+  content: "\f967";
+}
 .fa-lyft:before {
   content: "\f3c3";
 }
@@ -5148,6 +5706,9 @@ ul.dotted > li > a:focus {
 }
 .fa-magnet:before {
   content: "\f076";
+}
+.fa-mail-bulk:before {
+  content: "\f674";
 }
 .fa-mailchimp:before {
   content: "\f59e";
@@ -5179,6 +5740,9 @@ ul.dotted > li > a:focus {
 .fa-map-signs:before {
   content: "\f277";
 }
+.fa-markdown:before {
+  content: "\f60f";
+}
 .fa-marker:before {
   content: "\f5a1";
 }
@@ -5197,11 +5761,17 @@ ul.dotted > li > a:focus {
 .fa-mars-stroke-v:before {
   content: "\f22a";
 }
+.fa-mask:before {
+  content: "\f6fa";
+}
 .fa-mastodon:before {
   content: "\f4f6";
 }
 .fa-maxcdn:before {
   content: "\f136";
+}
+.fa-mdb:before {
+  content: "\f8ca";
 }
 .fa-medal:before {
   content: "\f5a2";
@@ -5239,8 +5809,20 @@ ul.dotted > li > a:focus {
 .fa-memory:before {
   content: "\f538";
 }
+.fa-mendeley:before {
+  content: "\f7b3";
+}
+.fa-menorah:before {
+  content: "\f676";
+}
 .fa-mercury:before {
   content: "\f223";
+}
+.fa-meteor:before {
+  content: "\f753";
+}
+.fa-microblog:before {
+  content: "\f91a";
 }
 .fa-microchip:before {
   content: "\f2db";
@@ -5257,6 +5839,9 @@ ul.dotted > li > a:focus {
 .fa-microphone-slash:before {
   content: "\f131";
 }
+.fa-microscope:before {
+  content: "\f610";
+}
 .fa-microsoft:before {
   content: "\f3ca";
 }
@@ -5269,11 +5854,17 @@ ul.dotted > li > a:focus {
 .fa-minus-square:before {
   content: "\f146";
 }
+.fa-mitten:before {
+  content: "\f7b5";
+}
 .fa-mix:before {
   content: "\f3cb";
 }
 .fa-mixcloud:before {
   content: "\f289";
+}
+.fa-mixer:before {
+  content: "\f956";
 }
 .fa-mizuni:before {
   content: "\f3cc";
@@ -5317,17 +5908,35 @@ ul.dotted > li > a:focus {
 .fa-mortar-pestle:before {
   content: "\f5a7";
 }
+.fa-mosque:before {
+  content: "\f678";
+}
 .fa-motorcycle:before {
   content: "\f21c";
 }
+.fa-mountain:before {
+  content: "\f6fc";
+}
+.fa-mouse:before {
+  content: "\f8cc";
+}
 .fa-mouse-pointer:before {
   content: "\f245";
+}
+.fa-mug-hot:before {
+  content: "\f7b6";
 }
 .fa-music:before {
   content: "\f001";
 }
 .fa-napster:before {
   content: "\f3d2";
+}
+.fa-neos:before {
+  content: "\f612";
+}
+.fa-network-wired:before {
+  content: "\f6ff";
 }
 .fa-neuter:before {
   content: "\f22c";
@@ -5337,9 +5946,6 @@ ul.dotted > li > a:focus {
 }
 .fa-nimblr:before {
   content: "\f5a8";
-}
-.fa-nintendo-switch:before {
-  content: "\f418";
 }
 .fa-node:before {
   content: "\f419";
@@ -5374,8 +5980,14 @@ ul.dotted > li > a:focus {
 .fa-odnoklassniki-square:before {
   content: "\f264";
 }
+.fa-oil-can:before {
+  content: "\f613";
+}
 .fa-old-republic:before {
   content: "\f510";
+}
+.fa-om:before {
+  content: "\f679";
 }
 .fa-opencart:before {
   content: "\f23d";
@@ -5389,8 +6001,14 @@ ul.dotted > li > a:focus {
 .fa-optin-monster:before {
   content: "\f23c";
 }
+.fa-orcid:before {
+  content: "\f8d2";
+}
 .fa-osi:before {
   content: "\f41a";
+}
+.fa-otter:before {
+  content: "\f700";
 }
 .fa-outdent:before {
   content: "\f03b";
@@ -5400,6 +6018,9 @@ ul.dotted > li > a:focus {
 }
 .fa-pagelines:before {
   content: "\f18c";
+}
+.fa-pager:before {
+  content: "\f815";
 }
 .fa-paint-brush:before {
   content: "\f1fc";
@@ -5434,6 +6055,9 @@ ul.dotted > li > a:focus {
 .fa-passport:before {
   content: "\f5ab";
 }
+.fa-pastafarianism:before {
+  content: "\f67b";
+}
 .fa-paste:before {
   content: "\f0ea";
 }
@@ -5451,6 +6075,9 @@ ul.dotted > li > a:focus {
 }
 .fa-paypal:before {
   content: "\f1ed";
+}
+.fa-peace:before {
+  content: "\f67c";
 }
 .fa-pen:before {
   content: "\f304";
@@ -5473,8 +6100,17 @@ ul.dotted > li > a:focus {
 .fa-pencil-ruler:before {
   content: "\f5ae";
 }
+.fa-penny-arcade:before {
+  content: "\f704";
+}
+.fa-people-arrows:before {
+  content: "\f968";
+}
 .fa-people-carry:before {
   content: "\f4ce";
+}
+.fa-pepper-hot:before {
+  content: "\f816";
 }
 .fa-percent:before {
   content: "\f295";
@@ -5484,6 +6120,9 @@ ul.dotted > li > a:focus {
 }
 .fa-periscope:before {
   content: "\f3da";
+}
+.fa-person-booth:before {
+  content: "\f756";
 }
 .fa-phabricator:before {
   content: "\f3db";
@@ -5497,14 +6136,23 @@ ul.dotted > li > a:focus {
 .fa-phone:before {
   content: "\f095";
 }
+.fa-phone-alt:before {
+  content: "\f879";
+}
 .fa-phone-slash:before {
   content: "\f3dd";
 }
 .fa-phone-square:before {
   content: "\f098";
 }
+.fa-phone-square-alt:before {
+  content: "\f87b";
+}
 .fa-phone-volume:before {
   content: "\f2a0";
+}
+.fa-photo-video:before {
+  content: "\f87c";
 }
 .fa-php:before {
   content: "\f457";
@@ -5521,6 +6169,9 @@ ul.dotted > li > a:focus {
 .fa-pied-piper-pp:before {
   content: "\f1a7";
 }
+.fa-pied-piper-square:before {
+  content: "\f91e";
+}
 .fa-piggy-bank:before {
   content: "\f4d3";
 }
@@ -5536,6 +6187,12 @@ ul.dotted > li > a:focus {
 .fa-pinterest-square:before {
   content: "\f0d3";
 }
+.fa-pizza-slice:before {
+  content: "\f818";
+}
+.fa-place-of-worship:before {
+  content: "\f67f";
+}
 .fa-plane:before {
   content: "\f072";
 }
@@ -5544,6 +6201,9 @@ ul.dotted > li > a:focus {
 }
 .fa-plane-departure:before {
   content: "\f5b0";
+}
+.fa-plane-slash:before {
+  content: "\f969";
 }
 .fa-play:before {
   content: "\f04b";
@@ -5569,8 +6229,20 @@ ul.dotted > li > a:focus {
 .fa-podcast:before {
   content: "\f2ce";
 }
+.fa-poll:before {
+  content: "\f681";
+}
+.fa-poll-h:before {
+  content: "\f682";
+}
 .fa-poo:before {
   content: "\f2fe";
+}
+.fa-poo-storm:before {
+  content: "\f75a";
+}
+.fa-poop:before {
+  content: "\f619";
 }
 .fa-portrait:before {
   content: "\f3e0";
@@ -5580,6 +6252,12 @@ ul.dotted > li > a:focus {
 }
 .fa-power-off:before {
   content: "\f011";
+}
+.fa-pray:before {
+  content: "\f683";
+}
+.fa-praying-hands:before {
+  content: "\f684";
 }
 .fa-prescription:before {
   content: "\f5b1";
@@ -5601,6 +6279,12 @@ ul.dotted > li > a:focus {
 }
 .fa-project-diagram:before {
   content: "\f542";
+}
+.fa-pump-medical:before {
+  content: "\f96a";
+}
+.fa-pump-soap:before {
+  content: "\f96b";
 }
 .fa-pushed:before {
   content: "\f3e1";
@@ -5638,17 +6322,35 @@ ul.dotted > li > a:focus {
 .fa-quote-right:before {
   content: "\f10e";
 }
+.fa-quran:before {
+  content: "\f687";
+}
 .fa-r-project:before {
   content: "\f4f7";
 }
+.fa-radiation:before {
+  content: "\f7b9";
+}
+.fa-radiation-alt:before {
+  content: "\f7ba";
+}
+.fa-rainbow:before {
+  content: "\f75b";
+}
 .fa-random:before {
   content: "\f074";
+}
+.fa-raspberry-pi:before {
+  content: "\f7bb";
 }
 .fa-ravelry:before {
   content: "\f2d9";
 }
 .fa-react:before {
   content: "\f41b";
+}
+.fa-reacteurope:before {
+  content: "\f75d";
 }
 .fa-readme:before {
   content: "\f4d5";
@@ -5658,6 +6360,9 @@ ul.dotted > li > a:focus {
 }
 .fa-receipt:before {
   content: "\f543";
+}
+.fa-record-vinyl:before {
+  content: "\f8d9";
 }
 .fa-recycle:before {
   content: "\f1b8";
@@ -5674,6 +6379,9 @@ ul.dotted > li > a:focus {
 .fa-reddit-square:before {
   content: "\f1a2";
 }
+.fa-redhat:before {
+  content: "\f7bc";
+}
 .fa-redo:before {
   content: "\f01e";
 }
@@ -5683,8 +6391,8 @@ ul.dotted > li > a:focus {
 .fa-registered:before {
   content: "\f25d";
 }
-.fa-rendact:before {
-  content: "\f3e4";
+.fa-remove-format:before {
+  content: "\f87d";
 }
 .fa-renren:before {
   content: "\f18b";
@@ -5698,17 +6406,29 @@ ul.dotted > li > a:focus {
 .fa-replyd:before {
   content: "\f3e6";
 }
+.fa-republican:before {
+  content: "\f75e";
+}
 .fa-researchgate:before {
   content: "\f4f8";
 }
 .fa-resolving:before {
   content: "\f3e7";
 }
+.fa-restroom:before {
+  content: "\f7bd";
+}
 .fa-retweet:before {
   content: "\f079";
 }
+.fa-rev:before {
+  content: "\f5b2";
+}
 .fa-ribbon:before {
   content: "\f4d6";
+}
+.fa-ring:before {
+  content: "\f70b";
 }
 .fa-road:before {
   content: "\f018";
@@ -5724,6 +6444,9 @@ ul.dotted > li > a:focus {
 }
 .fa-rockrms:before {
   content: "\f3e9";
+}
+.fa-route:before {
+  content: "\f4d7";
 }
 .fa-rss:before {
   content: "\f09e";
@@ -5746,8 +6469,14 @@ ul.dotted > li > a:focus {
 .fa-ruler-vertical:before {
   content: "\f548";
 }
+.fa-running:before {
+  content: "\f70c";
+}
 .fa-rupee-sign:before {
   content: "\f156";
+}
+.fa-rust:before {
+  content: "\f97a";
 }
 .fa-sad-cry:before {
   content: "\f5b3";
@@ -5758,8 +6487,17 @@ ul.dotted > li > a:focus {
 .fa-safari:before {
   content: "\f267";
 }
+.fa-salesforce:before {
+  content: "\f83b";
+}
 .fa-sass:before {
   content: "\f41e";
+}
+.fa-satellite:before {
+  content: "\f7bf";
+}
+.fa-satellite-dish:before {
+  content: "\f7c0";
 }
 .fa-save:before {
   content: "\f0c7";
@@ -5776,8 +6514,20 @@ ul.dotted > li > a:focus {
 .fa-scribd:before {
   content: "\f28a";
 }
+.fa-scroll:before {
+  content: "\f70e";
+}
+.fa-sd-card:before {
+  content: "\f7c2";
+}
 .fa-search:before {
   content: "\f002";
+}
+.fa-search-dollar:before {
+  content: "\f688";
+}
+.fa-search-location:before {
+  content: "\f689";
 }
 .fa-search-minus:before {
   content: "\f010";
@@ -5803,6 +6553,9 @@ ul.dotted > li > a:focus {
 .fa-servicestack:before {
   content: "\f3ec";
 }
+.fa-shapes:before {
+  content: "\f61f";
+}
 .fa-share:before {
   content: "\f064";
 }
@@ -5821,6 +6574,9 @@ ul.dotted > li > a:focus {
 .fa-shield-alt:before {
   content: "\f3ed";
 }
+.fa-shield-virus:before {
+  content: "\f96c";
+}
 .fa-ship:before {
   content: "\f21a";
 }
@@ -5832,6 +6588,9 @@ ul.dotted > li > a:focus {
 }
 .fa-shoe-prints:before {
   content: "\f54b";
+}
+.fa-shopify:before {
+  content: "\f957";
 }
 .fa-shopping-bag:before {
   content: "\f290";
@@ -5869,8 +6628,14 @@ ul.dotted > li > a:focus {
 .fa-signature:before {
   content: "\f5b7";
 }
+.fa-sim-card:before {
+  content: "\f7c4";
+}
 .fa-simplybuilt:before {
   content: "\f215";
+}
+.fa-sink:before {
+  content: "\f96d";
 }
 .fa-sistrix:before {
   content: "\f3ee";
@@ -5881,8 +6646,23 @@ ul.dotted > li > a:focus {
 .fa-sith:before {
   content: "\f512";
 }
+.fa-skating:before {
+  content: "\f7c5";
+}
+.fa-sketch:before {
+  content: "\f7c6";
+}
+.fa-skiing:before {
+  content: "\f7c9";
+}
+.fa-skiing-nordic:before {
+  content: "\f7ca";
+}
 .fa-skull:before {
   content: "\f54c";
+}
+.fa-skull-crossbones:before {
+  content: "\f714";
 }
 .fa-skyatlas:before {
   content: "\f216";
@@ -5895,6 +6675,12 @@ ul.dotted > li > a:focus {
 }
 .fa-slack-hash:before {
   content: "\f3ef";
+}
+.fa-slash:before {
+  content: "\f715";
+}
+.fa-sleigh:before {
+  content: "\f7cc";
 }
 .fa-sliders-h:before {
   content: "\f1de";
@@ -5911,11 +6697,17 @@ ul.dotted > li > a:focus {
 .fa-smile-wink:before {
   content: "\f4da";
 }
+.fa-smog:before {
+  content: "\f75f";
+}
 .fa-smoking:before {
   content: "\f48d";
 }
 .fa-smoking-ban:before {
   content: "\f54d";
+}
+.fa-sms:before {
+  content: "\f7cd";
 }
 .fa-snapchat:before {
   content: "\f2ab";
@@ -5926,8 +6718,23 @@ ul.dotted > li > a:focus {
 .fa-snapchat-square:before {
   content: "\f2ad";
 }
+.fa-snowboarding:before {
+  content: "\f7ce";
+}
 .fa-snowflake:before {
   content: "\f2dc";
+}
+.fa-snowman:before {
+  content: "\f7d0";
+}
+.fa-snowplow:before {
+  content: "\f7d2";
+}
+.fa-soap:before {
+  content: "\f96e";
+}
+.fa-socks:before {
+  content: "\f696";
 }
 .fa-solar-panel:before {
   content: "\f5ba";
@@ -5938,14 +6745,26 @@ ul.dotted > li > a:focus {
 .fa-sort-alpha-down:before {
   content: "\f15d";
 }
+.fa-sort-alpha-down-alt:before {
+  content: "\f881";
+}
 .fa-sort-alpha-up:before {
   content: "\f15e";
+}
+.fa-sort-alpha-up-alt:before {
+  content: "\f882";
 }
 .fa-sort-amount-down:before {
   content: "\f160";
 }
+.fa-sort-amount-down-alt:before {
+  content: "\f884";
+}
 .fa-sort-amount-up:before {
   content: "\f161";
+}
+.fa-sort-amount-up-alt:before {
+  content: "\f885";
 }
 .fa-sort-down:before {
   content: "\f0dd";
@@ -5953,14 +6772,23 @@ ul.dotted > li > a:focus {
 .fa-sort-numeric-down:before {
   content: "\f162";
 }
+.fa-sort-numeric-down-alt:before {
+  content: "\f886";
+}
 .fa-sort-numeric-up:before {
   content: "\f163";
+}
+.fa-sort-numeric-up-alt:before {
+  content: "\f887";
 }
 .fa-sort-up:before {
   content: "\f0de";
 }
 .fa-soundcloud:before {
   content: "\f1be";
+}
+.fa-sourcetree:before {
+  content: "\f7d3";
 }
 .fa-spa:before {
   content: "\f5bb";
@@ -5970,6 +6798,15 @@ ul.dotted > li > a:focus {
 }
 .fa-speakap:before {
   content: "\f3f3";
+}
+.fa-speaker-deck:before {
+  content: "\f83c";
+}
+.fa-spell-check:before {
+  content: "\f891";
+}
+.fa-spider:before {
+  content: "\f717";
 }
 .fa-spinner:before {
   content: "\f110";
@@ -5989,6 +6826,9 @@ ul.dotted > li > a:focus {
 .fa-square-full:before {
   content: "\f45c";
 }
+.fa-square-root-alt:before {
+  content: "\f698";
+}
 .fa-squarespace:before {
   content: "\f5be";
 }
@@ -5998,17 +6838,29 @@ ul.dotted > li > a:focus {
 .fa-stack-overflow:before {
   content: "\f16c";
 }
+.fa-stackpath:before {
+  content: "\f842";
+}
 .fa-stamp:before {
   content: "\f5bf";
 }
 .fa-star:before {
   content: "\f005";
 }
+.fa-star-and-crescent:before {
+  content: "\f699";
+}
 .fa-star-half:before {
   content: "\f089";
 }
 .fa-star-half-alt:before {
   content: "\f5c0";
+}
+.fa-star-of-david:before {
+  content: "\f69a";
+}
+.fa-star-of-life:before {
+  content: "\f621";
 }
 .fa-staylinked:before {
   content: "\f3f5";
@@ -6046,11 +6898,20 @@ ul.dotted > li > a:focus {
 .fa-stopwatch:before {
   content: "\f2f2";
 }
+.fa-stopwatch-20:before {
+  content: "\f96f";
+}
 .fa-store:before {
   content: "\f54e";
 }
 .fa-store-alt:before {
   content: "\f54f";
+}
+.fa-store-alt-slash:before {
+  content: "\f970";
+}
+.fa-store-slash:before {
+  content: "\f971";
 }
 .fa-strava:before {
   content: "\f428";
@@ -6109,14 +6970,26 @@ ul.dotted > li > a:focus {
 .fa-surprise:before {
   content: "\f5c2";
 }
+.fa-suse:before {
+  content: "\f7d6";
+}
 .fa-swatchbook:before {
   content: "\f5c3";
+}
+.fa-swift:before {
+  content: "\f8e1";
 }
 .fa-swimmer:before {
   content: "\f5c4";
 }
 .fa-swimming-pool:before {
   content: "\f5c5";
+}
+.fa-symfony:before {
+  content: "\f83d";
+}
+.fa-synagogue:before {
+  content: "\f69b";
 }
 .fa-sync:before {
   content: "\f021";
@@ -6163,14 +7036,29 @@ ul.dotted > li > a:focus {
 .fa-teamspeak:before {
   content: "\f4f9";
 }
+.fa-teeth:before {
+  content: "\f62e";
+}
+.fa-teeth-open:before {
+  content: "\f62f";
+}
 .fa-telegram:before {
   content: "\f2c6";
 }
 .fa-telegram-plane:before {
   content: "\f3fe";
 }
+.fa-temperature-high:before {
+  content: "\f769";
+}
+.fa-temperature-low:before {
+  content: "\f76b";
+}
 .fa-tencent-weibo:before {
   content: "\f1d5";
+}
+.fa-tenge:before {
+  content: "\f7d7";
 }
 .fa-terminal:before {
   content: "\f120";
@@ -6189,6 +7077,12 @@ ul.dotted > li > a:focus {
 }
 .fa-th-list:before {
   content: "\f00b";
+}
+.fa-the-red-yeti:before {
+  content: "\f69d";
+}
+.fa-theater-masks:before {
+  content: "\f630";
 }
 .fa-themeco:before {
   content: "\f5c6";
@@ -6214,6 +7108,9 @@ ul.dotted > li > a:focus {
 .fa-thermometer-three-quarters:before {
   content: "\f2c8";
 }
+.fa-think-peaks:before {
+  content: "\f731";
+}
 .fa-thumbs-down:before {
   content: "\f165";
 }
@@ -6225,6 +7122,9 @@ ul.dotted > li > a:focus {
 }
 .fa-ticket-alt:before {
   content: "\f3ff";
+}
+.fa-tiktok:before {
+  content: "\f97b";
 }
 .fa-times:before {
   content: "\f00d";
@@ -6247,11 +7147,32 @@ ul.dotted > li > a:focus {
 .fa-toggle-on:before {
   content: "\f205";
 }
+.fa-toilet:before {
+  content: "\f7d8";
+}
+.fa-toilet-paper:before {
+  content: "\f71e";
+}
+.fa-toilet-paper-slash:before {
+  content: "\f972";
+}
 .fa-toolbox:before {
   content: "\f552";
 }
+.fa-tools:before {
+  content: "\f7d9";
+}
 .fa-tooth:before {
   content: "\f5c9";
+}
+.fa-torah:before {
+  content: "\f6a0";
+}
+.fa-torii-gate:before {
+  content: "\f6a1";
+}
+.fa-tractor:before {
+  content: "\f722";
 }
 .fa-trade-federation:before {
   content: "\f513";
@@ -6259,8 +7180,17 @@ ul.dotted > li > a:focus {
 .fa-trademark:before {
   content: "\f25c";
 }
+.fa-traffic-light:before {
+  content: "\f637";
+}
+.fa-trailer:before {
+  content: "\f941";
+}
 .fa-train:before {
   content: "\f238";
+}
+.fa-tram:before {
+  content: "\f7da";
 }
 .fa-transgender:before {
   content: "\f224";
@@ -6273,6 +7203,12 @@ ul.dotted > li > a:focus {
 }
 .fa-trash-alt:before {
   content: "\f2ed";
+}
+.fa-trash-restore:before {
+  content: "\f829";
+}
+.fa-trash-restore-alt:before {
+  content: "\f82a";
 }
 .fa-tree:before {
   content: "\f1bb";
@@ -6292,8 +7228,14 @@ ul.dotted > li > a:focus {
 .fa-truck-loading:before {
   content: "\f4de";
 }
+.fa-truck-monster:before {
+  content: "\f63b";
+}
 .fa-truck-moving:before {
   content: "\f4df";
+}
+.fa-truck-pickup:before {
+  content: "\f63c";
 }
 .fa-tshirt:before {
   content: "\f553";
@@ -6325,8 +7267,14 @@ ul.dotted > li > a:focus {
 .fa-uber:before {
   content: "\f402";
 }
+.fa-ubuntu:before {
+  content: "\f7df";
+}
 .fa-uikit:before {
   content: "\f403";
+}
+.fa-umbraco:before {
+  content: "\f8e8";
 }
 .fa-umbrella:before {
   content: "\f0e9";
@@ -6346,6 +7294,9 @@ ul.dotted > li > a:focus {
 .fa-uniregistry:before {
   content: "\f404";
 }
+.fa-unity:before {
+  content: "\f949";
+}
 .fa-universal-access:before {
   content: "\f29a";
 }
@@ -6361,11 +7312,17 @@ ul.dotted > li > a:focus {
 .fa-unlock-alt:before {
   content: "\f13e";
 }
+.fa-unsplash:before {
+  content: "\f97c";
+}
 .fa-untappd:before {
   content: "\f405";
 }
 .fa-upload:before {
   content: "\f093";
+}
+.fa-ups:before {
+  content: "\f7e0";
 }
 .fa-usb:before {
   content: "\f287";
@@ -6403,6 +7360,9 @@ ul.dotted > li > a:focus {
 .fa-user-graduate:before {
   content: "\f501";
 }
+.fa-user-injured:before {
+  content: "\f728";
+}
 .fa-user-lock:before {
   content: "\f502";
 }
@@ -6414,6 +7374,9 @@ ul.dotted > li > a:focus {
 }
 .fa-user-ninja:before {
   content: "\f504";
+}
+.fa-user-nurse:before {
+  content: "\f82f";
 }
 .fa-user-plus:before {
   content: "\f234";
@@ -6441,6 +7404,12 @@ ul.dotted > li > a:focus {
 }
 .fa-users-cog:before {
   content: "\f509";
+}
+.fa-users-slash:before {
+  content: "\f973";
+}
+.fa-usps:before {
+  content: "\f7e1";
 }
 .fa-ussunnah:before {
   content: "\f407";
@@ -6490,6 +7459,9 @@ ul.dotted > li > a:focus {
 .fa-video-slash:before {
   content: "\f4e2";
 }
+.fa-vihara:before {
+  content: "\f6a7";
+}
 .fa-vimeo:before {
   content: "\f40a";
 }
@@ -6502,11 +7474,23 @@ ul.dotted > li > a:focus {
 .fa-vine:before {
   content: "\f1ca";
 }
+.fa-virus:before {
+  content: "\f974";
+}
+.fa-virus-slash:before {
+  content: "\f975";
+}
+.fa-viruses:before {
+  content: "\f976";
+}
 .fa-vk:before {
   content: "\f189";
 }
 .fa-vnv:before {
   content: "\f40b";
+}
+.fa-voicemail:before {
+  content: "\f897";
 }
 .fa-volleyball-ball:before {
   content: "\f45f";
@@ -6514,11 +7498,20 @@ ul.dotted > li > a:focus {
 .fa-volume-down:before {
   content: "\f027";
 }
+.fa-volume-mute:before {
+  content: "\f6a9";
+}
 .fa-volume-off:before {
   content: "\f026";
 }
 .fa-volume-up:before {
   content: "\f028";
+}
+.fa-vote-yea:before {
+  content: "\f772";
+}
+.fa-vr-cardboard:before {
+  content: "\f729";
 }
 .fa-vuejs:before {
   content: "\f41f";
@@ -6531,6 +7524,15 @@ ul.dotted > li > a:focus {
 }
 .fa-warehouse:before {
   content: "\f494";
+}
+.fa-water:before {
+  content: "\f773";
+}
+.fa-wave-square:before {
+  content: "\f83e";
+}
+.fa-waze:before {
+  content: "\f83f";
 }
 .fa-weebly:before {
   content: "\f5cc";
@@ -6565,6 +7567,9 @@ ul.dotted > li > a:focus {
 .fa-wikipedia-w:before {
   content: "\f266";
 }
+.fa-wind:before {
+  content: "\f72e";
+}
 .fa-window-close:before {
   content: "\f410";
 }
@@ -6580,6 +7585,9 @@ ul.dotted > li > a:focus {
 .fa-windows:before {
   content: "\f17a";
 }
+.fa-wine-bottle:before {
+  content: "\f72f";
+}
 .fa-wine-glass:before {
   content: "\f4e3";
 }
@@ -6588,6 +7596,9 @@ ul.dotted > li > a:focus {
 }
 .fa-wix:before {
   content: "\f5cf";
+}
+.fa-wizards-of-the-coast:before {
+  content: "\f730";
 }
 .fa-wolf-pack-battalion:before {
   content: "\f514";
@@ -6610,6 +7621,9 @@ ul.dotted > li > a:focus {
 .fa-wpforms:before {
   content: "\f298";
 }
+.fa-wpressr:before {
+  content: "\f3e4";
+}
 .fa-wrench:before {
   content: "\f0ad";
 }
@@ -6631,17 +7645,26 @@ ul.dotted > li > a:focus {
 .fa-yahoo:before {
   content: "\f19e";
 }
+.fa-yammer:before {
+  content: "\f840";
+}
 .fa-yandex:before {
   content: "\f413";
 }
 .fa-yandex-international:before {
   content: "\f414";
 }
+.fa-yarn:before {
+  content: "\f7e3";
+}
 .fa-yelp:before {
   content: "\f1e9";
 }
 .fa-yen-sign:before {
   content: "\f157";
+}
+.fa-yin-yang:before {
+  content: "\f6ad";
 }
 .fa-yoast:before {
   content: "\f2b1";
@@ -6652,20 +7675,29 @@ ul.dotted > li > a:focus {
 .fa-youtube-square:before {
   content: "\f431";
 }
+.fa-zhihu:before {
+  content: "\f63f";
+}
 .fa-500px:before,
 .fa-accessible-icon:before,
 .fa-accusoft:before,
+.fa-acquisitions-incorporated:before,
+.fa-ad:before,
 .fa-address-book:before,
 .fa-address-card:before,
 .fa-adjust:before,
 .fa-adn:before,
+.fa-adobe:before,
 .fa-adversal:before,
 .fa-affiliatetheme:before,
+.fa-air-freshener:before,
+.fa-airbnb:before,
 .fa-algolia:before,
 .fa-align-center:before,
 .fa-align-justify:before,
 .fa-align-left:before,
 .fa-align-right:before,
+.fa-alipay:before,
 .fa-allergies:before,
 .fa-amazon:before,
 .fa-amazon-pay:before,
@@ -6686,10 +7718,12 @@ ul.dotted > li > a:focus {
 .fa-angry:before,
 .fa-angrycreative:before,
 .fa-angular:before,
+.fa-ankh:before,
 .fa-app-store:before,
 .fa-app-store-ios:before,
 .fa-apper:before,
 .fa-apple:before,
+.fa-apple-alt:before,
 .fa-apple-pay:before,
 .fa-archive:before,
 .fa-archway:before,
@@ -6708,11 +7742,14 @@ ul.dotted > li > a:focus {
 .fa-arrows-alt:before,
 .fa-arrows-alt-h:before,
 .fa-arrows-alt-v:before,
+.fa-artstation:before,
 .fa-assistive-listening-systems:before,
 .fa-asterisk:before,
 .fa-asymmetrik:before,
 .fa-at:before,
 .fa-atlas:before,
+.fa-atlassian:before,
+.fa-atom:before,
 .fa-audible:before,
 .fa-audio-description:before,
 .fa-autoprefixer:before,
@@ -6720,9 +7757,17 @@ ul.dotted > li > a:focus {
 .fa-aviato:before,
 .fa-award:before,
 .fa-aws:before,
+.fa-baby:before,
+.fa-baby-carriage:before,
 .fa-backspace:before,
 .fa-backward:before,
+.fa-bacon:before,
+.fa-bacteria:before,
+.fa-bacterium:before,
+.fa-bahai:before,
 .fa-balance-scale:before,
+.fa-balance-scale-left:before,
+.fa-balance-scale-right:before,
 .fa-ban:before,
 .fa-band-aid:before,
 .fa-bandcamp:before,
@@ -6736,6 +7781,7 @@ ul.dotted > li > a:focus {
 .fa-battery-half:before,
 .fa-battery-quarter:before,
 .fa-battery-three-quarters:before,
+.fa-battle-net:before,
 .fa-bed:before,
 .fa-beer:before,
 .fa-behance:before,
@@ -6743,9 +7789,12 @@ ul.dotted > li > a:focus {
 .fa-bell:before,
 .fa-bell-slash:before,
 .fa-bezier-curve:before,
+.fa-bible:before,
 .fa-bicycle:before,
+.fa-biking:before,
 .fa-bimobject:before,
 .fa-binoculars:before,
+.fa-biohazard:before,
 .fa-birthday-cake:before,
 .fa-bitbucket:before,
 .fa-bitcoin:before,
@@ -6753,7 +7802,9 @@ ul.dotted > li > a:focus {
 .fa-black-tie:before,
 .fa-blackberry:before,
 .fa-blender:before,
+.fa-blender-phone:before,
 .fa-blind:before,
+.fa-blog:before,
 .fa-blogger:before,
 .fa-blogger-b:before,
 .fa-bluetooth:before,
@@ -6761,21 +7812,33 @@ ul.dotted > li > a:focus {
 .fa-bold:before,
 .fa-bolt:before,
 .fa-bomb:before,
+.fa-bone:before,
 .fa-bong:before,
 .fa-book:before,
+.fa-book-dead:before,
+.fa-book-medical:before,
 .fa-book-open:before,
+.fa-book-reader:before,
 .fa-bookmark:before,
+.fa-bootstrap:before,
+.fa-border-all:before,
+.fa-border-none:before,
+.fa-border-style:before,
 .fa-bowling-ball:before,
 .fa-box:before,
 .fa-box-open:before,
+.fa-box-tissue:before,
 .fa-boxes:before,
 .fa-braille:before,
+.fa-brain:before,
+.fa-bread-slice:before,
 .fa-briefcase:before,
 .fa-briefcase-medical:before,
 .fa-broadcast-tower:before,
 .fa-broom:before,
 .fa-brush:before,
 .fa-btc:before,
+.fa-buffer:before,
 .fa-bug:before,
 .fa-building:before,
 .fa-bullhorn:before,
@@ -6784,19 +7847,31 @@ ul.dotted > li > a:focus {
 .fa-buromobelexperte:before,
 .fa-bus:before,
 .fa-bus-alt:before,
+.fa-business-time:before,
+.fa-buy-n-large:before,
 .fa-buysellads:before,
 .fa-calculator:before,
 .fa-calendar:before,
 .fa-calendar-alt:before,
 .fa-calendar-check:before,
+.fa-calendar-day:before,
 .fa-calendar-minus:before,
 .fa-calendar-plus:before,
 .fa-calendar-times:before,
+.fa-calendar-week:before,
 .fa-camera:before,
 .fa-camera-retro:before,
+.fa-campground:before,
+.fa-canadian-maple-leaf:before,
+.fa-candy-cane:before,
 .fa-cannabis:before,
 .fa-capsules:before,
 .fa-car:before,
+.fa-car-alt:before,
+.fa-car-battery:before,
+.fa-car-crash:before,
+.fa-car-side:before,
+.fa-caravan:before,
 .fa-caret-down:before,
 .fa-caret-left:before,
 .fa-caret-right:before,
@@ -6805,8 +7880,11 @@ ul.dotted > li > a:focus {
 .fa-caret-square-right:before,
 .fa-caret-square-up:before,
 .fa-caret-up:before,
+.fa-carrot:before,
 .fa-cart-arrow-down:before,
 .fa-cart-plus:before,
+.fa-cash-register:before,
+.fa-cat:before,
 .fa-cc-amazon-pay:before,
 .fa-cc-amex:before,
 .fa-cc-apple-pay:before,
@@ -6818,9 +7896,12 @@ ul.dotted > li > a:focus {
 .fa-cc-stripe:before,
 .fa-cc-visa:before,
 .fa-centercode:before,
+.fa-centos:before,
 .fa-certificate:before,
+.fa-chair:before,
 .fa-chalkboard:before,
 .fa-chalkboard-teacher:before,
+.fa-charging-station:before,
 .fa-chart-area:before,
 .fa-chart-bar:before,
 .fa-chart-line:before,
@@ -6829,6 +7910,7 @@ ul.dotted > li > a:focus {
 .fa-check-circle:before,
 .fa-check-double:before,
 .fa-check-square:before,
+.fa-cheese:before,
 .fa-chess:before,
 .fa-chess-bishop:before,
 .fa-chess-board:before,
@@ -6847,9 +7929,12 @@ ul.dotted > li > a:focus {
 .fa-chevron-up:before,
 .fa-child:before,
 .fa-chrome:before,
+.fa-chromecast:before,
 .fa-church:before,
 .fa-circle:before,
 .fa-circle-notch:before,
+.fa-city:before,
+.fa-clinic-medical:before,
 .fa-clipboard:before,
 .fa-clipboard-check:before,
 .fa-clipboard-list:before,
@@ -6858,6 +7943,13 @@ ul.dotted > li > a:focus {
 .fa-closed-captioning:before,
 .fa-cloud:before,
 .fa-cloud-download-alt:before,
+.fa-cloud-meatball:before,
+.fa-cloud-moon:before,
+.fa-cloud-moon-rain:before,
+.fa-cloud-rain:before,
+.fa-cloud-showers-heavy:before,
+.fa-cloud-sun:before,
+.fa-cloud-sun-rain:before,
 .fa-cloud-upload-alt:before,
 .fa-cloudscale:before,
 .fa-cloudsmith:before,
@@ -6874,19 +7966,26 @@ ul.dotted > li > a:focus {
 .fa-columns:before,
 .fa-comment:before,
 .fa-comment-alt:before,
+.fa-comment-dollar:before,
 .fa-comment-dots:before,
+.fa-comment-medical:before,
 .fa-comment-slash:before,
 .fa-comments:before,
+.fa-comments-dollar:before,
 .fa-compact-disc:before,
 .fa-compass:before,
 .fa-compress:before,
+.fa-compress-alt:before,
+.fa-compress-arrows-alt:before,
 .fa-concierge-bell:before,
+.fa-confluence:before,
 .fa-connectdevelop:before,
 .fa-contao:before,
 .fa-cookie:before,
 .fa-cookie-bite:before,
 .fa-copy:before,
 .fa-copyright:before,
+.fa-cotton-bureau:before,
 .fa-couch:before,
 .fa-cpanel:before,
 .fa-creative-commons:before,
@@ -6902,12 +8001,16 @@ ul.dotted > li > a:focus {
 .fa-creative-commons-sampling:before,
 .fa-creative-commons-sampling-plus:before,
 .fa-creative-commons-share:before,
+.fa-creative-commons-zero:before,
 .fa-credit-card:before,
+.fa-critical-role:before,
 .fa-crop:before,
 .fa-crop-alt:before,
+.fa-cross:before,
 .fa-crosshairs:before,
 .fa-crow:before,
 .fa-crown:before,
+.fa-crutch:before,
 .fa-css3:before,
 .fa-css3-alt:before,
 .fa-cube:before,
@@ -6915,16 +8018,26 @@ ul.dotted > li > a:focus {
 .fa-cut:before,
 .fa-cuttlefish:before,
 .fa-d-and-d:before,
+.fa-d-and-d-beyond:before,
+.fa-dailymotion:before,
 .fa-dashcube:before,
 .fa-database:before,
 .fa-deaf:before,
+.fa-deezer:before,
 .fa-delicious:before,
+.fa-democrat:before,
 .fa-deploydog:before,
 .fa-deskpro:before,
 .fa-desktop:before,
+.fa-dev:before,
 .fa-deviantart:before,
+.fa-dharmachakra:before,
+.fa-dhl:before,
 .fa-diagnoses:before,
+.fa-diaspora:before,
 .fa-dice:before,
+.fa-dice-d20:before,
+.fa-dice-d6:before,
 .fa-dice-five:before,
 .fa-dice-four:before,
 .fa-dice-one:before,
@@ -6934,13 +8047,16 @@ ul.dotted > li > a:focus {
 .fa-digg:before,
 .fa-digital-ocean:before,
 .fa-digital-tachograph:before,
+.fa-directions:before,
 .fa-discord:before,
 .fa-discourse:before,
+.fa-disease:before,
 .fa-divide:before,
 .fa-dizzy:before,
 .fa-dna:before,
 .fa-dochub:before,
 .fa-docker:before,
+.fa-dog:before,
 .fa-dollar-sign:before,
 .fa-dolly:before,
 .fa-dolly-flatbed:before,
@@ -6952,39 +8068,50 @@ ul.dotted > li > a:focus {
 .fa-download:before,
 .fa-draft2digital:before,
 .fa-drafting-compass:before,
+.fa-dragon:before,
+.fa-draw-polygon:before,
 .fa-dribbble:before,
 .fa-dribbble-square:before,
 .fa-dropbox:before,
 .fa-drum:before,
 .fa-drum-steelpan:before,
+.fa-drumstick-bite:before,
 .fa-drupal:before,
 .fa-dumbbell:before,
+.fa-dumpster:before,
+.fa-dumpster-fire:before,
+.fa-dungeon:before,
 .fa-dyalog:before,
 .fa-earlybirds:before,
-.fa-ebay:before,
 .fa-edge:before,
+.fa-edge-legacy:before,
 .fa-edit:before,
+.fa-egg:before,
 .fa-eject:before,
 .fa-elementor:before,
 .fa-ellipsis-h:before,
 .fa-ellipsis-v:before,
+.fa-ello:before,
 .fa-ember:before,
 .fa-empire:before,
 .fa-envelope:before,
 .fa-envelope-open:before,
+.fa-envelope-open-text:before,
 .fa-envelope-square:before,
 .fa-envira:before,
 .fa-equals:before,
 .fa-eraser:before,
 .fa-erlang:before,
 .fa-ethereum:before,
-.fa-etsy:before,
+.fa-ethernet:before,
 .fa-euro-sign:before,
+.fa-evernote:before,
 .fa-exchange-alt:before,
 .fa-exclamation:before,
 .fa-exclamation-circle:before,
 .fa-exclamation-triangle:before,
 .fa-expand:before,
+.fa-expand-alt:before,
 .fa-expand-arrows-alt:before,
 .fa-expeditedssl:before,
 .fa-external-link-alt:before,
@@ -6992,23 +8119,24 @@ ul.dotted > li > a:focus {
 .fa-eye:before,
 .fa-eye-dropper:before,
 .fa-eye-slash:before,
-.fa-facebook:before,
-.fa-facebook-f:before,
-.fa-facebook-messenger:before,
-.fa-facebook-square:before,
+.fa-fan:before,
+.fa-fantasy-flight-games:before,
 .fa-fast-backward:before,
 .fa-fast-forward:before,
+.fa-faucet:before,
 .fa-fax:before,
 .fa-feather:before,
 .fa-feather-alt:before,
 .fa-female:before,
 .fa-fighter-jet:before,
+.fa-figma:before,
 .fa-file:before,
 .fa-file-alt:before,
 .fa-file-archive:before,
 .fa-file-audio:before,
 .fa-file-code:before,
 .fa-file-contract:before,
+.fa-file-csv:before,
 .fa-file-download:before,
 .fa-file-excel:before,
 .fa-file-export:before,
@@ -7031,22 +8159,28 @@ ul.dotted > li > a:focus {
 .fa-filter:before,
 .fa-fingerprint:before,
 .fa-fire:before,
+.fa-fire-alt:before,
 .fa-fire-extinguisher:before,
 .fa-firefox:before,
+.fa-firefox-browser:before,
 .fa-first-aid:before,
 .fa-first-order:before,
 .fa-first-order-alt:before,
 .fa-firstdraft:before,
 .fa-fish:before,
+.fa-fist-raised:before,
 .fa-flag:before,
 .fa-flag-checkered:before,
+.fa-flag-usa:before,
 .fa-flask:before,
 .fa-flickr:before,
 .fa-flipboard:before,
 .fa-flushed:before,
 .fa-fly:before,
 .fa-folder:before,
+.fa-folder-minus:before,
 .fa-folder-open:before,
+.fa-folder-plus:before,
 .fa-font:before,
 .fa-font-awesome:before,
 .fa-font-awesome-alt:before,
@@ -7066,6 +8200,7 @@ ul.dotted > li > a:focus {
 .fa-frown:before,
 .fa-frown-open:before,
 .fa-fulcrum:before,
+.fa-funnel-dollar:before,
 .fa-futbol:before,
 .fa-galactic-republic:before,
 .fa-galactic-senate:before,
@@ -7077,14 +8212,19 @@ ul.dotted > li > a:focus {
 .fa-get-pocket:before,
 .fa-gg:before,
 .fa-gg-circle:before,
+.fa-ghost:before,
 .fa-gift:before,
+.fa-gifts:before,
 .fa-git:before,
+.fa-git-alt:before,
 .fa-git-square:before,
 .fa-gitkraken:before,
 .fa-gitlab:before,
 .fa-gitter:before,
+.fa-glass-cheers:before,
 .fa-glass-martini:before,
 .fa-glass-martini-alt:before,
+.fa-glass-whiskey:before,
 .fa-glasses:before,
 .fa-glide:before,
 .fa-glide-g:before,
@@ -7092,17 +8232,10 @@ ul.dotted > li > a:focus {
 .fa-globe-africa:before,
 .fa-globe-americas:before,
 .fa-globe-asia:before,
+.fa-globe-europe:before,
 .fa-gofore:before,
 .fa-golf-ball:before,
-.fa-goodreads:before,
-.fa-goodreads-g:before,
-.fa-google:before,
-.fa-google-drive:before,
-.fa-google-play:before,
-.fa-google-plus:before,
-.fa-google-plus-g:before,
-.fa-google-plus-square:before,
-.fa-google-wallet:before,
+.fa-gopuram:before,
 .fa-graduation-cap:before,
 .fa-gratipay:before,
 .fa-grav:before,
@@ -7123,17 +8256,25 @@ ul.dotted > li > a:focus {
 .fa-grin-tongue-wink:before,
 .fa-grin-wink:before,
 .fa-grip-horizontal:before,
+.fa-grip-lines:before,
+.fa-grip-lines-vertical:before,
 .fa-grip-vertical:before,
 .fa-gripfire:before,
 .fa-grunt:before,
+.fa-guitar:before,
 .fa-gulp:before,
 .fa-h-square:before,
-.fa-hacker-news:before,
-.fa-hacker-news-square:before,
+.fa-hackerrank:before,
+.fa-hamburger:before,
+.fa-hammer:before,
+.fa-hamsa:before,
 .fa-hand-holding:before,
 .fa-hand-holding-heart:before,
+.fa-hand-holding-medical:before,
 .fa-hand-holding-usd:before,
+.fa-hand-holding-water:before,
 .fa-hand-lizard:before,
+.fa-hand-middle-finger:before,
 .fa-hand-paper:before,
 .fa-hand-peace:before,
 .fa-hand-point-down:before,
@@ -7143,47 +8284,75 @@ ul.dotted > li > a:focus {
 .fa-hand-pointer:before,
 .fa-hand-rock:before,
 .fa-hand-scissors:before,
+.fa-hand-sparkles:before,
 .fa-hand-spock:before,
 .fa-hands:before,
 .fa-hands-helping:before,
+.fa-hands-wash:before,
 .fa-handshake:before,
+.fa-handshake-alt-slash:before,
+.fa-handshake-slash:before,
+.fa-hanukiah:before,
+.fa-hard-hat:before,
 .fa-hashtag:before,
+.fa-hat-cowboy:before,
+.fa-hat-cowboy-side:before,
+.fa-hat-wizard:before,
 .fa-hdd:before,
+.fa-head-side-cough:before,
+.fa-head-side-cough-slash:before,
+.fa-head-side-mask:before,
+.fa-head-side-virus:before,
 .fa-heading:before,
 .fa-headphones:before,
 .fa-headphones-alt:before,
 .fa-headset:before,
 .fa-heart:before,
+.fa-heart-broken:before,
 .fa-heartbeat:before,
 .fa-helicopter:before,
 .fa-highlighter:before,
+.fa-hiking:before,
+.fa-hippo:before,
 .fa-hips:before,
 .fa-hire-a-helper:before,
 .fa-history:before,
 .fa-hockey-puck:before,
+.fa-holly-berry:before,
 .fa-home:before,
 .fa-hooli:before,
 .fa-hornbill:before,
+.fa-horse:before,
+.fa-horse-head:before,
 .fa-hospital:before,
 .fa-hospital-alt:before,
 .fa-hospital-symbol:before,
+.fa-hospital-user:before,
 .fa-hot-tub:before,
+.fa-hotdog:before,
 .fa-hotel:before,
 .fa-hotjar:before,
 .fa-hourglass:before,
 .fa-hourglass-end:before,
 .fa-hourglass-half:before,
 .fa-hourglass-start:before,
+.fa-house-damage:before,
+.fa-house-user:before,
 .fa-houzz:before,
+.fa-hryvnia:before,
 .fa-html5:before,
 .fa-hubspot:before,
 .fa-i-cursor:before,
+.fa-ice-cream:before,
+.fa-icicles:before,
+.fa-icons:before,
 .fa-id-badge:before,
 .fa-id-card:before,
 .fa-id-card-alt:before,
+.fa-ideal:before,
+.fa-igloo:before,
 .fa-image:before,
 .fa-images:before,
-.fa-imdb:before,
 .fa-inbox:before,
 .fa-indent:before,
 .fa-industry:before,
@@ -7191,24 +8360,34 @@ ul.dotted > li > a:focus {
 .fa-info:before,
 .fa-info-circle:before,
 .fa-instagram:before,
+.fa-instagram-square:before,
+.fa-intercom:before,
 .fa-internet-explorer:before,
+.fa-invision:before,
 .fa-ioxhost:before,
 .fa-italic:before,
+.fa-itch-io:before,
 .fa-itunes:before,
 .fa-itunes-note:before,
 .fa-java:before,
+.fa-jedi:before,
 .fa-jedi-order:before,
 .fa-jenkins:before,
+.fa-jira:before,
 .fa-joget:before,
 .fa-joint:before,
 .fa-joomla:before,
+.fa-journal-whills:before,
 .fa-js:before,
 .fa-js-square:before,
 .fa-jsfiddle:before,
+.fa-kaaba:before,
+.fa-kaggle:before,
 .fa-key:before,
 .fa-keybase:before,
 .fa-keyboard:before,
 .fa-keycdn:before,
+.fa-khanda:before,
 .fa-kickstarter:before,
 .fa-kickstarter-k:before,
 .fa-kiss:before,
@@ -7216,8 +8395,12 @@ ul.dotted > li > a:focus {
 .fa-kiss-wink-heart:before,
 .fa-kiwi-bird:before,
 .fa-korvue:before,
+.fa-landmark:before,
 .fa-language:before,
 .fa-laptop:before,
+.fa-laptop-code:before,
+.fa-laptop-house:before,
+.fa-laptop-medical:before,
 .fa-laravel:before,
 .fa-lastfm:before,
 .fa-lastfm-square:before,
@@ -7225,6 +8408,7 @@ ul.dotted > li > a:focus {
 .fa-laugh-beam:before,
 .fa-laugh-squint:before,
 .fa-laugh-wink:before,
+.fa-layer-group:before,
 .fa-leaf:before,
 .fa-leanpub:before,
 .fa-lemon:before,
@@ -7253,11 +8437,12 @@ ul.dotted > li > a:focus {
 .fa-long-arrow-alt-up:before,
 .fa-low-vision:before,
 .fa-luggage-cart:before,
-.fa-lyft:before,
+.fa-lungs:before,
+.fa-lungs-virus:before,
 .fa-magento:before,
 .fa-magic:before,
 .fa-magnet:before,
-.fa-mailchimp:before,
+.fa-mail-bulk:before,
 .fa-male:before,
 .fa-mandalorian:before,
 .fa-map:before,
@@ -7267,14 +8452,17 @@ ul.dotted > li > a:focus {
 .fa-map-marker-alt:before,
 .fa-map-pin:before,
 .fa-map-signs:before,
+.fa-markdown:before,
 .fa-marker:before,
 .fa-mars:before,
 .fa-mars-double:before,
 .fa-mars-stroke:before,
 .fa-mars-stroke-h:before,
 .fa-mars-stroke-v:before,
+.fa-mask:before,
 .fa-mastodon:before,
 .fa-maxcdn:before,
+.fa-mdb:before,
 .fa-medal:before,
 .fa-medapps:before,
 .fa-medium:before,
@@ -7287,18 +8475,25 @@ ul.dotted > li > a:focus {
 .fa-meh-blank:before,
 .fa-meh-rolling-eyes:before,
 .fa-memory:before,
+.fa-mendeley:before,
+.fa-menorah:before,
 .fa-mercury:before,
+.fa-meteor:before,
+.fa-microblog:before,
 .fa-microchip:before,
 .fa-microphone:before,
 .fa-microphone-alt:before,
 .fa-microphone-alt-slash:before,
 .fa-microphone-slash:before,
+.fa-microscope:before,
 .fa-microsoft:before,
 .fa-minus:before,
 .fa-minus-circle:before,
 .fa-minus-square:before,
+.fa-mitten:before,
 .fa-mix:before,
 .fa-mixcloud:before,
+.fa-mixer:before,
 .fa-mizuni:before,
 .fa-mobile:before,
 .fa-mobile-alt:before,
@@ -7313,14 +8508,19 @@ ul.dotted > li > a:focus {
 .fa-monument:before,
 .fa-moon:before,
 .fa-mortar-pestle:before,
+.fa-mosque:before,
 .fa-motorcycle:before,
+.fa-mountain:before,
+.fa-mouse:before,
 .fa-mouse-pointer:before,
+.fa-mug-hot:before,
 .fa-music:before,
 .fa-napster:before,
+.fa-neos:before,
+.fa-network-wired:before,
 .fa-neuter:before,
 .fa-newspaper:before,
 .fa-nimblr:before,
-.fa-nintendo-switch:before,
 .fa-node:before,
 .fa-node-js:before,
 .fa-not-equal:before,
@@ -7332,15 +8532,20 @@ ul.dotted > li > a:focus {
 .fa-object-ungroup:before,
 .fa-odnoklassniki:before,
 .fa-odnoklassniki-square:before,
+.fa-oil-can:before,
 .fa-old-republic:before,
+.fa-om:before,
 .fa-opencart:before,
 .fa-openid:before,
 .fa-opera:before,
 .fa-optin-monster:before,
+.fa-orcid:before,
 .fa-osi:before,
+.fa-otter:before,
 .fa-outdent:before,
 .fa-page4:before,
 .fa-pagelines:before,
+.fa-pager:before,
 .fa-paint-brush:before,
 .fa-paint-roller:before,
 .fa-palette:before,
@@ -7352,12 +8557,12 @@ ul.dotted > li > a:focus {
 .fa-paragraph:before,
 .fa-parking:before,
 .fa-passport:before,
+.fa-pastafarianism:before,
 .fa-paste:before,
-.fa-patreon:before,
 .fa-pause:before,
 .fa-pause-circle:before,
 .fa-paw:before,
-.fa-paypal:before,
+.fa-peace:before,
 .fa-pen:before,
 .fa-pen-alt:before,
 .fa-pen-fancy:before,
@@ -7365,42 +8570,58 @@ ul.dotted > li > a:focus {
 .fa-pen-square:before,
 .fa-pencil-alt:before,
 .fa-pencil-ruler:before,
+.fa-penny-arcade:before,
+.fa-people-arrows:before,
 .fa-people-carry:before,
+.fa-pepper-hot:before,
 .fa-percent:before,
 .fa-percentage:before,
 .fa-periscope:before,
+.fa-person-booth:before,
 .fa-phabricator:before,
 .fa-phoenix-framework:before,
 .fa-phoenix-squadron:before,
 .fa-phone:before,
+.fa-phone-alt:before,
 .fa-phone-slash:before,
 .fa-phone-square:before,
+.fa-phone-square-alt:before,
 .fa-phone-volume:before,
+.fa-photo-video:before,
 .fa-php:before,
 .fa-pied-piper:before,
 .fa-pied-piper-alt:before,
 .fa-pied-piper-hat:before,
 .fa-pied-piper-pp:before,
+.fa-pied-piper-square:before,
 .fa-piggy-bank:before,
 .fa-pills:before,
 .fa-pinterest:before,
 .fa-pinterest-p:before,
 .fa-pinterest-square:before,
+.fa-pizza-slice:before,
+.fa-place-of-worship:before,
 .fa-plane:before,
 .fa-plane-arrival:before,
 .fa-plane-departure:before,
+.fa-plane-slash:before,
 .fa-play:before,
 .fa-play-circle:before,
-.fa-playstation:before,
 .fa-plug:before,
 .fa-plus:before,
 .fa-plus-circle:before,
 .fa-plus-square:before,
 .fa-podcast:before,
+.fa-poll:before,
+.fa-poll-h:before,
 .fa-poo:before,
+.fa-poo-storm:before,
+.fa-poop:before,
 .fa-portrait:before,
 .fa-pound-sign:before,
 .fa-power-off:before,
+.fa-pray:before,
+.fa-praying-hands:before,
 .fa-prescription:before,
 .fa-prescription-bottle:before,
 .fa-prescription-bottle-alt:before,
@@ -7408,6 +8629,8 @@ ul.dotted > li > a:focus {
 .fa-procedures:before,
 .fa-product-hunt:before,
 .fa-project-diagram:before,
+.fa-pump-medical:before,
+.fa-pump-soap:before,
 .fa-pushed:before,
 .fa-puzzle-piece:before,
 .fa-python:before,
@@ -7420,35 +8643,44 @@ ul.dotted > li > a:focus {
 .fa-quora:before,
 .fa-quote-left:before,
 .fa-quote-right:before,
+.fa-quran:before,
 .fa-r-project:before,
+.fa-radiation:before,
+.fa-radiation-alt:before,
+.fa-rainbow:before,
 .fa-random:before,
+.fa-raspberry-pi:before,
 .fa-ravelry:before,
 .fa-react:before,
+.fa-reacteurope:before,
 .fa-readme:before,
 .fa-rebel:before,
 .fa-receipt:before,
+.fa-record-vinyl:before,
 .fa-recycle:before,
 .fa-red-river:before,
-.fa-reddit:before,
-.fa-reddit-alien:before,
-.fa-reddit-square:before,
 .fa-redo:before,
 .fa-redo-alt:before,
 .fa-registered:before,
-.fa-rendact:before,
+.fa-remove-format:before,
 .fa-renren:before,
 .fa-reply:before,
 .fa-reply-all:before,
 .fa-replyd:before,
+.fa-republican:before,
 .fa-researchgate:before,
 .fa-resolving:before,
+.fa-restroom:before,
 .fa-retweet:before,
+.fa-rev:before,
 .fa-ribbon:before,
+.fa-ring:before,
 .fa-road:before,
 .fa-robot:before,
 .fa-rocket:before,
 .fa-rocketchat:before,
 .fa-rockrms:before,
+.fa-route:before,
 .fa-rss:before,
 .fa-rss-square:before,
 .fa-ruble-sign:before,
@@ -7456,17 +8688,26 @@ ul.dotted > li > a:focus {
 .fa-ruler-combined:before,
 .fa-ruler-horizontal:before,
 .fa-ruler-vertical:before,
+.fa-running:before,
 .fa-rupee-sign:before,
+.fa-rust:before,
 .fa-sad-cry:before,
 .fa-sad-tear:before,
 .fa-safari:before,
+.fa-salesforce:before,
 .fa-sass:before,
+.fa-satellite:before,
+.fa-satellite-dish:before,
 .fa-save:before,
 .fa-schlix:before,
 .fa-school:before,
 .fa-screwdriver:before,
 .fa-scribd:before,
+.fa-scroll:before,
+.fa-sd-card:before,
 .fa-search:before,
+.fa-search-dollar:before,
+.fa-search-location:before,
 .fa-search-minus:before,
 .fa-search-plus:before,
 .fa-searchengin:before,
@@ -7475,16 +8716,19 @@ ul.dotted > li > a:focus {
 .fa-sellsy:before,
 .fa-server:before,
 .fa-servicestack:before,
+.fa-shapes:before,
 .fa-share:before,
 .fa-share-alt:before,
 .fa-share-alt-square:before,
 .fa-share-square:before,
 .fa-shekel-sign:before,
 .fa-shield-alt:before,
+.fa-shield-virus:before,
 .fa-ship:before,
 .fa-shipping-fast:before,
 .fa-shirtsinbulk:before,
 .fa-shoe-prints:before,
+.fa-shopify:before,
 .fa-shopping-bag:before,
 .fa-shopping-basket:before,
 .fa-shopping-cart:before,
@@ -7497,53 +8741,83 @@ ul.dotted > li > a:focus {
 .fa-sign-out-alt:before,
 .fa-signal:before,
 .fa-signature:before,
+.fa-sim-card:before,
 .fa-simplybuilt:before,
+.fa-sink:before,
 .fa-sistrix:before,
 .fa-sitemap:before,
 .fa-sith:before,
+.fa-skating:before,
+.fa-sketch:before,
+.fa-skiing:before,
+.fa-skiing-nordic:before,
 .fa-skull:before,
+.fa-skull-crossbones:before,
 .fa-skyatlas:before,
 .fa-skype:before,
 .fa-slack:before,
 .fa-slack-hash:before,
+.fa-slash:before,
+.fa-sleigh:before,
 .fa-sliders-h:before,
 .fa-slideshare:before,
 .fa-smile:before,
 .fa-smile-beam:before,
 .fa-smile-wink:before,
+.fa-smog:before,
 .fa-smoking:before,
 .fa-smoking-ban:before,
+.fa-sms:before,
 .fa-snapchat:before,
 .fa-snapchat-ghost:before,
 .fa-snapchat-square:before,
+.fa-snowboarding:before,
 .fa-snowflake:before,
+.fa-snowman:before,
+.fa-snowplow:before,
+.fa-soap:before,
+.fa-socks:before,
 .fa-solar-panel:before,
 .fa-sort:before,
 .fa-sort-alpha-down:before,
+.fa-sort-alpha-down-alt:before,
 .fa-sort-alpha-up:before,
+.fa-sort-alpha-up-alt:before,
 .fa-sort-amount-down:before,
+.fa-sort-amount-down-alt:before,
 .fa-sort-amount-up:before,
+.fa-sort-amount-up-alt:before,
 .fa-sort-down:before,
 .fa-sort-numeric-down:before,
+.fa-sort-numeric-down-alt:before,
 .fa-sort-numeric-up:before,
+.fa-sort-numeric-up-alt:before,
 .fa-sort-up:before,
 .fa-soundcloud:before,
+.fa-sourcetree:before,
 .fa-spa:before,
 .fa-space-shuttle:before,
 .fa-speakap:before,
+.fa-speaker-deck:before,
+.fa-spell-check:before,
+.fa-spider:before,
 .fa-spinner:before,
 .fa-splotch:before,
-.fa-spotify:before,
 .fa-spray-can:before,
 .fa-square:before,
 .fa-square-full:before,
+.fa-square-root-alt:before,
 .fa-squarespace:before,
 .fa-stack-exchange:before,
 .fa-stack-overflow:before,
+.fa-stackpath:before,
 .fa-stamp:before,
 .fa-star:before,
+.fa-star-and-crescent:before,
 .fa-star-half:before,
 .fa-star-half-alt:before,
+.fa-star-of-david:before,
+.fa-star-of-life:before,
 .fa-staylinked:before,
 .fa-step-backward:before,
 .fa-step-forward:before,
@@ -7553,8 +8827,11 @@ ul.dotted > li > a:focus {
 .fa-stop:before,
 .fa-stop-circle:before,
 .fa-stopwatch:before,
+.fa-stopwatch-20:before,
 .fa-store:before,
 .fa-store-alt:before,
+.fa-store-alt-slash:before,
+.fa-store-slash:before,
 .fa-strava:before,
 .fa-stream:before,
 .fa-street-view:before,
@@ -7572,9 +8849,13 @@ ul.dotted > li > a:focus {
 .fa-superscript:before,
 .fa-supple:before,
 .fa-surprise:before,
+.fa-suse:before,
 .fa-swatchbook:before,
+.fa-swift:before,
 .fa-swimmer:before,
 .fa-swimming-pool:before,
+.fa-symfony:before,
+.fa-synagogue:before,
 .fa-sync:before,
 .fa-sync-alt:before,
 .fa-syringe:before,
@@ -7589,12 +8870,23 @@ ul.dotted > li > a:focus {
 .fa-tape:before,
 .fa-tasks:before,
 .fa-taxi:before,
+.fa-teamspeak:before,
+.fa-teeth:before,
+.fa-teeth-open:before,
+.fa-telegram:before,
+.fa-telegram-plane:before,
+.fa-temperature-high:before,
+.fa-temperature-low:before,
+.fa-tencent-weibo:before,
+.fa-tenge:before,
 .fa-terminal:before,
 .fa-text-height:before,
 .fa-text-width:before,
 .fa-th:before,
 .fa-th-large:before,
 .fa-th-list:before,
+.fa-the-red-yeti:before,
+.fa-theater-masks:before,
 .fa-themeco:before,
 .fa-themeisle:before,
 .fa-thermometer:before,
@@ -7603,10 +8895,12 @@ ul.dotted > li > a:focus {
 .fa-thermometer-half:before,
 .fa-thermometer-quarter:before,
 .fa-thermometer-three-quarters:before,
+.fa-think-peaks:before,
 .fa-thumbs-down:before,
 .fa-thumbs-up:before,
 .fa-thumbtack:before,
 .fa-ticket-alt:before,
+.fa-tiktok:before,
 .fa-times:before,
 .fa-times-circle:before,
 .fa-tint:before,
@@ -7614,24 +8908,43 @@ ul.dotted > li > a:focus {
 .fa-tired:before,
 .fa-toggle-off:before,
 .fa-toggle-on:before,
+.fa-toilet:before,
+.fa-toilet-paper:before,
+.fa-toilet-paper-slash:before,
 .fa-toolbox:before,
+.fa-tools:before,
 .fa-tooth:before,
+.fa-torah:before,
+.fa-torii-gate:before,
+.fa-tractor:before,
 .fa-trade-federation:before,
 .fa-trademark:before,
+.fa-traffic-light:before,
+.fa-trailer:before,
 .fa-train:before,
+.fa-tram:before,
 .fa-transgender:before,
 .fa-transgender-alt:before,
 .fa-trash:before,
 .fa-trash-alt:before,
+.fa-trash-restore:before,
+.fa-trash-restore-alt:before,
 .fa-tree:before,
+.fa-tripadvisor:before,
 .fa-trophy:before,
 .fa-truck:before,
 .fa-truck-loading:before,
+.fa-truck-monster:before,
 .fa-truck-moving:before,
+.fa-truck-pickup:before,
 .fa-tshirt:before,
 .fa-tty:before,
+.fa-tumblr:before,
+.fa-tumblr-square:before,
 .fa-tv:before,
 .fa-typo3:before,
+.fa-uikit:before,
+.fa-umbraco:before,
 .fa-umbrella:before,
 .fa-umbrella-beach:before,
 .fa-underline:before,
@@ -7643,6 +8956,7 @@ ul.dotted > li > a:focus {
 .fa-unlink:before,
 .fa-unlock:before,
 .fa-unlock-alt:before,
+.fa-unsplash:before,
 .fa-untappd:before,
 .fa-upload:before,
 .fa-usb:before,
@@ -7657,10 +8971,12 @@ ul.dotted > li > a:focus {
 .fa-user-edit:before,
 .fa-user-friends:before,
 .fa-user-graduate:before,
+.fa-user-injured:before,
 .fa-user-lock:before,
 .fa-user-md:before,
 .fa-user-minus:before,
 .fa-user-ninja:before,
+.fa-user-nurse:before,
 .fa-user-plus:before,
 .fa-user-secret:before,
 .fa-user-shield:before,
@@ -7670,6 +8986,7 @@ ul.dotted > li > a:focus {
 .fa-user-times:before,
 .fa-users:before,
 .fa-users-cog:before,
+.fa-users-slash:before,
 .fa-ussunnah:before,
 .fa-utensil-spoon:before,
 .fa-utensils:before,
@@ -7686,87 +9003,133 @@ ul.dotted > li > a:focus {
 .fa-viber:before,
 .fa-video:before,
 .fa-video-slash:before,
+.fa-virus:before,
+.fa-virus-slash:before,
+.fa-viruses:before,
 .fa-vnv:before,
+.fa-voicemail:before,
 .fa-volleyball-ball:before,
 .fa-volume-down:before,
+.fa-volume-mute:before,
 .fa-volume-off:before,
 .fa-volume-up:before,
+.fa-vote-yea:before,
+.fa-vr-cardboard:before,
 .fa-walking:before,
 .fa-wallet:before,
 .fa-warehouse:before,
+.fa-water:before,
+.fa-wave-square:before,
 .fa-weight:before,
 .fa-weight-hanging:before,
-.fa-weixin:before,
 .fa-wheelchair:before,
 .fa-whmcs:before,
 .fa-wifi:before,
+.fa-wind:before,
 .fa-window-close:before,
 .fa-window-maximize:before,
 .fa-window-minimize:before,
 .fa-window-restore:before,
+.fa-wine-bottle:before,
 .fa-wine-glass:before,
 .fa-wine-glass-alt:before,
-.fa-wolf-pack-battalion:before,
 .fa-won-sign:before,
 .fa-wrench:before,
 .fa-x-ray:before,
 .fa-yen-sign:before,
-.fa-yoast:before {
+.fa-yin-yang:before {
   font-family: 'Font Awesome 5 Free';
   font-weight: 400;
   margin-right: 0.25em;
 }
-.fa-linkedin:before,
-.fa-linkedin-in:before,
+.fa-ebay:before,
+.fa-etsy:before,
+.fa-facebook:before,
+.fa-facebook-f:before,
+.fa-facebook-messenger:before,
+.fa-facebook-square:before,
+.fa-fedex:before,
+.fa-fedora:before,
 .fa-github:before,
 .fa-github-alt:before,
 .fa-github-square:before,
+.fa-goodreads:before,
+.fa-goodreads-g:before,
+.fa-google:before,
+.fa-google-drive:before,
+.fa-google-pay:before,
+.fa-google-play:before,
+.fa-google-plus:before,
+.fa-google-plus-g:before,
+.fa-google-plus-square:before,
+.fa-google-wallet:before,
+.fa-hacker-news:before,
+.fa-hacker-news-square:before,
+.fa-imdb:before,
+.fa-linkedin:before,
+.fa-linkedin-in:before,
+.fa-lyft:before,
+.fa-mailchimp:before,
+.fa-patreon:before,
+.fa-paypal:before,
+.fa-playstation:before,
+.fa-reddit:before,
+.fa-reddit-alien:before,
+.fa-reddit-square:before,
+.fa-redhat:before,
+.fa-spotify:before,
 .fa-steam:before,
 .fa-steam-square:before,
 .fa-steam-symbol:before,
 .fa-stripe:before,
 .fa-stripe-s:before,
-.fa-teamspeak:before,
-.fa-telegram:before,
-.fa-telegram-plane:before,
-.fa-tencent-weibo:before,
 .fa-trello:before,
-.fa-tripadvisor:before,
-.fa-tumblr:before,
-.fa-tumblr-square:before,
-.fa-uber:before,
-.fa-uikit:before,
 .fa-twitch:before,
 .fa-twitter:before,
 .fa-twitter-square:before,
+.fa-uber:before,
+.fa-ubuntu:before,
+.fa-unity:before,
+.fa-ups:before,
+.fa-usps:before,
+.fa-vihara:before,
 .fa-vimeo:before,
 .fa-vimeo-square:before,
 .fa-vimeo-v:before,
 .fa-vine:before,
 .fa-vk:before,
 .fa-vuejs:before,
+.fa-waze:before,
 .fa-weebly:before,
 .fa-weibo:before,
+.fa-weixin:before,
 .fa-whatsapp:before,
 .fa-whatsapp-square:before,
 .fa-wikipedia-w:before,
 .fa-windows:before,
 .fa-wix:before,
+.fa-wizards-of-the-coast:before,
+.fa-wolf-pack-battalion:before,
 .fa-wordpress:before,
 .fa-wordpress-simple:before,
 .fa-wpbeginner:before,
 .fa-wpexplorer:before,
 .fa-wpforms:before,
+.fa-wpressr:before,
 .fa-xbox:before,
 .fa-xing:before,
 .fa-xing-square:before,
 .fa-y-combinator:before,
 .fa-yahoo:before,
+.fa-yammer:before,
 .fa-yandex:before,
 .fa-yandex-international:before,
+.fa-yarn:before,
 .fa-yelp:before,
+.fa-yoast:before,
 .fa-youtube:before,
-.fa-youtube-square:before {
+.fa-youtube-square:before,
+.fa-zhihu:before {
   font-family: 'Font Awesome 5 Brands';
   font-weight: 400;
   margin-right: 0.25em;
@@ -7790,11 +9153,15 @@ ul.dotted > li > a:focus {
   position: static;
   width: auto;
 }
+/*!
+ * Font Awesome Free 5.13.1 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ */
 @font-face {
   font-family: 'Font Awesome 5 Free';
   font-style: normal;
   font-weight: 900;
-  font-display: swap;
+  font-display: block;
   src: url('../fonts/fa-solid-900.eot');
   src: url('../fonts/fa-solid-900.eot?#iefix') format('embedded-opentype'), url('../fonts/fa-solid-900.woff2') format('woff2'), url('../fonts/fa-solid-900.woff') format('woff'), url('../fonts/fa-solid-900.ttf') format('truetype'), url('../fonts/fa-solid-900.svg#fontawesome') format('svg');
 }
@@ -7803,16 +9170,21 @@ ul.dotted > li > a:focus {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
 }
+/*!
+ * Font Awesome Free 5.13.1 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ */
 @font-face {
   font-family: 'Font Awesome 5 Brands';
   font-style: normal;
-  font-weight: normal;
-  font-display: swap;
+  font-weight: 400;
+  font-display: block;
   src: url('../fonts/fa-brands-400.eot');
   src: url('../fonts/fa-brands-400.eot?#iefix') format('embedded-opentype'), url('../fonts/fa-brands-400.woff2') format('woff2'), url('../fonts/fa-brands-400.woff') format('woff'), url('../fonts/fa-brands-400.ttf') format('truetype'), url('../fonts/fa-brands-400.svg#fontawesome') format('svg');
 }
 .fab {
   font-family: 'Font Awesome 5 Brands';
+  font-weight: 400;
 }
 @-webkit-keyframes rotate {
   0% {
@@ -8127,6 +9499,9 @@ div.close {
   line-height: 0.75em;
   filter: alpha(opacity=80);
   opacity: 0.8;
+  cursor: pointer;
+}
+.cursor-pointer {
   cursor: pointer;
 }
 .clear-background {
