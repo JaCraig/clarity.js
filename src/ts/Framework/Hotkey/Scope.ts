@@ -14,10 +14,12 @@
    limitations under the License.
 */
 
+import { IScope } from './Interfaces/IScope';
 import { Sequence } from './Sequence'
 
+
 // Defines the scope for a series of sequences
-export class Scope {
+export class Scope implements IScope {
 
     // constructor
     constructor(public name: string) {

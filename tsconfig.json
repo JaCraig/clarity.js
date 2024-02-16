@@ -9,6 +9,7 @@
       "removeComments": true,
       "declaration": false,
       "moduleResolution": "node",
+      "resolveJsonModule": true,
       "types": [],
       "esModuleInterop": true
     },

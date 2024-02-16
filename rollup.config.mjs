@@ -1,21 +1,24 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
-import pkg from './package.json';
+import pkg from './package.json' assert { type: 'json' };
 import serve from 'rollup-plugin-serve';
 import license from 'rollup-plugin-license';
 import path from 'path';
 import postcss from 'rollup-plugin-postcss';
-// import copy from "rollup-plugin-copy-assets";
 import autoprefixer from 'autoprefixer';
 import VuePlugin from 'rollup-plugin-vue';
 import multi from '@rollup/plugin-multi-entry';
 import livereload from 'rollup-plugin-livereload';
 import alias from '@rollup/plugin-alias';
 import replace from '@rollup/plugin-replace';
-import { terser } from 'rollup-plugin-terser';
-import concat from './build/rollup-plugin-concat';
-import copy from './build/rollup-plugin-copy';
+import copy from './build/rollup-plugin-copy.mjs';
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const external = Object.keys(pkg.dependencies);
 const isProduction = !process.env.ROLLUP_WATCH;
@@ -100,10 +103,10 @@ export default [
 		output: [
 			{ file: pkg.main, format: 'cjs', globals: globals },
 			{ file: pkg.module, format: 'es', globals: globals  },
-			{ file: 'dist/Clarity.cjs.min.js', format: 'cjs', globals: globals, plugins: [terser()]  },
-			{ file: 'dist/Clarity.esm.min.js', format: 'es', globals: globals, plugins: [terser()]  },
+			{ file: 'dist/Clarity.cjs.min.js', format: 'cjs', globals: globals, plugins: []  },
+			{ file: 'dist/Clarity.esm.min.js', format: 'es', globals: globals, plugins: []  },
 			{ name: 'clarity', file: pkg.browser, format: 'umd', globals: globals },
-			{ name: 'clarity', file: 'dist/Clarity.umd.min.js', format: 'umd', globals: globals, plugins: [terser()] }
+			{ name: 'clarity', file: 'dist/Clarity.umd.min.js', format: 'umd', globals: globals, plugins: [] }
 		]
 	},
 ];

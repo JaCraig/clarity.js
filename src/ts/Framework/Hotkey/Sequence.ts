@@ -14,8 +14,8 @@
    limitations under the License.
 */
 
-import { Keypress } from './Keypress'
-import { Scope } from './Scope'
+import { IScope } from './Interfaces/IScope';
+import { Keypress } from './Keypress';
 
 // Sequence of key presses
 export class Sequence {
@@ -45,13 +45,13 @@ export class Sequence {
     public isDefault: boolean;
 
     // calls the callback function with the data specified
-    public call(keyCodes: number[][], event: KeyboardEvent, scope: Scope): boolean {
+    public call(keyCodes: number[][], event: KeyboardEvent, scope: IScope): boolean {
         this.callback(event, { scope: scope, keysPressed: keyCodes });
         return true;
     }
 
     // Runs the callback based on the keycode being pressed
-    public press(keyCodes: number[][], event: KeyboardEvent, scope: Scope): boolean {
+    public press(keyCodes: number[][], event: KeyboardEvent, scope: IScope): boolean {
         let individualCodes = keyCodes;
         if (individualCodes.length !== this.length) {
             return false;

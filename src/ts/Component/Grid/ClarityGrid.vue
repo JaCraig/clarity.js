@@ -309,7 +309,7 @@
                 }
                 this.$emit("row-clicked", { entry: entry });
             },
-            setPage: function (currentPage: Number) {
+            setPage: function (currentPage: number) {
                 if (currentPage > this.finalPage)
                     currentPage = this.finalPage;
                 else if (currentPage < 1)
