@@ -48,7 +48,7 @@
     "tslib": "^2.6.2",
     "typescript": "^5.4.5",
     "vue-template-compiler": "^2.7.16",
-    "workbox-cacheable-response": "^7.0.0",
+    "workbox-cacheable-response": "^7.1.0",
     "workbox-expiration": "^7.1.0",
     "workbox-precaching": "^7.1.0",
     "workbox-routing": "^7.1.0",
