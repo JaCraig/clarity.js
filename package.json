@@ -34,7 +34,7 @@
     "@vue/compiler-sfc": "^3.4.37",
     "autoprefixer": "^10.4.20",
     "less": "^4.2.0",
-    "postcss": "^8.4.40",
+    "postcss": "^8.4.41",
     "postcss-import": "^16.1.0",
     "rollup": "^4.20.0",
     "rollup-plugin-copy-assets": "^2.0.3",
