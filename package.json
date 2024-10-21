@@ -45,7 +45,7 @@
     "rollup-plugin-typescript2": "^0.36.0",
     "rollup-plugin-vue": "^6.0.0",
     "ts-node": "^10.9.2",
-    "tslib": "^2.7.0",
+    "tslib": "^2.8.0",
     "typescript": "^5.6.3",
     "vue-template-compiler": "^2.7.16",
     "workbox-cacheable-response": "^7.1.0",
