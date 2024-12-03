@@ -39,7 +39,7 @@ import Vue from 'vue'
 export default Vue.defineComponent({
     data() {
         return {
-            files: [],
+            files: [] as any[],
             ready: false,
             filesAdded: 0,
         };

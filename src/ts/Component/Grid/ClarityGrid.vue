@@ -205,7 +205,7 @@
             sortMethods[Grid.ColumnDataType.Date] = this.sortDate;
             return {
                 sortKey: -1,
-                draggedColumn: null,
+                draggedColumn: null as any,
                 internalColumns: internalColumns,
                 databaseSettings: databaseSettings,
                 filterKey: that.filterValue,
