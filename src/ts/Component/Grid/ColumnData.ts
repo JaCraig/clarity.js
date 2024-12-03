@@ -187,7 +187,7 @@ export default class ColumnData {
     // Phone Regex
     private static phoneRegex: RegExp = /^\d\d\d.\d\d\d.\d\d\d\d$/;
     // URL Regex
-    private static urlRegex: RegExp = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+    private static urlRegex: RegExp = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
     // Image Regex
     private static imageRegex: RegExp =/^(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))$/;
     // Is Whitespace Regex
