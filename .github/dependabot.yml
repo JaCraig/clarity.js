@@ -17,5 +17,5 @@ updates:
       prefix: "chore"
     groups:
       dependencies:
-        patterns: 
+        patterns:
           - "*"
