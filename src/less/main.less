@@ -27,10 +27,10 @@
 @import url('pagination.less');
 @import url('contextual.less');
 @import url('tabs.less');
-@import url('../../node_modules/@fortawesome/fontawesome-free/less/fontawesome.less');
-@import url('../../node_modules/@fortawesome/fontawesome-free/less/solid.less');
-@import url('../../node_modules/@fortawesome/fontawesome-free/less/regular.less');
-@import url('../../node_modules/@fortawesome/fontawesome-free/less/brands.less');
+@import url('../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css');
+@import url('../../node_modules/@fortawesome/fontawesome-free/css/solid.css');
+@import url('../../node_modules/@fortawesome/fontawesome-free/css/regular.css');
+@import url('../../node_modules/@fortawesome/fontawesome-free/css/brands.css');
 
 @keyframes rotate {
     0% {
@@ -101,7 +101,7 @@ blockquote {
     }
 
     & .small,
-    & footer, 
+    & footer,
     & small {
         display: block;
         .extra-small;
@@ -155,7 +155,7 @@ h1, h2, h3, h4, h5, h6 {
 
 img {
     vertical-align: middle;
-    
+
     &.rounded {
         border-radius: @roundedCornerMore;
     }
@@ -173,7 +173,7 @@ figure {
     padding: .25em;
     display: inline-block;
     margin: 0;
-    
+
     & > figcaption {
         padding: .5em .2em;
     }
@@ -329,7 +329,7 @@ span.close,div.close {
 
 .fas, .fab, .far, .fa {
     font: normal normal @defaultFontWeight @defaultFontSize/@defaultLineSize @defaultFontFamily;
-    
+
     &::before {
         margin: 0 .25em;
     }

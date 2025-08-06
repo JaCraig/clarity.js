@@ -6,3 +6,5 @@
 /dist
 /node_modules
 /tmp
+out/temp.js
+out/images/temp.js
