@@ -31,7 +31,7 @@
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-replace": "^6.0.2",
     "@types/showdown": "^2.0.6",
-    "@vue/compiler-sfc": "^3.5.18",
+    "@vue/compiler-sfc": "^3.5.20",
     "autoprefixer": "^10.4.21",
     "less": "^4.4.0",
     "postcss": "^8.5.6",
