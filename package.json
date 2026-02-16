@@ -24,7 +24,7 @@
   "module": "dist/Clarity.esm.js",
   "browser": "dist/Clarity.umd.js",
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^7.1.0",
+    "@fortawesome/fontawesome-free": "^7.2.0",
     "@rollup/plugin-alias": "^6.0.0",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-multi-entry": "^7.1.0",
