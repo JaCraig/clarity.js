@@ -32,7 +32,7 @@
     "@rollup/plugin-replace": "^6.0.3",
     "@types/showdown": "^2.0.6",
     "@vue/compiler-sfc": "^3.5.30",
-    "autoprefixer": "^10.4.27",
+    "autoprefixer": "^10.5.0",
     "less": "^4.6.4",
     "postcss": "^8.5.9",
     "postcss-import": "^16.1.1",
