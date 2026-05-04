@@ -50,7 +50,7 @@
     "vue-template-compiler": "^2.7.16",
     "workbox-cacheable-response": "^7.4.1",
     "workbox-expiration": "^7.4.0",
-    "workbox-precaching": "^7.4.0",
+    "workbox-precaching": "^7.4.1",
     "workbox-routing": "^7.4.1",
     "workbox-strategies": "^7.3.0"
   },
