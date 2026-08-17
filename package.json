@@ -35,7 +35,7 @@
     "autoprefixer": "^10.5.4",
     "less": "^4.9.0",
     "postcss": "^8.5.26",
-    "postcss-import": "^16.1.1",
+    "postcss-import": "^16.2.0",
     "rollup": "^4.62.4",
     "rollup-plugin-copy-assets": "^2.0.3",
     "rollup-plugin-license": "^3.7.1",
